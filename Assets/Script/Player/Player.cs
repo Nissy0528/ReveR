@@ -1,0 +1,279 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Player : MonoBehaviour
+{
+    public GameObject inputManager;//スティック入力
+    public float speed;//移動速度
+    public float rotateSpeed;//回転速度
+    public float drag;//移動終了時の慣性
+    public float addValue;//加速度加算値
+    public float r_Boost;//反転時加速度
+    public float bInvalidValue;//反転加速度を減速する値
+    public float returnSpeed;
+
+    private Rigidbody2D rigid;//リジッドボディ
+    private Vector3 size;//オブジェクトのサイズ
+    private Vector3 lookPos;//見る座標
+    private Slider sl;//スライダー
+    private float vx;//横スティック入力値
+    private float vy;//縦スティック入力値
+    private float addSpeed;//加速度
+    private float currentSpeed;//初期速度
+    private bool isRecession;//反転判定
+    private bool isRe;//反転判定（慣性）
+    private bool isStart;
+
+
+    //↓デバッグ用
+    private bool isForce;//慣性判定
+    private bool isReturn;//反転時の加速判定
+    private bool isRBoost;//反転時の加速判定
+    private bool isRForce;//反転時慣性判定
+
+    // Use this for initialization
+    void Start()
+    {
+        rigid = GetComponent<Rigidbody2D>();//リジッドボディ取得
+        isRecession = false;
+        isStart = false;
+        addSpeed = 0.0f;
+        currentSpeed = speed;
+
+        sl = GameObject.Find("P_AddSpeed").GetComponent<Slider>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        vx = Input.GetAxis("Horizontal");
+        vy = Input.GetAxis("Vertical");
+
+        if (!isForce)
+        {
+            Move();//移動（慣性なし）
+        }
+        else
+        {
+            ForceMove();//移動（慣性あり）
+        }
+        Rotate();//回転
+
+        sl.value = addSpeed;
+    }
+
+    /// <summary>
+    /// 移動（慣性なし）
+    /// </summary>
+    private void Move()
+    {
+        if (!isReturn && vx == 0.0f && vy == 0.0f)
+        {
+            addSpeed -= addValue;
+        }
+
+        //スティック入力されてなければ
+        if (vx < 0.5f && vx > -0.5f
+            && vy < 0.5f && vy > -0.5f)
+        {
+            rigid.drag = drag;
+            if (isReturn)
+            {
+                addSpeed = 0;
+            }
+            return;//何もしない
+        }
+
+        if (addSpeed <= 1.0f)
+        {
+            addSpeed += addValue;
+        }
+        else
+        {
+            addSpeed = 1.0f;
+        }
+
+        if (isRBoost)
+        {
+            if (speed > 0 && speed > currentSpeed)
+            {
+                speed -= bInvalidValue;
+            }
+            if (speed < 0 && speed < currentSpeed)
+            {
+                speed += bInvalidValue;
+            }
+        }
+
+        if (isRe && isRForce)
+        {
+            if (currentSpeed < 0)
+            {
+                if (speed > currentSpeed)
+                {
+                    speed -= returnSpeed;
+                }
+                else
+                {
+                    isRe = false;
+                }
+            }
+            if (currentSpeed > 0)
+            {
+                if (speed < currentSpeed)
+                {
+                    speed += returnSpeed;
+                }
+                else
+                {
+                    isRe = false;
+                }
+            }
+        }
+
+        rigid.drag = 0;
+        rigid.velocity = transform.up * speed * addSpeed;
+    }
+
+    /// <summary>
+    /// 移動（慣性あり）
+    /// </summary>
+    private void ForceMove()
+    {
+        if (vx < 0.5f && vx > -0.5f
+            && vy < 0.5f && vy > -0.5f)
+        {
+            return;
+        }
+        rigid.AddForce(transform.up * speed);//前後移動
+    }
+
+    /// <summary>
+    /// 回転
+    /// </summary>
+    private void Rotate()
+    {
+        //スティック入力されていなけば
+        if (vx < 0.5f && vx > -0.5f
+            && vy < 0.5f && vy > -0.5f
+            || Time.timeScale == 0.0f) return;//何もしない
+
+        Vector2 pos = transform.position;//自分の座標
+        //スティックの入力によって見る座標を設定
+        //反転しなければ
+        if (!isRecession)
+        {
+            lookPos = pos + Vector2.left * vx + Vector2.up * vy;//指定した座標を見る
+        }
+        //反転していれば
+        else
+        {
+            lookPos = pos + Vector2.left * -vx + Vector2.up * -vy;//指定した座標の反対を見る
+        }
+
+        Vector2 vec = (lookPos - transform.position).normalized;//見る座標を計算して正規化
+        float angle = (Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg) - 90.0f;//角度計算
+        Quaternion newRota = Quaternion.Euler(0.0f, 0.0f, angle);//見る角度設定
+        transform.rotation = Quaternion.Slerp(transform.rotation, newRota, rotateSpeed);//設定した方向にゆっくり向く
+    }
+
+    /// <summary>
+    /// 反転
+    /// </summary>
+    public void Recession()
+    {
+        speed = currentSpeed;
+
+        if (isRBoost)
+        {
+            if (speed > 0)
+            {
+                speed += r_Boost;
+            }
+            if (speed < 0)
+            {
+                speed -= r_Boost;
+            }
+        }
+
+        if (!isRForce)
+        {
+            speed *= -1;//速度を逆に
+        }
+        else
+        {
+            if (isStart)
+            {
+                isRe = true;
+            }
+            else
+            {
+                speed *= -1;
+                isStart = true;
+            }
+        }
+        currentSpeed *= -1;//初期速度を逆に
+        isRecession = !isRecession;//反転判定を設定
+        Vector2 pos = transform.position;//自分の座標
+        //反転しなければ
+        if (!isRecession)
+        {
+            lookPos = pos + Vector2.left * vx + Vector2.up * vy;//指定した座標を見る
+        }
+        //反転していれば
+        else
+        {
+            lookPos = pos + Vector2.left * -vx + Vector2.up * -vy;//指定した座標の反対を見る
+        }
+
+        Vector2 vec = (lookPos - transform.position).normalized;//見る座標を計算して正規化
+        float angle = (Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg) - 90.0f;//角度計算
+        Quaternion newRota = Quaternion.Euler(0.0f, 0.0f, angle);//見る角度設定
+        transform.rotation = newRota;
+    }
+
+    //↓デバッグ用
+
+    /// <summary>
+    /// 加速度設定
+    /// </summary>
+    /// <param name="addSpeed">加速度</param>
+    public void SetAddSpeed(float addSpeed)
+    {
+        this.addSpeed = addSpeed;
+    }
+    /// <summary>
+    /// 慣性判定設定
+    /// </summary>
+    /// <param name="isForce">慣性判定</param>
+    public void SetForce(bool isForce)
+    {
+        this.isForce = isForce;
+    }
+    /// <summary>
+    /// 反転時の加速判定設定
+    /// </summary>
+    /// <param name="isReturn">反転時の加速判定</param>
+    public void SetReturn(bool isReturn)
+    {
+        this.isReturn = isReturn;
+    }
+    /// <summary>
+    /// 反転時加速判定設定
+    /// </summary>
+    /// <param name="isRBoost">反転時加速判定</param>
+    public void SetRBoost(bool isRBoost)
+    {
+        this.isRBoost = isRBoost;
+    }
+    /// <summary>
+    /// 反転時慣性判定設定
+    /// </summary>
+    /// <param name="isRForce"></param>
+    public void SetRForce(bool isRForce)
+    {
+        this.isRForce = isRForce;
+    }
+}
