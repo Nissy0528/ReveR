@@ -25,7 +25,7 @@ public class Main : MonoBehaviour
         if (enemys.Length == 0.0f)
         {
             Time.timeScale = 1.0f;
-            SceneManager.LoadScene("Result");
+            SceneManager.LoadScene("GameClear");
         }
 
         if (isStop)

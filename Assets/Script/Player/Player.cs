@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     private bool isRe;//反転判定（慣性）
     private bool isStart;
 
+    public int hp;//体力;
+    public int damage;//lifeをマイナスする値
+    public LifeScript lifeScript;//LifeScript
 
     //↓デバッグ用
     private bool isForce;//慣性判定
@@ -43,6 +46,8 @@ public class Player : MonoBehaviour
         currentSpeed = speed;
 
         sl = GameObject.Find("P_AddSpeed").GetComponent<Slider>();
+
+        HpBarCtrl.hpbar = hp;//HpBar取得
     }
 
     // Update is called once per frame
@@ -275,5 +280,19 @@ public class Player : MonoBehaviour
     public void SetRForce(bool isRForce)
     {
         this.isRForce = isRForce;
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy")//Enemyとぶつかった時
+        {
+            HpBarCtrl.hpbar--;//hpをマイナス
+            //if (HpBarCtrl.hpbar == 0)//体力が０になった時
+            //{
+            //    Destroy(gameObject);オブジェクトを破壊
+            //}
+
+            lifeScript.LifeDown(damage);//lifeScriptのlifeDownメソッドを実行
+        }
     }
 }
