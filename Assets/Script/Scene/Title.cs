@@ -8,6 +8,6 @@ public class Title : MonoBehaviour {
 	
     public void OnClick(string scenename)
     {
-        SceneManager.LoadScene(scenename);
+        SceneManager.LoadScene("StageSelect");
     }
 }
