@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Pause : MonoBehaviour {
+public class Pause : MonoBehaviour
+{
 
     // Use this for initialization
     public GameObject PauseMenu;
     private bool IsPause;
     public GameObject arrowmove;
-	void Start () {
+    void Start()
+    {
         IsPause = false;
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         Pauseing();
-        
-        
+
+
     }
     void Pauseing()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.JoystickButton7))
         {
             if (IsPause) { Pause_No(); }
             else { Pause_Yes(); }
         }
-        if (Input.GetKeyDown(KeyCode.J)&&IsPause)
+        if (Input.GetKeyDown(KeyCode.JoystickButton0) && IsPause)
         {
             if (arrowmove.GetComponent<ArrowMove>().GetIsSelect_1())
             {

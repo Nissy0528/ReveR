@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowMove : MonoBehaviour {
+public class ArrowMove : MonoBehaviour
+{
 
     // Use this for initialization
     static bool IsSelect_3;
@@ -14,24 +15,28 @@ public class ArrowMove : MonoBehaviour {
     public GameObject Select_1;
     public GameObject Select_2;
     public GameObject Select_3;
-    
 
-    void Start () {
-        
+
+    void Start()
+    {
+
         IsSelect_1 = false;
         IsSelect_3 = false;
         IsSelect_2 = false;
         ArrowMoveVelocity = new Vector3(0, 56);
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float y = Input.GetAxis("Vertical");
+
         Select();
-        if (Input.GetKeyDown(KeyCode.DownArrow)&&IsSelect_3==false)
+        if (y <= -0.5f && IsSelect_3 == false)
             GetComponent<RectTransform>().position -= ArrowMoveVelocity;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow)&&IsSelect_1==false)
+        if (y >= 0.5f && IsSelect_1 == false)
             GetComponent<RectTransform>().position += ArrowMoveVelocity;
 
         Debug.Log(GetComponent<RectTransform>().position.y);
@@ -45,9 +50,9 @@ public class ArrowMove : MonoBehaviour {
             IsSelect_2 = false;
             IsSelect_3 = false;
         }
-            
 
-        if (Select_2.GetComponent<RectTransform>().position.y == 
+
+        if (Select_2.GetComponent<RectTransform>().position.y ==
             GetComponent<RectTransform>().position.y)
         {
             IsSelect_1 = false;
@@ -55,7 +60,7 @@ public class ArrowMove : MonoBehaviour {
             IsSelect_3 = false;
         }
 
-        if (Select_3.GetComponent<RectTransform>().position.y == 
+        if (Select_3.GetComponent<RectTransform>().position.y ==
             GetComponent<RectTransform>().position.y)
         {
             IsSelect_1 = false;
