@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour
     private bool isDead;
     private int x;
     private int y;
+    public GameObject boom;
+    public GameObject boom1;
 
     void Start()
     {
@@ -73,6 +75,8 @@ public class Enemy : MonoBehaviour
         if (isLWHit == true && isRWHit == true)
         {
             GameObject.Find("MainManager").GetComponent<Main>().Stop();
+            Instantiate(boom, transform.position, transform.rotation);
+            Instantiate(boom, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
