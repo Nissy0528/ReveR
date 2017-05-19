@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
     private Slider sl;//スライダー
+    private AudioSource se;//効果音
     private float vx;//横スティック入力値
     private float vy;//縦スティック入力値
     private float addSpeed;//加速度
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();//リジッドボディ取得
+        se = GetComponent<AudioSource>();
         isRecession = false;
         isStart = false;
         addSpeed = 0.0f;
@@ -269,6 +271,14 @@ public class Player : MonoBehaviour
             b_Time = 0.0f;//ブーストカウント初期化
             isRBoost = false;//ブースト準備判定false
         }
+    }
+
+    /// <summary>
+    /// 敵消滅効果音再生
+    /// </summary>
+    public void EnemyDeadSE()
+    {
+        se.PlayOneShot(se.clip);
     }
 
     /// <summary>

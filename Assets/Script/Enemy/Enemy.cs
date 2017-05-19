@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     private bool isDead;
     private int x;
     private int y;
+    private AudioSource se;
+
     public GameObject BoomEffect;
     public GameObject player;
 
@@ -22,6 +24,7 @@ public class Enemy : MonoBehaviour
         isLWHit = false;
         x = 0;
         y = 0;
+        se = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,6 +41,7 @@ public class Enemy : MonoBehaviour
 
         if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged")
         {
+            player.GetComponent<Player>().EnemyDeadSE();
             player.GetComponent<Player>().SetRB(true);
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
@@ -78,6 +82,7 @@ public class Enemy : MonoBehaviour
         if (isLWHit == true && isRWHit == true)
         {
             //GameObject.Find("MainManager").GetComponent<Main>().Stop();
+            player.GetComponent<Player>().EnemyDeadSE();
             player.GetComponent<Player>().SetRB(true);
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
