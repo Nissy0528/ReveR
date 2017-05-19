@@ -18,6 +18,5 @@ public class HpBarCtrl : MonoBehaviour {
 	void Update ()
     {
         slider.value = hpbar;//sliderに値を設定
-        Debug.Log(hpbar);
 	}
 }

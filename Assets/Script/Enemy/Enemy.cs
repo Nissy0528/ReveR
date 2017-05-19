@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     private int x;
     private int y;
     public GameObject BoomEffect;
+    public GameObject player;
 
 
     void Start()
@@ -37,7 +38,7 @@ public class Enemy : MonoBehaviour
 
         if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged")
         {
-            Debug.Log(1);
+            player.GetComponent<Player>().SetRB(true);
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
@@ -77,6 +78,7 @@ public class Enemy : MonoBehaviour
         if (isLWHit == true && isRWHit == true)
         {
             //GameObject.Find("MainManager").GetComponent<Main>().Stop();
+            player.GetComponent<Player>().SetRB(true);
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }

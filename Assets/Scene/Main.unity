@@ -525,9 +525,10 @@ MonoBehaviour:
   rotateSpeed: 5
   drag: 1
   addValue: 0.005
-  r_Boost: 5
+  r_Boost: 10
   bInvalidValue: 0.25
   returnSpeed: 0.3
+  boostTime: 0.5
   hp: 100
   damage: 12
   lifeScript: {fileID: 2089923317}
@@ -814,6 +815,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  player: {fileID: 258068172}
 --- !u!114 &472750412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1212,6 +1214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  player: {fileID: 258068172}
 --- !u!114 &630010542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1350,9 +1353,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   j_Type: 0
   core: {fileID: 258068172}
-  rotateSpeed: 5
+  rotateSpeed: 20
   rotateLimit: 85
-  rotateBoost: 20
+  rotateBoost: 0
   mass: 10
 --- !u!1 &788670231 stripped
 GameObject:
@@ -1575,6 +1578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  player: {fileID: 258068172}
 --- !u!114 &810615385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1770,9 +1774,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   j_Type: 1
   core: {fileID: 258068172}
-  rotateSpeed: 5
+  rotateSpeed: 20
   rotateLimit: 85
-  rotateBoost: 20
+  rotateBoost: 0
   mass: 10
 --- !u!4 &826321333
 Transform:
@@ -1842,6 +1846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  player: {fileID: 258068172}
 --- !u!114 &879984062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2093,6 +2098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  player: {fileID: 258068172}
 --- !u!114 &1002825795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2479,6 +2485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  player: {fileID: 258068172}
 --- !u!114 &1253528238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2619,6 +2626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  player: {fileID: 258068172}
 --- !u!114 &1268242838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3087,6 +3095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  player: {fileID: 258068172}
 --- !u!114 &2031719790
 MonoBehaviour:
   m_ObjectHideFlags: 0

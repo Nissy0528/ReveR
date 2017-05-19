@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     public float addValue;//加速度加算値
     public float r_Boost;//反転時加速度
     public float bInvalidValue;//反転加速度を減速する値
-    public float returnSpeed;
+    public float returnSpeed;//切り替えし加速度
+    public float boostTime;//ブースト開始時間
 
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 size;//オブジェクトのサイズ
@@ -22,9 +23,11 @@ public class Player : MonoBehaviour
     private float vy;//縦スティック入力値
     private float addSpeed;//加速度
     private float currentSpeed;//初期速度
+    private float b_Time;//ブースト開始カウント
     private bool isRecession;//反転判定
     private bool isRe;//反転判定（慣性）
-    private bool isStart;
+    private bool isStart;//スタート判定
+    private bool isRBoost;//ブースト準備判定
 
     public int hp;//体力;
     public int damage;//lifeをマイナスする値
@@ -33,7 +36,7 @@ public class Player : MonoBehaviour
     //↓デバッグ用
     private bool isForce;//慣性判定
     private bool isReturn;//反転時の加速判定
-    private bool isRBoost;//反転時の加速判定
+    private bool isDeceleration;//反転時の加速判定
     private bool isRForce;//反転時慣性判定
 
     // Use this for initialization
@@ -55,6 +58,8 @@ public class Player : MonoBehaviour
     {
         vx = Input.GetAxis("Horizontal");
         vy = Input.GetAxis("Vertical");
+
+        BoostCount();//ブーストカウント
 
         if (!isForce)
         {
@@ -100,7 +105,7 @@ public class Player : MonoBehaviour
             addSpeed = 1.0f;
         }
 
-        if (isRBoost)
+        if (isDeceleration)
         {
             if (speed > 0 && speed > currentSpeed)
             {
@@ -191,17 +196,17 @@ public class Player : MonoBehaviour
     {
         speed = currentSpeed;
 
-        if (isRBoost)
-        {
-            if (speed > 0)
-            {
-                speed += r_Boost;
-            }
-            if (speed < 0)
-            {
-                speed -= r_Boost;
-            }
-        }
+        //if (isRBoost)
+        //{
+        //    if (speed > 0)
+        //    {
+        //        speed += r_Boost;
+        //    }
+        //    if (speed < 0)
+        //    {
+        //        speed -= r_Boost;
+        //    }
+        //}
 
         if (!isRForce)
         {
@@ -239,6 +244,42 @@ public class Player : MonoBehaviour
         transform.rotation = newRota;
     }
 
+    /// <summary>
+    /// ブーストカウント
+    /// </summary>
+    private void BoostCount()
+    {
+        //ブーストしなければ
+        if (!isRBoost) return;//何もしない
+
+        b_Time += Time.deltaTime;//ブースト開始カウント
+        //ブーストカウントが指定数以上になったら
+        if (b_Time >= boostTime)
+        {
+            //方向に合わせてブースト
+            if (speed > 0)
+            {
+                speed += r_Boost;
+            }
+            if (speed < 0)
+            {
+                speed -= r_Boost;
+            }
+            isDeceleration = true;//ブースト減速判定
+            b_Time = 0.0f;//ブーストカウント初期化
+            isRBoost = false;//ブースト準備判定false
+        }
+    }
+
+    /// <summary>
+    /// ブースト準備判定設定
+    /// </summary>
+    /// <param name="isRB">ブースト準備判定</param>
+    public void SetRB(bool isRB)
+    {
+        this.isRBoost = isRB;
+    }
+
     //↓デバッグ用
 
     /// <summary>
@@ -271,7 +312,7 @@ public class Player : MonoBehaviour
     /// <param name="isRBoost">反転時加速判定</param>
     public void SetRBoost(bool isRBoost)
     {
-        this.isRBoost = isRBoost;
+        this.isDeceleration = isRBoost;
     }
     /// <summary>
     /// 反転時慣性判定設定

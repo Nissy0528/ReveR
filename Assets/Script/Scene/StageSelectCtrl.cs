@@ -98,7 +98,7 @@ public class StageSelectCtrl : MonoBehaviour {
 
         if (num == 1)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.JoystickButton0))
             {
                 SceneManager.LoadScene("Main");
             }

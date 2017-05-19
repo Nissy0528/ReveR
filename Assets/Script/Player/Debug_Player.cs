@@ -31,7 +31,7 @@ public class Debug_Player : MonoBehaviour
         P_AddSpeed();//加速度切り替え
         Force();//慣性切り替え
         Return();//反転時の加速度初期化切り替え
-        ReturnBoost();//反転時に加速するかの切り替え
+        //ReturnBoost();//反転時に加速するかの切り替え
         JointMass();//ジョイントの重さ切り替え
         ReturnForce();//切り替えし慣性切り替え
     }

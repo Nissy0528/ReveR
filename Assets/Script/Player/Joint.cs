@@ -24,6 +24,7 @@ public class Joint : MonoBehaviour
     private float angleZ;//回転角度更新用
     private float coreRotaZ;//コアの回転角度
     private float cuurentSpeed;//初期回転速度
+    private bool isStart;//スタート判定
 
     //↓デバッグ用
     private bool isJointMass;//ジョイントの重さ判定
@@ -41,6 +42,8 @@ public class Joint : MonoBehaviour
         }
 
         cuurentSpeed = rotateSpeed;//初期速度設定
+
+        isStart = false;
     }
 
     // Update is called once per frame
@@ -51,6 +54,11 @@ public class Joint : MonoBehaviour
         float vx = Input.GetAxis("Horizontal");//横入力値
         float vy = Input.GetAxis("Vertical");//縦入力値
 
+        if ((vx != 0.0f || vy != 0.0f) && !isStart)
+        {
+            isStart = true;
+        }
+
         Rotate(vx, vy);//回転
     }
 
@@ -59,8 +67,7 @@ public class Joint : MonoBehaviour
     /// </summary>
     private void Rotate(float vx, float vy)
     {
-        if (vx < 0.5f && vx > -0.5f
-            && vy < 0.5f && vy > -0.5f) return;
+        if (!isStart) return;
 
         //コアの角度が180度超えていたら
         if (core.transform.localEulerAngles.z > 180)
@@ -173,16 +180,16 @@ public class Joint : MonoBehaviour
         //回転速度初期化
         rotateSpeed = cuurentSpeed;
 
-        //時計回りなら
-        if (rotateSpeed > 0)
-        {
-            rotateSpeed += (rotateBoost - difference);//速度加算（＋）
-        }
-        //反時計回りなら
-        if (rotateSpeed < 0)
-        {
-            rotateSpeed += -(rotateBoost - difference);//速度加算（-）
-        }
+        ////時計回りなら
+        //if (rotateSpeed > 0)
+        //{
+        //    rotateSpeed += (rotateBoost - difference);//速度加算（＋）
+        //}
+        ////反時計回りなら
+        //if (rotateSpeed < 0)
+        //{
+        //    rotateSpeed += -(rotateBoost - difference);//速度加算（-）
+        //}
         rotateSpeed *= -1;//逆回転に
         cuurentSpeed *= -1;//初期速度も逆に
     }
