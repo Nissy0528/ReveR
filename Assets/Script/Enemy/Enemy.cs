@@ -36,7 +36,6 @@ public class Enemy : MonoBehaviour
 
         if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged")
         {
-            GameObject.Find("MainManager").GetComponent<Main>().Stop();
             Destroy(gameObject);
         }
 
@@ -75,8 +74,6 @@ public class Enemy : MonoBehaviour
         if (isLWHit == true && isRWHit == true)
         {
             GameObject.Find("MainManager").GetComponent<Main>().Stop();
-            Instantiate(boom, transform.position, transform.rotation);
-            Instantiate(boom, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
