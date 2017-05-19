@@ -91,6 +91,7 @@
     <Compile Include="Assets\Script\Enemy\ELMove.cs" />
     <Compile Include="Assets\Script\Enemy\EPMove.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy.cs" />
+    <Compile Include="Assets\Script\Enemy\EnemyChack.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy_Line&amp;Circle.cs" />
     <Compile Include="Assets\Script\Enemy\ITweenMove.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
@@ -98,10 +99,16 @@
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\iTween.cs" />
     <Compile Include="Assets\Script\Player\Debug_Player.cs" />
+    <Compile Include="Assets\Script\Player\HpBarCtrl.cs" />
     <Compile Include="Assets\Script\Player\InputManager.cs" />
     <Compile Include="Assets\Script\Player\Joint.cs" />
+    <Compile Include="Assets\Script\Player\LifeScript.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
+    <Compile Include="Assets\Script\Scene\GameClear.cs" />
+    <Compile Include="Assets\Script\Scene\GameOver.cs" />
     <Compile Include="Assets\Script\Scene\Main.cs" />
+    <Compile Include="Assets\Script\Scene\StageSelect.cs" />
+    <Compile Include="Assets\Script\Scene\StageSelectCtrl.cs" />
     <Compile Include="Assets\Script\Scene\Title.cs" />
     <Compile Include="Assets\Script\Scene\result.cs" />
   </ItemGroup>
