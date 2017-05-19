@@ -733,6 +733,7 @@ MonoBehaviour:
   - {fileID: 867956302}
   - {fileID: 151150866}
   - {fileID: 1437208039}
+  delayTime: 10
 --- !u!114 &1500156016
 MonoBehaviour:
   m_ObjectHideFlags: 0
