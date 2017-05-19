@@ -16,8 +16,7 @@ public class Boom_Effect : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        time = Time.frameCount;
-        if (time==200)
+        if (!boom1.GetComponent<ParticleSystem>().IsAlive())
         {
             Destroy(gameObject);
         }

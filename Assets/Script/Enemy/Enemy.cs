@@ -11,8 +11,8 @@ public class Enemy : MonoBehaviour
     private bool isDead;
     private int x;
     private int y;
-    public GameObject boom;
-    public GameObject boom1;
+    public GameObject BoomEffect;
+
 
     void Start()
     {
@@ -36,6 +36,8 @@ public class Enemy : MonoBehaviour
 
         if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged")
         {
+            Debug.Log(1);
+            Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 
@@ -73,7 +75,8 @@ public class Enemy : MonoBehaviour
 
         if (isLWHit == true && isRWHit == true)
         {
-            GameObject.Find("MainManager").GetComponent<Main>().Stop();
+            //GameObject.Find("MainManager").GetComponent<Main>().Stop();
+            Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
