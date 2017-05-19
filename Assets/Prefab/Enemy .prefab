@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730372bf4ae3cbf4b9a6ea07e992d61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
 --- !u!114 &114169924481164182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730372bf4ae3cbf4b9a6ea07e992d61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
 --- !u!114 &114705235233252280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -312,6 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730372bf4ae3cbf4b9a6ea07e992d61d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
 --- !u!114 &114712439162412882
 MonoBehaviour:
   m_ObjectHideFlags: 1
