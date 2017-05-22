@@ -37,7 +37,7 @@ public class LifeScript : MonoBehaviour
 
         if (rt.sizeDelta.y <= 0)//取得した値のｙが、０以下になった時
         {
-            //Destroy(playerGO);//playerオブジェクトを破壊
+              Destroy(playerGO);//playerオブジェクトを破壊
             SceneManager.LoadScene("GameOver");
         }
     }
