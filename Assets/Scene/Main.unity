@@ -897,6 +897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  camera: {fileID: 604112145}
 --- !u!114 &472750412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1247,6 +1248,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 258068172}
+  shakeTime: 0.2
+  range: 0.5
+  shakeDelay: 0.01
 --- !u!1 &630010539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1296,6 +1300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  camera: {fileID: 604112145}
 --- !u!114 &630010542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1438,6 +1443,7 @@ MonoBehaviour:
   rotateLimit: 85
   rotateBoost: 0
   mass: 10
+  crushTime: 5
 --- !u!1 &732504238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,7 +1478,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 473c42d0b010f924998f6891393e0dbd, type: 3}
   - {fileID: 8300000, guid: a2093c5ec72701949857c2aa35cf3972, type: 3}
   - {fileID: 8300000, guid: c685d3438ae4f0245881e276246dfc9f, type: 3}
-  seNum: 0
+  seNum: 4
   player: {fileID: 258068172}
 --- !u!4 &732504240
 Transform:
@@ -1709,6 +1715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  camera: {fileID: 604112145}
 --- !u!114 &810615385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1908,6 +1915,7 @@ MonoBehaviour:
   rotateLimit: 85
   rotateBoost: 0
   mass: 10
+  crushTime: 5
 --- !u!4 &826321333
 Transform:
   m_ObjectHideFlags: 0
@@ -1977,6 +1985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  camera: {fileID: 604112145}
 --- !u!114 &879984062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2180,6 +2189,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PauseMenu: {fileID: 788670231}
   arrowmove: {fileID: 879616199}
+  Stop_Object:
+  - {fileID: 258068172}
+  - {fileID: 726865790}
+  - {fileID: 826321331}
 --- !u!1 &1002825792
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,6 +2242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  camera: {fileID: 604112145}
 --- !u!114 &1002825795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2616,6 +2630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  camera: {fileID: 604112145}
 --- !u!114 &1253528238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2757,6 +2772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  camera: {fileID: 604112145}
 --- !u!114 &1268242838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3226,6 +3242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  camera: {fileID: 604112145}
 --- !u!114 &2031719790
 MonoBehaviour:
   m_ObjectHideFlags: 0
