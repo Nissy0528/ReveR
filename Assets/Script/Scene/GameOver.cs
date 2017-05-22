@@ -12,7 +12,7 @@ public class GameOver : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
             SceneManager.LoadScene("Title");
         }

@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Title : MonoBehaviour {
+public class Title : MonoBehaviour
+{
 
-	
-    public void OnClick(string scenename)
+
+    void Update()
     {
-        SceneManager.LoadScene("StageSelect");
+        if (Input.GetKeyDown(KeyCode.JoystickButton0))
+        {
+            SceneManager.LoadScene("StageSelect");
+        }
     }
 }

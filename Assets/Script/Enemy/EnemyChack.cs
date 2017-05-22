@@ -17,8 +17,6 @@ public class EnemyChack : MonoBehaviour {
         enemyobj = GameObject.FindGameObjectsWithTag("Enemy");
         enemynum = enemyobj.Length;
 
-        Debug.Log(enemynum);
-
         test();
     }
 

@@ -105,7 +105,7 @@ public class InputManager : MonoBehaviour
         d_Vx = oxAbs - vxAbs;
         d_Vy = oyAbs - vyAbs;
 
-        d_Stick = (d_Vx + d_Vy);
+        d_Stick = (Mathf.Abs(d_Vx) + Mathf.Abs(d_Vy));
     }
 
     /// <summary>
