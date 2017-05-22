@@ -4,67 +4,90 @@ using UnityEngine;
 
 public class ELMove : MonoBehaviour
 {
+    public enum MoveDirection
+    {
+        UP, DOWN, LEFT, RIGHT
+    }
     public float speed;
-    public float width;
+    public float Move_Width;
+    public MoveDirection MoveWay;
 
-    private float WXmax;
-    private float WXmin;
-    private float WYmax;
-    private float WYmin;
+    private List<Vector2> Move_velocity;
+    private bool IsOverMoveRange;
+    private Rigidbody2D Rigi;
 
-    private List<Vector2> velocity;
-    private int z;
-
-    private Rigidbody2D rigid;
+    private float XRangeMax;
+    private float XRangeMin;
+    private float YRangeMax;
+    private float YRangeMin;
 
     // Use this for initialization
     void Start()
     {
-        rigid = GetComponent<Rigidbody2D>();
+        Rigi = GetComponent<Rigidbody2D>();
+        IsOverMoveRange = false;
 
-        velocity = new List<Vector2>()
+        Move_velocity = new List<Vector2>()
         {
             new Vector2(1,0),new Vector2(-1,0),new Vector2(0,1),new Vector2(0,-1),
         };
 
-        z = Random.Range(0, 4);
-
-        WXmax = GetComponent<Rigidbody2D>().position.x + width * 0.5f;
-        WXmin = GetComponent<Rigidbody2D>().position.x - width * 0.5f;
-        WYmax = GetComponent<Rigidbody2D>().position.y + width * 0.5f;
-        WYmin = GetComponent<Rigidbody2D>().position.y - width * 0.5f;
-
-
-        if (z == 0 || z == 1)
-        {
-            rigid.constraints = RigidbodyConstraints2D.FreezePositionY;
-        }
-        if (z == 2 || z == 3)
-        {
-            rigid.constraints = RigidbodyConstraints2D.FreezePositionX;
-        }      
+        YRangeMax = Rigi.position.y + Move_Width * 0.5f;
+        YRangeMin = Rigi.position.y - Move_Width * 0.5f;
+        XRangeMax = Rigi.position.x + Move_Width * 0.5f;
+        XRangeMin = Rigi.position.x - Move_Width * 0.5f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<Rigidbody2D>().position.x < WXmin ||
-            GetComponent<Rigidbody2D>().position.x > WXmax ||
-            GetComponent<Rigidbody2D>().position.y < WYmin ||
-            GetComponent<Rigidbody2D>().position.y > WYmax
-            )
+        GetMoveRange();
+        Move();
+    }
+    void Move()
+    {
+        if (MoveWay == MoveDirection.UP)
+            Rigi.AddForce(IsOverMoveRange ? -Move_velocity[2] * speed : Move_velocity[2] * speed);
+
+        else if (MoveWay == MoveDirection.DOWN)
+            Rigi.AddForce(IsOverMoveRange ? -Move_velocity[3] * speed : Move_velocity[3] * speed);
+
+        else if (MoveWay == MoveDirection.LEFT)
+            Rigi.AddForce(IsOverMoveRange ? -Move_velocity[0] * speed : Move_velocity[0] * speed);
+
+        else if (MoveWay == MoveDirection.RIGHT)
+            Rigi.AddForce(IsOverMoveRange ? -Move_velocity[1] * speed : Move_velocity[1] * speed);
+  
+    }
+    void GetMoveRange()
+    {
+        
+        if (MoveWay == MoveDirection.UP || MoveWay == MoveDirection.DOWN)
         {
-            GetComponent<Rigidbody2D>().AddForce(-velocity[z] * speed);
+            if (Rigi.position.y > YRangeMax || Rigi.position.y < YRangeMin)
+            {
+                IsOverMoveRange = true;
+            }
+            else
+            {
+                IsOverMoveRange = false;
+            }
+            Rigi.constraints = RigidbodyConstraints2D.FreezePositionX;
         }
-        else
+        else if(MoveWay == MoveDirection.LEFT || MoveWay == MoveDirection.RIGHT)
         {
-            GetComponent<Rigidbody2D>().AddForce(velocity[z] * speed);
+            if (Rigi.position.x > XRangeMax ||Rigi.position.x < XRangeMin)
+            {
+                IsOverMoveRange = true;
+            }
+            else
+            {
+                IsOverMoveRange = false;
+            }
+            Rigi.constraints = RigidbodyConstraints2D.FreezePositionY;
         }
 
-        if (GetComponent<Enemy>().IsDead())
-        {
-            Destroy(this);
-        }
+
     }
 
 }
