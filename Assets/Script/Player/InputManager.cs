@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
     public GameObject player;//プレイヤー
     public GameObject L_joint;//左ジョイント
     public GameObject R_joint;//右ジョイント
+    public Slider slider;//スライダー
 
     private float vx;//縦スティック入力値
     private float vy;//横スティック入力値
@@ -39,8 +41,6 @@ public class InputManager : MonoBehaviour
 
         Reversal();
         Recession();
-
-        Debug.Log(d_Stick);
     }
 
     /// <summary>
@@ -66,29 +66,56 @@ public class InputManager : MonoBehaviour
     {
         if (isReverse) return;
 
-        if (oldVx >= 0.0f && oldVy <= 0.0f
-            && vx <= 0.0f && vy >= 0.0f)
+        //垂直入力
+        //上から下へ
+        if (oldVx == 0.0f && oldVy > 0.0f
+            && vx >= -0.5f && vx <= 0.5f && vy == -1.0f)
         {
-            StickDifference();
-            isReverse = true;
+            StickDifference(); //スティック入力値の差を計算
         }
-        if (oldVx >= 0.0f && oldVy >= 0.0f
-            && vx <= 0.0f && vy <= 0.0f)
+        //下から上へ
+        if (oldVx == 0.0f && oldVy < 0.0f
+            && vx >= -0.5f && vx <= 0.5f && vy == 1.0f)
         {
-            StickDifference();
-            isReverse = true;
+            StickDifference(); //スティック入力値の差を計算
         }
-        if (oldVx <= 0.0f && oldVy >= 0.0f
-            && vx >= 0.0f && vy <= 0.0f)
+        //右から左へ
+        if (oldVx > 0.0f && oldVy == 0.0f
+            && vx == -1.0f && vy <= 0.5f && vy >= -0.5f)
         {
-            StickDifference();
-            isReverse = true;
+            StickDifference(); //スティック入力値の差を計算
         }
-        if (oldVx <= 0.0f && oldVy <= 0.0f
-            && vx >= 0.0f && vy >= 0.0f)
+        //左から右へ
+        if (oldVx < 0.0f && oldVy == 0.0f
+            && vx == 1.0f && vy <= 0.5f && vy >= -0.5f)
         {
-            StickDifference();
-            isReverse = true;
+            StickDifference(); //スティック入力値の差を計算
+        }
+
+        //斜め判定入力
+        //左下から右上へ
+        if (oldVx > 0.0f && oldVy < 0.0f
+            && vx < 0.0f && vy >= -0.5f)
+        {
+            StickDifference(); //スティック入力値の差を計算
+        }
+        //左上から右下へ
+        if (oldVx > 0.0f && oldVy > 0.0f
+            && vx < 0.0f && vy <= 0.5f)
+        {
+            StickDifference();//スティック入力値の差を計算
+        }
+        //右上から左下へ
+        if (oldVx < 0.0f && oldVy > 0.0f
+            && vx > 0.0f && vy < 0.5f)
+        {
+            StickDifference();//スティック入力値の差を計算
+        }
+        //右下から左上へ
+        if (oldVx < 0.0f && oldVy < 0.0f
+            && vx > 0.0f && vy > -0.5f)
+        {
+            StickDifference();//スティック入力値の差を計算
         }
     }
 
@@ -106,6 +133,10 @@ public class InputManager : MonoBehaviour
         d_Vy = oyAbs - vyAbs;
 
         d_Stick = (Mathf.Abs(d_Vx) + Mathf.Abs(d_Vy));
+
+        slider.value = 1.0f - d_Stick;
+
+        isReverse = true;
     }
 
     /// <summary>

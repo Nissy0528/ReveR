@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour
     private bool isRWHit;
     private bool isLWHit;
     private bool isDead;
-    private bool isCrush;
     private int x;
     private int y;
     private AudioSource se;
@@ -25,7 +24,6 @@ public class Enemy : MonoBehaviour
     {
         isRWHit = false;
         isLWHit = false;
-        isCrush = false;
         x = 0;
         y = 0;
         se = GetComponent<AudioSource>();
@@ -44,23 +42,13 @@ public class Enemy : MonoBehaviour
             y--;
         }
 
-        if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged" && !isCrush)
+        if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged")
         {
             camera.GetComponent<CameraClamp>().SetShake();
-            p_Class.SetIsStop(false);
+            p_Class.Crush();
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
-            //p_Class.StopJoint();
-            //isCrush = true;
         }
-
-        //if (p_Class.IsCrush() && (isDead || isCrush))
-        //{
-        //    Instantiate(BoomEffect, transform.position, transform.rotation);
-        //    p_Class.SetIsStop(false);
-        //p_Class.SetIsStop(false);
-        //    Destroy(gameObject);
-        //}
 
     }
     void OnCollisionExit2D(Collision2D col)
@@ -97,10 +85,9 @@ public class Enemy : MonoBehaviour
         if (isLWHit == true && isRWHit == true)
         {
             camera.GetComponent<CameraClamp>().SetShake();
-            p_Class.SetIsStop(false);
+            p_Class.Crush();
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
-            //p_Class.StopJoint();
         }
     }
 

@@ -17,6 +17,7 @@ public class Debug_Audio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player == null) return;
         player.GetComponent<AudioSource>().clip = enemyDeadSE[seNum];
     }
 }

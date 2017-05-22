@@ -10,7 +10,7 @@ public class Pause : MonoBehaviour
     // Use this for initialization
     public GameObject PauseMenu;
     public GameObject arrowmove;
-    
+
     private bool IsPause;
 
     private Behaviour[] Stop_Object_Behaviour;
@@ -35,14 +35,12 @@ public class Pause : MonoBehaviour
     void Update()
     {
         Pauseing();
-
-
     }
     void Pauseing()
     {
         Pauseing_Meun();
         Pauseing_MoveArrow();
-        
+
     }
     void Pauseing_Meun()
     {
@@ -75,12 +73,18 @@ public class Pause : MonoBehaviour
     }
     void Get_Obj_Pause_Yes()
     {
-        
-        foreach (var com in Stop_Object_Behaviour) com.enabled = false;
+        try
+        {
+            foreach (var com in Stop_Object_Behaviour) com.enabled = false;
 
-        Time.timeScale = 0;
-        IsPause = true;
-        PauseMenu.SetActive(true);
+            Time.timeScale = 0;
+            IsPause = true;
+            PauseMenu.SetActive(true);
+        }
+        catch
+        {
+            SceneManager.LoadScene("Main");
+        }
     }
     void Get_Obj_Pause_No()
     {

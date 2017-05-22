@@ -18,7 +18,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
-    private Slider sl;//スライダー
     private AudioSource se;//効果音
     private float vx;//横スティック入力値
     private float vy;//縦スティック入力値
@@ -55,7 +54,6 @@ public class Player : MonoBehaviour
         addSpeed = 0.0f;
         currentSpeed = speed;
 
-        sl = GameObject.Find("P_AddSpeed").GetComponent<Slider>();
         HpBarCtrl.hpbar = hp;//HpBar取得
     }
 
@@ -78,8 +76,6 @@ public class Player : MonoBehaviour
             ForceMove();//移動（慣性あり）
         }
         Rotate();//回転
-
-        sl.value = addSpeed;
     }
 
     /// <summary>
@@ -297,14 +293,12 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 停止判定設定
+    /// 潰し処理
     /// </summary>
-    /// <param name="isStop">停止判定</param>
-    public void SetIsStop(bool isStop)
+    public void Crush()
     {
         EnemyDeadSE();
         isRBoost = true;
-        //this.isStop = isStop;
     }
 
     //↓デバッグ用
