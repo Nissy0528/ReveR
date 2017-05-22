@@ -140,9 +140,9 @@ RectTransform:
   m_Father: {fileID: 915445665}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 180, y: 40}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 773, y: -50}
   m_SizeDelta: {x: 320, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &38112253
@@ -427,8 +427,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  player: {fileID: 258068172}
   camera: {fileID: 604112145}
+  player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &157818554
 Rigidbody2D:
   serializedVersion: 4
@@ -569,8 +571,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  player: {fileID: 258068172}
   camera: {fileID: 604112145}
+  player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &164150013
 Rigidbody2D:
   serializedVersion: 4
@@ -696,7 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -731,6 +735,7 @@ GameObject:
   - component: {fileID: 258068175}
   - component: {fileID: 258068174}
   - component: {fileID: 258068178}
+  - component: {fileID: 258068179}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -817,6 +822,7 @@ MonoBehaviour:
   hp: 100
   damage: 12
   lifeScript: {fileID: 2089923317}
+  maxexp: 50
 --- !u!212 &258068177
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -938,6 +944,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &258068179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 258068172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82b4a2036f2da547ac46f7741f4c053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxExp: 50
+  player: {fileID: 258068176}
+  ex: {fileID: 2078163858}
 --- !u!1 &270572041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,8 +1142,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  player: {fileID: 258068172}
   camera: {fileID: 604112145}
+  player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &321696224
 Rigidbody2D:
   serializedVersion: 4
@@ -1252,7 +1274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.22794116, b: 0.22794116, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1710,8 +1732,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  player: {fileID: 258068172}
   camera: {fileID: 604112145}
+  player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &740471506
 Rigidbody2D:
   serializedVersion: 4
@@ -2152,8 +2176,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  player: {fileID: 258068172}
   camera: {fileID: 604112145}
+  player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!114 &879984062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2424,8 +2450,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  player: {fileID: 258068172}
   camera: {fileID: 604112145}
+  player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &929858615
 Rigidbody2D:
   serializedVersion: 4
@@ -2766,7 +2794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1299857366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2998,8 +3026,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  player: {fileID: 258068172}
   camera: {fileID: 604112145}
+  player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &1526088907
 Rigidbody2D:
   serializedVersion: 4
@@ -3140,8 +3170,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  player: {fileID: 258068172}
   camera: {fileID: 604112145}
+  player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &1626456927
 Rigidbody2D:
   serializedVersion: 4
@@ -3245,17 +3277,17 @@ RectTransform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1667355444}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2089923316}
   m_Father: {fileID: 915445665}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -70, y: -180}
+  m_AnchoredPosition: {x: -160, y: -52}
   m_SizeDelta: {x: 90, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1667355446
@@ -3413,7 +3445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.20588237, g: 1, b: 0.2770791, a: 1}
+  m_Color: {r: 0.94482756, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3447,7 +3479,7 @@ GameObject:
   - component: {fileID: 2078163858}
   - component: {fileID: 2078163857}
   m_Layer: 5
-  m_Name: HpBar
+  m_Name: Ex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3469,9 +3501,9 @@ RectTransform:
   m_Father: {fileID: 915445665}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -244, y: 345}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 413, y: -50}
   m_SizeDelta: {x: 314, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2078163857
@@ -3480,7 +3512,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2078163855}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32f3505653b887644b2d441b0cc167be, type: 3}
   m_Name: 
@@ -3526,7 +3558,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 0
+  m_MaxValue: 50
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
