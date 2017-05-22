@@ -12,13 +12,12 @@ public class Enemy : MonoBehaviour
     private bool isDead;
     private int x;
     private int y;
-    private AudioSource se;
-    private Player p_Class;
-
     public GameObject BoomEffect;
+    
     public GameObject player;
-    public GameObject camera;
+    public Exp Exp;
 
+    public int exp;
 
     void Start()
     {
@@ -26,8 +25,6 @@ public class Enemy : MonoBehaviour
         isLWHit = false;
         x = 0;
         y = 0;
-        se = GetComponent<AudioSource>();
-        p_Class = player.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -44,6 +41,11 @@ public class Enemy : MonoBehaviour
 
         if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged")
         {
+            Debug.Log(1);
+
+            Exp.GetComponent<Exp>().EXP(exp);
+            
+            //player.GetComponent<Player>().ExtWing();
             camera.GetComponent<CameraClamp>().SetShake();
             p_Class.Crush();
             Instantiate(BoomEffect, transform.position, transform.rotation);
@@ -61,8 +63,6 @@ public class Enemy : MonoBehaviour
         if (col.gameObject.tag == "R_Joint" && y == 0)
         {
             isRWHit = false;
-
-
         }
     }
     void OnCollisionEnter2D(Collision2D col)
@@ -81,9 +81,11 @@ public class Enemy : MonoBehaviour
             transform.parent = col.transform.parent;
             isDead = true;
         }
-
+        
         if (isLWHit == true && isRWHit == true)
         {
+            Exp.GetComponent<Exp>().EXP(exp);
+            //player.GetComponent<Player>().ExtWing();
             camera.GetComponent<CameraClamp>().SetShake();
             p_Class.Crush();
             Instantiate(BoomEffect, transform.position, transform.rotation);

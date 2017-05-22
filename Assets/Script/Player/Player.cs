@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
     public int hp;//体力;
     public int damage;//lifeをマイナスする値
     public LifeScript lifeScript;//LifeScript
-    
+    public int maxexp;
 
     //↓デバッグ用
     private bool isForce;//慣性判定
@@ -362,5 +362,10 @@ public class Player : MonoBehaviour
     {
         transform.FindChild("L_Joint").GetComponent<ExtendWing>().extendWing();
         transform.FindChild("R_Joint").GetComponent<ExtendWing>().extendWing();
+    }
+
+    public void LevelUp()
+    {
+        GetComponent<Exp>().LevelUp(maxexp);
     }
 }
