@@ -130,7 +130,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 38112251}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -446,6 +446,7 @@ GameObject:
   - component: {fileID: 258068176}
   - component: {fileID: 258068175}
   - component: {fileID: 258068174}
+  - component: {fileID: 258068178}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -573,6 +574,86 @@ SpriteRenderer:
   m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!82 &258068178
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 258068172}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &270572041
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +947,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.0013174241, y: 0.0012902977}
   serializedVersion: 2
-  m_Radius: 0.08155118
+  m_Radius: 0.17
 --- !u!212 &472750415
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1265,7 +1346,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.0013174241, y: 0.0012902977}
   serializedVersion: 2
-  m_Radius: 0.08155118
+  m_Radius: 0.17
 --- !u!212 &630010545
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1357,6 +1438,55 @@ MonoBehaviour:
   rotateLimit: 85
   rotateBoost: 0
   mass: 10
+--- !u!1 &732504238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 732504240}
+  - component: {fileID: 732504239}
+  m_Layer: 0
+  m_Name: Debug_SE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &732504239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 732504238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f5fb46b3f290646a691c005e563353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDeadSE:
+  - {fileID: 8300000, guid: cb7d3561317b9b242af91e9a7d3ab491, type: 3}
+  - {fileID: 8300000, guid: 6120861a5f46ed441882d3a3ee59a27d, type: 3}
+  - {fileID: 8300000, guid: e7a881f5389f1c04386b51de13e54059, type: 3}
+  - {fileID: 8300000, guid: 473c42d0b010f924998f6891393e0dbd, type: 3}
+  - {fileID: 8300000, guid: a2093c5ec72701949857c2aa35cf3972, type: 3}
+  - {fileID: 8300000, guid: c685d3438ae4f0245881e276246dfc9f, type: 3}
+  seNum: 0
+  player: {fileID: 258068172}
+--- !u!4 &732504240
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 732504238}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &788670231 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1990914118731112, guid: aaf2bf5a99a05414481031853aec97ce,
@@ -1629,7 +1759,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.0013174241, y: 0.0012902977}
   serializedVersion: 2
-  m_Radius: 0.08155118
+  m_Radius: 0.17
 --- !u!212 &810615388
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1897,7 +2027,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.0013174241, y: 0.0012902977}
   serializedVersion: 2
-  m_Radius: 0.08155118
+  m_Radius: 0.17
 --- !u!212 &879984065
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2149,7 +2279,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.0013174241, y: 0.0012902977}
   serializedVersion: 2
-  m_Radius: 0.08155118
+  m_Radius: 0.17
 --- !u!212 &1002825798
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2536,7 +2666,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.0013174241, y: 0.0012902977}
   serializedVersion: 2
-  m_Radius: 0.08155118
+  m_Radius: 0.17
 --- !u!212 &1253528241
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2677,7 +2807,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.0013174241, y: 0.0012902977}
   serializedVersion: 2
-  m_Radius: 0.08155118
+  m_Radius: 0.17
 --- !u!212 &1268242841
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3146,7 +3276,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.0013174241, y: 0.0012902977}
   serializedVersion: 2
-  m_Radius: 0.08155118
+  m_Radius: 0.17
 --- !u!212 &2031719793
 SpriteRenderer:
   m_ObjectHideFlags: 0
