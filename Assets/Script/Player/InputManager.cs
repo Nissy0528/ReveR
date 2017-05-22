@@ -40,7 +40,7 @@ public class InputManager : MonoBehaviour
         Reversal();
         Recession();
 
-        Debug.Log(d_Stick);
+        //Debug.Log(d_Stick);
     }
 
     /// <summary>

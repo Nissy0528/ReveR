@@ -101,6 +101,7 @@
     <Compile Include="Assets\Script\Pause\ArrowMove.cs" />
     <Compile Include="Assets\Script\Pause\Pause.cs" />
     <Compile Include="Assets\Script\Player\Debug_Player.cs" />
+    <Compile Include="Assets\Script\Player\Exp.cs" />
     <Compile Include="Assets\Script\Player\ExtendWing.cs" />
     <Compile Include="Assets\Script\Player\HpBarCtrl.cs" />
     <Compile Include="Assets\Script\Player\InputManager.cs" />

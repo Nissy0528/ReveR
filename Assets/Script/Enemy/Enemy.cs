@@ -13,9 +13,11 @@ public class Enemy : MonoBehaviour
     private int x;
     private int y;
     public GameObject BoomEffect;
-
-    private ExtendWing extwing;
+    
     public GameObject player;
+    public Exp Exp;
+
+    public int exp;
 
     void Start()
     {
@@ -23,7 +25,6 @@ public class Enemy : MonoBehaviour
         isLWHit = false;
         x = 0;
         y = 0;
-        extwing = GetComponent<ExtendWing>();
     }
 
     // Update is called once per frame
@@ -42,9 +43,12 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log(1);
 
+            Exp.GetComponent<Exp>().EXP(exp);
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
-            player.GetComponent<Player>().ExtWing();
+            
+            //player.GetComponent<Player>().ExtWing();
+            
         }
 
     }
@@ -80,9 +84,11 @@ public class Enemy : MonoBehaviour
         if (isLWHit == true && isRWHit == true)
         {
             //GameObject.Find("MainManager").GetComponent<Main>().Stop();
+            Exp.GetComponent<Exp>().EXP(exp);
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
-            player.GetComponent<Player>().ExtWing();
+            //player.GetComponent<Player>().ExtWing();
+            
         }
     }
 

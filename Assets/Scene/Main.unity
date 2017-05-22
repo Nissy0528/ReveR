@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 258068175}
   - component: {fileID: 258068174}
   - component: {fileID: 258068178}
+  - component: {fileID: 258068179}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -533,6 +534,7 @@ MonoBehaviour:
   hp: 100
   damage: 12
   lifeScript: {fileID: 2089923317}
+  maxexp: 100
 --- !u!212 &258068177
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -654,6 +656,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &258068179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 258068172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e82b4a2036f2da547ac46f7741f4c053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxExp: 50
+  player: {fileID: 258068176}
 --- !u!1 &270572041
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,6 +912,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!114 &472750412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -910,7 +927,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  width: 3
+  Move_Width: 3
+  MoveWay: 1
 --- !u!50 &472750413
 Rigidbody2D:
   serializedVersion: 4
@@ -1043,7 +1061,7 @@ BoxCollider2D:
     oldSize: {x: 0.16, y: 0.16}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 2
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
@@ -1107,7 +1125,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -1296,6 +1314,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!114 &630010542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1309,7 +1329,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  width: 3
+  Move_Width: 3
+  MoveWay: 0
 --- !u!50 &630010543
 Rigidbody2D:
   serializedVersion: 4
@@ -1398,6 +1419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 726865791}
   - component: {fileID: 726865792}
+  - component: {fileID: 726865793}
   m_Layer: 0
   m_Name: L_Joint
   m_TagString: Untagged
@@ -1438,6 +1460,18 @@ MonoBehaviour:
   rotateLimit: 85
   rotateBoost: 0
   mass: 10
+--- !u!114 &726865793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 726865790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3172ed354c94704f9cb035269329c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ext: 0.5
 --- !u!1 &732504238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1709,6 +1743,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!114 &810615385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1722,7 +1758,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  width: 3
+  Move_Width: 3
+  MoveWay: 0
 --- !u!50 &810615386
 Rigidbody2D:
   serializedVersion: 4
@@ -1883,6 +1920,7 @@ GameObject:
   m_Component:
   - component: {fileID: 826321333}
   - component: {fileID: 826321332}
+  - component: {fileID: 826321334}
   m_Layer: 0
   m_Name: R_Joint
   m_TagString: Untagged
@@ -1923,6 +1961,18 @@ Transform:
   m_Father: {fileID: 258068173}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &826321334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 826321331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3172ed354c94704f9cb035269329c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ext: 0.5
 --- !u!1 &879616199 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1830588587670920, guid: aaf2bf5a99a05414481031853aec97ce,
@@ -1977,6 +2027,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!114 &879984062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1990,7 +2042,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  width: 3
+  Move_Width: 3
+  MoveWay: 0
 --- !u!50 &879984063
 Rigidbody2D:
   serializedVersion: 4
@@ -2065,7 +2118,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 2
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -2180,6 +2233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PauseMenu: {fileID: 788670231}
   arrowmove: {fileID: 879616199}
+  Stop_Object: []
 --- !u!1 &1002825792
 GameObject:
   m_ObjectHideFlags: 0
@@ -2229,6 +2283,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!114 &1002825795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2242,7 +2298,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  width: 3
+  Move_Width: 3
+  MoveWay: 0
 --- !u!50 &1002825796
 Rigidbody2D:
   serializedVersion: 4
@@ -2616,6 +2673,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!114 &1253528238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2629,7 +2688,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  width: 3
+  Move_Width: 3
+  MoveWay: 0
 --- !u!50 &1253528239
 Rigidbody2D:
   serializedVersion: 4
@@ -2757,6 +2817,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!114 &1268242838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2770,7 +2832,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  width: 3
+  Move_Width: 3
+  MoveWay: 0
 --- !u!50 &1268242839
 Rigidbody2D:
   serializedVersion: 4
@@ -3226,6 +3289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   player: {fileID: 258068172}
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!114 &2031719790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3239,7 +3304,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  width: 3
+  Move_Width: 3
+  MoveWay: 2
 --- !u!50 &2031719791
 Rigidbody2D:
   serializedVersion: 4
