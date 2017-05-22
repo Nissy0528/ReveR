@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     public int hp;//体力;
     public int damage;//lifeをマイナスする値
     public LifeScript lifeScript;//LifeScript
+    
 
     //↓デバッグ用
     private bool isForce;//慣性判定
@@ -361,5 +362,11 @@ public class Player : MonoBehaviour
 
             lifeScript.LifeDown(damage);//lifeScriptのlifeDownメソッドを実行
         }
+    }
+
+    public void ExtWing()
+    {
+        transform.FindChild("L_Joint").GetComponent<ExtendWing>().extendWing();
+        transform.FindChild("R_Joint").GetComponent<ExtendWing>().extendWing();
     }
 }
