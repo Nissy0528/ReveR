@@ -10,21 +10,26 @@ public class Enemy : MonoBehaviour
     private bool isRWHit;
     private bool isLWHit;
     private bool isDead;
+    private bool isCrush;
     private int x;
     private int y;
     private AudioSource se;
+    private Player p_Class;
 
     public GameObject BoomEffect;
     public GameObject player;
+    public GameObject camera;
 
 
     void Start()
     {
         isRWHit = false;
         isLWHit = false;
+        isCrush = false;
         x = 0;
         y = 0;
         se = GetComponent<AudioSource>();
+        p_Class = player.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -39,13 +44,23 @@ public class Enemy : MonoBehaviour
             y--;
         }
 
-        if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged")
+        if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged" && !isCrush)
         {
-            player.GetComponent<Player>().EnemyDeadSE();
-            player.GetComponent<Player>().SetRB(true);
+            camera.GetComponent<CameraClamp>().SetShake();
+            p_Class.SetIsStop(false);
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
+            //p_Class.StopJoint();
+            //isCrush = true;
         }
+
+        //if (p_Class.IsCrush() && (isDead || isCrush))
+        //{
+        //    Instantiate(BoomEffect, transform.position, transform.rotation);
+        //    p_Class.SetIsStop(false);
+        //p_Class.SetIsStop(false);
+        //    Destroy(gameObject);
+        //}
 
     }
     void OnCollisionExit2D(Collision2D col)
@@ -81,11 +96,11 @@ public class Enemy : MonoBehaviour
 
         if (isLWHit == true && isRWHit == true)
         {
-            //GameObject.Find("MainManager").GetComponent<Main>().Stop();
-            player.GetComponent<Player>().EnemyDeadSE();
-            player.GetComponent<Player>().SetRB(true);
+            camera.GetComponent<CameraClamp>().SetShake();
+            p_Class.SetIsStop(false);
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
+            //p_Class.StopJoint();
         }
     }
 

@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     private bool isRe;//反転判定（慣性）
     private bool isStart;//スタート判定
     private bool isRBoost;//ブースト準備判定
+    private bool isStop;//停止判定
 
     public int hp;//体力;
     public int damage;//lifeをマイナスする値
@@ -45,13 +46,15 @@ public class Player : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();//リジッドボディ取得
         se = GetComponent<AudioSource>();
+
         isRecession = false;
         isStart = false;
+        isStop = false;
+
         addSpeed = 0.0f;
         currentSpeed = speed;
 
         sl = GameObject.Find("P_AddSpeed").GetComponent<Slider>();
-
         HpBarCtrl.hpbar = hp;//HpBar取得
     }
 
@@ -60,6 +63,8 @@ public class Player : MonoBehaviour
     {
         vx = Input.GetAxis("Horizontal");
         vy = Input.GetAxis("Vertical");
+
+        if (isStop) return;
 
         BoostCount();//ブーストカウント
 
@@ -198,18 +203,6 @@ public class Player : MonoBehaviour
     {
         speed = currentSpeed;
 
-        //if (isRBoost)
-        //{
-        //    if (speed > 0)
-        //    {
-        //        speed += r_Boost;
-        //    }
-        //    if (speed < 0)
-        //    {
-        //        speed -= r_Boost;
-        //    }
-        //}
-
         if (!isRForce)
         {
             speed *= -1;//速度を逆に
@@ -274,6 +267,27 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// ジョイント停止
+    /// </summary>
+    public void StopJoint()
+    {
+        isStop = true;
+        transform.FindChild("L_Joint").GetComponent<Joint>().SetIsStop(true);
+        transform.FindChild("R_Joint").GetComponent<Joint>().SetIsStop(true);
+    }
+
+    /// <summary>
+    /// 潰す判定
+    /// </summary>
+    /// <returns></returns>
+    public bool IsCrush()
+    {
+        return isStop
+            && !transform.FindChild("L_Joint").GetComponent<Joint>().IsStop() 
+            && !transform.FindChild("R_Joint").GetComponent<Joint>().IsStop();
+    }
+
+    /// <summary>
     /// 敵消滅効果音再生
     /// </summary>
     public void EnemyDeadSE()
@@ -282,12 +296,14 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// ブースト準備判定設定
+    /// 停止判定設定
     /// </summary>
-    /// <param name="isRB">ブースト準備判定</param>
-    public void SetRB(bool isRB)
+    /// <param name="isStop">停止判定</param>
+    public void SetIsStop(bool isStop)
     {
-        this.isRBoost = isRB;
+        EnemyDeadSE();
+        isRBoost = true;
+        //this.isStop = isStop;
     }
 
     //↓デバッグ用
