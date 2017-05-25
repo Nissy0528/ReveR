@@ -43,10 +43,7 @@ public class Enemy : MonoBehaviour
 
         if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged")
         {
-            Debug.Log(1);
-
             Exp.GetComponent<Exp>().EXP(exp);
-            
             //player.GetComponent<Player>().ExtWing();
             camera.GetComponent<CameraClamp>().SetShake();
             p_Class.Crush();

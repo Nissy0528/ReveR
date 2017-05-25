@@ -9,26 +9,43 @@ public class InputManager : MonoBehaviour
     public GameObject L_joint;//左ジョイント
     public GameObject R_joint;//右ジョイント
     public Slider slider;//スライダー
+    public float delay;
 
-    private float vx;//縦スティック入力値
-    private float vy;//横スティック入力値
-    private float oldVx;//前の横スティック入力
-    private float oldVy;//前の縦スティック入力
-    private float d_Vx;//横入力の差
-    private float d_Vy;//縦入力の差
-    private float d_Stick;//スティック入力値の差
-    private bool isReverse;//反転判定
+    private Vector2 input;//スティック入力値
+    private Vector2 oldInput;//前のスティック入力値
+    private Vector2 invertInput;//スティック入力値の逆値
     private Player p_Class;//プレイヤークラス
     private Joint lj_Class;//左ジョイントクラス
     private Joint rj_Class;//右ジョイントクラス
+    private float inputDefference;//スティック入力差
+    private float dot;//スティックの入力差
+    private float d_Cnt;
+    private bool isInvert;//反転判定
+    private bool isStart;//スタート判定
+
+    //デバッグ用↓
+    public GameObject oldPoint;
+    public GameObject currentPoint;
+    public GameObject coPoint;
+    public GameObject invertPoint;
+    public GameObject InvertLine;
+    public GameObject CurrentLine;
+
+    private Vector3 oldIniPos;
+    private Vector3 currentIniPos;
+    private Vector3 invertIniPos;
 
     // Use this for initialization
     void Start()
     {
-        isReverse = false;
+        isInvert = false;
         p_Class = player.GetComponent<Player>();
         lj_Class = L_joint.GetComponent<Joint>();
         rj_Class = R_joint.GetComponent<Joint>();
+
+        oldIniPos = oldPoint.transform.position;
+        currentIniPos = currentPoint.transform.position;
+        invertIniPos = invertPoint.transform.position;
     }
 
     // Update is called once per frame
@@ -36,139 +53,136 @@ public class InputManager : MonoBehaviour
     {
         if (Time.timeScale == 0.0f) return;
 
-        vx = Input.GetAxis("Horizontal");
-        vy = Input.GetAxis("Vertical");
+        input.x = Input.GetAxis("Horizontal") * -1;
+        input.y = Input.GetAxis("Vertical");
 
-        Reversal();
-        Recession();
+        InputPoint();//スティック入力座標取得
+        Invert();//反転処理
+
+        //デバッグ用↓
+        InvertLine.GetComponent<LineRenderer>().SetPosition(0, oldPoint.transform.position);
+        InvertLine.GetComponent<LineRenderer>().SetPosition(1, invertPoint.transform.position);
+        CurrentLine.GetComponent<LineRenderer>().SetPosition(0, oldPoint.transform.position);
+        CurrentLine.GetComponent<LineRenderer>().SetPosition(1, coPoint.transform.position);
     }
 
     /// <summary>
-    /// 反転判定
+    /// 反転処理
     /// </summary>
-    /// <param name="vx">横スティック入力</param>
-    /// <param name="vy">縦スティック入力</param>
-    private void Reversal()
+    private void Invert()
     {
-        if (vx < 0.5f && vx > -0.5f
-            && vy < 0.5f && vy > -0.5f) return;
+        if (!isInvert || !IsInput()) return;
 
-        StickReverce();
-
-        oldVx = vx;
-        oldVy = vy;
-    }
-
-    /// <summary>
-    /// スティック入力が反転しているか判断する
-    /// </summary>
-    private void StickReverce()
-    {
-        if (isReverse) return;
-
-        //垂直入力
-        //上から下へ
-        if (oldVx == 0.0f && oldVy > 0.0f
-            && vx >= -0.5f && vx <= 0.5f && vy == -1.0f)
+        if (IsInvert())
         {
-            StickDifference(); //スティック入力値の差を計算
+            InputDefference();
+            Recession();
+            coPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
+            d_Cnt = delay;
         }
-        //下から上へ
-        if (oldVx == 0.0f && oldVy < 0.0f
-            && vx >= -0.5f && vx <= 0.5f && vy == 1.0f)
-        {
-            StickDifference(); //スティック入力値の差を計算
-        }
-        //右から左へ
-        if (oldVx > 0.0f && oldVy == 0.0f
-            && vx == -1.0f && vy <= 0.5f && vy >= -0.5f)
-        {
-            StickDifference(); //スティック入力値の差を計算
-        }
-        //左から右へ
-        if (oldVx < 0.0f && oldVy == 0.0f
-            && vx == 1.0f && vy <= 0.5f && vy >= -0.5f)
-        {
-            StickDifference(); //スティック入力値の差を計算
-        }
-
-        //斜め判定入力
-        //左下から右上へ
-        if (oldVx > 0.0f && oldVy < 0.0f
-            && vx < 0.0f && vy >= -0.5f)
-        {
-            StickDifference(); //スティック入力値の差を計算
-        }
-        //左上から右下へ
-        if (oldVx > 0.0f && oldVy > 0.0f
-            && vx < 0.0f && vy <= 0.5f)
-        {
-            StickDifference();//スティック入力値の差を計算
-        }
-        //右上から左下へ
-        if (oldVx < 0.0f && oldVy > 0.0f
-            && vx > 0.0f && vy < 0.5f)
-        {
-            StickDifference();//スティック入力値の差を計算
-        }
-        //右下から左上へ
-        if (oldVx < 0.0f && oldVy < 0.0f
-            && vx > 0.0f && vy > -0.5f)
-        {
-            StickDifference();//スティック入力値の差を計算
-        }
-    }
-
-    /// <summary>
-    /// スティック入力値の差を計算
-    /// </summary>
-    private void StickDifference()
-    {
-        float vxAbs = Mathf.Abs(vx);
-        float vyAbs = Mathf.Abs(vy);
-        float oxAbs = Mathf.Abs(oldVx);
-        float oyAbs = Mathf.Abs(oldVy);
-
-        d_Vx = oxAbs - vxAbs;
-        d_Vy = oyAbs - vyAbs;
-
-        d_Stick = (Mathf.Abs(d_Vx) + Mathf.Abs(d_Vy));
-
-        slider.value = 1.0f - d_Stick;
-
-        isReverse = true;
+        isInvert = false;
     }
 
     /// <summary>
     /// 後退切り替え
     /// </summary>
-    public void Recession()
+    private void Recession()
     {
-        if (!isReverse) return;
-
         p_Class.Recession();
 
-        lj_Class.SpeedChange(d_Stick * 10);
-        rj_Class.SpeedChange(d_Stick * 10);
-
-        isReverse = false;
+        lj_Class.SpeedChange();
+        rj_Class.SpeedChange();
     }
 
     /// <summary>
-    /// 反転判定設定
+    /// スティック入力座標取得
     /// </summary>
-    /// <param name="isReverse"></param>
-    public void SetIsReverse(bool isReverse)
+    private void InputPoint()
     {
-        this.isReverse = isReverse;
+        //最初の入力がされてなけば
+        if (!isStart)
+        {
+            //スティックが入力されたら
+            if (IsInput())
+            {
+                isStart = true;//開始判定true
+            }
+            return;//何もしない
+        }
+
+        if (d_Cnt > 0.0f)
+        {
+            d_Cnt -= Time.deltaTime;
+        }
+        else
+        {
+            d_Cnt = 0.0f;
+        }
+
+        //スティックが入力されなくなったら
+        if (IsInput() && !isInvert)
+        {
+            oldInput = new Vector2(input.x, input.y);//入力されてたスティック座標を取得
+        }
+        else
+        {
+            d_Cnt = 0.0f;
+            isInvert = true;
+        }
+
+        invertInput = new Vector2(oldInput.x * -1, oldInput.y * -1);//入力されたティックの逆値
+
+        //デバッグ用↓
+        currentPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
+        if (d_Cnt == 0.0f)
+        {
+            coPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
+            oldPoint.transform.position = new Vector3(oldIniPos.x + oldInput.x, oldIniPos.y + oldInput.y, oldIniPos.z);
+            invertPoint.transform.position = new Vector3(invertIniPos.x + invertInput.x, invertIniPos.y + invertInput.y, invertIniPos.z);
+        }
     }
 
     /// <summary>
-    /// 反転判定取得
+    /// スティック入力差をスライダーに表示
     /// </summary>
-    /// <returns>反転判定</returns>
-    public bool GetIsReverse()
+    private void InputDefference()
     {
-        return isReverse;
+        float dotAbs = Mathf.Abs(dot);
+
+        slider.value = dotAbs;
+
+        //if (dotAbs <= 0.3f)
+        //{
+        //    slider.value = 0.3f;
+        //}
+        //if (dotAbs > 0.3f && dotAbs <= 0.6f)
+        //{
+        //    slider.value = 0.6f;
+        //}
+        //if (dotAbs > 0.6f)
+        //{
+        //    slider.value = 1.0f;
+        //}
+    }
+
+    /// <summary>
+    /// 入力判定
+    /// </summary>
+    /// <returns>スティックが入力されたらtrue</returns>
+    private bool IsInput()
+    {
+        return input.x >= 0.6f || input.x <= -0.6f
+            || input.y >= 0.6f || input.y <= -0.6f;
+    }
+
+    /// <summary>
+    /// 逆入力判定
+    /// </summary>
+    /// <returns>逆入力の範囲にスティックが入力されたらtrue</returns>
+    private bool IsInvert()
+    {
+        dot = Vector2.Dot(oldInput.normalized, input.normalized);
+
+        return dot < 0.0f;
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Main : MonoBehaviour
 {
     public float stopTime;
+    public Player player;
 
     private GameObject[] enemys;
     private GameObject[] enemyDead;
@@ -28,6 +29,11 @@ public class Main : MonoBehaviour
         {
             Time.timeScale = 1.0f;
             SceneManager.LoadScene("GameClear");
+        }
+
+        if (player.IsStop())
+        {
+            SceneManager.LoadScene("GameOver");
         }
 
         if (isStop)
