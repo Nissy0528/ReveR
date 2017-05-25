@@ -854,7 +854,7 @@ MonoBehaviour:
   speedSlider: {fileID: 815776693}
   speed: 6
   addSpeed: 1
-  subSpeed: 0
+  subSpeed: 0.01
   speedLimit: 15
   rotateSpeed: 5
   drag: 1
@@ -866,6 +866,7 @@ MonoBehaviour:
   hp: 100
   damage: 12
   maxexp: 50
+  shakeCnt: 10
 --- !u!212 &258068177
 SpriteRenderer:
   m_ObjectHideFlags: 0

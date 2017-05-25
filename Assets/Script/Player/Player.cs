@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using XInputDotNetPure;
 
 public class Player : MonoBehaviour
 {
@@ -22,12 +23,14 @@ public class Player : MonoBehaviour
     public int hp;//体力;
     public int damage;//lifeをマイナスする値
     public int maxexp;
+    public int shakeCnt;
 
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
     private AudioSource se;//効果音
     private int direc;//方向
+    private int s_Cnt;
     private float vx;//横スティック入力値
     private float vy;//縦スティック入力値
     private float r_Speed;//切り替えし加速度
@@ -82,6 +85,15 @@ public class Player : MonoBehaviour
             ForceMove();//移動（慣性あり）
         }
         Rotate();//回転
+
+        if (s_Cnt > 0)
+        {
+            s_Cnt -= 1;
+        }
+        else
+        {
+            ControllerShake(0.0f, 0.0f);
+        }
     }
 
     /// <summary>
@@ -321,15 +333,31 @@ public class Player : MonoBehaviour
     public void Crush()
     {
         EnemyDeadSE();
-        if (speed > 0.0f && speed <= speedLimit)
+        if ( speed <= speedLimit)
         {
             speed += addSpeed;
         }
-        if (speed < 0.0f && speed >= -speedLimit)
-        {
-            speed -= addSpeed;
-        }
+
+        ControllerShake(1.0f, 1.0f);
+        s_Cnt = shakeCnt;
+
         //isRBoost = true;
+    }
+
+    /// <summary>
+    /// コントローラー振動
+    /// </summary>
+    private void ControllerShake(float left,float right)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            PlayerIndex pI = (PlayerIndex)i;
+            GamePadState state = GamePad.GetState(pI);
+            if (state.IsConnected)
+            {
+                GamePad.SetVibration(pI, left, right);
+            }
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
