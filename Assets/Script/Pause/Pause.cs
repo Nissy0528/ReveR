@@ -10,7 +10,7 @@ public class Pause : MonoBehaviour
     public GameObject PauseMenu;
     public GameObject arrowmove;
     public float speed=1;
-    private bool IsPause;
+    public static bool IsPause;
     private bool IsClose_Menu;
 
     private Behaviour[] chirdrens;
@@ -49,6 +49,7 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         time--;
         Menu_Move();
         Pauseing();
@@ -71,6 +72,9 @@ public class Pause : MonoBehaviour
             }
             else
             {
+                Stop_Object.RemoveAll(c => c == null);
+                List_chirdrens.RemoveAll(c => c == null);
+                List_myComponents.RemoveAll(c => c == null);
                 PauseMenu.GetComponent<RectTransform>().localPosition = new Vector3(-743, 0, 0);
                 OnPause();
                 time = (int)(250/speed);
@@ -116,12 +120,15 @@ public class Pause : MonoBehaviour
     }
     void OnPause()
     {
-        
+
         foreach (var x in List_chirdrens)
         {
-           foreach(var z in x)
-            {
-                z.enabled = false;
+            foreach (var z in x)
+            { 
+                if (z != null)
+                    z.enabled = false;
+                if (z == null)
+                    Debug.Log(x.Length);
             }
         }
         foreach (var x in List_myComponents)
@@ -143,7 +150,7 @@ public class Pause : MonoBehaviour
         {
             foreach (var z in x)
             {
-                z.enabled = true;
+                if (z != null) z.enabled = true;
             }
         }
         foreach (var x in List_myComponents)
@@ -162,5 +169,6 @@ public class Pause : MonoBehaviour
 
 
     }
+     
     
 }
