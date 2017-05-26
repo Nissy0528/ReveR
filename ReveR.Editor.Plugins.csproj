@@ -112,6 +112,9 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="XInputDotNetPure">
+      <HintPath>Assets\Plugins\x86_64\XInputDotNetPure.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ReveR.Plugins.csproj">

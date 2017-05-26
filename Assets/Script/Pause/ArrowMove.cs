@@ -16,10 +16,10 @@ public class ArrowMove : MonoBehaviour
     public GameObject Select_2;
     public GameObject Select_3;
 
-
+    public float time;
     void Start()
     {
-
+        time = 20;
         IsSelect_1 = false;
         IsSelect_3 = false;
         IsSelect_2 = false;
@@ -31,15 +31,23 @@ public class ArrowMove : MonoBehaviour
     void Update()
     {
         float y = Input.GetAxis("Vertical");
+        time--;
 
         Select();
-        if (y <= -0.5f && IsSelect_3 == false)
+        if (y <= -0.5f && IsSelect_3 == false && time <= 0)
+        {
             GetComponent<RectTransform>().position -= ArrowMoveVelocity;
+            time = 20;
+        }
 
-        if (y >= 0.5f && IsSelect_1 == false)
+        if (y >= 0.5f && IsSelect_1 == false&&time<=0)
+        {
             GetComponent<RectTransform>().position += ArrowMoveVelocity;
+            time = 20;
+        }
 
         Debug.Log(GetComponent<RectTransform>().position.y);
+
     }
     void Select()
     {
