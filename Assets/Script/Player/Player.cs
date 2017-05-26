@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
             ControllerShake(0.0f, 0.0f);
         }
 
-        RayHit();
+        //RayHit();
     }
 
     /// <summary>
