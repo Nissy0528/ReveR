@@ -9,12 +9,7 @@ public class Pause : MonoBehaviour
     // Use this for initialization
     public GameObject PauseMenu;
     public GameObject arrowmove;
-<<<<<<< HEAD
     public float speed=1;
-    
-=======
-
->>>>>>> origin/master
     private bool IsPause;
     private bool IsClose_Menu;
 
@@ -31,6 +26,7 @@ public class Pause : MonoBehaviour
     public List<GameObject> Stop_Object;
     void Start()
     {
+        
         IsPause = false;
         IsClose_Menu = false;
         time = 200;
@@ -62,10 +58,6 @@ public class Pause : MonoBehaviour
         
         Pauseing_Meun();
         Pauseing_MoveArrow();
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     }
     void Pauseing_Meun()
     {
@@ -74,13 +66,14 @@ public class Pause : MonoBehaviour
             if (IsPause)
             {
                 IsClose_Menu = true;
-                time = (int)(220/speed);
+                time = (int)(250/speed);
                 MenuMove = new Vector3(-1, 0, 0);
             }
             else
             {
+                PauseMenu.GetComponent<RectTransform>().localPosition = new Vector3(-743, 0, 0);
                 OnPause();
-                time = (int)(220/speed);
+                time = (int)(250/speed);
                 MenuMove = new Vector3(1, 0, 0);
             }
         }
@@ -94,7 +87,7 @@ public class Pause : MonoBehaviour
     }
     void Menu_Move()
     {
-        if (time > 0 && time <= 220/speed)
+        if (time > 0 && time <= 250/speed)
         {
             PauseMenu.GetComponent<RectTransform>().position += MenuMove*speed;
         }
@@ -123,8 +116,7 @@ public class Pause : MonoBehaviour
     }
     void OnPause()
     {
-<<<<<<< HEAD
-       
+        
         foreach (var x in List_chirdrens)
         {
            foreach(var z in x)
@@ -142,20 +134,8 @@ public class Pause : MonoBehaviour
         Time.timeScale = 0;
         IsPause = true;
         PauseMenu.SetActive(true);
-=======
-        try
-        {
-            foreach (var com in Stop_Object_Behaviour) com.enabled = false;
-
-            Time.timeScale = 0;
-            IsPause = true;
-            PauseMenu.SetActive(true);
-        }
-        catch
-        {
-            SceneManager.LoadScene("Main");
-        }
->>>>>>> origin/master
+        
+        
     }
     void OnResume()
     {
