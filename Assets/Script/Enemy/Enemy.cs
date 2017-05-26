@@ -12,10 +12,13 @@ public class Enemy : MonoBehaviour
     private bool isDead;
     private int x;
     private int y;
-    public GameObject BoomEffect;
+    private Player p_Class;
 
-    private ExtendWing extwing;
+    public GameObject BoomEffect;
+    public GameObject camera;    
     public GameObject player;
+    public Exp Exp;
+    public int exp;
 
     void Start()
     {
@@ -23,7 +26,7 @@ public class Enemy : MonoBehaviour
         isLWHit = false;
         x = 0;
         y = 0;
-        extwing = GetComponent<ExtendWing>();
+        p_Class = player.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -40,11 +43,12 @@ public class Enemy : MonoBehaviour
 
         if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged")
         {
-            Debug.Log(1);
-
+            Exp.GetComponent<Exp>().EXP(exp);
+            //player.GetComponent<Player>().ExtWing();
+            camera.GetComponent<CameraClamp>().SetShake();
+            p_Class.Crush();
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
-            player.GetComponent<Player>().ExtWing();
         }
 
     }
@@ -79,10 +83,12 @@ public class Enemy : MonoBehaviour
         
         if (isLWHit == true && isRWHit == true)
         {
-            //GameObject.Find("MainManager").GetComponent<Main>().Stop();
+            Exp.GetComponent<Exp>().EXP(exp);
+            //player.GetComponent<Player>().ExtWing();
+            camera.GetComponent<CameraClamp>().SetShake();
+            p_Class.Crush();
             Instantiate(BoomEffect, transform.position, transform.rotation);
             Destroy(gameObject);
-            player.GetComponent<Player>().ExtWing();
         }
     }
 

@@ -7,6 +7,7 @@ TagManager:
   - L_Joint
   - R_Joint
   - Enemy
+  - EDEffect
   layers:
   - Default
   - TransparentFX

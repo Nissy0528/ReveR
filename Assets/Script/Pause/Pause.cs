@@ -9,8 +9,12 @@ public class Pause : MonoBehaviour
     // Use this for initialization
     public GameObject PauseMenu;
     public GameObject arrowmove;
+<<<<<<< HEAD
     public float speed=1;
     
+=======
+
+>>>>>>> origin/master
     private bool IsPause;
     private bool IsClose_Menu;
 
@@ -58,6 +62,10 @@ public class Pause : MonoBehaviour
         
         Pauseing_Meun();
         Pauseing_MoveArrow();
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
     }
     void Pauseing_Meun()
     {
@@ -115,6 +123,7 @@ public class Pause : MonoBehaviour
     }
     void OnPause()
     {
+<<<<<<< HEAD
        
         foreach (var x in List_chirdrens)
         {
@@ -133,6 +142,20 @@ public class Pause : MonoBehaviour
         Time.timeScale = 0;
         IsPause = true;
         PauseMenu.SetActive(true);
+=======
+        try
+        {
+            foreach (var com in Stop_Object_Behaviour) com.enabled = false;
+
+            Time.timeScale = 0;
+            IsPause = true;
+            PauseMenu.SetActive(true);
+        }
+        catch
+        {
+            SceneManager.LoadScene("Main");
+        }
+>>>>>>> origin/master
     }
     void OnResume()
     {

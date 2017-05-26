@@ -3,23 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StageSelectCtrl : MonoBehaviour {
+public class StageSelectCtrl : MonoBehaviour
+{
 
     int num;
-    public GameObject[] stage = {};
+    public GameObject[] stage = { };
     Vector2 position;
 
     private int delay;
     public int delayTime;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         position = stage[num].transform.position;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         float x = Input.GetAxis("Horizontal");
 
@@ -49,7 +51,7 @@ public class StageSelectCtrl : MonoBehaviour {
                 {
                     num += 1;
                 }
-                if (num >= stage.Length) 
+                if (num >= stage.Length)
                 {
                     num = 0;
                 }
@@ -75,7 +77,7 @@ public class StageSelectCtrl : MonoBehaviour {
             }
         }
 
-        if(Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             delay += 1;
             if (delay > delayTime)
@@ -96,12 +98,12 @@ public class StageSelectCtrl : MonoBehaviour {
         position = stage[num].transform.position;
         transform.position = position;
 
-        if (num == 1)
+        if (num <= 2)
         {
             if (Input.GetKeyDown(KeyCode.JoystickButton0))
             {
                 SceneManager.LoadScene("Main");
             }
         }
-	}
+    }
 }

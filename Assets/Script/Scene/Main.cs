@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 public class Main : MonoBehaviour
 {
     public float stopTime;
+    public Player player;
 
     private GameObject[] enemys;
+    private GameObject[] enemyDead;
     private bool isStop;
     private float s_Time;
 
@@ -21,11 +23,17 @@ public class Main : MonoBehaviour
     void Update()
     {
         enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        enemyDead = GameObject.FindGameObjectsWithTag("EDEffect");
 
-        if (enemys.Length == 0.0f)
+        if (enemys.Length == 0.0f && enemyDead.Length == 0.0f)
         {
             Time.timeScale = 1.0f;
             SceneManager.LoadScene("GameClear");
+        }
+
+        if (player.IsStop())
+        {
+            SceneManager.LoadScene("GameOver");
         }
 
         if (isStop)

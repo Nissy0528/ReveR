@@ -17,6 +17,7 @@ public class Joint : MonoBehaviour
     public float rotateLimit;//回転制限
     public float rotateBoost;//回転加速
     public float mass;//重さ
+    public float crushTime;//敵を潰すまでの時間
 
     private float maxAngle;//最大回転値
     private float minAngle;//最小回転値
@@ -24,7 +25,9 @@ public class Joint : MonoBehaviour
     private float angleZ;//回転角度更新用
     private float coreRotaZ;//コアの回転角度
     private float cuurentSpeed;//初期回転速度
+    private float crushCount;//敵を潰すまでのカウント
     private bool isStart;//スタート判定
+    private bool isStop;//回転停止判定
 
     //↓デバッグ用
     private bool isJointMass;//ジョイントの重さ判定
@@ -44,6 +47,7 @@ public class Joint : MonoBehaviour
         cuurentSpeed = rotateSpeed;//初期速度設定
 
         isStart = false;
+        isStop = false;
     }
 
     // Update is called once per frame
@@ -59,6 +63,8 @@ public class Joint : MonoBehaviour
             isStart = true;
         }
 
+        StopCount();//回転停止カウント
+
         Rotate(vx, vy);//回転
     }
 
@@ -67,7 +73,7 @@ public class Joint : MonoBehaviour
     /// </summary>
     private void Rotate(float vx, float vy)
     {
-        if (!isStart) return;
+        if (!isStart || isStop) return;
 
         //コアの角度が180度超えていたら
         if (core.transform.localEulerAngles.z > 180)
@@ -174,22 +180,11 @@ public class Joint : MonoBehaviour
     /// <summary>
     /// 回転速度変更（切り替えし時）
     /// </summary>
-    /// <param name="difference"></param>
-    public void SpeedChange(float difference)
+    public void SpeedChange()
     {
         //回転速度初期化
         rotateSpeed = cuurentSpeed;
 
-        ////時計回りなら
-        //if (rotateSpeed > 0)
-        //{
-        //    rotateSpeed += (rotateBoost - difference);//速度加算（＋）
-        //}
-        ////反時計回りなら
-        //if (rotateSpeed < 0)
-        //{
-        //    rotateSpeed += -(rotateBoost - difference);//速度加算（-）
-        //}
         rotateSpeed *= -1;//逆回転に
         cuurentSpeed *= -1;//初期速度も逆に
     }
@@ -213,6 +208,42 @@ public class Joint : MonoBehaviour
         {
             transform.FindChild("R_Wing").tag = "R_Joint";
         }
+    }
+
+    /// <summary>
+    /// 回転停止カウント
+    /// </summary>
+    private void StopCount()
+    {
+        //回転停止しないなら
+        if (!isStop) return;//何もしない
+
+        //回転停止カウント開始
+        crushCount += 1.0f;
+        //回転停止カウントが指定時間になったら
+        if (crushCount >= crushTime)
+        {
+            isStop = false;//停止解除
+            crushCount = 0.0f;//カウント初期化
+        }
+    }
+
+    /// <summary>
+    /// 回転停止判定設定
+    /// </summary>
+    /// <param name="isStop">回転停止判定</param>
+    public void SetIsStop(bool isStop)
+    {
+        this.isStop = isStop;
+    }
+
+    /// <summary>
+    /// 回転停止判定取得
+    /// </summary>
+    /// <returns>回転停止判定</returns>
+    public bool IsStop()
+    {
+        return isStop;
     }
 
     //↓デバッグ用
