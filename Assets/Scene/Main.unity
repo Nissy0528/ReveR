@@ -466,10 +466,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  camera: {fileID: 0}
+  camera: {fileID: 604112145}
   player: {fileID: 258068172}
-  Exp: {fileID: 0}
-  exp: 0
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &157818554
 Rigidbody2D:
   serializedVersion: 4
@@ -610,10 +610,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  camera: {fileID: 0}
+  camera: {fileID: 604112145}
   player: {fileID: 258068172}
-  Exp: {fileID: 0}
-  exp: 0
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &164150013
 Rigidbody2D:
   serializedVersion: 4
@@ -851,11 +851,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputManager: {fileID: 2136935298}
   lifeScript: {fileID: 2089923317}
-  speedSlider: {fileID: 0}
+  speedSlider: {fileID: 815776693}
   speed: 6
-  addSpeed: 0
-  subSpeed: 0
-  speedLimit: 0
+  addSpeed: 1
+  subSpeed: 0.01
+  speedLimit: 15
   rotateSpeed: 5
   drag: 1
   addValue: 0.005
@@ -865,8 +865,8 @@ MonoBehaviour:
   boostTime: 0.25
   hp: 100
   damage: 12
-  maxexp: 0
-  shakeCnt: 0
+  maxexp: 50
+  shakeCnt: 10
 --- !u!212 &258068177
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1254,10 +1254,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  camera: {fileID: 0}
+  camera: {fileID: 604112145}
   player: {fileID: 258068172}
-  Exp: {fileID: 0}
-  exp: 0
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &321696224
 Rigidbody2D:
   serializedVersion: 4
@@ -2167,10 +2167,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  camera: {fileID: 0}
+  camera: {fileID: 604112145}
   player: {fileID: 258068172}
-  Exp: {fileID: 0}
-  exp: 0
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &740471506
 Rigidbody2D:
   serializedVersion: 4
@@ -2477,7 +2477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopTime: 8
-  player: {fileID: 0}
+  player: {fileID: 258068176}
 --- !u!4 &797328374
 Transform:
   m_ObjectHideFlags: 0
@@ -2779,10 +2779,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  camera: {fileID: 0}
+  camera: {fileID: 604112145}
   player: {fileID: 258068172}
-  Exp: {fileID: 0}
-  exp: 0
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!114 &879984062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2987,7 +2987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PauseMenu: {fileID: 788670231}
   arrowmove: {fileID: 879616199}
-  speed: 20
+  speed: 40
   Stop_Object:
   - {fileID: 258068172}
   - {fileID: 2136935298}
@@ -3054,10 +3054,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  camera: {fileID: 0}
+  camera: {fileID: 604112145}
   player: {fileID: 258068172}
-  Exp: {fileID: 0}
-  exp: 0
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &929858615
 Rigidbody2D:
   serializedVersion: 4
@@ -4015,10 +4015,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  camera: {fileID: 0}
+  camera: {fileID: 604112145}
   player: {fileID: 258068172}
-  Exp: {fileID: 0}
-  exp: 0
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &1526088907
 Rigidbody2D:
   serializedVersion: 4
@@ -4159,10 +4159,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  camera: {fileID: 0}
+  camera: {fileID: 604112145}
   player: {fileID: 258068172}
-  Exp: {fileID: 0}
-  exp: 0
+  Exp: {fileID: 258068179}
+  exp: 10
 --- !u!50 &1626456927
 Rigidbody2D:
   serializedVersion: 4
@@ -4861,11 +4861,11 @@ MonoBehaviour:
   player: {fileID: 258068172}
   L_joint: {fileID: 726865790}
   R_joint: {fileID: 826321331}
-  slider: {fileID: 0}
-  delay: 0
-  oldPoint: {fileID: 0}
-  currentPoint: {fileID: 0}
-  coPoint: {fileID: 0}
-  invertPoint: {fileID: 0}
-  InvertLine: {fileID: 0}
-  CurrentLine: {fileID: 0}
+  slider: {fileID: 38112253}
+  delay: 1
+  oldPoint: {fileID: 1767430378}
+  currentPoint: {fileID: 1520616072}
+  coPoint: {fileID: 929932046}
+  invertPoint: {fileID: 611200314}
+  InvertLine: {fileID: 1050940234}
+  CurrentLine: {fileID: 445403428}
