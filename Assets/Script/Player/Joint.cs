@@ -180,8 +180,7 @@ public class Joint : MonoBehaviour
     /// <summary>
     /// 回転速度変更（切り替えし時）
     /// </summary>
-    /// <param name="difference"></param>
-    public void SpeedChange(float difference)
+    public void SpeedChange()
     {
         //回転速度初期化
         rotateSpeed = cuurentSpeed;

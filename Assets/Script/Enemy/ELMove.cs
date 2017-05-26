@@ -87,7 +87,6 @@ public class ELMove : MonoBehaviour
             Rigi.constraints = RigidbodyConstraints2D.FreezePositionY;
         }
 
-
     }
 
 }

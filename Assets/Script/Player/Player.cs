@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using XInputDotNetPure;
 
 public class Player : MonoBehaviour
 {
     public GameObject inputManager;//スティック入力
+    public LifeScript lifeScript;//LifeScript
+    public Slider speedSlider;
     public float speed;//移動速度
+    public float addSpeed;//加速速度
+    public float subSpeed;//減速速度
+    public float speedLimit;//速度上限
     public float rotateSpeed;//回転速度
     public float drag;//移動終了時の慣性
     public float addValue;//加速度加算値
@@ -14,27 +20,27 @@ public class Player : MonoBehaviour
     public float bInvalidValue;//反転加速度を減速する値
     public float returnSpeed;//切り替えし加速度
     public float boostTime;//ブースト開始時間
+    public int hp;//体力;
+    public int damage;//lifeをマイナスする値
+    public int maxexp;
+    public int shakeCnt;
 
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
-    private Slider sl;//スライダー
     private AudioSource se;//効果音
+    private int direc;//方向
+    private int s_Cnt;
     private float vx;//横スティック入力値
     private float vy;//縦スティック入力値
-    private float addSpeed;//加速度
-    private float currentSpeed;//初期速度
+    private float r_Speed;//切り替えし加速度
+    private float iniSpeed;//初期速度
     private float b_Time;//ブースト開始カウント
     private bool isRecession;//反転判定
     private bool isRe;//反転判定（慣性）
     private bool isStart;//スタート判定
     private bool isRBoost;//ブースト準備判定
     private bool isStop;//停止判定
-
-    public int hp;//体力;
-    public int damage;//lifeをマイナスする値
-    public LifeScript lifeScript;//LifeScript
-    public int maxexp;
 
     //↓デバッグ用
     private bool isForce;//慣性判定
@@ -52,10 +58,11 @@ public class Player : MonoBehaviour
         isStart = false;
         isStop = false;
 
-        addSpeed = 0.0f;
-        currentSpeed = speed;
+        //addSpeed = 0.0f;
+        iniSpeed = speed;
+        direc = 1;
+        r_Speed = 1.0f;
 
-        sl = GameObject.Find("P_AddSpeed").GetComponent<Slider>();
         HpBarCtrl.hpbar = hp;//HpBar取得
     }
 
@@ -67,7 +74,7 @@ public class Player : MonoBehaviour
 
         if (isStop) return;
 
-        BoostCount();//ブーストカウント
+        //BoostCount();//ブーストカウント
 
         if (!isForce)
         {
@@ -79,7 +86,14 @@ public class Player : MonoBehaviour
         }
         Rotate();//回転
 
-        sl.value = addSpeed;
+        if (s_Cnt > 0)
+        {
+            s_Cnt -= 1;
+        }
+        else
+        {
+            ControllerShake(0.0f, 0.0f);
+        }
     }
 
     /// <summary>
@@ -87,72 +101,79 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        if (!isReturn && vx == 0.0f && vy == 0.0f)
-        {
-            addSpeed -= addValue;
-        }
+        //if (!isReturn && vx == 0.0f && vy == 0.0f)
+        //{
+        //    addSpeed -= addValue;
+        //}
 
         //スティック入力されてなければ
         if (vx < 0.5f && vx > -0.5f
             && vy < 0.5f && vy > -0.5f)
         {
             rigid.drag = drag;
-            if (isReturn)
-            {
-                addSpeed = 0;
-            }
+            //if (isReturn)
+            //{
+            //    addSpeed = 0;
+            //}
             return;//何もしない
         }
 
-        if (addSpeed <= 1.0f)
-        {
-            addSpeed += addValue;
-        }
-        else
-        {
-            addSpeed = 1.0f;
-        }
+        //if (addSpeed <= 1.0f)
+        //{
+        //    addSpeed += addValue;
+        //}
+        //else
+        //{
+        //    addSpeed = 1.0f;
+        //}
 
-        if (isDeceleration)
-        {
-            if (speed > 0 && speed > currentSpeed)
-            {
-                speed -= bInvalidValue;
-            }
-            if (speed < 0 && speed < currentSpeed)
-            {
-                speed += bInvalidValue;
-            }
-        }
+        //if (isDeceleration)
+        //{
+        //    if (speed > 0 && speed > currentSpeed)
+        //    {
+        //        speed -= bInvalidValue;
+        //    }
+        //    if (speed < 0 && speed < currentSpeed)
+        //    {
+        //        speed += bInvalidValue;
+        //    }
+        //}
 
-        if (isRe && isRForce)
+        if (isRe)
         {
-            if (currentSpeed < 0)
+            if (direc > 0.0f)
             {
-                if (speed > currentSpeed)
+                r_Speed -= returnSpeed;
+                if (r_Speed <= -1.0f)
                 {
-                    speed -= returnSpeed;
-                }
-                else
-                {
+                    r_Speed = -1.0f;
                     isRe = false;
                 }
             }
-            if (currentSpeed > 0)
+            if (direc < 0.0f)
             {
-                if (speed < currentSpeed)
+                r_Speed += returnSpeed;
+                if (r_Speed >= 1.0f)
                 {
-                    speed += returnSpeed;
-                }
-                else
-                {
+                    r_Speed = 1.0f;
                     isRe = false;
                 }
+            }
+        }
+
+        if (speed > 0.0f)
+        {
+            speed -= subSpeed;
+            if (speed <= 0.0f)
+            {
+                speed = 0.0f;
             }
         }
 
         rigid.drag = 0;
-        rigid.velocity = transform.up * speed * addSpeed;
+        rigid.velocity = transform.up * (speed * r_Speed);
+
+        speedSlider.value = Mathf.Abs(speed);
     }
 
     /// <summary>
@@ -202,7 +223,7 @@ public class Player : MonoBehaviour
     /// </summary>
     public void Recession()
     {
-        speed = currentSpeed;
+        //speed = iniSpeed;
 
         if (!isRForce)
         {
@@ -212,15 +233,16 @@ public class Player : MonoBehaviour
         {
             if (isStart)
             {
+                direc *= -1;
                 isRe = true;
             }
             else
             {
-                speed *= -1;
+                r_Speed *= -1;
                 isStart = true;
             }
         }
-        currentSpeed *= -1;//初期速度を逆に
+        //iniSpeed *= -1;//初期速度を逆に
         isRecession = !isRecession;//反転判定を設定
         Vector2 pos = transform.position;//自分の座標
         //反転しなければ
@@ -284,27 +306,83 @@ public class Player : MonoBehaviour
     public bool IsCrush()
     {
         return isStop
-            && !transform.FindChild("L_Joint").GetComponent<Joint>().IsStop() 
+            && !transform.FindChild("L_Joint").GetComponent<Joint>().IsStop()
             && !transform.FindChild("R_Joint").GetComponent<Joint>().IsStop();
+    }
+
+    /// <summary>
+    /// 停止判定
+    /// </summary>
+    /// <returns></returns>
+    public bool IsStop()
+    {
+        return speed == 0.0f;
     }
 
     /// <summary>
     /// 敵消滅効果音再生
     /// </summary>
-    public void EnemyDeadSE()
+    private void EnemyDeadSE()
     {
         se.PlayOneShot(se.clip);
     }
 
     /// <summary>
-    /// 停止判定設定
+    /// 潰し処理
     /// </summary>
-    /// <param name="isStop">停止判定</param>
-    public void SetIsStop(bool isStop)
+    public void Crush()
     {
         EnemyDeadSE();
-        isRBoost = true;
-        //this.isStop = isStop;
+        if ( speed <= speedLimit)
+        {
+            speed += addSpeed;
+        }
+
+        ControllerShake(1.0f, 1.0f);
+        s_Cnt = shakeCnt;
+
+        //isRBoost = true;
+    }
+
+    /// <summary>
+    /// コントローラー振動
+    /// </summary>
+    private void ControllerShake(float left,float right)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            PlayerIndex pI = (PlayerIndex)i;
+            GamePadState state = GamePad.GetState(pI);
+            if (state.IsConnected)
+            {
+                GamePad.SetVibration(pI, left, right);
+            }
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Enemy")//Enemyとぶつかった時
+        {
+            HpBarCtrl.hpbar--;//hpをマイナス
+            //if (HpBarCtrl.hpbar == 0)//体力が０になった時
+            //{
+            //    Destroy(gameObject);オブジェクトを破壊
+            //}
+
+            lifeScript.LifeDown(damage);//lifeScriptのlifeDownメソッドを実行
+        }
+    }
+
+    public void ExtWing()
+    {
+        transform.FindChild("L_Joint").GetComponent<ExtendWing>().extendWing();
+        transform.FindChild("R_Joint").GetComponent<ExtendWing>().extendWing();
+    }
+
+    public void LevelUp()
+    {
+        GetComponent<Exp>().LevelUp(maxexp);
     }
 
     //↓デバッグ用
@@ -348,30 +426,5 @@ public class Player : MonoBehaviour
     public void SetRForce(bool isRForce)
     {
         this.isRForce = isRForce;
-    }
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag == "Enemy")//Enemyとぶつかった時
-        {
-            HpBarCtrl.hpbar--;//hpをマイナス
-            //if (HpBarCtrl.hpbar == 0)//体力が０になった時
-            //{
-            //    Destroy(gameObject);オブジェクトを破壊
-            //}
-
-            lifeScript.LifeDown(damage);//lifeScriptのlifeDownメソッドを実行
-        }
-    }
-
-    public void ExtWing()
-    {
-        transform.FindChild("L_Joint").GetComponent<ExtendWing>().extendWing();
-        transform.FindChild("R_Joint").GetComponent<ExtendWing>().extendWing();
-    }
-
-    public void LevelUp()
-    {
-        GetComponent<Exp>().LevelUp(maxexp);
     }
 }

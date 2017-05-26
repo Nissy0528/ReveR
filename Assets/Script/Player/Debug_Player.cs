@@ -9,7 +9,7 @@ public class Debug_Player : MonoBehaviour
     public GameObject l_Joint;//左ジョイント
     public GameObject r_Joint;//右ジョイント
     //デバッグ用判定
-    public bool kasokudo, kansei, kasokudoRisetto, kirikaesiBoost, jointOmosa, kirikaesiKansei;
+    public bool isAddSoeed, isForce, isReturnReset, isReturnBoost, isJointMass, isReturnFroce;
     public float drag;//摩擦力（プレイヤーの慣性をオンにしたとき使用）
 
     private Player p_Class;//プレイヤークラス
@@ -28,7 +28,7 @@ public class Debug_Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        P_AddSpeed();//加速度切り替え
+        //P_AddSpeed();//加速度切り替え
         Force();//慣性切り替え
         Return();//反転時の加速度初期化切り替え
         //ReturnBoost();//反転時に加速するかの切り替え
@@ -42,7 +42,7 @@ public class Debug_Player : MonoBehaviour
     private void P_AddSpeed()
     {
         //加速度がオフなら
-        if (!kasokudo)
+        if (!isAddSoeed)
         {
             p_Class.SetAddSpeed(1.0f);//加速度無効
             isReset = false;//加速度初期化判定false
@@ -65,7 +65,7 @@ public class Debug_Player : MonoBehaviour
     private void Force()
     {
         player.GetComponent<Rigidbody2D>().drag = drag;//摩擦設定
-        p_Class.SetForce(kansei);//プレイヤーの慣性オンに
+        p_Class.SetForce(isForce);//プレイヤーの慣性オンに
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public class Debug_Player : MonoBehaviour
     /// </summary>
     private void Return()
     {
-        p_Class.SetReturn(kasokudoRisetto);//プレイヤー加速度初期化判定設定
+        p_Class.SetReturn(isReturnReset);//プレイヤー加速度初期化判定設定
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public class Debug_Player : MonoBehaviour
     /// </summary>
     private void ReturnBoost()
     {
-        p_Class.SetRBoost(kirikaesiBoost);//プレイヤー反転時加速判定設定
+        p_Class.SetRBoost(isReturnBoost);//プレイヤー反転時加速判定設定
     }
 
     /// <summary>
@@ -90,8 +90,8 @@ public class Debug_Player : MonoBehaviour
     private void JointMass()
     {
         //左右のジョイントの重さ判定設定
-        lj_Class.SetJMass(jointOmosa);
-        rj_Class.SetJMass(jointOmosa);
+        lj_Class.SetJMass(isJointMass);
+        rj_Class.SetJMass(isJointMass);
     }
 
     /// <summary>
@@ -99,6 +99,6 @@ public class Debug_Player : MonoBehaviour
     /// </summary>
     private void ReturnForce()
     {
-        p_Class.SetRForce(kirikaesiKansei);
+        p_Class.SetRForce(isReturnFroce);
     }
 }
