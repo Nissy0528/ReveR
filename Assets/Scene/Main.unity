@@ -2980,7 +2980,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 915445661}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16e3eb811b62ede4ea2768e163653b88, type: 3}
   m_Name: 
@@ -2988,7 +2988,7 @@ MonoBehaviour:
   PauseMenu: {fileID: 788670231}
   arrowmove: {fileID: 879616199}
   Stop_Object:
-  - {fileID: 0}
+  - {fileID: 1990914118731112, guid: aaf2bf5a99a05414481031853aec97ce, type: 2}
   - {fileID: 258068172}
   - {fileID: 726865790}
   - {fileID: 826321331}
