@@ -84,6 +84,7 @@ public class Player : MonoBehaviour
         {
             ForceMove();//移動（慣性あり）
         }
+
         Rotate();//回転
 
         if (s_Cnt > 0)
@@ -94,6 +95,8 @@ public class Player : MonoBehaviour
         {
             ControllerShake(0.0f, 0.0f);
         }
+
+        RayHit();
     }
 
     /// <summary>
@@ -333,7 +336,7 @@ public class Player : MonoBehaviour
     public void Crush()
     {
         EnemyDeadSE();
-        if ( speed <= speedLimit)
+        if (speed <= speedLimit)
         {
             speed += addSpeed;
         }
@@ -347,7 +350,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// コントローラー振動
     /// </summary>
-    private void ControllerShake(float left,float right)
+    private void ControllerShake(float left, float right)
     {
         for (int i = 0; i < 4; i++)
         {
@@ -383,6 +386,17 @@ public class Player : MonoBehaviour
     public void LevelUp()
     {
         GetComponent<Exp>().LevelUp(maxexp);
+    }
+
+
+    private void RayHit()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up * 10);
+        Debug.DrawRay(transform.position, transform.up * 10, Color.red);
+        if (hit.collider.tag == "Enemy")
+        {
+            Debug.Log("hit");
+        }
     }
 
     //↓デバッグ用
