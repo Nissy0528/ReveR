@@ -76,6 +76,9 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="XInputDotNetPure">
+      <HintPath>Assets\Plugins\x86_64\XInputDotNetPure.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="ReveR.Plugins.csproj">
@@ -101,6 +104,8 @@
     <Compile Include="Assets\Script\Pause\ArrowMove.cs" />
     <Compile Include="Assets\Script\Pause\Pause.cs" />
     <Compile Include="Assets\Script\Player\Debug_Player.cs" />
+    <Compile Include="Assets\Script\Player\Exp.cs" />
+    <Compile Include="Assets\Script\Player\ExtendWing.cs" />
     <Compile Include="Assets\Script\Player\HpBarCtrl.cs" />
     <Compile Include="Assets\Script\Player\InputManager.cs" />
     <Compile Include="Assets\Script\Player\Joint.cs" />
