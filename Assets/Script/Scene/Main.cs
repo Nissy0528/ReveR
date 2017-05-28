@@ -11,12 +11,14 @@ public class Main : MonoBehaviour
     private GameObject[] enemys;
     private GameObject[] enemyDead;
     private bool isStop;
+    private bool isClear;
     private float s_Time;
 
     // Use this for initialization
     void Start()
     {
         isStop = false;
+        isClear = false;
     }
 
     // Update is called once per frame
@@ -25,7 +27,7 @@ public class Main : MonoBehaviour
         enemys = GameObject.FindGameObjectsWithTag("Enemy");
         enemyDead = GameObject.FindGameObjectsWithTag("EDEffect");
 
-        if (enemys.Length == 0.0f && enemyDead.Length == 0.0f)
+        if (enemys.Length == 0.0f && enemyDead.Length == 0.0f && isClear)
         {
             Time.timeScale = 1.0f;
             SceneManager.LoadScene("GameClear");
@@ -58,5 +60,10 @@ public class Main : MonoBehaviour
             Time.timeScale = 0.0f;
             isStop = true;
         }
+    }
+
+    public void SetIsClear(bool isClear)
+    {
+        this.isClear = isClear;
     }
 }

@@ -8,7 +8,6 @@ public class InputManager : MonoBehaviour
     public GameObject player;//プレイヤー
     public GameObject L_joint;//左ジョイント
     public GameObject R_joint;//右ジョイント
-    public Slider slider;//スライダー
     public float delay;
 
     private Vector2 input;//スティック入力値
@@ -148,8 +147,6 @@ public class InputManager : MonoBehaviour
     private void InputDefference()
     {
         float dotAbs = Mathf.Abs(dot);
-
-        slider.value = dotAbs;
 
         //if (dotAbs <= 0.3f)
         //{

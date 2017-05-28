@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
 
         if (!isForce)
         {
-            //Move();//移動（慣性なし）
+            Move();//移動（慣性なし）
         }
         else
         {
@@ -376,12 +376,14 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.tag == "Enemy")//Enemyとぶつかった時
         {
-            HpBarCtrl.hpbar--;//hpをマイナス
+            HpBarCtrl.hpbar--;
+            //hpをマイナス
             //if (HpBarCtrl.hpbar == 0)//体力が０になった時
             //{
             //    Destroy(gameObject);オブジェクトを破壊
             //}
 
+            hp -= damage;
             lifeScript.LifeDown(damage);//lifeScriptのlifeDownメソッドを実行
         }
     }
