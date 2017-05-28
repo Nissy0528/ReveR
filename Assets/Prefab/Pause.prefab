@@ -215,6 +215,7 @@ MonoBehaviour:
   Select_1: {fileID: 1418665900483416}
   Select_2: {fileID: 1588430425318904}
   Select_3: {fileID: 1281188630842906}
+  time: 0
 --- !u!114 &114459688676953198
 MonoBehaviour:
   m_ObjectHideFlags: 1
