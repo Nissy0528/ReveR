@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
 
         if (!isForce)
         {
-            Move();//移動（慣性なし）
+            //Move();//移動（慣性なし）
         }
         else
         {
@@ -320,6 +320,15 @@ public class Player : MonoBehaviour
     public bool IsStop()
     {
         return speed == 0.0f;
+    }
+
+    /// <summary>
+    /// 反転判定取得
+    /// </summary>
+    /// <returns></returns>
+    public bool IsRecession()
+    {
+        return isRecession;
     }
 
     /// <summary>

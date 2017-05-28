@@ -90,6 +90,12 @@ public class Joint : MonoBehaviour
         minAngle = coreRotaZ + (-rotateLimit);
         maxAngle = coreRotaZ + rotateLimit;
 
+        if (core.transform.localEulerAngles.z < 0.0f && core.transform.localEulerAngles.z > -90f)
+        {
+            minAngle = coreRotaZ - rotateLimit;
+            maxAngle = coreRotaZ + (-rotateLimit);
+        }
+
         float rotate = core.transform.localEulerAngles.z + transform.localEulerAngles.z;//自分の角度にコアの角度を加算
 
         //180度超えていたら
@@ -164,7 +170,7 @@ public class Joint : MonoBehaviour
         }
         //angleZ = rotateZ + rotateSpeed;
 
-        //Debug.Log(angleZ + ":" + minAngle + ":" + maxAngle);
+        Debug.Log(rotate + ":" + minAngle + ":" + maxAngle);
 
         AttackChange();//攻撃判定切り替え
 

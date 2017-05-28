@@ -991,7 +991,7 @@ MonoBehaviour:
   hp: 100
   damage: 12
   maxexp: 50
-  shakeCnt: 10
+  shakeCnt: 8
 --- !u!212 &258068177
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2170,6 +2170,8 @@ MonoBehaviour:
   rotateBoost: 0
   mass: 10
   crushTime: 0
+  max: {fileID: 0}
+  min: {fileID: 0}
 --- !u!114 &726865793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2825,6 +2827,8 @@ MonoBehaviour:
   rotateBoost: 0
   mass: 10
   crushTime: 0
+  max: {fileID: 0}
+  min: {fileID: 0}
 --- !u!4 &826321333
 Transform:
   m_ObjectHideFlags: 0

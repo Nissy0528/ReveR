@@ -114,6 +114,7 @@
     <Compile Include="Assets\Script\Player\LifeScript.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Scene\GameClear.cs" />
+    <Compile Include="Assets\Script\Scene\GameEnd.cs" />
     <Compile Include="Assets\Script\Scene\GameOver.cs" />
     <Compile Include="Assets\Script\Scene\Main.cs" />
     <Compile Include="Assets\Script\Scene\StageSelect.cs" />
