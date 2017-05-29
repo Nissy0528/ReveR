@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraClamp : MonoBehaviour
 {
     public GameObject player;//プレイヤー
-    public GameObject background;//背景
     public float shakeTime;//振動時間
     public float range;
     public float shakeDelay;
@@ -15,10 +14,9 @@ public class CameraClamp : MonoBehaviour
     private Vector3 playerSize;//プレイヤーのサイズ
     private Vector2 playerPos;//プレイヤーの座標
     private Vector3 backGroundSize;//背景のサイズ
-    private Vector2 backGroundPos;//背景の座標
+    private Vector3 savePosition;
     private Camera mainCamera;//カメラ
     private float lifeTime;
-    private Vector3 savePosition;
     private float minRangeX;
     private float maxRangeX;
     private float minRangeY;
@@ -30,7 +28,6 @@ public class CameraClamp : MonoBehaviour
     {
         mainCamera = GetComponent<Camera>();//カメラ取得
         playerSize = player.transform.localScale;//プレイヤーのサイズ取得
-        backGroundSize = background.transform.localScale;//背景のサイズ取得
         lifeTime = 0.0f;
 
         savePosition = transform.position;
@@ -65,14 +62,6 @@ public class CameraClamp : MonoBehaviour
         playerPos.y = Mathf.Clamp(playerPos.y, topLeft.y + playerSize.y / 10, bottomRight.y - playerSize.y / 10);//画面の縦幅内に縦移動を制限
 
         player.transform.position = playerPos;//プレイヤーの座標制限
-
-
-        backGroundPos = background.transform.position;//背景の座標
-
-        backGroundPos.x = Mathf.Clamp(backGroundPos.x, topLeft.x + backGroundSize.x / 10, bottomRight.x - backGroundSize.x / 10);//画面の横幅内に横移動を制限
-        backGroundPos.y = Mathf.Clamp(backGroundPos.y, topLeft.y + backGroundSize.y / 10, bottomRight.y - backGroundSize.y / 10);//画面の縦幅内に縦移動を制限
-
-        background.transform.position = backGroundPos;//背景の座標制限
     }
 
     /// <summary>
@@ -80,7 +69,11 @@ public class CameraClamp : MonoBehaviour
     /// </summary>
     private void Shake()
     {
-        if (lifeTime <= 0.0f) return;
+        if (lifeTime <= 0.0f)
+        {
+            transform.position = savePosition;
+            return;
+        }
 
         lifeTime -= Time.deltaTime;
         if (delay >= shakeDelay)
@@ -101,7 +94,6 @@ public class CameraClamp : MonoBehaviour
     /// </summary>
     public void SetShake()
     {
-        savePosition = transform.position;
         minRangeX = savePosition.x - range;
         maxRangeX = savePosition.x + range;
         minRangeY = savePosition.y - range;

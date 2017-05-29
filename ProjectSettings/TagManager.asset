@@ -8,6 +8,10 @@ TagManager:
   - R_Joint
   - Enemy
   - EDEffect
+  - Max
+  - Min
+  - Fire
+  - Judge
   layers:
   - Default
   - TransparentFX

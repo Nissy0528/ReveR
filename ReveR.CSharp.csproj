@@ -87,8 +87,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BackGroundMove.cs" />
-    <Compile Include="Assets\PlayerPositionCheck.cs" />
     <Compile Include="Assets\Script\Audio\Debug_Audio.cs" />
     <Compile Include="Assets\Script\Camera\CameraClamp.cs" />
     <Compile Include="Assets\Script\Effect\Boom_Effect.cs" />
@@ -103,6 +101,8 @@
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\RotateSample.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\iTween.cs" />
+    <Compile Include="Assets\Script\Enemy\Turtroial_Move.cs" />
+    <Compile Include="Assets\Script\Enemy\Tutorial.cs" />
     <Compile Include="Assets\Script\Pause\ArrowMove.cs" />
     <Compile Include="Assets\Script\Pause\Pause.cs" />
     <Compile Include="Assets\Script\Player\Debug_Player.cs" />
@@ -121,9 +121,11 @@
     <Compile Include="Assets\Script\Scene\StageSelectCtrl.cs" />
     <Compile Include="Assets\Script\Scene\Title.cs" />
     <Compile Include="Assets\Script\Scene\result.cs" />
+    <Compile Include="Assets\Script\UI\BackGroundMove.cs" />
+    <Compile Include="Assets\Script\UI\InputJudge.cs" />
+    <Compile Include="Assets\Script\UI\JudgeUI.cs" />
+    <Compile Include="Assets\Script\UI\PlayerPositionCheck.cs" />
     <Compile Include="Assets\Script\UI\TutorialUI.cs" />
-    <Compile Include="Assets\Turtroial_Move.cs" />
-    <Compile Include="Assets\Tutorial.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />

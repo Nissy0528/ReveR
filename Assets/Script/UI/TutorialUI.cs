@@ -9,11 +9,11 @@ public class TutorialUI : MonoBehaviour
     public GameObject[] tutorialUIs;
     public GameObject[] enemys;
     public GameObject mainManager;
+    public int moveCnt;
 
     private Player p_Class;
     private int tutoNum;
     private int cnt = 0;
-    private float iniHp;
     private float iniSpeed;
     private float oldSpeed;
     private bool isDamage;
@@ -24,9 +24,8 @@ public class TutorialUI : MonoBehaviour
         tutoNum = 0;
         tutorialUIs[tutoNum].SetActive(true);
         p_Class = player.GetComponent<Player>();
-        iniHp = p_Class.hp;
         iniSpeed = p_Class.speed;
-        oldSpeed = iniSpeed;
+        oldSpeed = p_Class.speed;
         isDamage = false;
     }
 
@@ -57,7 +56,7 @@ public class TutorialUI : MonoBehaviour
             && vy >= 0.5f || vy <= -0.5f)
         {
             cnt += 1;
-            if (cnt >= 120)
+            if (cnt >= moveCnt)
             {
                 cnt = 0;
                 tutoNum += 1;
@@ -70,27 +69,22 @@ public class TutorialUI : MonoBehaviour
     /// </summary>
     private void DamageTuto()
     {
-        if (tutoNum == 0)
+        if (tutoNum < 4)
         {
             tutorialUIs[1].SetActive(false);
             return;
         }
 
-        if (p_Class.hp < iniHp && !isDamage)
+        if (isDamage)
         {
 
             tutorialUIs[1].SetActive(true);
-            isDamage = true;
-
-        }
-        if (isDamage)
-        {
             cnt += 1;
             if (cnt >= 60)
             {
                 tutorialUIs[1].SetActive(false);
-                cnt = 0;
             }
+
         }
     }
 
@@ -160,5 +154,13 @@ public class TutorialUI : MonoBehaviour
             mainManager.GetComponent<Main>().SetIsClear(true);
         }
 
+    }
+
+    /// <summary>
+    /// ダメージ判定設定
+    /// </summary>
+    public void SetIsDamage()
+    {
+        isDamage = true;
     }
 }

@@ -74,7 +74,6 @@ public class InputManager : MonoBehaviour
 
         if (IsInvert())
         {
-            InputDefference();
             Recession();
             coPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
             d_Cnt = delay;
@@ -142,27 +141,6 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
-    /// スティック入力差をスライダーに表示
-    /// </summary>
-    private void InputDefference()
-    {
-        float dotAbs = Mathf.Abs(dot);
-
-        //if (dotAbs <= 0.3f)
-        //{
-        //    slider.value = 0.3f;
-        //}
-        //if (dotAbs > 0.3f && dotAbs <= 0.6f)
-        //{
-        //    slider.value = 0.6f;
-        //}
-        //if (dotAbs > 0.6f)
-        //{
-        //    slider.value = 1.0f;
-        //}
-    }
-
-    /// <summary>
     /// 入力判定
     /// </summary>
     /// <returns>スティックが入力されたらtrue</returns>
@@ -176,10 +154,19 @@ public class InputManager : MonoBehaviour
     /// 逆入力判定
     /// </summary>
     /// <returns>逆入力の範囲にスティックが入力されたらtrue</returns>
-    private bool IsInvert()
+    public bool IsInvert()
     {
         dot = Vector2.Dot(oldInput.normalized, input.normalized);
 
         return dot < 0.0f;
+    }
+
+    /// <summary>
+    /// スティック入力差取得
+    /// </summary>
+    /// <returns>スティック入力差</returns>
+    public float GetDef()
+    {
+        return Mathf.Abs(dot);
     }
 }

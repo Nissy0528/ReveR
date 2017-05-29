@@ -9,7 +9,7 @@ public class Main : MonoBehaviour
     public Player player;
 
     private GameObject[] enemys;
-    private GameObject[] enemyDead;
+    private GameObject enemyDead;
     private bool isStop;
     private bool isClear;
     private float s_Time;
@@ -25,9 +25,9 @@ public class Main : MonoBehaviour
     void Update()
     {
         enemys = GameObject.FindGameObjectsWithTag("Enemy");
-        enemyDead = GameObject.FindGameObjectsWithTag("EDEffect");
+        enemyDead = GameObject.Find("Boom_effct");
 
-        if (enemys.Length == 0.0f && enemyDead.Length == 0.0f && isClear)
+        if (enemys.Length == 0.0f && enemyDead == null && isClear)
         {
             Time.timeScale = 1.0f;
             SceneManager.LoadScene("GameClear");

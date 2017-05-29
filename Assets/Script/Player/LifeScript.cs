@@ -8,26 +8,28 @@ public class LifeScript : MonoBehaviour
 {
     RectTransform rt;//RectTransform
     private GameObject playerGO;//playerオブジェクト
-    //public int life;
-    
-    private float hp;
+                                //public int life;
 
+    private float speed;
+    private Vector2 iniSize;
     private Player player;
 
     // Use this for initialization
     void Start()
     {
         rt = GetComponent<RectTransform>();//RectTransformを取得
+        iniSize = rt.sizeDelta;
+
         playerGO = GameObject.Find("Player");//playerオブジェクトを取得
         player = playerGO.GetComponent<Player>();
-        hp = player.hp / 100;
+        speed = Mathf.Abs(player.speed) / player.speedLimit;
     }
 
     public void Life()
     {
         //rt.sizeDelta = new Vector2(rt.sizeDelta.x, life);//ライフの値を設定
-        rt.sizeDelta = new Vector2(rt.sizeDelta.x, rt.sizeDelta.y * hp);
-
+        speed = Mathf.Abs(player.speed) / player.speedLimit;
+        rt.sizeDelta = new Vector2(iniSize.x, iniSize.y * speed);
     }
 
 

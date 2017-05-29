@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
 {
     public GameObject inputManager;//スティック入力
     public LifeScript lifeScript;//LifeScript
-    public Slider speedSlider;
     public float speed;//移動速度
     public float addSpeed;//加速速度
     public float subSpeed;//減速速度
@@ -20,6 +19,7 @@ public class Player : MonoBehaviour
     public float bInvalidValue;//反転加速度を減速する値
     public float returnSpeed;//切り替えし加速度
     public float boostTime;//ブースト開始時間
+    public float rayLength;
     public int hp;//体力;
     public int damage;//lifeをマイナスする値
     public int maxexp;
@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
     private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
     private AudioSource se;//効果音
+    private Ray2D ray;
+    private RaycastHit2D hit;
     private int direc;//方向
     private int s_Cnt;
     private float vx;//横スティック入力値
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
     private bool isStart;//スタート判定
     private bool isRBoost;//ブースト準備判定
     private bool isStop;//停止判定
+    private bool isJudge;
 
     //↓デバッグ用
     private bool isForce;//慣性判定
@@ -57,6 +60,7 @@ public class Player : MonoBehaviour
         isRecession = false;
         isStart = false;
         isStop = false;
+        isJudge = false;
 
         //addSpeed = 0.0f;
         iniSpeed = speed;
@@ -96,7 +100,7 @@ public class Player : MonoBehaviour
             ControllerShake(0.0f, 0.0f);
         }
 
-        //RayHit();
+        Ray();
     }
 
     /// <summary>
@@ -166,7 +170,7 @@ public class Player : MonoBehaviour
 
         if (speed > 0.0f)
         {
-            speed -= subSpeed;
+            speed -= subSpeed * (speed / iniSpeed);
             if (speed <= 0.0f)
             {
                 speed = 0.0f;
@@ -175,8 +179,6 @@ public class Player : MonoBehaviour
 
         rigid.drag = 0;
         rigid.velocity = transform.up * (speed * r_Speed);
-
-        speedSlider.value = Mathf.Abs(speed);
     }
 
     /// <summary>
@@ -353,6 +355,8 @@ public class Player : MonoBehaviour
         ControllerShake(1.0f, 1.0f);
         s_Cnt = shakeCnt;
 
+        isJudge = true;
+
         //isRBoost = true;
     }
 
@@ -372,6 +376,30 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// レイ生成
+    /// </summary>
+    private void Ray()
+    {
+        if (GameObject.Find("L_Wing").tag != "Untagged" && GameObject.Find("R_Wing").tag != "Untagged")
+        {
+            if (!isRecession)
+            {
+                ray = new Ray2D(transform.position, -transform.up);
+            }
+            else
+            {
+                ray = new Ray2D(transform.position, transform.up);
+            }
+        }
+        else
+        {
+            ray = new Ray2D(Vector2.zero, Vector2.zero);
+        }
+        hit = Physics2D.Raycast(ray.origin, ray.direction * rayLength);
+        Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Enemy")//Enemyとぶつかった時
@@ -383,8 +411,22 @@ public class Player : MonoBehaviour
             //    Destroy(gameObject);オブジェクトを破壊
             //}
 
-            hp -= damage;
-            lifeScript.LifeDown(damage);//lifeScriptのlifeDownメソッドを実行
+            if (speed > 0)
+            {
+                speed -= damage;
+            }
+            else
+            {
+                speed = 0.0f;
+            }
+
+            GameObject tutorial = GameObject.Find("Tutorial");
+            if (tutorial != null)
+            {
+                tutorial.GetComponent<TutorialUI>().SetIsDamage();
+            }
+
+            //lifeScript.LifeDown(damage);//lifeScriptのlifeDownメソッドを実行
         }
     }
 
@@ -399,15 +441,27 @@ public class Player : MonoBehaviour
         GetComponent<Exp>().LevelUp(maxexp);
     }
 
-
-    private void RayHit()
+    /// <summary>
+    /// 敵が正面にいるかの判定
+    /// </summary>
+    public bool RayHit()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up * 10);
-        Debug.DrawRay(transform.position, transform.up * 10, Color.red);
-        if (hit.collider.tag == "Enemy")
+        if (hit.collider != null && hit.collider.tag == "Enemy")
         {
-            Debug.Log("hit");
+            return true;
         }
+        return false;
+    }
+
+
+    public bool IsJudge()
+    {
+        return isJudge;
+    }
+
+    public void SetIsJudge(bool isJudge)
+    {
+        this.isJudge = isJudge;
     }
 
     //↓デバッグ用

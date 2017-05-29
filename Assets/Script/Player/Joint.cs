@@ -31,6 +31,8 @@ public class Joint : MonoBehaviour
 
     //↓デバッグ用
     private bool isJointMass;//ジョイントの重さ判定
+    public GameObject max;
+    public GameObject min;
 
     // Use this for initialization
     void Start()
@@ -90,12 +92,6 @@ public class Joint : MonoBehaviour
         minAngle = coreRotaZ + (-rotateLimit);
         maxAngle = coreRotaZ + rotateLimit;
 
-        if (core.transform.localEulerAngles.z < 0.0f && core.transform.localEulerAngles.z > -90f)
-        {
-            minAngle = coreRotaZ - rotateLimit;
-            maxAngle = coreRotaZ + (-rotateLimit);
-        }
-
         float rotate = core.transform.localEulerAngles.z + transform.localEulerAngles.z;//自分の角度にコアの角度を加算
 
         //180度超えていたら
@@ -137,19 +133,35 @@ public class Joint : MonoBehaviour
             //反時計周りなら
             if (rotateSpeed < 0)
             {
-                //自分の角度が360度超えていたら
-                if (rotate > 360)
+                Debug.Log(rotateZ + ":" + minAngle + ":" + maxAngle);
+                if (core.transform.localEulerAngles.z > 270)
                 {
-                    //マイナスに変換
-                    rotateZ = rotate - 360 * 2;
+                    if (rotateZ > 543)
+                    {
+                        rotateZ = rotate - 360 * 2;
+                    }
+                    else
+                    {
+                        rotateZ = rotate - 360;
+                    }
                 }
-                //超えていなければ
                 else
                 {
-                    //360度以内に変換
-                    rotateZ = rotate - 360;
+                    //自分の角度が360度超えていたら
+                    if (rotate > 360)
+                    {
+                        //マイナスに変換
+                        rotateZ = rotate - 360 * 2;
+                    }
+                    //超えていなければ
+                    else
+                    {
+                        //360度以内に変換
+                        rotateZ = rotate - 360;
+                    }
                 }
             }
+
         }
 
         //角度制限内で回転
@@ -168,9 +180,9 @@ public class Joint : MonoBehaviour
         {
             angleZ = Mathf.Clamp(rotateZ + rotateSpeed, minAngle, maxAngle);
         }
-        //angleZ = rotateZ + rotateSpeed;
+       //angleZ = rotateZ + rotateSpeed;
 
-        Debug.Log(rotate + ":" + minAngle + ":" + maxAngle);
+        //Debug.Log(rotate + ":" + minAngle + ":" + maxAngle);
 
         AttackChange();//攻撃判定切り替え
 
@@ -180,6 +192,12 @@ public class Joint : MonoBehaviour
             angleZ += 360;//もとに戻す
         }
         transform.rotation = Quaternion.Euler(0, 0, angleZ);//角度更新
+
+        if (max != null && min != null)
+        {
+            max.transform.rotation = Quaternion.Euler(0, 0, maxAngle);
+            min.transform.rotation = Quaternion.Euler(0, 0, minAngle);
+        }
 
     }
 
