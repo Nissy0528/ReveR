@@ -87,7 +87,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Script\Audio\Debug_Audio.cs" />
     <Compile Include="Assets\Script\Camera\CameraClamp.cs" />
     <Compile Include="Assets\Script\Effect\Boom_Effect.cs" />
     <Compile Include="Assets\Script\Enemy\E.cs" />
@@ -105,7 +104,6 @@
     <Compile Include="Assets\Script\Enemy\Tutorial.cs" />
     <Compile Include="Assets\Script\Pause\ArrowMove.cs" />
     <Compile Include="Assets\Script\Pause\Pause.cs" />
-    <Compile Include="Assets\Script\Player\Debug_Player.cs" />
     <Compile Include="Assets\Script\Player\Exp.cs" />
     <Compile Include="Assets\Script\Player\ExtendWing.cs" />
     <Compile Include="Assets\Script\Player\HpBarCtrl.cs" />
@@ -121,6 +119,7 @@
     <Compile Include="Assets\Script\Scene\StageSelectCtrl.cs" />
     <Compile Include="Assets\Script\Scene\Title.cs" />
     <Compile Include="Assets\Script\Scene\result.cs" />
+    <Compile Include="Assets\Script\System\DebugManager.cs" />
     <Compile Include="Assets\Script\UI\BackGroundMove.cs" />
     <Compile Include="Assets\Script\UI\InputJudge.cs" />
     <Compile Include="Assets\Script\UI\JudgeUI.cs" />

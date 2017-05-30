@@ -177,6 +177,11 @@ public class Player : MonoBehaviour
             }
         }
 
+        if (speed > speedLimit)
+        {
+            speed = speedLimit;
+        }
+
         rigid.drag = 0;
         rigid.velocity = transform.up * (speed * r_Speed);
     }
@@ -397,7 +402,7 @@ public class Player : MonoBehaviour
             ray = new Ray2D(Vector2.zero, Vector2.zero);
         }
         hit = Physics2D.Raycast(ray.origin, ray.direction * rayLength);
-        Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
+        UnityEngine.Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
     }
 
     void OnCollisionEnter2D(Collision2D col)

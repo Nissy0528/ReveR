@@ -22,11 +22,13 @@ public class TutorialUI : MonoBehaviour
     void Start()
     {
         tutoNum = 0;
-        tutorialUIs[tutoNum].SetActive(true);
+        tutorialUIs[1].SetActive(true);
         p_Class = player.GetComponent<Player>();
         iniSpeed = p_Class.speed;
         oldSpeed = p_Class.speed;
         isDamage = false;
+
+        mainManager.SetActive(false);
     }
 
     // Update is called once per frame
@@ -45,7 +47,7 @@ public class TutorialUI : MonoBehaviour
     {
         if (tutoNum != 0)
         {
-            tutorialUIs[0].SetActive(false);
+            tutorialUIs[1].SetActive(false);
             return;
         }
 
@@ -71,18 +73,18 @@ public class TutorialUI : MonoBehaviour
     {
         if (tutoNum < 4)
         {
-            tutorialUIs[1].SetActive(false);
+            tutorialUIs[0].SetActive(false);
             return;
         }
 
         if (isDamage)
         {
 
-            tutorialUIs[1].SetActive(true);
+            tutorialUIs[0].SetActive(true);
             cnt += 1;
             if (cnt >= 60)
             {
-                tutorialUIs[1].SetActive(false);
+                tutorialUIs[0].SetActive(false);
             }
 
         }

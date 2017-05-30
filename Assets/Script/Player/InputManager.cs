@@ -34,6 +34,8 @@ public class InputManager : MonoBehaviour
     private Vector3 currentIniPos;
     private Vector3 invertIniPos;
 
+    private bool isDebug;
+
     // Use this for initialization
     void Start()
     {
@@ -59,10 +61,13 @@ public class InputManager : MonoBehaviour
         Invert();//反転処理
 
         //デバッグ用↓
-        InvertLine.GetComponent<LineRenderer>().SetPosition(0, oldPoint.transform.position);
-        InvertLine.GetComponent<LineRenderer>().SetPosition(1, invertPoint.transform.position);
-        CurrentLine.GetComponent<LineRenderer>().SetPosition(0, oldPoint.transform.position);
-        CurrentLine.GetComponent<LineRenderer>().SetPosition(1, coPoint.transform.position);
+        if (isDebug)
+        {
+            InvertLine.GetComponent<LineRenderer>().SetPosition(0, oldPoint.transform.position);
+            InvertLine.GetComponent<LineRenderer>().SetPosition(1, invertPoint.transform.position);
+            CurrentLine.GetComponent<LineRenderer>().SetPosition(0, oldPoint.transform.position);
+            CurrentLine.GetComponent<LineRenderer>().SetPosition(1, coPoint.transform.position);
+        }
     }
 
     /// <summary>
@@ -131,12 +136,15 @@ public class InputManager : MonoBehaviour
         invertInput = new Vector2(oldInput.x * -1, oldInput.y * -1);//入力されたティックの逆値
 
         //デバッグ用↓
-        currentPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
-        if (d_Cnt == 0.0f)
+        if (isDebug)
         {
-            coPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
-            oldPoint.transform.position = new Vector3(oldIniPos.x + oldInput.x, oldIniPos.y + oldInput.y, oldIniPos.z);
-            invertPoint.transform.position = new Vector3(invertIniPos.x + invertInput.x, invertIniPos.y + invertInput.y, invertIniPos.z);
+            currentPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
+            if (d_Cnt == 0.0f)
+            {
+                coPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
+                oldPoint.transform.position = new Vector3(oldIniPos.x + oldInput.x, oldIniPos.y + oldInput.y, oldIniPos.z);
+                invertPoint.transform.position = new Vector3(invertIniPos.x + invertInput.x, invertIniPos.y + invertInput.y, invertIniPos.z);
+            }
         }
     }
 
@@ -168,5 +176,14 @@ public class InputManager : MonoBehaviour
     public float GetDef()
     {
         return Mathf.Abs(dot);
+    }
+
+    /// <summary>
+    /// デバッグ表示設定
+    /// </summary>
+    /// <param name="isDebug"></param>
+    public void SetDebug(bool isDebug)
+    {
+        this.isDebug = isDebug;
     }
 }

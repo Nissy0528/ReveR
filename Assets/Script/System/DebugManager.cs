@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Debug_Player : MonoBehaviour
+public class DebugManager : MonoBehaviour
 {
     public GameObject player;//プレイヤー
     public GameObject l_Joint;//左ジョイント
     public GameObject r_Joint;//右ジョイント
+    public GameObject inputManager;
+    public AudioClip[] enemyDeadSE;
+    public int seNum;
+
     //デバッグ用判定
-    public bool isAddSoeed, isForce, isReturnReset, isReturnBoost, isJointMass, isReturnFroce;
+    public bool isAddSoeed;
+    public bool isForce;
+    public bool isReturnReset;
+    public bool isReturnBoost;
+    public bool isJointMass;
+    public bool isReturnFroce;
+    public bool isInput;
     public float drag;//摩擦力（プレイヤーの慣性をオンにしたとき使用）
 
     private Player p_Class;//プレイヤークラス
@@ -23,6 +33,7 @@ public class Debug_Player : MonoBehaviour
         p_Class = player.GetComponent<Player>();//プレイヤークラス取得
         lj_Class = l_Joint.GetComponent<Joint>();//左ジョイントクラス取得
         rj_Class = r_Joint.GetComponent<Joint>();//右ジョイントクラス取得
+        player.GetComponent<AudioSource>().clip = enemyDeadSE[seNum];
     }
 
     // Update is called once per frame
@@ -34,6 +45,8 @@ public class Debug_Player : MonoBehaviour
         //ReturnBoost();//反転時に加速するかの切り替え
         JointMass();//ジョイントの重さ切り替え
         ReturnForce();//切り替えし慣性切り替え
+        EnemySE();//効果音（敵を倒した時）
+        InputManager();//スティック入力差の表示設定
     }
 
     /// <summary>
@@ -100,5 +113,28 @@ public class Debug_Player : MonoBehaviour
     private void ReturnForce()
     {
         p_Class.SetRForce(isReturnFroce);
+    }
+
+    /// <summary>
+    /// 効果音（敵を倒した時）
+    /// </summary>
+    private void EnemySE()
+    {
+        if (player == null) return;
+        player.GetComponent<AudioSource>().clip = enemyDeadSE[seNum];
+    }
+
+    /// <summary>
+    /// スティック入力差のデバッグ表示設定
+    /// </summary>
+    private void InputManager()
+    {
+        inputManager.GetComponent<InputManager>().SetDebug(isInput);
+
+        inputManager.GetComponent<SpriteRenderer>().enabled = isInput;
+        for(int i = 0; i < inputManager.transform.childCount; i++)
+        {
+            inputManager.transform.GetChild(i).gameObject.SetActive(isInput);
+        }
     }
 }
