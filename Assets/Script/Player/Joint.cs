@@ -26,11 +26,14 @@ public class Joint : MonoBehaviour
     private float coreRotaZ;//コアの回転角度
     private float cuurentSpeed;//初期回転速度
     private float crushCount;//敵を潰すまでのカウント
+    private float rotate;
     private bool isStart;//スタート判定
     private bool isStop;//回転停止判定
 
     //↓デバッグ用
     private bool isJointMass;//ジョイントの重さ判定
+    public GameObject max;
+    public GameObject min;
 
     // Use this for initialization
     void Start()
@@ -90,7 +93,7 @@ public class Joint : MonoBehaviour
         minAngle = coreRotaZ + (-rotateLimit);
         maxAngle = coreRotaZ + rotateLimit;
 
-        float rotate = core.transform.localEulerAngles.z + transform.localEulerAngles.z;//自分の角度にコアの角度を加算
+        rotate = core.transform.localEulerAngles.z + transform.localEulerAngles.z;//自分の角度にコアの角度を加算
 
         //180度超えていたら
         if (rotate > 180 && maxAngle <= 180 && minAngle >= -rotateLimit)
@@ -115,35 +118,64 @@ public class Joint : MonoBehaviour
             //時計回りなら
             if (rotateSpeed > 0)
             {
-                //自分の角度が480度超えていたら
-                if (rotate > 480)
+                if (core.transform.localEulerAngles.z >= 180 && core.transform.localEulerAngles.z <= 210)
                 {
-                    //マイナスに変換
-                    rotateZ = rotate - 360 * 2;
+                    if (rotate <= 565 && rotate >= 453)
+                    {
+                        rotateZ = rotate - 360 * 2;
+                    }
+                    else
+                    {
+                        rotateZ = rotate - 360;
+                    }
                 }
-                //超えていなければ
                 else
                 {
-                    //360度以内に変換
-                    rotateZ = rotate - 360;
+                    //自分の角度が480度超えていたら
+                    if (rotate > 480)
+                    {
+                        //マイナスに変換
+                        rotateZ = rotate - 360 * 2;
+                    }
+                    //超えていなければ
+                    else
+                    {
+                        //360度以内に変換
+                        rotateZ = rotate - 360;
+                    }
                 }
             }
             //反時計周りなら
             if (rotateSpeed < 0)
             {
-                //自分の角度が360度超えていたら
-                if (rotate > 360)
+                if (core.transform.localEulerAngles.z > 270)
                 {
-                    //マイナスに変換
-                    rotateZ = rotate - 360 * 2;
+                    if (rotate > 543)
+                    {
+                        rotateZ = rotate - 360 * 2;
+                    }
+                    else
+                    {
+                        rotateZ = rotate - 360;
+                    }
                 }
-                //超えていなければ
                 else
                 {
-                    //360度以内に変換
-                    rotateZ = rotate - 360;
+                    //自分の角度が360度超えていたら
+                    if (rotate > 360)
+                    {
+                        //マイナスに変換
+                        rotateZ = rotate - 360 * 2;
+                    }
+                    //超えていなければ
+                    else
+                    {
+                        //360度以内に変換
+                        rotateZ = rotate - 360;
+                    }
                 }
             }
+
         }
 
         //角度制限内で回転
@@ -162,9 +194,9 @@ public class Joint : MonoBehaviour
         {
             angleZ = Mathf.Clamp(rotateZ + rotateSpeed, minAngle, maxAngle);
         }
-        //angleZ = rotateZ + rotateSpeed;
 
-        //Debug.Log(angleZ + ":" + minAngle + ":" + maxAngle);
+        //angleZ = rotateZ + rotateSpeed;
+        //Debug.Log(rotate + ":" + minAngle + ":" + maxAngle);
 
         AttackChange();//攻撃判定切り替え
 
@@ -174,6 +206,12 @@ public class Joint : MonoBehaviour
             angleZ += 360;//もとに戻す
         }
         transform.rotation = Quaternion.Euler(0, 0, angleZ);//角度更新
+
+        if (max != null && min != null)
+        {
+            max.transform.rotation = Quaternion.Euler(0, 0, maxAngle);
+            min.transform.rotation = Quaternion.Euler(0, 0, minAngle);
+        }
 
     }
 

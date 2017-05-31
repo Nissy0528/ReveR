@@ -36,7 +36,7 @@ public class StageSelectCtrl : MonoBehaviour
                 }
                 if (num < 0)
                 {
-                    num = 2;
+                    num = stage.Length - 1;
                 }
                 delay = 0;
             }
@@ -98,12 +98,9 @@ public class StageSelectCtrl : MonoBehaviour
         position = stage[num].transform.position;
         transform.position = position;
 
-        if (num <= 2)
+        if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
-            if (Input.GetKeyDown(KeyCode.JoystickButton0))
-            {
-                SceneManager.LoadScene("Main");
-            }
+            SceneManager.LoadScene("Main");
         }
     }
 }

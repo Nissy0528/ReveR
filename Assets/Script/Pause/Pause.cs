@@ -128,7 +128,7 @@ public class Pause : MonoBehaviour
                 if (z != null)
                     z.enabled = false;
                 if (z == null)
-                    Debug.Log(x.Length);
+                    UnityEngine.Debug.Log(x.Length);
             }
         }
         foreach (var x in List_myComponents)

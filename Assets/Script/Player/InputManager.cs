@@ -8,7 +8,6 @@ public class InputManager : MonoBehaviour
     public GameObject player;//プレイヤー
     public GameObject L_joint;//左ジョイント
     public GameObject R_joint;//右ジョイント
-    public Slider slider;//スライダー
     public float delay;
 
     private Vector2 input;//スティック入力値
@@ -35,6 +34,8 @@ public class InputManager : MonoBehaviour
     private Vector3 currentIniPos;
     private Vector3 invertIniPos;
 
+    private bool isDebug;
+
     // Use this for initialization
     void Start()
     {
@@ -60,10 +61,13 @@ public class InputManager : MonoBehaviour
         Invert();//反転処理
 
         //デバッグ用↓
-        InvertLine.GetComponent<LineRenderer>().SetPosition(0, oldPoint.transform.position);
-        InvertLine.GetComponent<LineRenderer>().SetPosition(1, invertPoint.transform.position);
-        CurrentLine.GetComponent<LineRenderer>().SetPosition(0, oldPoint.transform.position);
-        CurrentLine.GetComponent<LineRenderer>().SetPosition(1, coPoint.transform.position);
+        if (isDebug)
+        {
+            InvertLine.GetComponent<LineRenderer>().SetPosition(0, oldPoint.transform.position);
+            InvertLine.GetComponent<LineRenderer>().SetPosition(1, invertPoint.transform.position);
+            CurrentLine.GetComponent<LineRenderer>().SetPosition(0, oldPoint.transform.position);
+            CurrentLine.GetComponent<LineRenderer>().SetPosition(1, coPoint.transform.position);
+        }
     }
 
     /// <summary>
@@ -75,7 +79,6 @@ public class InputManager : MonoBehaviour
 
         if (IsInvert())
         {
-            InputDefference();
             Recession();
             coPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
             d_Cnt = delay;
@@ -133,36 +136,16 @@ public class InputManager : MonoBehaviour
         invertInput = new Vector2(oldInput.x * -1, oldInput.y * -1);//入力されたティックの逆値
 
         //デバッグ用↓
-        currentPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
-        if (d_Cnt == 0.0f)
+        if (isDebug)
         {
-            coPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
-            oldPoint.transform.position = new Vector3(oldIniPos.x + oldInput.x, oldIniPos.y + oldInput.y, oldIniPos.z);
-            invertPoint.transform.position = new Vector3(invertIniPos.x + invertInput.x, invertIniPos.y + invertInput.y, invertIniPos.z);
+            currentPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
+            if (d_Cnt == 0.0f)
+            {
+                coPoint.transform.position = new Vector3(currentIniPos.x + input.x, currentIniPos.y + input.y, currentIniPos.z);
+                oldPoint.transform.position = new Vector3(oldIniPos.x + oldInput.x, oldIniPos.y + oldInput.y, oldIniPos.z);
+                invertPoint.transform.position = new Vector3(invertIniPos.x + invertInput.x, invertIniPos.y + invertInput.y, invertIniPos.z);
+            }
         }
-    }
-
-    /// <summary>
-    /// スティック入力差をスライダーに表示
-    /// </summary>
-    private void InputDefference()
-    {
-        float dotAbs = Mathf.Abs(dot);
-
-        slider.value = dotAbs;
-
-        //if (dotAbs <= 0.3f)
-        //{
-        //    slider.value = 0.3f;
-        //}
-        //if (dotAbs > 0.3f && dotAbs <= 0.6f)
-        //{
-        //    slider.value = 0.6f;
-        //}
-        //if (dotAbs > 0.6f)
-        //{
-        //    slider.value = 1.0f;
-        //}
     }
 
     /// <summary>
@@ -179,10 +162,28 @@ public class InputManager : MonoBehaviour
     /// 逆入力判定
     /// </summary>
     /// <returns>逆入力の範囲にスティックが入力されたらtrue</returns>
-    private bool IsInvert()
+    public bool IsInvert()
     {
         dot = Vector2.Dot(oldInput.normalized, input.normalized);
 
         return dot < 0.0f;
+    }
+
+    /// <summary>
+    /// スティック入力差取得
+    /// </summary>
+    /// <returns>スティック入力差</returns>
+    public float GetDef()
+    {
+        return Mathf.Abs(dot);
+    }
+
+    /// <summary>
+    /// デバッグ表示設定
+    /// </summary>
+    /// <param name="isDebug"></param>
+    public void SetDebug(bool isDebug)
+    {
+        this.isDebug = isDebug;
     }
 }

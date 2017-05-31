@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     private Player p_Class;
 
     public GameObject BoomEffect;
-    public GameObject camera;    
+    public GameObject camera;
     public GameObject player;
     public Exp Exp;
     public int exp;
@@ -47,7 +47,8 @@ public class Enemy : MonoBehaviour
             //player.GetComponent<Player>().ExtWing();
             camera.GetComponent<CameraClamp>().SetShake();
             p_Class.Crush();
-            Instantiate(BoomEffect, transform.position, transform.rotation);
+            GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
+            effect.name = "Boom_effct";
             Destroy(gameObject);
         }
 
@@ -80,14 +81,15 @@ public class Enemy : MonoBehaviour
             transform.parent = col.transform.parent;
             isDead = true;
         }
-        
+
         if (isLWHit == true && isRWHit == true)
         {
             Exp.GetComponent<Exp>().EXP(exp);
             //player.GetComponent<Player>().ExtWing();
             camera.GetComponent<CameraClamp>().SetShake();
             p_Class.Crush();
-            Instantiate(BoomEffect, transform.position, transform.rotation);
+            GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
+            effect.name = "Boom_effct";
             Destroy(gameObject);
         }
     }
