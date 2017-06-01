@@ -83,7 +83,6 @@ public class TutoUISpawner : MonoBehaviour
         {
 
             tutorialUIs[0].SetActive(true);
-            tutorialUIs[0].GetComponent<TutorialUI>().SetPosPlus(UIPosPlus);
             cnt += 1;
             if (cnt >= 120)
             {

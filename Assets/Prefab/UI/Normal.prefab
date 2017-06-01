@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u30CE\u30FC\u30DE\u30EB\n"
+  m_Text: "\u30D5\u30C4\u30A6\n"
 --- !u!114 &114587386145301942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,5 +113,5 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 172.2, y: 58.6}
+  m_SizeDelta: {x: 125.9, y: 58.6}
   m_Pivot: {x: 0.5, y: 0.5}
