@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public float speed;//移動速度
     public float addSpeed;//加速速度
     public float subSpeed;//減速速度
+    public float subMin;//減速速度の最小値
     public float speedLimit;//速度上限
     public float rotateSpeed;//回転速度
     public float drag;//移動終了時の慣性
@@ -168,9 +169,16 @@ public class Player : MonoBehaviour
             }
         }
 
+        float subRatio = (speed / iniSpeed);
+
+        if (subRatio <= subMin)
+        {
+            subRatio = subMin;
+        }
+
         if (speed > 0.0f)
         {
-            speed -= subSpeed * (speed / iniSpeed);
+            speed -= subSpeed * subRatio;
             if (speed <= 0.0f)
             {
                 speed = 0.0f;
@@ -326,7 +334,7 @@ public class Player : MonoBehaviour
     /// <returns></returns>
     public bool IsStop()
     {
-        return speed == 0.0f;
+        return speed <= 0.0f;
     }
 
     /// <summary>
@@ -428,7 +436,7 @@ public class Player : MonoBehaviour
             GameObject tutorial = GameObject.Find("Tutorial");
             if (tutorial != null)
             {
-                tutorial.GetComponent<TutorialUI>().SetIsDamage();
+                tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
             }
 
             //lifeScript.LifeDown(damage);//lifeScriptのlifeDownメソッドを実行

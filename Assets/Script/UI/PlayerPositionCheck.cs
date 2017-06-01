@@ -39,7 +39,7 @@ public class PlayerPositionCheck : MonoBehaviour
             if (vx >= 0.5f || vx <= -0.5f
             || vy >= 0.5f || vy <= -0.5f)
             {
-                transform.Translate(speed * vx, speed * vy, 0.0f);
+                transform.Translate(speed * -vx, speed * vy, 0.0f);
             }
         }
     }

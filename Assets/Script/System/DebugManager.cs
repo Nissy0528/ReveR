@@ -8,18 +8,21 @@ public class DebugManager : MonoBehaviour
     public GameObject player;//プレイヤー
     public GameObject l_Joint;//左ジョイント
     public GameObject r_Joint;//右ジョイント
-    public GameObject inputManager;
-    public AudioClip[] enemyDeadSE;
-    public int seNum;
+    public GameObject tutorial;//チュートリアル
+    public GameObject inputManager;//スティック入力値
+    public AudioClip[] enemyDeadSE;//敵の消滅効果音
+    public int seNum;//効果音番号
 
     //デバッグ用判定
-    public bool isAddSoeed;
-    public bool isForce;
-    public bool isReturnReset;
-    public bool isReturnBoost;
-    public bool isJointMass;
-    public bool isReturnFroce;
-    public bool isInput;
+    public bool isAddSoeed;//プレイヤーに加速度を付けるか
+    public bool isForce;//プレイヤーに慣性を付けるか
+    public bool isReturnReset;//プレイヤーの切り返しの慣性をなくすか
+    public bool isReturnBoost;//プレイヤーの切り返しにブーストを付けるか
+    public bool isJointMass;//プレイヤーのジョイントに重さを付けるか
+    public bool isReturnFroce;//プレイヤーの切り返しに慣性を付けるか
+    public bool isInput;//スティック入力値を視覚化するか
+    public bool isDetaClear;//保存したデータを削除するか
+    public bool isTutorialSkip;//チュートリアルをスキップするか
     public float drag;//摩擦力（プレイヤーの慣性をオンにしたとき使用）
 
     private Player p_Class;//プレイヤークラス
@@ -47,6 +50,8 @@ public class DebugManager : MonoBehaviour
         ReturnForce();//切り替えし慣性切り替え
         EnemySE();//効果音（敵を倒した時）
         InputManager();//スティック入力差の表示設定
+        DataClear();//保存したデータを削除
+        TutorialSkip();//チュートリアルスキップ
     }
 
     /// <summary>
@@ -135,6 +140,29 @@ public class DebugManager : MonoBehaviour
         for(int i = 0; i < inputManager.transform.childCount; i++)
         {
             inputManager.transform.GetChild(i).gameObject.SetActive(isInput);
+        }
+    }
+
+    /// <summary>
+    /// 保存したデータを削除
+    /// </summary>
+    private void DataClear()
+    {
+        if (!isDetaClear) return;
+
+        PlayerPrefs.DeleteAll();
+    }
+
+    /// <summary>
+    /// チュートリアルスキップ
+    /// </summary>
+    private void TutorialSkip()
+    {
+        if (!isTutorialSkip) return;
+
+        if (tutorial.GetComponent<TutoUISpawner>().GetTutoNum() < 4)
+        {
+            tutorial.GetComponent<TutoUISpawner>().SetTutoNum(4);
         }
     }
 }

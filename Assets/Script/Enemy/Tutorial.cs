@@ -6,9 +6,11 @@ public class Tutorial : MonoBehaviour {
     [SerializeField]
     public List<GameObject> Enemy;
     private int i;
+    private int size;
 	// Use this for initialization
 	void Start () {
         i = 0;
+        size = Enemy.Count - 1;
 	}
 	
 	// Update is called once per frame
@@ -19,7 +21,7 @@ public class Tutorial : MonoBehaviour {
         }
         else
         {
-            if (i < 3)
+            if (i < size)
             {
                 i++;
             }

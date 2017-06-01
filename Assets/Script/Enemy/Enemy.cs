@@ -64,6 +64,10 @@ public class Enemy : MonoBehaviour
         {
             isRWHit = false;
         }
+        if (col.transform.tag == "Player")
+        {
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+        }
     }
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -91,6 +95,10 @@ public class Enemy : MonoBehaviour
             GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
             effect.name = "Boom_effct";
             Destroy(gameObject);
+        }
+        if (col.transform.tag == "Player")
+        {
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         }
     }
 

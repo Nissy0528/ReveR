@@ -11,20 +11,26 @@ public class ELMove : MonoBehaviour
     public float speed;
     public float Move_Width;
     public MoveDirection MoveWay;
+    public float x;
+    public float y;
 
     private List<Vector2> Move_velocity;
     private bool IsOverMoveRange;
     private Rigidbody2D Rigi;
+    private Vector3 Position;
+    private float time;
 
     private float XRangeMax;
     private float XRangeMin;
     private float YRangeMax;
     private float YRangeMin;
+    private int List_num;
 
     // Use this for initialization
     void Start()
     {
         Rigi = GetComponent<Rigidbody2D>();
+        Position = new Vector3(x, y);
         IsOverMoveRange = false;
 
         Move_velocity = new List<Vector2>()
@@ -32,59 +38,77 @@ public class ELMove : MonoBehaviour
             new Vector2(1,0),new Vector2(-1,0),new Vector2(0,1),new Vector2(0,-1),
         };
 
-        YRangeMax = Rigi.position.y + Move_Width * 0.5f;
-        YRangeMin = Rigi.position.y - Move_Width * 0.5f;
-        XRangeMax = Rigi.position.x + Move_Width * 0.5f;
-        XRangeMin = Rigi.position.x - Move_Width * 0.5f;
+        YRangeMax = Position.y + Move_Width * 0.5f;
+        YRangeMin = Position.y - Move_Width * 0.5f;
+        XRangeMax = Position.x + Move_Width * 0.5f;
+        XRangeMin = Position.x - Move_Width * 0.5f;
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetMoveRange();
+        //Debug.Log(Rigi.velocity.magnitude);
+        if (time >= 10)
+        {
+            time = 0;
+        }
+        else
+        {
+            time += Time.deltaTime;
+        }
+        
         Move();
+        GetMoveRange();
+       
     }
     void Move()
     {
+       
         if (MoveWay == MoveDirection.UP)
-            Rigi.AddForce(IsOverMoveRange ? -Move_velocity[2] * speed : Move_velocity[2] * speed);
+            List_num = IsOverMoveRange ? 3 : 2;
 
         else if (MoveWay == MoveDirection.DOWN)
-            Rigi.AddForce(IsOverMoveRange ? -Move_velocity[3] * speed : Move_velocity[3] * speed);
+            List_num = IsOverMoveRange ? 2 : 3;
 
         else if (MoveWay == MoveDirection.LEFT)
-            Rigi.AddForce(IsOverMoveRange ? -Move_velocity[0] * speed : Move_velocity[0] * speed);
+            List_num = IsOverMoveRange ? 0 : 1;
 
         else if (MoveWay == MoveDirection.RIGHT)
-            Rigi.AddForce(IsOverMoveRange ? -Move_velocity[1] * speed : Move_velocity[1] * speed);
-  
+            List_num = IsOverMoveRange ? 1 : 0;
+
+        Rigi.velocity = Move_velocity[List_num] * speed ;
+
+
     }
     void GetMoveRange()
     {
-        
+       
         if (MoveWay == MoveDirection.UP || MoveWay == MoveDirection.DOWN)
         {
-            if (Rigi.position.y > YRangeMax || Rigi.position.y < YRangeMin)
+            
+            if ((transform.position.y > YRangeMax && List_num == 2) || 
+                (transform.position.y < YRangeMin && List_num == 3))
             {
-                IsOverMoveRange = true;
+                IsOverMoveRange = IsOverMoveRange ? false : true;
+
             }
-            else
-            {
-                IsOverMoveRange = false;
-            }
+           
             Rigi.constraints = RigidbodyConstraints2D.FreezePositionX;
+            Rigi.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         else if(MoveWay == MoveDirection.LEFT || MoveWay == MoveDirection.RIGHT)
         {
-            if (Rigi.position.x > XRangeMax ||Rigi.position.x < XRangeMin)
+            
+            if ((transform.position.x > XRangeMax && List_num==0 ) || 
+                (transform.position.x < XRangeMin && List_num==1))
             {
-                IsOverMoveRange = true;
+                IsOverMoveRange = IsOverMoveRange ? false : true;
             }
-            else
-            {
-                IsOverMoveRange = false;
-            }
+           
             Rigi.constraints = RigidbodyConstraints2D.FreezePositionY;
+            Rigi.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
 
     }
