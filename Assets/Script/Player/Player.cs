@@ -13,44 +13,33 @@ public class Player : MonoBehaviour
     public float subSpeed;//減速速度
     public float subMin;//減速速度の最小値
     public float speedLimit;//速度上限
+    public float drag;//摩擦力
     public float rotateSpeed;//回転速度
-    public float drag;//移動終了時の慣性
-    public float addValue;//加速度加算値
-    public float r_Boost;//反転時加速度
     public float bInvalidValue;//反転加速度を減速する値
     public float returnSpeed;//切り替えし加速度
-    public float boostTime;//ブースト開始時間
-    public float rayLength;
+    public float rayLength;//レイの長さ
     public int hp;//体力;
     public int damage;//lifeをマイナスする値
-    public int maxexp;
-    public int shakeCnt;
+    public int maxexp;//経験値
+    public int shakeCnt;//コントローラーの振動時間
 
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
     private AudioSource se;//効果音
-    private Ray2D ray;
-    private RaycastHit2D hit;
+    private Ray2D ray;//レイ
+    private RaycastHit2D hit;//レイが当たったオブジェクトの情報
     private int direc;//方向
-    private int s_Cnt;
+    private int s_Cnt;//コントローラー振動時間カウント
     private float vx;//横スティック入力値
     private float vy;//縦スティック入力値
     private float r_Speed;//切り替えし加速度
     private float iniSpeed;//初期速度
-    private float b_Time;//ブースト開始カウント
     private bool isRecession;//反転判定
-    private bool isRe;//反転判定（慣性）
     private bool isStart;//スタート判定
-    private bool isRBoost;//ブースト準備判定
     private bool isStop;//停止判定
-    private bool isJudge;
-
-    //↓デバッグ用
-    private bool isForce;//慣性判定
-    private bool isReturn;//反転時の加速判定
-    private bool isDeceleration;//反転時の加速判定
-    private bool isRForce;//反転時慣性判定
+    private bool isJudge;//スティック入力差計算判定
+    private bool isReturn;//切り替えし判定
 
     // Use this for initialization
     void Start()
@@ -63,7 +52,6 @@ public class Player : MonoBehaviour
         isStop = false;
         isJudge = false;
 
-        //addSpeed = 0.0f;
         iniSpeed = speed;
         direc = 1;
         r_Speed = 1.0f;
@@ -79,16 +67,7 @@ public class Player : MonoBehaviour
 
         if (isStop) return;
 
-        //BoostCount();//ブーストカウント
-
-        if (!isForce)
-        {
-            Move();//移動（慣性なし）
-        }
-        else
-        {
-            ForceMove();//移動（慣性あり）
-        }
+        Move();//移動）
 
         Rotate();//回転
 
@@ -109,45 +88,15 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Move()
     {
-        //if (!isReturn && vx == 0.0f && vy == 0.0f)
-        //{
-        //    addSpeed -= addValue;
-        //}
-
         //スティック入力されてなければ
         if (vx < 0.5f && vx > -0.5f
             && vy < 0.5f && vy > -0.5f)
         {
             rigid.drag = drag;
-            //if (isReturn)
-            //{
-            //    addSpeed = 0;
-            //}
             return;//何もしない
         }
 
-        //if (addSpeed <= 1.0f)
-        //{
-        //    addSpeed += addValue;
-        //}
-        //else
-        //{
-        //    addSpeed = 1.0f;
-        //}
-
-        //if (isDeceleration)
-        //{
-        //    if (speed > 0 && speed > currentSpeed)
-        //    {
-        //        speed -= bInvalidValue;
-        //    }
-        //    if (speed < 0 && speed < currentSpeed)
-        //    {
-        //        speed += bInvalidValue;
-        //    }
-        //}
-
-        if (isRe)
+        if (isReturn)
         {
             if (direc > 0.0f)
             {
@@ -155,7 +104,7 @@ public class Player : MonoBehaviour
                 if (r_Speed <= -1.0f)
                 {
                     r_Speed = -1.0f;
-                    isRe = false;
+                    isReturn = false;
                 }
             }
             if (direc < 0.0f)
@@ -164,7 +113,7 @@ public class Player : MonoBehaviour
                 if (r_Speed >= 1.0f)
                 {
                     r_Speed = 1.0f;
-                    isRe = false;
+                    isReturn = false;
                 }
             }
         }
@@ -241,26 +190,16 @@ public class Player : MonoBehaviour
     /// </summary>
     public void Recession()
     {
-        //speed = iniSpeed;
-
-        if (!isRForce)
+        if (isStart)
         {
-            speed *= -1;//速度を逆に
+            direc *= -1;
+            isReturn = true;
         }
         else
         {
-            if (isStart)
-            {
-                direc *= -1;
-                isRe = true;
-            }
-            else
-            {
-                r_Speed *= -1;
-                isStart = true;
-            }
+            r_Speed *= -1;
+            isStart = true;
         }
-        //iniSpeed *= -1;//初期速度を逆に
         isRecession = !isRecession;//反転判定を設定
         Vector2 pos = transform.position;//自分の座標
         //反転しなければ
@@ -278,33 +217,6 @@ public class Player : MonoBehaviour
         float angle = (Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg) - 90.0f;//角度計算
         Quaternion newRota = Quaternion.Euler(0.0f, 0.0f, angle);//見る角度設定
         transform.rotation = newRota;
-    }
-
-    /// <summary>
-    /// ブーストカウント
-    /// </summary>
-    private void BoostCount()
-    {
-        //ブーストしなければ
-        if (!isRBoost) return;//何もしない
-
-        b_Time += Time.deltaTime;//ブースト開始カウント
-        //ブーストカウントが指定数以上になったら
-        if (b_Time >= boostTime)
-        {
-            //方向に合わせてブースト
-            if (speed > 0)
-            {
-                speed += r_Boost;
-            }
-            if (speed < 0)
-            {
-                speed -= r_Boost;
-            }
-            isDeceleration = true;//ブースト減速判定
-            b_Time = 0.0f;//ブーストカウント初期化
-            isRBoost = false;//ブースト準備判定false
-        }
     }
 
     /// <summary>
@@ -369,8 +281,6 @@ public class Player : MonoBehaviour
         s_Cnt = shakeCnt;
 
         isJudge = true;
-
-        //isRBoost = true;
     }
 
     /// <summary>
@@ -413,17 +323,14 @@ public class Player : MonoBehaviour
         UnityEngine.Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
     }
 
+    /// <summary>
+    /// あたり判定
+    /// </summary>
+    /// <param name="col"></param>
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.tag == "Enemy")//Enemyとぶつかった時
         {
-            HpBarCtrl.hpbar--;
-            //hpをマイナス
-            //if (HpBarCtrl.hpbar == 0)//体力が０になった時
-            //{
-            //    Destroy(gameObject);オブジェクトを破壊
-            //}
-
             if (speed > 0)
             {
                 speed -= damage;
@@ -438,17 +345,21 @@ public class Player : MonoBehaviour
             {
                 tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
             }
-
-            //lifeScript.LifeDown(damage);//lifeScriptのlifeDownメソッドを実行
         }
     }
 
+    /// <summary>
+    /// ジョイントを伸ばす
+    /// </summary>
     public void ExtWing()
     {
         transform.FindChild("L_Joint").GetComponent<ExtendWing>().extendWing();
         transform.FindChild("R_Joint").GetComponent<ExtendWing>().extendWing();
     }
 
+    /// <summary>
+    /// 経験値加算
+    /// </summary>
     public void LevelUp()
     {
         GetComponent<Exp>().LevelUp(maxexp);
@@ -466,57 +377,21 @@ public class Player : MonoBehaviour
         return false;
     }
 
-
+    /// <summary>
+    /// スティック入力差の計算判定取得
+    /// </summary>
+    /// <returns>スティック入力差の計算判定</returns>
     public bool IsJudge()
     {
         return isJudge;
     }
 
+    /// <summary>
+    /// スティック入力差の計算判定設定
+    /// </summary>
+    /// <param name="isJudge">スティック入力差の計算判定</param>
     public void SetIsJudge(bool isJudge)
     {
         this.isJudge = isJudge;
-    }
-
-    //↓デバッグ用
-
-    /// <summary>
-    /// 加速度設定
-    /// </summary>
-    /// <param name="addSpeed">加速度</param>
-    public void SetAddSpeed(float addSpeed)
-    {
-        this.addSpeed = addSpeed;
-    }
-    /// <summary>
-    /// 慣性判定設定
-    /// </summary>
-    /// <param name="isForce">慣性判定</param>
-    public void SetForce(bool isForce)
-    {
-        this.isForce = isForce;
-    }
-    /// <summary>
-    /// 反転時の加速判定設定
-    /// </summary>
-    /// <param name="isReturn">反転時の加速判定</param>
-    public void SetReturn(bool isReturn)
-    {
-        this.isReturn = isReturn;
-    }
-    /// <summary>
-    /// 反転時加速判定設定
-    /// </summary>
-    /// <param name="isRBoost">反転時加速判定</param>
-    public void SetRBoost(bool isRBoost)
-    {
-        this.isDeceleration = isRBoost;
-    }
-    /// <summary>
-    /// 反転時慣性判定設定
-    /// </summary>
-    /// <param name="isRForce"></param>
-    public void SetRForce(bool isRForce)
-    {
-        this.isRForce = isRForce;
     }
 }

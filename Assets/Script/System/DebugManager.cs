@@ -25,7 +25,7 @@ public class DebugManager : MonoBehaviour
     public bool isTutorialSkip;//チュートリアルをスキップするか
     public float drag;//摩擦力（プレイヤーの慣性をオンにしたとき使用）
 
-    private Player p_Class;//プレイヤークラス
+    private PlayerOld p_Class;//プレイヤークラス
     private Joint lj_Class;//左ジョイントクラス
     private Joint rj_Class;//右ジョイントクラス
     private bool isReset;//加速度初期化判定
@@ -33,7 +33,7 @@ public class DebugManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        p_Class = player.GetComponent<Player>();//プレイヤークラス取得
+        p_Class = player.GetComponent<PlayerOld>();//プレイヤークラス取得
         lj_Class = l_Joint.GetComponent<Joint>();//左ジョイントクラス取得
         rj_Class = r_Joint.GetComponent<Joint>();//右ジョイントクラス取得
         player.GetComponent<AudioSource>().clip = enemyDeadSE[seNum];
@@ -42,12 +42,15 @@ public class DebugManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //P_AddSpeed();//加速度切り替え
-        Force();//慣性切り替え
-        Return();//反転時の加速度初期化切り替え
-        //ReturnBoost();//反転時に加速するかの切り替え
+        if (p_Class != null)
+        {
+            P_AddSpeed();//加速度切り替え
+            Force();//慣性切り替え
+            Return();//反転時の加速度初期化切り替え
+            ReturnBoost();//反転時に加速するかの切り替え
+            ReturnForce();//切り替えし慣性切り替え
+        }
         JointMass();//ジョイントの重さ切り替え
-        ReturnForce();//切り替えし慣性切り替え
         EnemySE();//効果音（敵を倒した時）
         InputManager();//スティック入力差の表示設定
         DataClear();//保存したデータを削除
