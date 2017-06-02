@@ -55,8 +55,6 @@ public class Player : MonoBehaviour
         iniSpeed = speed;
         direc = 1;
         r_Speed = 1.0f;
-
-        HpBarCtrl.hpbar = hp;//HpBar取得
     }
 
     // Update is called once per frame

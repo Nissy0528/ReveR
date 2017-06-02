@@ -67,8 +67,6 @@ public class PlayerOld : MonoBehaviour
         iniSpeed = speed;
         direc = 1;
         r_Speed = 1.0f;
-
-        HpBarCtrl.hpbar = hp;//HpBar取得
     }
 
     // Update is called once per frame
@@ -417,13 +415,6 @@ public class PlayerOld : MonoBehaviour
     {
         if (col.gameObject.tag == "Enemy")//Enemyとぶつかった時
         {
-            HpBarCtrl.hpbar--;
-            //hpをマイナス
-            //if (HpBarCtrl.hpbar == 0)//体力が０になった時
-            //{
-            //    Destroy(gameObject);オブジェクトを破壊
-            //}
-
             if (speed > 0)
             {
                 speed -= damage;
@@ -438,8 +429,6 @@ public class PlayerOld : MonoBehaviour
             {
                 tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
             }
-
-            //lifeScript.LifeDown(damage);//lifeScriptのlifeDownメソッドを実行
         }
     }
 
