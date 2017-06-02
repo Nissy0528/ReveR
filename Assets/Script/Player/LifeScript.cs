@@ -13,21 +13,31 @@ public class LifeScript : MonoBehaviour
     private Vector2 iniSize;
     private Player player;
 
-    // Use this for initialization
+    public GameObject gauge;
+    public GameObject frame;
+
+    // Use this for initializatio
     void Start()
     {
-        rt = GetComponent<RectTransform>();//RectTransformを取得
-        iniSize = rt.sizeDelta;
+        //rt = GetComponent<RectTransform>();//RectTransformを取得
+        //iniSize = rt.sizeDelta;
 
         playerGO = GameObject.Find("Player");//playerオブジェクトを取得
         player = playerGO.GetComponent<Player>();
-        speed = Mathf.Abs(player.speed) / player.speedLimit;
+        //speed = Mathf.Abs(player.speed) / player.speedLimit;
+
+        gauge = GameObject.Find("speedgauge");
+        frame = GameObject.Find("speedframe");
     }
 
     public void Life()
     {
-        speed = Mathf.Abs(player.speed) / player.speedLimit;
-        rt.sizeDelta = new Vector2(iniSize.x, iniSize.y * speed);
+        //speed = Mathf.Abs(player.speed) / player.speedLimit;
+        //rt.sizeDelta = new Vector2(iniSize.x, iniSize.y * speed);
+
+        gauge.GetComponent<Image>().fillAmount = (player.speed / player.speedLimit) * 0.69f;
+        //gauge.GetComponent<Image>().fillAmount = Mathf.Clamp((player.speed / player.speedLimit), 0.11f, 0.89f);
+
     }
 
     // Update is called once per frame
