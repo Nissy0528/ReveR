@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
     public static float time;
-    public float stopTime;
     public Player player;
     public GameObject timeText;
 
@@ -43,17 +42,6 @@ public class Main : MonoBehaviour
             SceneManager.LoadScene("GameOver");
         }
 
-        if (isStop)
-        {
-            s_Time += 1.0f;
-            if (s_Time >= stopTime)
-            {
-                Time.timeScale = 1.0f;
-                s_Time = 0.0f;
-                isStop = false;
-            }
-        }
-
         TimeCount();//経過時間処理
     }
 
@@ -67,18 +55,6 @@ public class Main : MonoBehaviour
         time += Time.deltaTime;
         time = Mathf.Round(time * 100) / 100;
         timeText.GetComponent<Text>().text = time.ToString();
-    }
-
-    /// <summary>
-    /// 停止
-    /// </summary>
-    public void Stop()
-    {
-        if (!isStop)
-        {
-            Time.timeScale = 0.0f;
-            isStop = true;
-        }
     }
 
     /// <summary>

@@ -308,27 +308,6 @@ public class PlayerOld : MonoBehaviour
     }
 
     /// <summary>
-    /// ジョイント停止
-    /// </summary>
-    public void StopJoint()
-    {
-        isStop = true;
-        transform.FindChild("L_Joint").GetComponent<Joint>().SetIsStop(true);
-        transform.FindChild("R_Joint").GetComponent<Joint>().SetIsStop(true);
-    }
-
-    /// <summary>
-    /// 潰す判定
-    /// </summary>
-    /// <returns></returns>
-    public bool IsCrush()
-    {
-        return isStop
-            && !transform.FindChild("L_Joint").GetComponent<Joint>().IsStop()
-            && !transform.FindChild("R_Joint").GetComponent<Joint>().IsStop();
-    }
-
-    /// <summary>
     /// 停止判定
     /// </summary>
     /// <returns></returns>
