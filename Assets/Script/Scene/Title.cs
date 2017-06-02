@@ -11,5 +11,10 @@ public class Title : MonoBehaviour
         {
             SceneManager.LoadScene("StageSelect");
         }
+
+        else if(Input.GetKeyDown(KeyCode.Joystick1Button7))
+        {
+            SceneManager.LoadScene("Credit");
+        }
     }
 }

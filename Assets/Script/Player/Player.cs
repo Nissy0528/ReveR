@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public float bInvalidValue;//反転加速度を減速する値
     public float returnSpeed;//切り替えし加速度
     public float rayLength;//レイの長さ
+    public int hp;//体力;
     public int damage;//lifeをマイナスする値
     public int maxexp;//経験値
     public int shakeCnt;//コントローラーの振動時間
