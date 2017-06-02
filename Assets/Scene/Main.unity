@@ -702,6 +702,16 @@ Prefab:
       propertyPath: subMin
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114904949277490196, guid: 1f3f252edcc11684eb78d536fd62e943,
+        type: 2}
+      propertyPath: ext
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114964266825505810, guid: 1f3f252edcc11684eb78d536fd62e943,
+        type: 2}
+      propertyPath: ext
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f3f252edcc11684eb78d536fd62e943, type: 2}
   m_IsPrefabParent: 0
@@ -2393,6 +2403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f3505653b887644b2d441b0cc167be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slider: {fileID: 0}
 --- !u!114 &2078163858
 MonoBehaviour:
   m_ObjectHideFlags: 0
