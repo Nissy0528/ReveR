@@ -156,7 +156,7 @@ MonoBehaviour:
   isReturnFroce: 1
   isInput: 0
   isDetaClear: 0
-  isTutorialSkip: 1
+  isTutorialSkip: 0
   drag: 0.5
 --- !u!4 &78741420
 Transform:
