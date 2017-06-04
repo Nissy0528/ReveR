@@ -88,6 +88,11 @@ public class Player : MonoBehaviour
         {
             ControllerShake(0.0f, 0.0f);
         }
+
+        if (speed > speedLimit)
+        {
+            speed = speedLimit;
+        }
     }
 
     /// <summary>
@@ -116,11 +121,6 @@ public class Player : MonoBehaviour
             {
                 speed = 0.0f;
             }
-        }
-
-        if (speed > speedLimit)
-        {
-            speed = speedLimit;
         }
 
         rigid.drag = 0;
