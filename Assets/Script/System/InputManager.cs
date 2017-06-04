@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
     public GameObject L_joint;//左ジョイント
     public GameObject R_joint;//右ジョイント
     public float delay;
+    public float inputRange;//入力を取る範囲
 
     private Vector2 input;//スティック入力値
     private Vector2 oldInput;//前のスティック入力値
@@ -91,10 +92,12 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private void Recession()
     {
-        p_Class.Recession();
+        if (!lj_Class.IsUntagged() || !rj_Class.IsUntagged()) return;
 
         lj_Class.SpeedChange();
         rj_Class.SpeedChange();
+
+        p_Class.Recession();
     }
 
     /// <summary>
@@ -154,8 +157,8 @@ public class InputManager : MonoBehaviour
     /// <returns>スティックが入力されたらtrue</returns>
     private bool IsInput()
     {
-        return input.x >= 0.6f || input.x <= -0.6f
-            || input.y >= 0.6f || input.y <= -0.6f;
+        return input.x >= inputRange || input.x <= -inputRange
+            || input.y >= inputRange || input.y <= -inputRange;
     }
 
     /// <summary>

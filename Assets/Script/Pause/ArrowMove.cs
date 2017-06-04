@@ -46,8 +46,6 @@ public class ArrowMove : MonoBehaviour
             time = 20;
         }
 
-        Debug.Log(GetComponent<RectTransform>().position.y);
-
     }
     void Select()
     {

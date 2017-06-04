@@ -234,6 +234,15 @@ public class Joint : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 通常状態判定
+    /// </summary>
+    /// <returns></returns>
+    public bool IsUntagged()
+    {
+        return transform.GetChild(0).tag == "Untagged";
+    }
+
     //↓デバッグ用
 
     /// <summary>

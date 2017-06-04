@@ -12,6 +12,8 @@ TagManager:
   - Min
   - Fire
   - Judge
+  - Trail
+  - Hinge
   layers:
   - Default
   - TransparentFX

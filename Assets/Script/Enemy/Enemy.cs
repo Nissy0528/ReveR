@@ -41,15 +41,19 @@ public class Enemy : MonoBehaviour
             y--;
         }
 
-        if (transform.parent.name != "Enemys" && transform.parent.GetChild(0).tag == "Untagged")
+        if (transform.parent.name != "Enemys")
         {
-            Exp.GetComponent<Exp>().EXP(exp);
-            //player.GetComponent<Player>().ExtWing();
-            camera.GetComponent<CameraClamp>().SetShake();
-            p_Class.Crush();
-            GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
-            effect.name = "Boom_effct";
-            Destroy(gameObject);
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            if (transform.parent.GetChild(0).tag == "Untagged")
+            {
+                Exp.GetComponent<Exp>().EXP(exp);
+                //player.GetComponent<Player>().ExtWing();
+                camera.GetComponent<CameraClamp>().SetShake();
+                p_Class.Crush();
+                GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
+                effect.name = "Boom_effct";
+                Destroy(gameObject);
+            }
         }
 
     }
