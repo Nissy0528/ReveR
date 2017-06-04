@@ -9,12 +9,13 @@ public class Main : MonoBehaviour
     public static float time;
     public Player player;
     public GameObject timeText;
+    public int stopTime;
 
     private GameObject[] enemys;
     private GameObject enemyDead;
     private bool isStop;
     private bool isClear;
-    private float s_Time;
+    private int stopCnt;
 
     // Use this for initialization
     void Start()
@@ -43,6 +44,7 @@ public class Main : MonoBehaviour
         }
 
         TimeCount();//経過時間処理
+        Stop();//停止
     }
 
     /// <summary>
@@ -58,11 +60,37 @@ public class Main : MonoBehaviour
     }
 
     /// <summary>
+    /// ゲーム停止
+    /// </summary>
+    private void Stop()
+    {
+        if (!isStop) return;
+
+        Time.timeScale = 0.0f;
+        stopCnt += 1;
+        if(stopCnt>=stopTime)
+        {
+            Time.timeScale = 1.0f;
+            isStop = false;
+        }
+    }
+
+    /// <summary>
     /// クリア判定設定
     /// </summary>
     /// <param name="isClear">クリア判定（trueならクリアシーンに移行）</param>
     public void SetIsClear(bool isClear)
     {
         this.isClear = isClear;
+    }
+
+    /// <summary>
+    /// 停止判定設定
+    /// </summary>
+    /// <param name="isStop">停止判定</param>
+    public void SetStop()
+    {
+        stopCnt = 0;
+        isStop = true;
     }
 }

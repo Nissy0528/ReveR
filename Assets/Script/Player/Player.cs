@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public float subSpeed;//減速速度
     public float subMin;//減速速度の最小値
     public float speedLimit;//速度上限
+    public float stopSpeed;//画面が停止する速度
     public float drag;//摩擦力
     public float rotateSpeed;//回転速度
     public float returnSpeed;//切り替えし加速度
@@ -258,6 +259,11 @@ public class Player : MonoBehaviour
         s_Cnt = shakeCnt;
 
         SpawnDrain();
+
+        if (speed >= stopSpeed)
+        {
+            GameObject.Find("MainManager").GetComponent<Main>().SetStop();
+        }
 
         isJudge = true;
     }
