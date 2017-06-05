@@ -2,22 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-public class ELMove : MonoBehaviour
+
+
+public  class ELMove : MonoBehaviour
 {
+    [SerializeField]
     public enum MoveDirection
     {
         UP, DOWN, LEFT, RIGHT
     }
+    [SerializeField]
     public MoveDirection MoveWay;
+    [SerializeField]
     public float speed;
+    [SerializeField]
     public float Move_Width;
-
+    
 
     private List<Vector2> Move_velocity;
     private bool IsOverMoveRange;
     private Rigidbody2D Rigi;
     private Vector3 Position;
     private float time;
+
 
     private float XRangeMax;
     private float XRangeMin;
