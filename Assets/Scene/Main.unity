@@ -394,6 +394,7 @@ RectTransform:
   m_Children:
   - {fileID: 793602208}
   - {fileID: 1112052732}
+  - {fileID: 1809827702}
   m_Father: {fileID: 915445665}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -928,13 +929,13 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 793602207}
-  m_LocalRotation: {x: -0, y: -0, z: 0.4694715, w: 0.8829476}
+  m_LocalRotation: {x: -0.4694715, y: -0.8829476, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 602628319}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 56}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 56}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -953,6 +954,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gauge: {fileID: 793602207}
   frame: {fileID: 1112052731}
+  needleposition: {fileID: 1809827701}
 --- !u!114 &793602210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -972,7 +974,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 44c7ca1e6f330434caa8cb20db0a79e9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 21c4aff0633b76746afc2756bbc30fff, type: 3}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1409,7 +1411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.625, g: 0.625, b: 0.625, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1443,6 +1445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gauge: {fileID: 793602207}
   frame: {fileID: 1112052731}
+  needleposition: {fileID: 1809827701}
 --- !u!1 &1141547780 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1702716371988216, guid: 1f3f252edcc11684eb78d536fd62e943,
@@ -3043,6 +3046,89 @@ MonoBehaviour:
   - {fileID: 1739301538019812, guid: 6c022b6b8eacc1244af45e8e83170215, type: 2}
   inpuManager: {fileID: 2136935301}
   player: {fileID: 1407424173}
+--- !u!1 &1512608491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1512608492}
+  - component: {fileID: 1512608495}
+  - component: {fileID: 1512608494}
+  - component: {fileID: 1512608493}
+  m_Layer: 5
+  m_Name: needle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1512608492
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1512608491}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.33, y: 0.68, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1809827702}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 16.6}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1512608493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1512608491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b52e99c0cb0acaa43b1a3eb062812f68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gauge: {fileID: 793602207}
+  frame: {fileID: 1112052731}
+  needleposition: {fileID: 1809827701}
+--- !u!114 &1512608494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1512608491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 2c3fce3ccbccba245a65d75b604407ab, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1512608495
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1512608491}
 --- !u!1 &1520616072
 GameObject:
   m_ObjectHideFlags: 0
@@ -3387,6 +3473,35 @@ SpriteRenderer:
   m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!1 &1809827701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1809827702}
+  m_Layer: 0
+  m_Name: NeedlePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1809827702
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1809827701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1512608492}
+  m_Father: {fileID: 602628319}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2074404377
 GameObject:
   m_ObjectHideFlags: 0
@@ -3610,6 +3725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gauge: {fileID: 0}
   frame: {fileID: 0}
+  needleposition: {fileID: 0}
 --- !u!114 &2089923318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3858,7 +3974,7 @@ MonoBehaviour:
   L_joint: {fileID: 462912689}
   R_joint: {fileID: 1141547780}
   delay: 1
-  inputRange: 0.9
+  inputRange: 0.6
   oldPoint: {fileID: 1767430378}
   currentPoint: {fileID: 1520616072}
   coPoint: {fileID: 929932046}

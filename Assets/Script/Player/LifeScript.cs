@@ -15,6 +15,7 @@ public class LifeScript : MonoBehaviour
 
     public GameObject gauge;
     public GameObject frame;
+    public GameObject needleposition;
 
     // Use this for initializatio
     void Start()
@@ -28,6 +29,7 @@ public class LifeScript : MonoBehaviour
 
         gauge = GameObject.Find("speedgauge");
         frame = GameObject.Find("speedframe");
+        needleposition = GameObject.Find("NeedlePosition");
     }
 
     public void Life()
@@ -40,9 +42,34 @@ public class LifeScript : MonoBehaviour
 
     }
 
+    public void LifeColor()
+    {
+        if (player.speed >= 6)
+        {
+            gauge.GetComponent<Image>().color = new Color(0, 1, 0);
+        }
+
+        else if (player.speed >= 3)
+        {
+            gauge.GetComponent<Image>().color = new Color(1, 1, 0);
+        }
+
+        else if (player.speed >= 0)
+        {
+            gauge.GetComponent<Image>().color = new Color(1, 0, 0);
+        }
+    }
+
+    public void needleCtrl()
+    {
+        needleposition.transform.rotation = Quaternion.Euler(0, 0, 122.0f - (244.0f * (player.speed / player.speedLimit)));
+    }
+    
     // Update is called once per frame
     void Update()
     {
         Life();
+        LifeColor();
+        needleCtrl();
     }
 }
