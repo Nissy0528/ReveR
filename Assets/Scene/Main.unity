@@ -154,7 +154,7 @@ MonoBehaviour:
   isReturnBoost: 0
   isJointMass: 0
   isReturnFroce: 1
-  isInput: 0
+  isInput: 1
   isDetaClear: 0
   isTutorialSkip: 1
   drag: 0.5
@@ -3858,7 +3858,7 @@ MonoBehaviour:
   L_joint: {fileID: 462912689}
   R_joint: {fileID: 1141547780}
   delay: 1
-  inputRange: 0.9
+  inputRange: 0.6
   oldPoint: {fileID: 1767430378}
   currentPoint: {fileID: 1520616072}
   coPoint: {fileID: 929932046}
