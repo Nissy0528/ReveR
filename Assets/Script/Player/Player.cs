@@ -385,18 +385,19 @@ public class Player : MonoBehaviour
         if (col.gameObject.tag == "Enemy" && !isDamage)//Enemyとぶつかった時
         {
 
-            se.PlayOneShot(seClip[1]);
-
-            speed = Mathf.Max(speed - damage, 0, 0f);
-
             GameObject tutorial = GameObject.Find("Tutorial");
-            if (tutorial != null)
+            if (tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage() 
+                || tutorial == null)
             {
                 tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
-            }
 
-            damageCnt = 0;
-            isDamage = true;
+                se.PlayOneShot(seClip[1]);
+
+                speed = Mathf.Max(speed - damage, 0, 0f);
+
+                damageCnt = 0;
+                isDamage = true;
+            }
         }
     }
 

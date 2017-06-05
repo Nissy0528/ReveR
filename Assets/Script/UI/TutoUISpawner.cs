@@ -81,7 +81,6 @@ public class TutoUISpawner : MonoBehaviour
 
         if (isDamage)
         {
-
             tutorialUIs[0].SetActive(true);
             cnt += 1;
             if (cnt >= 120)
@@ -170,6 +169,15 @@ public class TutoUISpawner : MonoBehaviour
     public void SetIsDamage()
     {
         isDamage = true;
+    }
+
+    /// <summary>
+    /// ダメージ判定取得
+    /// </summary>
+    /// <returns>だ</returns>
+    public bool IsDamage()
+    {
+        return tutoNum >= 4;
     }
 
     /// <summary>
