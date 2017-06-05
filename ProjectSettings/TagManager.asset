@@ -12,6 +12,7 @@ TagManager:
   - Min
   - Fire
   - Judge
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - 
   - 
   - Joint
-  - 
-  - 
+  - Bullet
+  - Enemy
   - 
   - 
   - 

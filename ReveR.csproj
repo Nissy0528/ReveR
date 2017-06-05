@@ -89,16 +89,17 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Camera\CameraClamp.cs" />
     <Compile Include="Assets\Script\Effect\Boom_Effect.cs" />
+    <Compile Include="Assets\Script\Enemy\Bullet.cs" />
     <Compile Include="Assets\Script\Enemy\ELMove.cs" />
     <Compile Include="Assets\Script\Enemy\EPMove.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyChack.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy_Line&amp;Circle.cs" />
-    <Compile Include="Assets\Script\Enemy\ITweenMove.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\RotateSample.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\iTween.cs" />
+    <Compile Include="Assets\Script\Enemy\ShootBullet.cs" />
     <Compile Include="Assets\Script\Enemy\Turtroial_Move.cs" />
     <Compile Include="Assets\Script\Enemy\Tutorial.cs" />
     <Compile Include="Assets\Script\Pause\ArrowMove.cs" />
