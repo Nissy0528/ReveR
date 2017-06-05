@@ -89,7 +89,7 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Camera\CameraClamp.cs" />
     <Compile Include="Assets\Script\Effect\Boom_Effect.cs" />
-    <Compile Include="Assets\Script\Enemy\E.cs" />
+    <Compile Include="Assets\Script\Effect\Drain.cs" />
     <Compile Include="Assets\Script\Enemy\ELMove.cs" />
     <Compile Include="Assets\Script\Enemy\EPMove.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy.cs" />
@@ -106,8 +106,6 @@
     <Compile Include="Assets\Script\Pause\Pause.cs" />
     <Compile Include="Assets\Script\Player\Exp.cs" />
     <Compile Include="Assets\Script\Player\ExtendWing.cs" />
-    <Compile Include="Assets\Script\Player\HpBarCtrl.cs" />
-    <Compile Include="Assets\Script\Player\InputManager.cs" />
     <Compile Include="Assets\Script\Player\Joint.cs" />
     <Compile Include="Assets\Script\Player\LifeScript.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
@@ -122,6 +120,7 @@
     <Compile Include="Assets\Script\Scene\Title.cs" />
     <Compile Include="Assets\Script\Scene\result.cs" />
     <Compile Include="Assets\Script\System\DebugManager.cs" />
+    <Compile Include="Assets\Script\System\InputManager.cs" />
     <Compile Include="Assets\Script\System\PlayerPrefsUtility.cs" />
     <Compile Include="Assets\Script\UI\BackGroundMove.cs" />
     <Compile Include="Assets\Script\UI\InputJudge.cs" />

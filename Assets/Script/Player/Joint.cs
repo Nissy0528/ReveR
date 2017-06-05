@@ -17,7 +17,6 @@ public class Joint : MonoBehaviour
     public float rotateLimit;//回転制限
     public float rotateBoost;//回転加速
     public float mass;//重さ
-    public float crushTime;//敵を潰すまでの時間
 
     private float maxAngle;//最大回転値
     private float minAngle;//最小回転値
@@ -25,15 +24,11 @@ public class Joint : MonoBehaviour
     private float angleZ;//回転角度更新用
     private float coreRotaZ;//コアの回転角度
     private float cuurentSpeed;//初期回転速度
-    private float crushCount;//敵を潰すまでのカウント
     private float rotate;
     private bool isStart;//スタート判定
-    private bool isStop;//回転停止判定
 
     //↓デバッグ用
     private bool isJointMass;//ジョイントの重さ判定
-    public GameObject max;
-    public GameObject min;
 
     // Use this for initialization
     void Start()
@@ -50,7 +45,6 @@ public class Joint : MonoBehaviour
         cuurentSpeed = rotateSpeed;//初期速度設定
 
         isStart = false;
-        isStop = false;
     }
 
     // Update is called once per frame
@@ -66,8 +60,6 @@ public class Joint : MonoBehaviour
             isStart = true;
         }
 
-        StopCount();//回転停止カウント
-
         Rotate(vx, vy);//回転
     }
 
@@ -76,7 +68,7 @@ public class Joint : MonoBehaviour
     /// </summary>
     private void Rotate(float vx, float vy)
     {
-        if (!isStart || isStop) return;
+        if (!isStart) return;
 
         //コアの角度が180度超えていたら
         if (core.transform.localEulerAngles.z > 180)
@@ -207,12 +199,6 @@ public class Joint : MonoBehaviour
         }
         transform.rotation = Quaternion.Euler(0, 0, angleZ);//角度更新
 
-        if (max != null && min != null)
-        {
-            max.transform.rotation = Quaternion.Euler(0, 0, maxAngle);
-            min.transform.rotation = Quaternion.Euler(0, 0, minAngle);
-        }
-
     }
 
     /// <summary>
@@ -249,39 +235,12 @@ public class Joint : MonoBehaviour
     }
 
     /// <summary>
-    /// 回転停止カウント
+    /// 通常状態判定
     /// </summary>
-    private void StopCount()
+    /// <returns></returns>
+    public bool IsUntagged()
     {
-        //回転停止しないなら
-        if (!isStop) return;//何もしない
-
-        //回転停止カウント開始
-        crushCount += 1.0f;
-        //回転停止カウントが指定時間になったら
-        if (crushCount >= crushTime)
-        {
-            isStop = false;//停止解除
-            crushCount = 0.0f;//カウント初期化
-        }
-    }
-
-    /// <summary>
-    /// 回転停止判定設定
-    /// </summary>
-    /// <param name="isStop">回転停止判定</param>
-    public void SetIsStop(bool isStop)
-    {
-        this.isStop = isStop;
-    }
-
-    /// <summary>
-    /// 回転停止判定取得
-    /// </summary>
-    /// <returns>回転停止判定</returns>
-    public bool IsStop()
-    {
-        return isStop;
+        return transform.GetChild(0).tag == "Untagged";
     }
 
     //↓デバッグ用

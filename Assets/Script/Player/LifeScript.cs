@@ -8,42 +8,38 @@ public class LifeScript : MonoBehaviour
 {
     RectTransform rt;//RectTransform
     private GameObject playerGO;//playerオブジェクト
-                                //public int life;
 
     private float speed;
     private Vector2 iniSize;
     private Player player;
 
-    // Use this for initialization
+    public GameObject gauge;
+    public GameObject frame;
+
+    // Use this for initializatio
     void Start()
     {
-        rt = GetComponent<RectTransform>();//RectTransformを取得
-        iniSize = rt.sizeDelta;
+        //rt = GetComponent<RectTransform>();//RectTransformを取得
+        //iniSize = rt.sizeDelta;
 
         playerGO = GameObject.Find("Player");//playerオブジェクトを取得
         player = playerGO.GetComponent<Player>();
-        speed = Mathf.Abs(player.speed) / player.speedLimit;
+        //speed = Mathf.Abs(player.speed) / player.speedLimit;
+
+        gauge = GameObject.Find("speedgauge");
+        frame = GameObject.Find("speedframe");
     }
 
     public void Life()
     {
-        //rt.sizeDelta = new Vector2(rt.sizeDelta.x, life);//ライフの値を設定
-        speed = Mathf.Abs(player.speed) / player.speedLimit;
-        rt.sizeDelta = new Vector2(iniSize.x, iniSize.y * speed);
+        //speed = Mathf.Abs(player.speed) / player.speedLimit;
+        //rt.sizeDelta = new Vector2(iniSize.x, iniSize.y * speed);
+
+        gauge.GetComponent<Image>().fillAmount = (player.speed / player.speedLimit) * 0.69f;
+        //gauge.GetComponent<Image>().fillAmount = Mathf.Clamp((player.speed / player.speedLimit), 0.11f, 0.89f);
+
     }
 
-
-    public void LifeDown(int life)
-    {
-        rt.sizeDelta -= new Vector2(0, life);//RectTransformのサイズを取得し、マイナスする
-
-        if (rt.sizeDelta.y <= 0)//取得した値のｙが、０以下になった時
-        {
-            //Destroy(playerGO);//playerオブジェクトを破壊
-            playerGO.SetActive(false);
-            SceneManager.LoadScene("GameOver");
-        }
-    }
     // Update is called once per frame
     void Update()
     {

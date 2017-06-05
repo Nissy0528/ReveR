@@ -8,17 +8,21 @@ public class Player : MonoBehaviour
 {
     public GameObject inputManager;//スティック入力
     public LifeScript lifeScript;//LifeScript
+    public GameObject drain;//エネルギー吸収エフェクト
+    public GameObject[] spriteObjs;//スプライトレンダラーが入ってるオブジェクト
+    public AudioClip[] seClip;//効果音
     public float speed;//移動速度
     public float addSpeed;//加速速度
     public float subSpeed;//減速速度
     public float subMin;//減速速度の最小値
     public float speedLimit;//速度上限
+    public float stopSpeed;//画面が停止する速度
     public float drag;//摩擦力
     public float rotateSpeed;//回転速度
-    public float bInvalidValue;//反転加速度を減速する値
     public float returnSpeed;//切り替えし加速度
     public float rayLength;//レイの長さ
-    public int hp;//体力;
+    public int damageTime;//ダメージ表現の長さ
+    public int flashInterval;//点滅間隔
     public int damage;//lifeをマイナスする値
     public int maxexp;//経験値
     public int shakeCnt;//コントローラーの振動時間
@@ -29,8 +33,11 @@ public class Player : MonoBehaviour
     private AudioSource se;//効果音
     private Ray2D ray;//レイ
     private RaycastHit2D hit;//レイが当たったオブジェクトの情報
+    private GameObject[] trails;
+    private Color iniTrailColor;
     private int direc;//方向
     private int s_Cnt;//コントローラー振動時間カウント
+    private int damageCnt;//ダメージ表現カウント
     private float vx;//横スティック入力値
     private float vy;//縦スティック入力値
     private float r_Speed;//切り替えし加速度
@@ -40,12 +47,15 @@ public class Player : MonoBehaviour
     private bool isStop;//停止判定
     private bool isJudge;//スティック入力差計算判定
     private bool isReturn;//切り替えし判定
+    private bool isDamage;//ダメージ判定
 
     // Use this for initialization
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();//リジッドボディ取得
         se = GetComponent<AudioSource>();
+        trails = GameObject.FindGameObjectsWithTag("Trail");
+        iniTrailColor = trails[0].GetComponent<TrailRenderer>().material.color;
 
         isRecession = false;
         isStart = false;
@@ -65,9 +75,11 @@ public class Player : MonoBehaviour
 
         if (isStop) return;
 
-        Move();//移動）
-
+        Move();//移動
+        ReturnForce();//切り替えし慣性
         Rotate();//回転
+        Ray();//レイのあたり判定
+        DamageEffect();//ダメージ表現（点滅）
 
         if (s_Cnt > 0)
         {
@@ -78,7 +90,10 @@ public class Player : MonoBehaviour
             ControllerShake(0.0f, 0.0f);
         }
 
-        Ray();
+        if (speed > speedLimit)
+        {
+            speed = speedLimit;
+        }
     }
 
     /// <summary>
@@ -90,30 +105,7 @@ public class Player : MonoBehaviour
         if (vx < 0.5f && vx > -0.5f
             && vy < 0.5f && vy > -0.5f)
         {
-            rigid.drag = drag;
             return;//何もしない
-        }
-
-        if (isReturn)
-        {
-            if (direc > 0.0f)
-            {
-                r_Speed -= returnSpeed;
-                if (r_Speed <= -1.0f)
-                {
-                    r_Speed = -1.0f;
-                    isReturn = false;
-                }
-            }
-            if (direc < 0.0f)
-            {
-                r_Speed += returnSpeed;
-                if (r_Speed >= 1.0f)
-                {
-                    r_Speed = 1.0f;
-                    isReturn = false;
-                }
-            }
         }
 
         float subRatio = (speed / iniSpeed);
@@ -132,11 +124,6 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (speed > speedLimit)
-        {
-            speed = speedLimit;
-        }
-
         rigid.drag = 0;
         rigid.velocity = transform.up * (speed * r_Speed);
     }
@@ -144,14 +131,28 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 移動（慣性あり）
     /// </summary>
-    private void ForceMove()
+    private void ReturnForce()
     {
-        if (vx < 0.5f && vx > -0.5f
-            && vy < 0.5f && vy > -0.5f)
+        if (!isReturn) return;
+
+        if (direc > 0.0f)
         {
-            return;
+            r_Speed -= returnSpeed;
+            if (r_Speed <= -1.0f)
+            {
+                r_Speed = -1.0f;
+                isReturn = false;
+            }
         }
-        rigid.AddForce(transform.up * speed);//前後移動
+        if (direc < 0.0f)
+        {
+            r_Speed += returnSpeed;
+            if (r_Speed >= 1.0f)
+            {
+                r_Speed = 1.0f;
+                isReturn = false;
+            }
+        }
     }
 
     /// <summary>
@@ -218,27 +219,6 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// ジョイント停止
-    /// </summary>
-    public void StopJoint()
-    {
-        isStop = true;
-        transform.FindChild("L_Joint").GetComponent<Joint>().SetIsStop(true);
-        transform.FindChild("R_Joint").GetComponent<Joint>().SetIsStop(true);
-    }
-
-    /// <summary>
-    /// 潰す判定
-    /// </summary>
-    /// <returns></returns>
-    public bool IsCrush()
-    {
-        return isStop
-            && !transform.FindChild("L_Joint").GetComponent<Joint>().IsStop()
-            && !transform.FindChild("R_Joint").GetComponent<Joint>().IsStop();
-    }
-
-    /// <summary>
     /// 停止判定
     /// </summary>
     /// <returns></returns>
@@ -261,7 +241,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void EnemyDeadSE()
     {
-        se.PlayOneShot(se.clip);
+        se.PlayOneShot(seClip[0]);
     }
 
     /// <summary>
@@ -278,7 +258,29 @@ public class Player : MonoBehaviour
         ControllerShake(1.0f, 1.0f);
         s_Cnt = shakeCnt;
 
+        SpawnDrain();
+
+        if (speed >= stopSpeed)
+        {
+            GameObject.Find("MainManager").GetComponent<Main>().SetStop();
+        }
+
         isJudge = true;
+    }
+
+    /// <summary>
+    /// ドレインエフェクト生成
+    /// </summary>
+    private void SpawnDrain()
+    {
+        GameObject L_Tip = GameObject.Find("L_WingTip");
+        GameObject R_Tip = GameObject.Find("R_WingTip");
+
+        GameObject L_drain = Instantiate(drain, L_Tip.transform.position, L_Tip.transform.rotation, L_Tip.transform);
+        GameObject R_drain = Instantiate(drain, R_Tip.transform.position, R_Tip.transform.rotation, R_Tip.transform);
+
+        L_drain.GetComponent<Drain>().SetHingeName("L_Hinge");
+        R_drain.GetComponent<Drain>().SetHingeName("R_Hinge");
     }
 
     /// <summary>
@@ -322,27 +324,79 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// ダメージ表現
+    /// </summary>
+    private void DamageEffect()
+    {
+        if (!isDamage) return;
+
+        damageCnt += 1;
+        int changeCnt = (damageCnt - 1) / flashInterval;
+
+        if (changeCnt % 2 == 0 || changeCnt == 0)
+        {
+            SetAlpha(1.0f);
+        }
+        else
+        {
+            SetAlpha(0.0f);
+        }
+
+        if (damageCnt >= damageTime)
+        {
+            SetAlpha(1.0f);
+            isDamage = false;
+        }
+    }
+
+    /// <summary>
+    /// プレイヤー全体の透明度設定
+    /// </summary>
+    /// <param name="alpha">画像の透明度</param>
+    private void SetAlpha(float alpha)
+    {
+        foreach (var sp in spriteObjs)
+        {
+            sp.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        }
+
+        if (alpha == 1.0f)
+        {
+            foreach (var trail in trails)
+            {
+                trail.GetComponent<TrailRenderer>().material.color = iniTrailColor;
+            }
+        }
+        else
+        {
+            foreach (var trail in trails)
+            {
+                trail.GetComponent<TrailRenderer>().material.color = new Color(iniTrailColor.r, iniTrailColor.g, iniTrailColor.b, 0.0f);
+            }
+        }
+    }
+
+    /// <summary>
     /// あたり判定
     /// </summary>
     /// <param name="col"></param>
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Enemy")//Enemyとぶつかった時
+        if (col.gameObject.tag == "Enemy" && !isDamage)//Enemyとぶつかった時
         {
-            if (speed > 0)
-            {
-                speed -= damage;
-            }
-            else
-            {
-                speed = 0.0f;
-            }
+
+            se.PlayOneShot(seClip[1]);
+
+            speed = Mathf.Max(speed - damage, 0, 0f);
 
             GameObject tutorial = GameObject.Find("Tutorial");
             if (tutorial != null)
             {
                 tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
             }
+
+            damageCnt = 0;
+            isDamage = true;
         }
     }
 

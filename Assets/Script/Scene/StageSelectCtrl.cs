@@ -8,7 +8,7 @@ public class StageSelectCtrl : MonoBehaviour
 
     int num;
     public GameObject[] stage = { };
-    Vector2 position;
+    private Vector2 position;
 
     private int delay;
     public int delayTime;

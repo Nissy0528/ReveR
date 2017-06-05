@@ -7,15 +7,15 @@ using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
     public static float time;
-    public float stopTime;
     public Player player;
     public GameObject timeText;
+    public int stopTime;
 
     private GameObject[] enemys;
     private GameObject enemyDead;
     private bool isStop;
     private bool isClear;
-    private float s_Time;
+    private int stopCnt;
 
     // Use this for initialization
     void Start()
@@ -43,18 +43,8 @@ public class Main : MonoBehaviour
             SceneManager.LoadScene("GameOver");
         }
 
-        if (isStop)
-        {
-            s_Time += 1.0f;
-            if (s_Time >= stopTime)
-            {
-                Time.timeScale = 1.0f;
-                s_Time = 0.0f;
-                isStop = false;
-            }
-        }
-
         TimeCount();//経過時間処理
+        Stop();//停止
     }
 
     /// <summary>
@@ -70,14 +60,18 @@ public class Main : MonoBehaviour
     }
 
     /// <summary>
-    /// 停止
+    /// ゲーム停止
     /// </summary>
-    public void Stop()
+    private void Stop()
     {
-        if (!isStop)
+        if (!isStop) return;
+
+        Time.timeScale = 0.0f;
+        stopCnt += 1;
+        if(stopCnt>=stopTime)
         {
-            Time.timeScale = 0.0f;
-            isStop = true;
+            Time.timeScale = 1.0f;
+            isStop = false;
         }
     }
 
@@ -88,5 +82,15 @@ public class Main : MonoBehaviour
     public void SetIsClear(bool isClear)
     {
         this.isClear = isClear;
+    }
+
+    /// <summary>
+    /// 停止判定設定
+    /// </summary>
+    /// <param name="isStop">停止判定</param>
+    public void SetStop()
+    {
+        stopCnt = 0;
+        isStop = true;
     }
 }

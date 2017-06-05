@@ -2,24 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boom_Effect : MonoBehaviour {
+public class Boom_Effect : MonoBehaviour
+{
+    private Animator anim;
 
     // Use this for initialization
-    public GameObject boom;
-    public GameObject boom1;
-    private  float time;
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
-	void Start () {
-        boom.SetActive(true);
-        boom1.SetActive(true);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (!boom1.GetComponent<ParticleSystem>().IsAlive())
+    // Update is called once per frame
+    void Update()
+    {
+        Dead();
+    }
+
+    /// <summary>
+    /// 消滅処理
+    /// </summary>
+    private void Dead()
+    {
+        var animState = anim.GetCurrentAnimatorStateInfo(0);
+        if (animState.normalizedTime >= 1)
         {
             Destroy(gameObject);
         }
-		
-	}
+    }
 }
