@@ -8,7 +8,6 @@ public class DebugManager : MonoBehaviour
     public GameObject player;//プレイヤー
     public GameObject l_Joint;//左ジョイント
     public GameObject r_Joint;//右ジョイント
-    public GameObject tutorial;//チュートリアル
     public GameObject inputManager;//スティック入力値
     public AudioClip[] enemyDeadSE;//敵の消滅効果音
     public int seNum;//効果音番号
@@ -140,7 +139,7 @@ public class DebugManager : MonoBehaviour
         inputManager.GetComponent<InputManager>().SetDebug(isInput);
 
         inputManager.GetComponent<SpriteRenderer>().enabled = isInput;
-        for(int i = 0; i < inputManager.transform.childCount; i++)
+        for (int i = 0; i < inputManager.transform.childCount; i++)
         {
             inputManager.transform.GetChild(i).gameObject.SetActive(isInput);
         }
@@ -161,7 +160,9 @@ public class DebugManager : MonoBehaviour
     /// </summary>
     private void TutorialSkip()
     {
-        if (!isTutorialSkip) return;
+        GameObject tutorial = GameObject.Find("Tutorial");//チュートリアル
+
+        if (!isTutorialSkip || tutorial == null) return;
 
         if (tutorial.GetComponent<TutoUISpawner>().GetTutoNum() < 4)
         {

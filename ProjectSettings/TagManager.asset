@@ -13,6 +13,9 @@ TagManager:
   - Fire
   - Judge
   - Bullet
+  - Hinge
+  - Trail
+  - Enemys
   layers:
   - Default
   - TransparentFX

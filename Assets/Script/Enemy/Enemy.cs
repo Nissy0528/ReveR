@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour
     public GameObject player;
     public Exp Exp;
     public int exp;
+    public float scrollSpeed;
+    public bool isScroll;
 
     void Start()
     {
@@ -27,11 +29,15 @@ public class Enemy : MonoBehaviour
         x = 0;
         y = 0;
         p_Class = player.GetComponent<Player>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        ScrollMove();
+
         if (x != 0)
         {
             x--;
@@ -41,7 +47,7 @@ public class Enemy : MonoBehaviour
             y--;
         }
 
-        if (transform.parent.name != "Enemys")
+        if (transform.parent.tag != "Enemys")
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             if (transform.parent.GetChild(0).tag == "Untagged")
@@ -56,7 +62,23 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        //画面下に出たら
+        if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2)
+        {
+            Destroy(gameObject);//消滅
+        }
+
     }
+
+    /// <summary>
+    /// スクロール移動
+    /// </summary>
+    private void ScrollMove()
+    {
+        if (!isScroll) return;
+        transform.Translate(Vector3.up * -scrollSpeed);
+    }
+
     void OnCollisionExit2D(Collision2D col)
     {
         if (col.gameObject.tag == "L_Joint" && x == 0)

@@ -53,13 +53,13 @@ public class CameraClamp : MonoBehaviour
     private void Clamp()
     {
         if (player == null) return;
-        
-        topLeft = mainCamera.ScreenToWorldPoint(Vector3.zero);//画面左上の座標
-        bottomRight = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));//画面右下の座標
+
+        bottomRight = mainCamera.ScreenToWorldPoint(Vector3.zero);//画面右下の座標
+        topLeft = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));//画面左上の座標
         playerPos = player.transform.position;//プレイヤーの座標
 
-        playerPos.x = Mathf.Clamp(playerPos.x, topLeft.x + playerSize.x / 10, bottomRight.x - playerSize.x / 10);//画面の横幅内に横移動を制限
-        playerPos.y = Mathf.Clamp(playerPos.y, topLeft.y + playerSize.y / 10, bottomRight.y - playerSize.y / 10);//画面の縦幅内に縦移動を制限
+        playerPos.x = Mathf.Clamp(playerPos.x, bottomRight.x + playerSize.x / 10, topLeft.x - playerSize.x / 10);//画面の横幅内に横移動を制限
+        playerPos.y = Mathf.Clamp(playerPos.y, bottomRight.y + playerSize.y / 10, topLeft.y - playerSize.y / 10);//画面の縦幅内に縦移動を制限
 
         player.transform.position = playerPos;//プレイヤーの座標制限
     }
