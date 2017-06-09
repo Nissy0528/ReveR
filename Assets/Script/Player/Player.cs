@@ -386,11 +386,20 @@ public class Player : MonoBehaviour
         {
 
             GameObject tutorial = GameObject.Find("Tutorial");
-            if (tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage() 
-                || tutorial == null)
+            if (tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage())
             {
                 //tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
 
+                se.PlayOneShot(seClip[1]);
+
+                speed = Mathf.Max(speed - damage, 0, 0f);
+
+                damageCnt = 0;
+                isDamage = true;
+            }
+
+            if (tutorial == null)
+            {
                 se.PlayOneShot(seClip[1]);
 
                 speed = Mathf.Max(speed - damage, 0, 0f);
