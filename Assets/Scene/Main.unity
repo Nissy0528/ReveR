@@ -394,6 +394,78 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 374065665}
+--- !u!1001 &437168362
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4859824831606712, guid: c8276d309fba0c7478a3a0422e09d74c, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.2408814
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859824831606712, guid: c8276d309fba0c7478a3a0422e09d74c, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.382463
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859824831606712, guid: c8276d309fba0c7478a3a0422e09d74c, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859824831606712, guid: c8276d309fba0c7478a3a0422e09d74c, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859824831606712, guid: c8276d309fba0c7478a3a0422e09d74c, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859824831606712, guid: c8276d309fba0c7478a3a0422e09d74c, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859824831606712, guid: c8276d309fba0c7478a3a0422e09d74c, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859824831606712, guid: c8276d309fba0c7478a3a0422e09d74c, type: 2}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114982705295804302, guid: c8276d309fba0c7478a3a0422e09d74c,
+        type: 2}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 604112145}
+    - target: {fileID: 114982705295804302, guid: c8276d309fba0c7478a3a0422e09d74c,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1407424168}
+    - target: {fileID: 114982705295804302, guid: c8276d309fba0c7478a3a0422e09d74c,
+        type: 2}
+      propertyPath: Exp
+      value: 
+      objectReference: {fileID: 1407424169}
+    - target: {fileID: 114771747349135750, guid: c8276d309fba0c7478a3a0422e09d74c,
+        type: 2}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 604112145}
+    - target: {fileID: 114771747349135750, guid: c8276d309fba0c7478a3a0422e09d74c,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1407424168}
+    - target: {fileID: 114771747349135750, guid: c8276d309fba0c7478a3a0422e09d74c,
+        type: 2}
+      propertyPath: Exp
+      value: 
+      objectReference: {fileID: 1407424169}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c8276d309fba0c7478a3a0422e09d74c, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &445403428
 GameObject:
   m_ObjectHideFlags: 0

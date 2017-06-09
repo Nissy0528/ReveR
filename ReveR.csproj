@@ -91,6 +91,7 @@
     <Compile Include="Assets\Script\Camera\CameraClamp.cs" />
     <Compile Include="Assets\Script\Effect\Boom_Effect.cs" />
     <Compile Include="Assets\Script\Effect\Drain.cs" />
+    <Compile Include="Assets\Script\Effect\StarAnim.cs" />
     <Compile Include="Assets\Script\Enemy\Bullet.cs" />
     <Compile Include="Assets\Script\Enemy\ELMove.cs" />
     <Compile Include="Assets\Script\Enemy\EPMove.cs" />
