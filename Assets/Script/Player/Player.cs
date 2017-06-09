@@ -389,7 +389,7 @@ public class Player : MonoBehaviour
             if (tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage() 
                 || tutorial == null)
             {
-                tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
+                //tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
 
                 se.PlayOneShot(seClip[1]);
 
