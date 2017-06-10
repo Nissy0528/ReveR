@@ -85,7 +85,7 @@ public class CameraClamp : MonoBehaviour
         }
         else
         {
-            delay += Time.deltaTime;
+            delay += 1.0f;
         }
     }
 

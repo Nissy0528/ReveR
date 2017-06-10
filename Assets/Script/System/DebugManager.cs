@@ -9,6 +9,7 @@ public class DebugManager : MonoBehaviour
     public GameObject l_Joint;//左ジョイント
     public GameObject r_Joint;//右ジョイント
     public GameObject inputManager;//スティック入力値
+    public GameObject spawnEnemy;//生成用の敵
     public AudioClip[] enemyDeadSE;//敵の消滅効果音
     public int seNum;//効果音番号
 
@@ -22,9 +23,12 @@ public class DebugManager : MonoBehaviour
     public bool isInput;//スティック入力値を視覚化するか
     public bool isDetaClear;//保存したデータを削除するか
     public bool isTutorialSkip;//チュートリアルをスキップするか
+    public bool isPlayerMaxSpeed;//プレイヤーの速度を常に最大にするか
+    public bool isSpawnEmemy;//敵を無限生成するか
     public float drag;//摩擦力（プレイヤーの慣性をオンにしたとき使用）
 
-    private PlayerOld p_Class;//プレイヤークラス
+    private PlayerOld p_OldClass;//プレイヤークラス（旧）
+    private Player p_Class;//プレイヤークラス
     private Joint lj_Class;//左ジョイントクラス
     private Joint rj_Class;//右ジョイントクラス
     private bool isReset;//加速度初期化判定
@@ -32,7 +36,8 @@ public class DebugManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        p_Class = player.GetComponent<PlayerOld>();//プレイヤークラス取得
+        p_OldClass = player.GetComponent<PlayerOld>();//プレイヤークラス取得（旧）
+        p_Class = player.GetComponent<Player>();//プレイヤークラス取得
         lj_Class = l_Joint.GetComponent<Joint>();//左ジョイントクラス取得
         rj_Class = r_Joint.GetComponent<Joint>();//右ジョイントクラス取得
         player.GetComponent<AudioSource>().clip = enemyDeadSE[seNum];
@@ -41,7 +46,7 @@ public class DebugManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (p_Class != null)
+        if (p_OldClass != null)
         {
             P_AddSpeed();//加速度切り替え
             Force();//慣性切り替え
@@ -49,6 +54,7 @@ public class DebugManager : MonoBehaviour
             ReturnBoost();//反転時に加速するかの切り替え
             ReturnForce();//切り替えし慣性切り替え
         }
+        PlayerMaxSpeed();//プレイヤーの速度を常に最大に
         JointMass();//ジョイントの重さ切り替え
         EnemySE();//効果音（敵を倒した時）
         InputManager();//スティック入力差の表示設定
@@ -64,7 +70,7 @@ public class DebugManager : MonoBehaviour
         //加速度がオフなら
         if (!isAddSoeed)
         {
-            p_Class.SetAddSpeed(1.0f);//加速度無効
+            p_OldClass.SetAddSpeed(1.0f);//加速度無効
             isReset = false;//加速度初期化判定false
         }
         //加速度オンなら
@@ -73,7 +79,7 @@ public class DebugManager : MonoBehaviour
             //加速度初期化判定がtrueなら
             if (isReset)
             {
-                p_Class.SetAddSpeed(0.0f);//加速度初期化
+                p_OldClass.SetAddSpeed(0.0f);//加速度初期化
                 isReset = false;//加速度初期化判定false
             }
         }
@@ -85,7 +91,7 @@ public class DebugManager : MonoBehaviour
     private void Force()
     {
         player.GetComponent<Rigidbody2D>().drag = drag;//摩擦設定
-        p_Class.SetForce(isForce);//プレイヤーの慣性オンに
+        p_OldClass.SetForce(isForce);//プレイヤーの慣性オンに
     }
 
     /// <summary>
@@ -93,7 +99,7 @@ public class DebugManager : MonoBehaviour
     /// </summary>
     private void Return()
     {
-        p_Class.SetReturn(isReturnReset);//プレイヤー加速度初期化判定設定
+        p_OldClass.SetReturn(isReturnReset);//プレイヤー加速度初期化判定設定
     }
 
     /// <summary>
@@ -101,7 +107,7 @@ public class DebugManager : MonoBehaviour
     /// </summary>
     private void ReturnBoost()
     {
-        p_Class.SetRBoost(isReturnBoost);//プレイヤー反転時加速判定設定
+        p_OldClass.SetRBoost(isReturnBoost);//プレイヤー反転時加速判定設定
     }
 
     /// <summary>
@@ -119,7 +125,7 @@ public class DebugManager : MonoBehaviour
     /// </summary>
     private void ReturnForce()
     {
-        p_Class.SetRForce(isReturnFroce);
+        p_OldClass.SetRForce(isReturnFroce);
     }
 
     /// <summary>
@@ -168,5 +174,24 @@ public class DebugManager : MonoBehaviour
         {
             tutorial.GetComponent<TutoUISpawner>().SetTutoNum(4);
         }
+    }
+
+    /// <summary>
+    /// プレイヤーの速度を常に最大に
+    /// </summary>
+    private void PlayerMaxSpeed()
+    {
+        if (!isPlayerMaxSpeed) return;
+
+        p_Class.speed = p_Class.speedLimit;
+    }
+
+
+    private void SpawnEnemy()
+    {
+        if (!isSpawnEmemy) return;
+
+        GameObject camera = GameObject.Find("Main Camera");
+        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
     }
 }

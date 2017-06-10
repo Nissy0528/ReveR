@@ -13,11 +13,11 @@ public class Enemy : MonoBehaviour
     private int x;
     private int y;
     private Player p_Class;
+    private GameObject camera;
+    private GameObject player;
+    private Exp Exp;
 
     public GameObject BoomEffect;
-    public GameObject camera;
-    public GameObject player;
-    public Exp Exp;
     public int exp;
     public float scrollSpeed;
     public bool isScroll;
@@ -28,7 +28,12 @@ public class Enemy : MonoBehaviour
         isLWHit = false;
         x = 0;
         y = 0;
+
+        player = GameObject.Find("Player");
+        camera = GameObject.Find("Main Camera");
         p_Class = player.GetComponent<Player>();
+        Exp = player.GetComponent<Exp>();
+
 
     }
 
@@ -47,12 +52,12 @@ public class Enemy : MonoBehaviour
             y--;
         }
 
-        if (transform.parent.tag != "Enemys")
+        if (transform.parent != null)
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             if (transform.parent.GetChild(0).tag == "Untagged")
             {
-                Exp.GetComponent<Exp>().EXP(exp);
+                //Exp.GetComponent<Exp>().EXP(exp);
                 //player.GetComponent<Player>().ExtWing();
                 camera.GetComponent<CameraClamp>().SetShake();
                 p_Class.Crush();
@@ -79,7 +84,7 @@ public class Enemy : MonoBehaviour
         transform.Translate(Vector3.up * -scrollSpeed);
     }
 
-    void OnCollisionExit2D(Collision2D col)
+    void OnTriggerExit2D(Collider2D col)
     {
         if (col.gameObject.tag == "L_Joint" && x == 0)
         {
@@ -95,7 +100,7 @@ public class Enemy : MonoBehaviour
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         }
     }
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "L_Joint")
         {
@@ -114,7 +119,7 @@ public class Enemy : MonoBehaviour
 
         if (isLWHit == true && isRWHit == true)
         {
-            Exp.GetComponent<Exp>().EXP(exp);
+            //Exp.GetComponent<Exp>().EXP(exp);
             //player.GetComponent<Player>().ExtWing();
             camera.GetComponent<CameraClamp>().SetShake();
             p_Class.Crush();

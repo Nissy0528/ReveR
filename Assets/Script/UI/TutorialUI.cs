@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class TutorialUI : MonoBehaviour
 {
-    public GameObject player;//プレイヤー
-
+    private GameObject player;//プレイヤー
     private RectTransform rect;//レクトトランスフォーム
     private Vector3 posPlus;//加算する座標
 
     // Use this for initialization
     void Start()
     {
+        player = GameObject.Find("Player");
+
         rect = GetComponent<RectTransform>();
         //プレイヤーの座標から設定した座標分加算してスクリーン座標に変換
         rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, player.transform.position + posPlus);

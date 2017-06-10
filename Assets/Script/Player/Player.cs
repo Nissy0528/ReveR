@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public int maxexp;//経験値
     public int shakeCnt;//コントローラーの振動時間
 
+    private GameObject main;//メインマネージャー
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();//リジッドボディ取得
         se = GetComponent<AudioSource>();
         trails = GameObject.FindGameObjectsWithTag("Trail");
+        main = GameObject.Find("MainManager");
         iniTrailColor = trails[0].GetComponent<TrailRenderer>().material.color;
 
         isRecession = false;
@@ -72,8 +74,9 @@ public class Player : MonoBehaviour
         vx = Input.GetAxis("Horizontal");
         vy = Input.GetAxis("Vertical");
 
-        if (isStop) return;
+        Stop();//停止
 
+        if (isStop) return;
         Move();//移動
         ReturnForce();//切り替えし慣性
         Rotate();//回転
@@ -261,7 +264,7 @@ public class Player : MonoBehaviour
 
         if (speed >= stopSpeed)
         {
-            GameObject.Find("MainManager").GetComponent<Main>().SetStop();
+            main.GetComponent<Main>().SetStop();
         }
 
         isJudge = true;
@@ -346,6 +349,18 @@ public class Player : MonoBehaviour
             SetAlpha(1.0f);
             isDamage = false;
         }
+    }
+
+    /// <summary>
+    /// 停止
+    /// </summary>
+    private void Stop()
+    {
+        main = GameObject.Find("MainManager");
+
+        if (main == null) return;
+
+        isStop = main.GetComponent<Main>().IsStop();
     }
 
     /// <summary>
