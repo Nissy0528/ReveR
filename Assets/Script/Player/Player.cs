@@ -380,7 +380,7 @@ public class Player : MonoBehaviour
     /// あたり判定
     /// </summary>
     /// <param name="col"></param>
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Enemy" && !isDamage)//Enemyとぶつかった時
         {

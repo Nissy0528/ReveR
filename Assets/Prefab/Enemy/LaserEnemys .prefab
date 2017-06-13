@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114604494841156494}
   - component: {fileID: 50267709364666732}
   - component: {fileID: 61656961616857102}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RightEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 212617694021935136}
   - component: {fileID: 61603584547524668}
   - component: {fileID: 114168653331349154}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 114239460431860894}
   - component: {fileID: 50159653125266214}
   - component: {fileID: 61216740033956292}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LeftEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}

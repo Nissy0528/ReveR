@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
         }
 
     }
-    void OnCollisionExit2D(Collision2D col)
+    void OnTriggerExit2D(Collider2D col)
     {
         if (col.gameObject.tag == "L_Joint" && x == 0)
         {
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         }
     }
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "L_Joint")
         {
