@@ -2,26 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : MonoBehaviour {
+public class Laser : MonoBehaviour
+{
 
     public GameObject LeftEnemy;
     public GameObject RightEnemy;
     public float LaserSpeed = 0.1f;
-   
+
     private bool IsStop;
     private bool IsColLeftEnemy;
     private bool IsColRightEnemy;
 
     private int count;
-    void Start () {
+    void Start()
+    {
 
         IsStop = false;
         count = 0;
-       
+
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         Move();
 
     }
@@ -32,34 +35,42 @@ public class Laser : MonoBehaviour {
         if (!IsColRightEnemy)
         {
             transform.localScale += new Vector3(LaserSpeed, 0, 0);
-            transform.position += new Vector3(LaserSpeed/2, 0, 0);
+            transform.position += new Vector3(LaserSpeed / 2, 0, 0);
         }
-        else if(!IsColLeftEnemy)
+        else if (!IsColLeftEnemy)
         {
             transform.localScale += new Vector3(LaserSpeed, 0, 0);
-            transform.position += new Vector3(-LaserSpeed/2, 0, 0);
+            transform.position += new Vector3(-LaserSpeed / 2, 0, 0);
         }
         Debug.Log(count);
     }
-    
-    
+
+
     void OnCollisionEnter2D(Collision2D col)
     {
-        if(LeftEnemy != null){
-            if(col.gameObject.name == LeftEnemy.transform.name) IsColLeftEnemy = true; }
+        if (LeftEnemy != null)
+        {
+            if (col.gameObject.name == LeftEnemy.transform.name) IsColLeftEnemy = true;
+        }
 
 
-        if (RightEnemy != null){
-            if (col.gameObject.name == RightEnemy.transform.name) IsColRightEnemy = true; }
+        if (RightEnemy != null)
+        {
+            if (col.gameObject.name == RightEnemy.transform.name) IsColRightEnemy = true;
+        }
     }
     void OnCollisionExit2D(Collision2D col)
     {
-        if (LeftEnemy != null){
-            if (col.gameObject.name == LeftEnemy.transform.name) IsColLeftEnemy = false; }
+        if (LeftEnemy != null)
+        {
+            if (col.gameObject.name == LeftEnemy.transform.name) IsColLeftEnemy = false;
+        }
 
 
-        if (RightEnemy != null){
-            if (col.gameObject.name == RightEnemy.transform.name) IsColRightEnemy = false; }
+        if (RightEnemy != null)
+        {
+            if (col.gameObject.name == RightEnemy.transform.name) IsColRightEnemy = false;
+        }
     }
 
     void Stop()
@@ -73,5 +84,5 @@ public class Laser : MonoBehaviour {
     {
         if (LeftEnemy == null && RightEnemy == null) Destroy(gameObject);
     }
-   
+
 }

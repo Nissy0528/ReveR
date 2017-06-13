@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4243674920315970}
   - component: {fileID: 212889618330696340}
   - component: {fileID: 114250340816364518}
-  - component: {fileID: 114139426155807862}
   - component: {fileID: 50658677104058398}
   - component: {fileID: 61914681900818638}
   m_Layer: 0
@@ -89,20 +88,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
---- !u!114 &114139426155807862
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1292366529424802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faac1d60bae07864b9f5abc958ef9354, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  x: -5
-  y: 2
-  time: 0
 --- !u!114 &114250340816364518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,10 +100,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  camera: {fileID: 0}
-  player: {fileID: 0}
   Exp: {fileID: 0}
   exp: 10
+  scrollSpeed: 0.1
+  isScroll: 1
 --- !u!212 &212889618330696340
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -8,11 +8,11 @@ public class Main : MonoBehaviour
 {
     public static float time;
     public Player player;
-    public GameObject timeText;
     public int stopTime;
 
     private GameObject[] enemys;
     private GameObject enemyDead;
+    private GameObject timeText;
     private bool isStop;
     private bool isClear;
     private int stopCnt;
@@ -23,6 +23,7 @@ public class Main : MonoBehaviour
         isStop = false;
         isClear = false;
         time = 0.0f;
+        timeText = GameObject.Find("Time");
         timeText.SetActive(true);
     }
 
@@ -68,7 +69,7 @@ public class Main : MonoBehaviour
 
         Time.timeScale = 0.0f;
         stopCnt += 1;
-        if(stopCnt>=stopTime)
+        if (stopCnt >= stopTime)
         {
             Time.timeScale = 1.0f;
             isStop = false;
@@ -92,5 +93,14 @@ public class Main : MonoBehaviour
     {
         stopCnt = 0;
         isStop = true;
+    }
+
+    /// <summary>
+    /// 停止判定取得
+    /// </summary>
+    /// <returns>停止判定</returns>
+    public bool IsStop()
+    {
+        return isStop;
     }
 }
