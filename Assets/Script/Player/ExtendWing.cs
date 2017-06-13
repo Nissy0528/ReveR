@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExtendWing : MonoBehaviour {
-    
+public class ExtendWing : MonoBehaviour
+{
+
     //Transform t;
     private GameObject jointR;
     private GameObject jointL;
     public float ext;
-	// Use this for initialization
-	void Start () {
+    public float scaleMax;
+    // Use this for initialization
+    void Start()
+    {
         //t = GetComponent<Transform>();
         jointR = GameObject.Find("R_Joint");
         jointL = GameObject.Find("L_Joint");
-        
-	}
+
+    }
 
     public void wingLength()
     {
@@ -35,10 +38,19 @@ public class ExtendWing : MonoBehaviour {
         jointR.transform.localScale += new Vector3(ext, 0, 0);
         jointL.transform.localScale += new Vector3(ext, 0, 0);
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         wingLength();
-	}
+
+        if (jointR.transform.localScale.x >= scaleMax)
+        {
+            jointR.transform.localScale = new Vector3(scaleMax, jointR.transform.localScale.y, jointR.transform.localScale.z);
+        }
+        if (jointL.transform.localScale.x >= scaleMax)
+        {
+            jointL.transform.localScale = new Vector3(scaleMax, jointL.transform.localScale.y, jointL.transform.localScale.z);
+        }
+    }
 }

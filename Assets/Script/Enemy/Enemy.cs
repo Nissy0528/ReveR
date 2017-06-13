@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
             if (transform.parent.GetChild(0).tag == "Untagged")
             {
                 //Exp.GetComponent<Exp>().EXP(exp);
-                //player.GetComponent<Player>().ExtWing();
+                player.GetComponent<Player>().ExtWing();
                 camera.GetComponent<CameraClamp>().SetShake();
                 p_Class.Crush();
                 GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
@@ -120,7 +120,7 @@ public class Enemy : MonoBehaviour
         if (isLWHit == true && isRWHit == true)
         {
             //Exp.GetComponent<Exp>().EXP(exp);
-            //player.GetComponent<Player>().ExtWing();
+            player.GetComponent<Player>().ExtWing();
             camera.GetComponent<CameraClamp>().SetShake();
             p_Class.Crush();
             GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);

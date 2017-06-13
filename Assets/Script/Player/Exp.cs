@@ -37,6 +37,6 @@ public class Exp : MonoBehaviour
     void Update()
     {
         LevelUp(maxExp);
-        ex.value = exp;
+        //ex.value = exp;
     }
 }
