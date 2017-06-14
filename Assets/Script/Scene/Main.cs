@@ -9,21 +9,29 @@ public class Main : MonoBehaviour
     public static float time;
     public Player player;
     public int stopTime;
+    public float lifeTime;
 
     private GameObject[] enemys;
     private GameObject enemyDead;
     private GameObject timeText;
+    private GameObject lifeTimeText;
     private bool isStop;
-    private bool isClear;
+    private bool isClear = true;
+    private bool isLifeCnt;
     private int stopCnt;
 
     // Use this for initialization
     void Start()
     {
         isStop = false;
-        isClear = false;
+        if (GameObject.Find("Tutorial") != null)
+        {
+            isClear = false;
+        }
+        isLifeCnt = false;
         time = 0.0f;
         timeText = GameObject.Find("Time");
+        lifeTimeText = GameObject.Find("LifeTime");
         timeText.SetActive(true);
     }
 
@@ -45,6 +53,7 @@ public class Main : MonoBehaviour
         }
 
         TimeCount();//経過時間処理
+        LifeTimeCount();//生存時間処理
         Stop();//停止
     }
 
@@ -58,6 +67,21 @@ public class Main : MonoBehaviour
         time += Time.deltaTime;
         time = Mathf.Round(time * 100) / 100;
         timeText.GetComponent<Text>().text = time.ToString();
+    }
+
+    /// <summary>
+    /// 生存時間処理
+    /// </summary>
+    private void LifeTimeCount()
+    {
+        if (enemys.Length == 0) return;
+
+        if (isLifeCnt)
+        {
+            lifeTime = Mathf.Max(lifeTime - Time.deltaTime, 0.0f);
+        }
+        lifeTime = Mathf.Round(lifeTime * 100) / 100;
+        lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
     }
 
     /// <summary>
@@ -102,5 +126,24 @@ public class Main : MonoBehaviour
     public bool IsStop()
     {
         return isStop;
+    }
+
+    /// <summary>
+    /// 生存時間設定
+    /// </summary>
+    /// <param name="lifeTime">生存時間</param>
+    public void SetLifeTime(float lifeTime)
+    {
+        this.lifeTime += lifeTime;
+        isLifeCnt = false;
+    }
+
+    /// <summary>
+    /// 生存時間経過判定設定
+    /// </summary>
+    /// <param name="isLifeCnt"></param>
+    public void SetIsLifeCnt(bool isLifeCnt)
+    {
+        this.isLifeCnt = isLifeCnt;
     }
 }

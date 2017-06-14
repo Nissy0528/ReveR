@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraClamp : MonoBehaviour
+public class MainCamera : MonoBehaviour
 {
     public GameObject player;//プレイヤー
     public float shakeTime;//振動時間

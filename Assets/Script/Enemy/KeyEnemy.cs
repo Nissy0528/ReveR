@@ -77,6 +77,7 @@ public class KeyEnemy : MonoBehaviour {
     void KeyEnemyMove()
     {
         if (!IsKeyEnemyDead()){
+            Center = transform.position;
             radian += 0.01f * speed;
             var x = Mathf.Sin(radian) * CircleRadius;
             var y = Mathf.Cos(radian) * CircleRadius;
