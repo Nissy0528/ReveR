@@ -19,8 +19,6 @@ public class Enemy : MonoBehaviour
 
     public GameObject BoomEffect;
     public int exp;
-    public float scrollSpeed;
-    public bool isScroll;
 
     void Start()
     {
@@ -40,9 +38,6 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        ScrollMove();
-
         if (x != 0)
         {
             x--;
@@ -59,7 +54,7 @@ public class Enemy : MonoBehaviour
             {
                 //Exp.GetComponent<Exp>().EXP(exp);
                 player.GetComponent<Player>().ExtWing();
-                camera.GetComponent<CameraClamp>().SetShake();
+                camera.GetComponent<MainCamera>().SetShake();
                 p_Class.Crush();
                 GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
                 effect.name = "Boom_effct";
@@ -73,15 +68,6 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);//消滅
         }
 
-    }
-
-    /// <summary>
-    /// スクロール移動
-    /// </summary>
-    private void ScrollMove()
-    {
-        if (!isScroll) return;
-        transform.Translate(Vector3.up * -scrollSpeed);
     }
 
     void OnTriggerExit2D(Collider2D col)
@@ -102,6 +88,7 @@ public class Enemy : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
+        Debug.Log(gameObject.transform.name);
         if (col.gameObject.tag == "L_Joint")
         {
             isLWHit = true;
@@ -115,13 +102,14 @@ public class Enemy : MonoBehaviour
             y = 60;
             transform.parent = col.transform.parent;
             isDead = true;
+            
         }
 
         if (isLWHit == true && isRWHit == true)
         {
             //Exp.GetComponent<Exp>().EXP(exp);
             player.GetComponent<Player>().ExtWing();
-            camera.GetComponent<CameraClamp>().SetShake();
+            camera.GetComponent<MainCamera>().SetShake();
             p_Class.Crush();
             GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
             effect.name = "Boom_effct";

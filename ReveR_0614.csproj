@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{7160E5B9-CFF2-1849-48F0-BC250D8016D6}</ProjectGuid>
+    <ProjectGuid>{8D9F5B39-A8D0-C30E-C6ED-0FFC39BE6370}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Assembly-CSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -81,9 +81,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="ReveR.CSharp.Plugins.csproj">
-      <Project>{719D12DA-A73A-E9AA-7675-4CA13A8132EA}</Project>
-      <Name>ReveR.CSharp.Plugins</Name>
+    <ProjectReference Include="ReveR_0614.Plugins.csproj">
+      <Project>{6955921F-9C99-DE37-C2FD-7986FE61AD45}</Project>
+      <Name>ReveR_0614.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -97,7 +97,7 @@
     <Compile Include="Assets\Script\Enemy\Enemy.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyChack.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyManager.cs" />
-    <Compile Include="Assets\Script\Enemy\Enemy_Line&amp;Circle.cs" />
+    <Compile Include="Assets\Script\Enemy\Enemy_Line_Circle.cs" />
     <Compile Include="Assets\Script\Enemy\KeyEnemy.cs" />
     <Compile Include="Assets\Script\Enemy\Laser.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
@@ -142,5 +142,6 @@
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>
