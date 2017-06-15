@@ -135,10 +135,7 @@ public class Main : MonoBehaviour
     public void SetLifeTime(float lifeTime)
     {
         this.lifeTime += lifeTime;
-<<<<<<< HEAD
-=======
         isLifeCnt = false;
->>>>>>> origin/master
     }
 
     /// <summary>

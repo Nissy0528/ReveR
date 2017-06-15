@@ -165,7 +165,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6120861a5f46ed441882d3a3ee59a27d, type: 3}
   - {fileID: 8300000, guid: e7a881f5389f1c04386b51de13e54059, type: 3}
   - {fileID: 8300000, guid: 473c42d0b010f924998f6891393e0dbd, type: 3}
-  - {fileID: 8300000, guid: a2093c5ec72701949857c2aa35cf3972, type: 3}
+  - {fileID: 0}
   - {fileID: 8300000, guid: 015dc12b0ffce224f82189315b0830b7, type: 3}
   seNum: 5
   isAddSoeed: 0
@@ -4968,7 +4968,8 @@ Prefab:
       propertyPath: scrollSpeed
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114715886852662400, guid: 51f295e84e71d4a47ae44ab9a9a28cc1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 51f295e84e71d4a47ae44ab9a9a28cc1, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1681077103
