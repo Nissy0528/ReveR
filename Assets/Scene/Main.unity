@@ -664,7 +664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -813,7 +813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -1297,7 +1297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -1648,7 +1648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -1695,7 +1695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -2532,7 +2532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1407424173}
   stopTime: 10
-  lifeTime: 60
+  lifeTime: 5
 --- !u!4 &797328374
 Transform:
   m_ObjectHideFlags: 0
@@ -2629,11 +2629,32 @@ Transform:
   m_PrefabParentObject: {fileID: 4212206703531028, guid: 8dd988c8a4ec2244b9da6a0a03b0a7e1,
     type: 2}
   m_PrefabInternal: {fileID: 2111823598}
+--- !u!1 &835193072 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1700907147590294, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1679214570}
 --- !u!4 &835193073 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4545027635358740, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
     type: 2}
   m_PrefabInternal: {fileID: 1679214570}
+--- !u!114 &835193075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 835193072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baedf3b6c31364046a8cb3bb064da638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollSpeed: 0.05
+  addLifeTime: 10
+  isScroll: 1
+  isStopScroll: 1
+  stopPoint: {fileID: 1978905933}
 --- !u!4 &862159260 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4243674920315970, guid: df981eb7857e07a4a9f43da8c1c2a73b,
@@ -2787,7 +2808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -3350,7 +3371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -3397,7 +3418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -3444,7 +3465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -3491,7 +3512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -3672,7 +3693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -3804,7 +3825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -4009,7 +4030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -4086,7 +4107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -4793,7 +4814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}
@@ -4887,11 +4908,66 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114715886852662400, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+    - target: {fileID: 114290345960779494, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
         type: 2}
-      propertyPath: stopPoint
-      value: 
-      objectReference: {fileID: 1978905933}
+      propertyPath: isScroll
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114569229352948136, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: isScroll
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114881008225636154, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: isScroll
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114641692696243754, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: isScroll
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114699360052931758, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: isScroll
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114079691007063790, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: isScroll
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114290345960779494, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: scrollSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114569229352948136, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: scrollSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114881008225636154, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: scrollSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114641692696243754, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: scrollSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114699360052931758, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: scrollSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114079691007063790, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
+        type: 2}
+      propertyPath: scrollSpeed
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 51f295e84e71d4a47ae44ab9a9a28cc1, type: 2}
   m_IsPrefabParent: 0
@@ -6162,7 +6238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addLifeTime: 5
+  addLifeTime: 1
   isScroll: 1
   isStopScroll: 0
   stopPoint: {fileID: 0}

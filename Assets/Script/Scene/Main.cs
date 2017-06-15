@@ -74,9 +74,12 @@ public class Main : MonoBehaviour
     /// </summary>
     private void LifeTimeCount()
     {
-        if (enemys.Length == 0 || !isLifeCnt) return;
+        if (enemys.Length == 0) return;
 
-        lifeTime -= Time.deltaTime;
+        if (isLifeCnt)
+        {
+            lifeTime = Mathf.Max(lifeTime - Time.deltaTime, 0.0f);
+        }
         lifeTime = Mathf.Round(lifeTime * 100) / 100;
         lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
     }
@@ -132,6 +135,10 @@ public class Main : MonoBehaviour
     public void SetLifeTime(float lifeTime)
     {
         this.lifeTime += lifeTime;
+<<<<<<< HEAD
+=======
+        isLifeCnt = false;
+>>>>>>> origin/master
     }
 
     /// <summary>

@@ -71,12 +71,10 @@ public class EnemyManager : MonoBehaviour
 
         if (isCombo)
         {
-            comboTime += Time.deltaTime;//コンボ時間加算
             //子オブジェクトがいなくなったら
             if (currentChildCnt == 0)
             {
-                main.GetComponent<Main>().SetLifeTime(addLifeTime - comboTime);
-                main.GetComponent<Main>().SetIsLifeCnt(false);
+                main.GetComponent<Main>().SetLifeTime(addLifeTime);
                 Destroy(gameObject);//消滅
             }
         }
