@@ -9,15 +9,15 @@ public class Main : MonoBehaviour
     public static float time;
     public Player player;
     public int stopTime;
-    public float lifeTime;
+    public float battleTime;
 
     private GameObject[] enemys;
     private GameObject enemyDead;
     private GameObject timeText;
-    private GameObject lifeTimeText;
+    private GameObject battleTimeText;
     private bool isStop;
     private bool isClear = true;
-    private bool isLifeCnt;
+    private bool isBattleTime;
     private int stopCnt;
 
     // Use this for initialization
@@ -28,10 +28,10 @@ public class Main : MonoBehaviour
         {
             isClear = false;
         }
-        isLifeCnt = false;
+        isBattleTime = false;
         time = 0.0f;
         timeText = GameObject.Find("Time");
-        lifeTimeText = GameObject.Find("LifeTime");
+        battleTimeText = GameObject.Find("LifeTime");
         timeText.SetActive(true);
     }
 
@@ -76,12 +76,12 @@ public class Main : MonoBehaviour
     {
         if (enemys.Length == 0) return;
 
-        if (isLifeCnt)
+        if (isBattleTime)
         {
-            lifeTime = Mathf.Max(lifeTime - Time.deltaTime, 0.0f);
+            battleTime = Mathf.Max(battleTime - Time.deltaTime, 0.0f);
         }
-        lifeTime = Mathf.Round(lifeTime * 100) / 100;
-        lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
+        battleTime = Mathf.Round(battleTime * 100) / 100;
+        battleTimeText.GetComponent<Text>().text = battleTime.ToString();
     }
 
     /// <summary>
@@ -131,19 +131,19 @@ public class Main : MonoBehaviour
     /// <summary>
     /// 生存時間設定
     /// </summary>
-    /// <param name="lifeTime">生存時間</param>
-    public void SetLifeTime(float lifeTime)
+    /// <param name="battleTime">生存時間</param>
+    public void SetBattleTime(float battleTime)
     {
-        this.lifeTime += lifeTime;
-        isLifeCnt = false;
+        this.battleTime += battleTime;
+        isBattleTime = false;
     }
 
     /// <summary>
     /// 生存時間経過判定設定
     /// </summary>
-    /// <param name="isLifeCnt"></param>
-    public void SetIsLifeCnt(bool isLifeCnt)
+    /// <param name="isBattleTime"></param>
+    public void SetIsBattleTime(bool isBattleTime)
     {
-        this.isLifeCnt = isLifeCnt;
+        this.isBattleTime = isBattleTime;
     }
 }

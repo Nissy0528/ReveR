@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     // Use this for initialization
     private bool isRWHit;
     private bool isLWHit;
-    private bool isDead;
+    private bool isOut;
     private int x;
     private int y;
     private Player p_Class;
@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour
         //画面下に出たら
         if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2)
         {
+            isOut = true;
             Destroy(gameObject);//消滅
         }
 
@@ -88,21 +89,17 @@ public class Enemy : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(gameObject.transform.name);
         if (col.gameObject.tag == "L_Joint")
         {
             isLWHit = true;
             x = 60;
             transform.parent = col.transform.parent;
-            isDead = true;
         }
         if (col.gameObject.tag == "R_Joint")
         {
             isRWHit = true;
             y = 60;
             transform.parent = col.transform.parent;
-            isDead = true;
-            
         }
 
         if (isLWHit == true && isRWHit == true)
@@ -127,7 +124,7 @@ public class Enemy : MonoBehaviour
     /// <returns>死亡判定</returns>
     public bool IsDead()
     {
-        return isDead;
+        return isOut;
     }
 
 }

@@ -5,20 +5,20 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     public float scrollSpeed;//移動速度
-    public float addLifeTime;//生存時間に加算する値（最大値）
+    public float addBattleTime;//ボスバトル時間に加算する値（最大値）
     public bool isScroll;//下にスクロールするか
     public bool isStopScroll;//途中で停止するか
     public GameObject stopPoint;//停止ポイント
 
     private int iniChildCnt;//初期の子オブジェクトの数
-    private bool isCombo;//コンボ時間を取るか
-    private float comboTime;//コンボ時間
+    private bool isAddTime;//ボスバトル時間を加算するか
+    private GameObject lastChild;
 
     // Use this for initialization
     void Start()
     {
         iniChildCnt = transform.childCount;//初期の子オブジェクトの数取得
-        isCombo = false;//最初はコンボ時間を取らない
+        isAddTime = false;//最初はコンボ時間を取らない
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class EnemyManager : MonoBehaviour
     {
         Move();//移動
         MoveStop();//停止
-        ComboTime();//コンボ時間
+        AddBattleTime();//コンボ時間
     }
 
     /// <summary>
@@ -57,26 +57,44 @@ public class EnemyManager : MonoBehaviour
     /// <summary>
     /// コンボ時間
     /// </summary>
-    private void ComboTime()
+    private void AddBattleTime()
     {
         int currentChildCnt = transform.childCount;//現在の子オブジェクトの数を取得
         GameObject main = GameObject.Find("MainManager");
 
         //子オブジェクトが減ったら
-        if (currentChildCnt < iniChildCnt && !isCombo)
+        if (currentChildCnt < iniChildCnt)
         {
-            main.GetComponent<Main>().SetIsLifeCnt(true);
-            isCombo = true;//コンボ時間を取る
+            //ボスバトル時間の減少を始める
+            main.GetComponent<Main>().SetIsBattleTime(true);
         }
 
-        if (isCombo)
+        //子オブジェクトが1つになったら
+        if (currentChildCnt == 1)
         {
-            //子オブジェクトがいなくなったら
-            if (currentChildCnt == 0)
+            if (lastChild == null)
             {
-                main.GetComponent<Main>().SetLifeTime(addLifeTime);
-                Destroy(gameObject);//消滅
+                lastChild = transform.GetChild(0).gameObject;
             }
+        }
+
+        if (lastChild != null)
+        {
+            Debug.Log(lastChild.GetComponent<Enemy>().IsDead());
+
+            //子オブジェクトのエネミーが画面外に出なければtrueに
+            isAddTime = lastChild.GetComponent<Enemy>().IsDead();
+        }
+
+        //子オブジェクトがいなくなったら
+        if (currentChildCnt == 0 && lastChild == null)
+        {
+            if (isAddTime)
+            {
+                addBattleTime = 0;//加算フラグがfalseなら0にする
+            }
+            main.GetComponent<Main>().SetBattleTime(addBattleTime);//バトル時間加算
+            Destroy(gameObject);//消滅
         }
     }
 }

@@ -100,10 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
-  Exp: {fileID: 0}
   exp: 10
-  scrollSpeed: 0.1
-  isScroll: 1
 --- !u!212 &212889618330696340
 SpriteRenderer:
   m_ObjectHideFlags: 1

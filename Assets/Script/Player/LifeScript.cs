@@ -70,6 +70,6 @@ public class LifeScript : MonoBehaviour
     {
         Life();
         LifeColor();
-        needleCtrl();
+        //needleCtrl();
     }
 }
