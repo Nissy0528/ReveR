@@ -87,11 +87,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\EvaluationTime.cs" />
     <Compile Include="Assets\Script\Camera\MainCamera.cs" />
     <Compile Include="Assets\Script\Effect\Boom_Effect.cs" />
     <Compile Include="Assets\Script\Effect\Drain.cs" />
     <Compile Include="Assets\Script\Effect\StarAnim.cs" />
+    <Compile Include="Assets\Script\Enemy\BossEnemy.cs" />
     <Compile Include="Assets\Script\Enemy\Bullet.cs" />
     <Compile Include="Assets\Script\Enemy\ELMove.cs" />
     <Compile Include="Assets\Script\Enemy\EPMove.cs" />
@@ -99,8 +99,11 @@
     <Compile Include="Assets\Script\Enemy\EnemyChack.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyManager.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy_Line&amp;Circle.cs" />
+    <Compile Include="Assets\Script\Enemy\EvaluationTime.cs" />
     <Compile Include="Assets\Script\Enemy\KeyEnemy.cs" />
     <Compile Include="Assets\Script\Enemy\Laser.cs" />
+    <Compile Include="Assets\Script\Enemy\MeteoCtrl.cs" />
+    <Compile Include="Assets\Script\Enemy\MeteoMove.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\RotateSample.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
@@ -108,6 +111,7 @@
     <Compile Include="Assets\Script\Enemy\ShootBullet.cs" />
     <Compile Include="Assets\Script\Enemy\Turtroial_Move.cs" />
     <Compile Include="Assets\Script\Enemy\Tutorial.cs" />
+    <Compile Include="Assets\Script\Enemy\kaitenn.cs" />
     <Compile Include="Assets\Script\Pause\ArrowMove.cs" />
     <Compile Include="Assets\Script\Pause\Pause.cs" />
     <Compile Include="Assets\Script\Player\Exp.cs" />
@@ -129,6 +133,7 @@
     <Compile Include="Assets\Script\System\InputManager.cs" />
     <Compile Include="Assets\Script\System\PlayerPrefsUtility.cs" />
     <Compile Include="Assets\Script\UI\BackGroundMove.cs" />
+    <Compile Include="Assets\Script\UI\BackGroundScroll.cs" />
     <Compile Include="Assets\Script\UI\InputJudge.cs" />
     <Compile Include="Assets\Script\UI\JudgeUI.cs" />
     <Compile Include="Assets\Script\UI\PlayerPositionCheck.cs" />
