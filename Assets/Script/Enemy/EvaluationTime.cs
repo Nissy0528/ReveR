@@ -6,6 +6,9 @@ public class EvaluationTime : MonoBehaviour {
 
     // Use this for initialization
     public float Time;　//制限時間
+    public GameObject ExC;
+    public GameObject Nic;
+    public GameObject Nor;
     
     private  float LimitTime;　　　//制限時間フレーム化
     private float CurrentTime;　　 //進行中のフレーム
@@ -46,11 +49,25 @@ public class EvaluationTime : MonoBehaviour {
         //敵を全部消すと、残った時間でランクを判断する、リストに入れる
         if (transform.childCount == 0)
         {
-            if (CurrentTime >= LimitTime * 2 / 3) Main.Evaluation.Add("A");
+            if (CurrentTime >= LimitTime * 2 / 3)
+            {
+                Main.Evaluation.Add("A");
+                Instantiate(ExC, GameObject.Find("Canvas").transform);
+                JudgeUI.TargetPos = transform.position;
+            }
             if ((CurrentTime >= LimitTime * 1 / 3) && (CurrentTime < LimitTime * 2 / 3))
+            {
                 Main.Evaluation.Add("B");
+                Instantiate(Nic, GameObject.Find("Canvas").transform);
+                JudgeUI.TargetPos = transform.position;
+            }
             if (CurrentTime < LimitTime * 1 / 3)
+            {
                 Main.Evaluation.Add("C");
+                Instantiate(Nor, GameObject.Find("Canvas").transform);
+                JudgeUI.TargetPos = transform.position;
+            }
+                
 
             Destroy(gameObject);//判定終了後、このオブジェクトを消す
         }

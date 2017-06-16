@@ -114,7 +114,7 @@ public class Main : MonoBehaviour
     {
         if (enemyWave[waveNum].transform.FindChild("BossEnemy") != null) return;
 
-        if (waveNum < enemyWave.Length)
+        if (waveNum < enemyWave.Length - 1)
         {
             waveNum += 1;//ウェイブ番号加算
             enemyWave[waveNum].SetActive(true);//次のウェイブ生成
