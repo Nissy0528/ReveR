@@ -50,8 +50,6 @@ public class Enemy : MonoBehaviour
             }
         }
 
-
-
         if (lineFlag == true)
         {
             GetComponent<LineRenderer>().SetPosition(0, transform.position);
