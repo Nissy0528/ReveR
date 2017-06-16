@@ -29,7 +29,6 @@ public class KeyEnemy : MonoBehaviour
     void Start()
     {
         //初期化
-
         Center = transform.position;
         radian = 0;
         BoxC = GetComponentsInChildren<BoxCollider2D>();
@@ -52,6 +51,7 @@ public class KeyEnemy : MonoBehaviour
             foreach (var x in TMove) if (x != null) x.enabled = true;
             foreach (var x in BoxC) if (x != null) x.enabled = true;
             GetExPosition();
+            Destroy(gameObject.GetComponent<CircleCollider2D>());
             Destroy(this);　　//展開後もう使わないので、このcompentを消す
         }
     }

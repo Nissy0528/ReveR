@@ -80,9 +80,11 @@ GameObject:
   - component: {fileID: 4545027635358740}
   - component: {fileID: 114274683759275326}
   - component: {fileID: 114526210900984512}
+  - component: {fileID: 58725304681119168}
+  - component: {fileID: 114714753291020288}
   m_Layer: 0
   m_Name: GroupEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -364,6 +366,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &58725304681119168
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700907147590294}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.1}
+  serializedVersion: 2
+  m_Radius: 1
 --- !u!61 &61042208963380628
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -671,6 +688,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   exp: 10
+--- !u!114 &114714753291020288
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1700907147590294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f67dc0a598590499c873c0abb4f294, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Time: 15
 --- !u!114 &114842815826095572
 MonoBehaviour:
   m_ObjectHideFlags: 1

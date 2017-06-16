@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class Main : MonoBehaviour
 {
     public static float time;
+    public static List<string> Evaluation;//ランクのデータを集まる用のリスト
+
     public Player player;
     public int stopTime;
     public float battleTime;
@@ -23,6 +25,9 @@ public class Main : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Evaluation = new List<string>();
+
+
         isStop = false;
         if (GameObject.Find("Tutorial") != null)
         {

@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     // Use this for initialization
     private bool isRWHit;
     private bool isLWHit;
-    private bool isOut;
+    public static bool isOut;
     private int x;
     private int y;
     private Player p_Class;
@@ -62,12 +62,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        //画面下に出たら
-        if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2)
-        {
-            isOut = true;
-            Destroy(gameObject);//消滅
-        }
+       
 
     }
 
