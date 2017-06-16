@@ -20,7 +20,7 @@ public  class ELMove : MonoBehaviour
 
     private List<Vector2> Move_velocity;
     private bool IsOverMoveRange;
-    private Rigidbody2D Rigi;
+    //private Rigidbody2D Rigi;
     private Vector3 Position;
     private float time;
 
@@ -33,7 +33,7 @@ public  class ELMove : MonoBehaviour
 
    void Start()
     {
-        Rigi = GetComponent<Rigidbody2D>();
+        //Rigi = GetComponent<Rigidbody2D>();
         IsOverMoveRange = false;
 
         Move_velocity = new List<Vector2>()
@@ -69,9 +69,9 @@ public  class ELMove : MonoBehaviour
         else if (MoveWay == MoveDirection.RIGHT)
             List_num = IsOverMoveRange ? 1 : 0;
 
-        Rigi.velocity = Move_velocity[List_num] * speed;
+        //Rigi.velocity = Move_velocity[List_num] * speed;
 
-
+        transform.Translate(Move_velocity[List_num] * speed);
     }
     void GetMoveRange()
     {
@@ -86,8 +86,8 @@ public  class ELMove : MonoBehaviour
 
             }
 
-            Rigi.constraints = RigidbodyConstraints2D.FreezePositionX;
-            Rigi.constraints = RigidbodyConstraints2D.FreezeRotation;
+            //Rigi.constraints = RigidbodyConstraints2D.FreezePositionX;
+            //Rigi.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
         else if (MoveWay == MoveDirection.LEFT || MoveWay == MoveDirection.RIGHT)
         {
@@ -98,8 +98,8 @@ public  class ELMove : MonoBehaviour
                 IsOverMoveRange = IsOverMoveRange ? false : true;
             }
 
-            Rigi.constraints = RigidbodyConstraints2D.FreezePositionY;
-            Rigi.constraints = RigidbodyConstraints2D.FreezeRotation;
+            //Rigi.constraints = RigidbodyConstraints2D.FreezePositionY;
+            //Rigi.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
 
     }
