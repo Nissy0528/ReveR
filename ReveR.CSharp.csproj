@@ -111,6 +111,7 @@
     <Compile Include="Assets\Script\Enemy\ShootBullet.cs" />
     <Compile Include="Assets\Script\Enemy\Turtroial_Move.cs" />
     <Compile Include="Assets\Script\Enemy\Tutorial.cs" />
+    <Compile Include="Assets\Script\Enemy\kaitenn.cs" />
     <Compile Include="Assets\Script\Pause\ArrowMove.cs" />
     <Compile Include="Assets\Script\Pause\Pause.cs" />
     <Compile Include="Assets\Script\Player\Exp.cs" />
