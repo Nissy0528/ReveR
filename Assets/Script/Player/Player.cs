@@ -265,7 +265,7 @@ public class Player : MonoBehaviour
 
         if (speed >= stopSpeed)
         {
-            main.GetComponent<Main>().SetStop();
+            //main.GetComponent<Main>().SetStop();
         }
 
         isJudge = true;

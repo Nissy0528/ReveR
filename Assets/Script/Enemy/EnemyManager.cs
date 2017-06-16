@@ -35,7 +35,7 @@ public class EnemyManager : MonoBehaviour
     private void Move()
     {
         if (!isScroll) return;//スクロールしなければ何もしない
-        transform.Translate(Vector3.down * scrollSpeed);//下にスクロール
+        transform.Translate(0, -scrollSpeed, 0, Space.World);//下にスクロール
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void DestroyObj()
     {
-        if(isStopScroll)
+        if (isStopScroll)
         {
             Destroy(stopPoint.gameObject);//停止ポイント消滅
         }
