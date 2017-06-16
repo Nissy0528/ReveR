@@ -100,6 +100,8 @@
     <Compile Include="Assets\Script\Enemy\Enemy_Line&amp;Circle.cs" />
     <Compile Include="Assets\Script\Enemy\KeyEnemy.cs" />
     <Compile Include="Assets\Script\Enemy\Laser.cs" />
+    <Compile Include="Assets\Script\Enemy\MeteoCtrl.cs" />
+    <Compile Include="Assets\Script\Enemy\MeteoMove.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\RotateSample.cs" />
     <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="Assets\Script\System\InputManager.cs" />
     <Compile Include="Assets\Script\System\PlayerPrefsUtility.cs" />
     <Compile Include="Assets\Script\UI\BackGroundMove.cs" />
+    <Compile Include="Assets\Script\UI\BackGroundScroll.cs" />
     <Compile Include="Assets\Script\UI\InputJudge.cs" />
     <Compile Include="Assets\Script\UI\JudgeUI.cs" />
     <Compile Include="Assets\Script\UI\PlayerPositionCheck.cs" />
