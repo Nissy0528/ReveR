@@ -19,7 +19,7 @@ public class Main : MonoBehaviour
     private GameObject timeText;
     private GameObject battleTimeText;
     private bool isStop;
-    private bool isClear = true;
+    private bool isClear;
     private bool isBattleTime;
     private int stopCnt;
     private int waveNum;
@@ -31,10 +31,7 @@ public class Main : MonoBehaviour
 
 
         isStop = false;
-        if (GameObject.Find("Tutorial") != null)
-        {
-            isClear = false;
-        }
+        isClear = false;
         isBattleTime = false;
         time = 0.0f;
         timeText = GameObject.Find("Time");
@@ -62,7 +59,7 @@ public class Main : MonoBehaviour
         }
 
         TimeCount();//経過時間処理
-        LifeTimeCount();//生存時間処理
+        BattleTimeCount();//生存時間処理
         Stop();//停止
         E_WaveSpawn();//ウェイブ生成
     }
@@ -80,9 +77,9 @@ public class Main : MonoBehaviour
     }
 
     /// <summary>
-    /// 生存時間処理
+    /// ボスバトル時間処理
     /// </summary>
-    private void LifeTimeCount()
+    private void BattleTimeCount()
     {
         if (enemys.Length == 0) return;
 
@@ -117,10 +114,14 @@ public class Main : MonoBehaviour
     {
         if (enemyWave[waveNum].transform.FindChild("BossEnemy") != null) return;
 
-        if (waveNum >= enemyWave.Length)
+        if (waveNum < enemyWave.Length)
         {
-            waveNum += 1;
-            enemyWave[waveNum].SetActive(true);
+            waveNum += 1;//ウェイブ番号加算
+            enemyWave[waveNum].SetActive(true);//次のウェイブ生成
+        }
+        else
+        {
+            isClear = true;//最終ウェイブならクリア判定trueに
         }
     }
 
