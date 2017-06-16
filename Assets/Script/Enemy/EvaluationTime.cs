@@ -51,19 +51,19 @@ public class EvaluationTime : MonoBehaviour {
         {
             if (CurrentTime >= LimitTime * 2 / 3)
             {
-                Main.Evaluation.Add("A");
+                Main.Evaluation.Add("S");
                 Instantiate(ExC, GameObject.Find("Canvas").transform);
                 JudgeUI.TargetPos = transform.position;
             }
             if ((CurrentTime >= LimitTime * 1 / 3) && (CurrentTime < LimitTime * 2 / 3))
             {
-                Main.Evaluation.Add("B");
+                Main.Evaluation.Add("A");
                 Instantiate(Nic, GameObject.Find("Canvas").transform);
                 JudgeUI.TargetPos = transform.position;
             }
             if (CurrentTime < LimitTime * 1 / 3)
             {
-                Main.Evaluation.Add("C");
+                Main.Evaluation.Add("B");
                 Instantiate(Nor, GameObject.Find("Canvas").transform);
                 JudgeUI.TargetPos = transform.position;
             }

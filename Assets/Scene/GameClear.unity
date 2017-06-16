@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 363455285}
   - component: {fileID: 363455284}
   m_Layer: 5
-  m_Name: A
+  m_Name: S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 410335932}
   - component: {fileID: 410335931}
   m_Layer: 5
-  m_Name: C
+  m_Name: B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -695,7 +695,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: B x
+  m_Text: A x
 --- !u!222 &607692289
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -787,7 +787,7 @@ GameObject:
   - component: {fileID: 775371981}
   - component: {fileID: 775371980}
   m_Layer: 5
-  m_Name: B
+  m_Name: A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -901,7 +901,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: A x
+  m_Text: S x
 --- !u!222 &1183693072
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1116,9 +1116,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clearTime: {fileID: 129272304}
-  A: {fileID: 363455284}
-  B: {fileID: 775371980}
-  C: {fileID: 410335931}
+  S: {fileID: 363455284}
+  A: {fileID: 775371980}
+  B: {fileID: 410335931}
   timeRank:
   - {fileID: 1976155604}
   - {fileID: 472116609}
@@ -1340,7 +1340,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: C x
+  m_Text: B x
 --- !u!222 &1836230601
 CanvasRenderer:
   m_ObjectHideFlags: 0
