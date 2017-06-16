@@ -13,9 +13,9 @@ public class BackGroundScroll : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.Translate(0, speed, 0);
-        if(transform.position.y < -15.0f)
+        if(transform.position.y < -8.5f)
         {
-            transform.position = new Vector3(0, 15.0f, 0);
+            transform.position = new Vector3(0, 8.5f, 0);
         }
 	}
 }

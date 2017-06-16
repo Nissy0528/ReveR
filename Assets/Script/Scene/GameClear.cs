@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class GameClear : MonoBehaviour
 {
     public Text clearTime;
-    public Text A;　　　//Aランク
-    public Text B;　　　//bランク
-    public Text C;　　　//cランク
+    public Text S;　　　//Aランク
+    public Text A;　　　//bランク
+    public Text B;　　　//cランク
 
 
     public List<Text> timeRank;
@@ -53,18 +53,18 @@ public class GameClear : MonoBehaviour
     /// </summary>
     void EvaluationText()
     {
+        var Scount = 0;
         var Acount = 0;
         var Bcount = 0;
-        var Ccount = 0;
         for(int i = 0; i < Main.Evaluation.Count; i++)
         {
+            if (Main.Evaluation[i] == "S") Scount++;
             if (Main.Evaluation[i] == "A") Acount++;
             if (Main.Evaluation[i] == "B") Bcount++;
-            if (Main.Evaluation[i] == "C") Ccount++;
         }
+        S.text = Scount.ToString();
         A.text = Acount.ToString();
         B.text = Bcount.ToString();
-        C.text = Ccount.ToString();
     }
 
 
