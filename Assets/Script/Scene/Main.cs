@@ -8,6 +8,7 @@ public class Main : MonoBehaviour
 {
     public static float time;
     public Player player;
+    public GameObject[] enemyWave;
     public int stopTime;
     public float battleTime;
 
@@ -19,6 +20,7 @@ public class Main : MonoBehaviour
     private bool isClear = true;
     private bool isBattleTime;
     private int stopCnt;
+    private int waveNum;
 
     // Use this for initialization
     void Start()
@@ -33,6 +35,8 @@ public class Main : MonoBehaviour
         timeText = GameObject.Find("Time");
         battleTimeText = GameObject.Find("LifeTime");
         timeText.SetActive(true);
+
+        waveNum = 0;
     }
 
     // Update is called once per frame
@@ -55,6 +59,7 @@ public class Main : MonoBehaviour
         TimeCount();//経過時間処理
         LifeTimeCount();//生存時間処理
         Stop();//停止
+        E_WaveSpawn();//ウェイブ生成
     }
 
     /// <summary>
@@ -97,6 +102,20 @@ public class Main : MonoBehaviour
         {
             Time.timeScale = 1.0f;
             isStop = false;
+        }
+    }
+
+    /// <summary>
+    /// ウェイブ生成
+    /// </summary>
+    private void E_WaveSpawn()
+    {
+        if (enemyWave[waveNum].transform.FindChild("BossEnemy") != null) return;
+
+        if (waveNum >= enemyWave.Length)
+        {
+            waveNum += 1;
+            enemyWave[waveNum].SetActive(true);
         }
     }
 

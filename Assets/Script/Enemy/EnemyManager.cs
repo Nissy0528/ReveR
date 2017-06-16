@@ -80,10 +80,8 @@ public class EnemyManager : MonoBehaviour
 
         if (lastChild != null)
         {
-            Debug.Log(lastChild.GetComponent<Enemy>().IsDead());
-
             //子オブジェクトのエネミーが画面外に出なければtrueに
-            isAddTime = lastChild.GetComponent<Enemy>().IsDead();
+            isAddTime = lastChild.GetComponent<Enemy>().IsOut();
         }
 
         //子オブジェクトがいなくなったら
@@ -94,7 +92,19 @@ public class EnemyManager : MonoBehaviour
                 addBattleTime = 0;//加算フラグがfalseなら0にする
             }
             main.GetComponent<Main>().SetBattleTime(addBattleTime);//バトル時間加算
-            Destroy(gameObject);//消滅
+            DestroyObj();
         }
+    }
+
+    /// <summary>
+    /// 消滅
+    /// </summary>
+    private void DestroyObj()
+    {
+        if(isStopScroll)
+        {
+            Destroy(stopPoint.gameObject);//停止ポイント消滅
+        }
+        Destroy(gameObject);//消滅
     }
 }

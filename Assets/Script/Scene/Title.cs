@@ -9,7 +9,7 @@ public class Title : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
-            SceneManager.LoadScene("StageSelect");
+            SceneManager.LoadScene("Main");
         }
 
         else if(Input.GetKeyDown(KeyCode.Joystick1Button7))

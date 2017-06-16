@@ -10,8 +10,6 @@ public class Enemy : MonoBehaviour
     private bool isRWHit;
     private bool isLWHit;
     private bool isOut;
-    private int x;
-    private int y;
     private Player p_Class;
     private GameObject camera;
     private GameObject player;
@@ -24,8 +22,6 @@ public class Enemy : MonoBehaviour
     {
         isRWHit = false;
         isLWHit = false;
-        x = 0;
-        y = 0;
 
         player = GameObject.Find("Player");
         camera = GameObject.Find("Main Camera");
@@ -38,47 +34,31 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (x != 0)
-        {
-            x--;
-        }
-        if (y != 0)
-        {
-            y--;
-        }
-
         if (transform.parent != null)
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             if (transform.parent.GetChild(0).tag == "Untagged")
             {
-                //Exp.GetComponent<Exp>().EXP(exp);
-                player.GetComponent<Player>().ExtWing();
-                camera.GetComponent<MainCamera>().SetShake();
-                p_Class.Crush();
-                GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
-                effect.name = "Boom_effct";
-                Destroy(gameObject);
+                DestroyObj(true);
             }
         }
 
         //画面下に出たら
         if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2)
         {
-            isOut = true;
-            Destroy(gameObject);//消滅
+            DestroyObj(false);
         }
 
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "L_Joint" && x == 0)
+        if (col.gameObject.tag == "L_Joint")
         {
             isLWHit = false;
 
         }
-        if (col.gameObject.tag == "R_Joint" && y == 0)
+        if (col.gameObject.tag == "R_Joint")
         {
             isRWHit = false;
         }
@@ -92,25 +72,17 @@ public class Enemy : MonoBehaviour
         if (col.gameObject.tag == "L_Joint")
         {
             isLWHit = true;
-            x = 60;
             transform.parent = col.transform.parent;
         }
         if (col.gameObject.tag == "R_Joint")
         {
             isRWHit = true;
-            y = 60;
             transform.parent = col.transform.parent;
         }
 
         if (isLWHit == true && isRWHit == true)
         {
-            //Exp.GetComponent<Exp>().EXP(exp);
-            player.GetComponent<Player>().ExtWing();
-            camera.GetComponent<MainCamera>().SetShake();
-            p_Class.Crush();
-            GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
-            effect.name = "Boom_effct";
-            Destroy(gameObject);
+            DestroyObj(true);
         }
         if (col.transform.tag == "Player")
         {
@@ -119,10 +91,31 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
+    /// 消滅
+    /// </summary>
+    /// <param name="isDead">潰されたか</param>
+    private void DestroyObj(bool isDead)
+    {
+        if(isDead)
+        {
+            player.GetComponent<Player>().ExtWing();
+            camera.GetComponent<MainCamera>().SetShake();
+            p_Class.Crush();
+            GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
+            effect.name = "Boom_effct";
+        }
+        else
+        {
+            isOut = true;
+        }
+        Destroy(gameObject);
+    }
+
+    /// <summary>
     /// 死亡判定取得
     /// </summary>
     /// <returns>死亡判定</returns>
-    public bool IsDead()
+    public bool IsOut()
     {
         return isOut;
     }
