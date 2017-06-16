@@ -14,9 +14,12 @@ public class Enemy : MonoBehaviour
     private GameObject camera;
     private GameObject player;
     private Exp Exp;
+    
 
     public GameObject BoomEffect;
     public int exp;
+
+    public bool lineFlag;
 
     void Start()
     {
@@ -49,6 +52,11 @@ public class Enemy : MonoBehaviour
             DestroyObj(false);
         }
 
+        if (lineFlag == true)
+        {
+            GetComponent<LineRenderer>().SetPosition(0, transform.position);
+            GetComponent<LineRenderer>().SetPosition(1, GameObject.Find("Boss").transform.position);
+        }
     }
 
     void OnTriggerExit2D(Collider2D col)
