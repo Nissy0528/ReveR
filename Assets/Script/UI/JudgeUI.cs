@@ -7,6 +7,7 @@ public class JudgeUI : MonoBehaviour
     private Animator anim;
     private RectTransform rect;
     private GameObject target;
+    public static Vector3 TargetPos;
 
     // Use this for initialization
     void Start()
@@ -15,9 +16,12 @@ public class JudgeUI : MonoBehaviour
         rect = GetComponent<RectTransform>();
         target = GameObject.FindGameObjectWithTag("EDEffect");
 
-        rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, target.transform.position);
+        //if (target != null)
+        //    rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, target.transform.position);
 
-        target.tag = "Untagged";
+        rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, TargetPos);
+
+        //target.tag = "Untagged";
     }
 
     // Update is called once per frame
