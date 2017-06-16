@@ -87,6 +87,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BossEnemy.cs" />
     <Compile Include="Assets\Script\Camera\MainCamera.cs" />
     <Compile Include="Assets\Script\Effect\Boom_Effect.cs" />
     <Compile Include="Assets\Script\Effect\Drain.cs" />
