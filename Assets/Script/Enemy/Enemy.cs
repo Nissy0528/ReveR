@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     private GameObject camera;
     private GameObject player;
     private Exp Exp;
-    
+
 
     public GameObject BoomEffect;
     public int exp;
@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
         if (transform.parent != null)
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-            if (transform.parent.GetChild(0).tag == "Untagged")
+            if (transform.parent.GetChild(0).tag == "Untagged" && (isLWHit || isRWHit))
             {
                 DestroyObj(true);
             }
@@ -59,15 +59,6 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "L_Joint")
-        {
-            isLWHit = false;
-
-        }
-        if (col.gameObject.tag == "R_Joint")
-        {
-            isRWHit = false;
-        }
         if (col.transform.tag == "Player")
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
@@ -102,7 +93,7 @@ public class Enemy : MonoBehaviour
     /// <param name="isDead">潰されたか</param>
     private void DestroyObj(bool isDead)
     {
-        if(isDead)
+        if (isDead)
         {
             player.GetComponent<Player>().ExtWing();
             camera.GetComponent<MainCamera>().SetShake();

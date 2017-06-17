@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     public GameObject R_joint;//右ジョイント
     public float delay;
     public float inputRange;//入力を取る範囲
+    public bool isAI;//自動で動くか
 
     private Vector2 input;//スティック入力値
     private Vector2 oldInput;//前のスティック入力値
@@ -55,8 +56,15 @@ public class InputManager : MonoBehaviour
     {
         if (Time.timeScale == 0.0f) return;
 
-        input.x = Input.GetAxis("Horizontal") * -1;
-        input.y = Input.GetAxis("Vertical");
+        if (!isAI)
+        {
+            input.x = Input.GetAxis("Horizontal") * -1;
+            input.y = Input.GetAxis("Vertical");
+        }
+        else
+        {
+            input = GetComponent<AI_Input>().GetInput();
+        }
 
         InputPoint();//スティック入力座標取得
         Invert();//反転処理

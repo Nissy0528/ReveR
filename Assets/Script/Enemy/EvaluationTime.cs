@@ -16,8 +16,6 @@ public class EvaluationTime : MonoBehaviour {
     private bool IsTimeStart;　　　//読秒開始
 
     private GameObject camera;　　　
-    
-
 
 	void Start () {
         camera = GameObject.Find("Main Camera");
@@ -69,7 +67,7 @@ public class EvaluationTime : MonoBehaviour {
             }
                 
 
-            Destroy(gameObject);//判定終了後、このオブジェクトを消す
+            Destroy(this);//判定終了後、このオブジェクトを消す
         }
         
     }

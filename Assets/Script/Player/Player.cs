@@ -27,7 +27,6 @@ public class Player : MonoBehaviour
     public int maxexp;//経験値
     public int shakeCnt;//コントローラーの振動時間
 
-    private GameObject main;//メインマネージャー
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
@@ -56,7 +55,6 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();//リジッドボディ取得
         se = GetComponent<AudioSource>();
         trails = GameObject.FindGameObjectsWithTag("Trail");
-        main = GameObject.Find("MainManager");
         iniTrailColor = trails[0].GetComponent<TrailRenderer>().material.color;
 
         isRecession = false;
@@ -72,12 +70,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        vx = Input.GetAxis("Horizontal");
-        vy = Input.GetAxis("Vertical");
+        if (!inputManager.GetComponent<InputManager>().isAI)
+        {
+            vx = Input.GetAxis("Horizontal");
+            vy = Input.GetAxis("Vertical");
+        }
+        else
+        {
+            vx = inputManager.GetComponent<AI_Input>().GetInput().x;
+            vy = inputManager.GetComponent<AI_Input>().GetInput().y;
+        }
 
-        Stop();//停止
-
-        if (isStop) return;
+        if (Time.timeScale == 0.0f) return;
         Move();//移動
         ReturnForce();//切り替えし慣性
         Rotate();//回転
@@ -357,7 +361,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Stop()
     {
-        main = GameObject.Find("MainManager");
+        GameObject main = GameObject.Find("MainManager");
 
         if (main == null) return;
 

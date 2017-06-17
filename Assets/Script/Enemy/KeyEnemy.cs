@@ -105,7 +105,7 @@ public class KeyEnemy : MonoBehaviour
         if (!IsKeyEnemyDead())
         {
             Center = transform.position;
-            radian += 0.01f * speed;
+            radian += 0.01f * speed * Time.timeScale;
             var x = Mathf.Sin(radian) * CircleRadius;
             var y = Mathf.Cos(radian) * CircleRadius;
             Keyenemy.transform.position = new Vector3(x + Center.x, y + Center.y);
