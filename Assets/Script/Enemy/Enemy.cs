@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     private GameObject camera;
     private GameObject player;
     private Exp Exp;
+    private Vector2 linePos;
 
 
     public GameObject BoomEffect;
@@ -34,8 +35,6 @@ public class Enemy : MonoBehaviour
         camera = GameObject.Find("Main Camera");
         p_Class = player.GetComponent<Player>();
         Exp = player.GetComponent<Exp>();
-
-
     }
 
     // Update is called once per frame
@@ -48,12 +47,6 @@ public class Enemy : MonoBehaviour
             {
                 DestroyObj(true);
             }
-        }
-
-        if (lineFlag == true)
-        {
-            GetComponent<LineRenderer>().SetPosition(0, transform.position);
-            GetComponent<LineRenderer>().SetPosition(1, GameObject.Find("Boss").transform.position);
         }
     }
 
@@ -106,6 +99,16 @@ public class Enemy : MonoBehaviour
             isOut = true;
         }
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// ライン生成
+    /// </summary>
+    private void Line()
+    {
+        if (!lineFlag) return;
+
+
     }
 
     /// <summary>

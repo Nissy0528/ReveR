@@ -9,7 +9,6 @@ public class DebugManager : MonoBehaviour
     public GameObject l_Joint;//左ジョイント
     public GameObject r_Joint;//右ジョイント
     public GameObject inputManager;//スティック入力値
-    public GameObject spawnEnemy;//生成用の敵
     public AudioClip[] enemyDeadSE;//敵の消滅効果音
     public int seNum;//効果音番号
 
@@ -24,7 +23,6 @@ public class DebugManager : MonoBehaviour
     public bool isDetaClear;//保存したデータを削除するか
     public bool isTutorialSkip;//チュートリアルをスキップするか
     public bool isPlayerMaxSpeed;//プレイヤーの速度を常に最大にするか
-    public bool isSpawnEmemy;//敵を無限生成するか
     public float drag;//摩擦力（プレイヤーの慣性をオンにしたとき使用）
 
     private PlayerOld p_OldClass;//プレイヤークラス（旧）
@@ -184,14 +182,5 @@ public class DebugManager : MonoBehaviour
         if (!isPlayerMaxSpeed) return;
 
         p_Class.speed = p_Class.speedLimit;
-    }
-
-
-    private void SpawnEnemy()
-    {
-        if (!isSpawnEmemy) return;
-
-        GameObject camera = GameObject.Find("Main Camera");
-        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
     }
 }

@@ -17,6 +17,7 @@ public class EnemyManager : MonoBehaviour
     private float CurrentTime;　　 //進行中のフレーム
     private int iniChildCnt;//初期の子オブジェクトの数
     private bool IsTimeStart;　　　//読秒開始
+    private bool isChildDestroy;
     private GameObject main;
     private GameObject camera;
 
@@ -30,6 +31,7 @@ public class EnemyManager : MonoBehaviour
         CurrentTime = LimitTime;
         iniChildCnt = transform.childCount;//初期の子オブジェクトの数取得
         IsTimeStart = false;
+        isChildDestroy = false;
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class EnemyManager : MonoBehaviour
         Move();//移動
         MoveStop();//停止
         TimeStart();//コンボ時間
+        ChildDestroy();//子オブジェクト全削除
         Evaluation();//ランクの分割
 
         //画面下に出たら
@@ -104,7 +107,7 @@ public class EnemyManager : MonoBehaviour
     /// <summary>
     /// ランクの分割
     /// </summary>
-    void Evaluation()
+    private void Evaluation()
     {
         //敵一つを倒すと,読秒開始
         if (!IsTimeStart) return;
@@ -138,5 +141,37 @@ public class EnemyManager : MonoBehaviour
             main.GetComponent<Main>().SetBattleTime(addBattleTime);//バトル時間加算
             DestroyObj();//判定終了後、このオブジェクトを消す
         }
+    }
+
+    /// <summary>
+    /// 子オブジェクト全削除
+    /// </summary>
+    private void ChildDestroy()
+    {
+        isChildDestroy = true;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            //タグがLineじゃない子オブジェクトが存在していたら削除しない
+            if (transform.GetChild(i).tag != "Line")
+            {
+                isChildDestroy = false;
+            }
+
+            //削除フラグがtrueなら子オブジェクト全削除
+            if (isChildDestroy)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 下スクロールフラグ設定
+    /// </summary>
+    /// <param name="isScroll">スクロールフラグ</param>
+    public void SetIsScroll(bool isScroll)
+    {
+        this.isScroll = isScroll;
     }
 }

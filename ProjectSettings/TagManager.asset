@@ -16,6 +16,7 @@ TagManager:
   - Hinge
   - Trail
   - Enemys
+  - Line
   layers:
   - Default
   - TransparentFX
