@@ -150,16 +150,19 @@ public class EnemyManager : MonoBehaviour
     {
         isChildDestroy = true;
 
+        //タグがLineじゃない子オブジェクトが存在していたら削除フラグfalse
         for (int i = 0; i < transform.childCount; i++)
         {
-            //タグがLineじゃない子オブジェクトが存在していたら削除しない
             if (transform.GetChild(i).tag != "Line")
             {
                 isChildDestroy = false;
             }
+        }
 
-            //削除フラグがtrueなら子オブジェクト全削除
-            if (isChildDestroy)
+        //削除フラグがtrueなら子オブジェクト全削除
+        if (isChildDestroy)
+        {
+            for (int i = 0; i < transform.childCount; i++)
             {
                 Destroy(transform.GetChild(i).gameObject);
             }

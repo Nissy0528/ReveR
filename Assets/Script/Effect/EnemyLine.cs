@@ -6,8 +6,8 @@ public class EnemyLine : MonoBehaviour
 {
     public GameObject target;//ラインの描画先
 
-    private Transform parent;
-    private bool isParentChange;
+    private Transform parent;//親オブジェクト
+    private bool isParentChange;//親変更フラグ
 
     // Use this for initialization
     void Start()
@@ -31,6 +31,8 @@ public class EnemyLine : MonoBehaviour
     /// </summary>
     private void Line()
     {
+        if (target == null) return;
+
         GetComponent<LineRenderer>().SetPosition(0, transform.position);
         GetComponent<LineRenderer>().SetPosition(1, target.transform.position);
     }
