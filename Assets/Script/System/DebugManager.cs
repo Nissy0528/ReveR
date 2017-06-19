@@ -9,7 +9,6 @@ public class DebugManager : MonoBehaviour
     public GameObject l_Joint;//左ジョイント
     public GameObject r_Joint;//右ジョイント
     public GameObject inputManager;//スティック入力値
-    public AudioClip[] enemyDeadSE;//敵の消滅効果音
     public int seNum;//効果音番号
 
     //デバッグ用判定
@@ -38,7 +37,6 @@ public class DebugManager : MonoBehaviour
         p_Class = player.GetComponent<Player>();//プレイヤークラス取得
         lj_Class = l_Joint.GetComponent<Joint>();//左ジョイントクラス取得
         rj_Class = r_Joint.GetComponent<Joint>();//右ジョイントクラス取得
-        player.GetComponent<AudioSource>().clip = enemyDeadSE[seNum];
     }
 
     // Update is called once per frame
@@ -54,7 +52,6 @@ public class DebugManager : MonoBehaviour
         }
         PlayerMaxSpeed();//プレイヤーの速度を常に最大に
         JointMass();//ジョイントの重さ切り替え
-        EnemySE();//効果音（敵を倒した時）
         InputManager();//スティック入力差の表示設定
         DataClear();//保存したデータを削除
         TutorialSkip();//チュートリアルスキップ
@@ -124,15 +121,6 @@ public class DebugManager : MonoBehaviour
     private void ReturnForce()
     {
         p_OldClass.SetRForce(isReturnFroce);
-    }
-
-    /// <summary>
-    /// 効果音（敵を倒した時）
-    /// </summary>
-    private void EnemySE()
-    {
-        if (player == null) return;
-        player.GetComponent<AudioSource>().clip = enemyDeadSE[seNum];
     }
 
     /// <summary>

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public GameObject inputManager;//スティック入力
     public GameObject drain;//エネルギー吸収エフェクト
     public GameObject[] spriteObjs;//スプライトレンダラーが入ってるオブジェクト
-    public AudioClip[] seClip;//効果音
+    public GameObject[] SE;//効果音
     public float speed;//移動速度
     public float addSpeed;//加速速度
     public float subSpeed;//減速速度
@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     public float drag;//摩擦力
     public float rotateSpeed;//回転速度
     public float returnSpeed;//切り替えし加速度
-    public float rayLength;//レイの長さ
     public int damageTime;//ダメージ表現の長さ
     public int flashInterval;//点滅間隔
     public int damage;//lifeをマイナスする値
@@ -42,6 +41,7 @@ public class Player : MonoBehaviour
     private float vy;//縦スティック入力値
     private float r_Speed;//切り替えし加速度
     private float iniSpeed;//初期速度
+    private float rayLength;//レイの長さ
     private bool isRecession;//反転判定
     private bool isStart;//スタート判定
     private bool isStop;//停止判定
@@ -112,6 +112,7 @@ public class Player : MonoBehaviour
         if (vx < 0.5f && vx > -0.5f
             && vy < 0.5f && vy > -0.5f)
         {
+            rigid.drag = 1.5f;
             return;//何もしない
         }
 
@@ -248,7 +249,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void EnemyDeadSE()
     {
-        se.PlayOneShot(seClip[0]);
+        Instantiate(SE[0]);
     }
 
     /// <summary>
@@ -409,7 +410,7 @@ public class Player : MonoBehaviour
             {
                 //tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
 
-                se.PlayOneShot(seClip[1]);
+                Instantiate(SE[1]);
 
                 speed = Mathf.Max(speed - damage, 0, 0f);
 
@@ -419,7 +420,7 @@ public class Player : MonoBehaviour
 
             if (tutorial == null)
             {
-                se.PlayOneShot(seClip[1]);
+                Instantiate(SE[1]);
 
                 speed = Mathf.Max(speed - damage, 0, 0f);
 
