@@ -17,6 +17,7 @@ TagManager:
   - Trail
   - Enemys
   - Line
+  - Shield
   layers:
   - Default
   - TransparentFX
