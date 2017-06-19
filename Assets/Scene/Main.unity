@@ -3067,6 +3067,7 @@ GameObject:
   - component: {fileID: 1289880008}
   - component: {fileID: 1289880007}
   - component: {fileID: 1289880009}
+  - component: {fileID: 1289880010}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Shield
@@ -3162,6 +3163,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!95 &1289880010
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1289880005}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cc3164dd87a078c409b27e08ff0e5ee7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!4 &1319408953 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4186501497062496, guid: 5dd16959cedf73a458698af5cfc06f94,

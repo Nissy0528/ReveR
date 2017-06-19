@@ -7,16 +7,25 @@ public class BossEnemy : MonoBehaviour
     public List<GameObject> childEnemy;　//childEnemy取得
     private BoxCollider2D box; //BoxCollider
     public GameObject shield;  //シールド取得
+    private Animator animator;
+    private Animation animation;
+    private bool animcount;
 
     // Use this for initialization
     void Start()
     {
         box = GetComponent<BoxCollider2D>();//BoxCollider2D取得
+        animator = shield.GetComponent<Animator>();
+        animation = GetComponent<Animation>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (shield != null)
+        {
+            animator = shield.GetComponent<Animator>();
+        }
         BossEnemyDead();
     }
 
@@ -43,14 +52,35 @@ public class BossEnemy : MonoBehaviour
     /// <returns></returns>
     public bool ChildEnemyDead()
     {
-        if(childEnemy.Count == 0)//子オブジェクトの個数が0なら
+        if (childEnemy.Count == 0)//子オブジェクトの個数が0なら
         {
-            Destroy(shield);　//シールド破壊
+            ShieldAnim();
             return true;
         }
         else
         {
             return false;
+        }
+    }
+
+    private void ShieldAnim()
+    {
+        if (shield == null)
+            return;
+        var animState = animator.GetCurrentAnimatorStateInfo(0);
+        if (animcount == false)
+        {
+            animator.SetTrigger("shield");
+            animcount = true;
+        }
+
+        //Destroy(shield); //シールド破壊
+        if (animState.IsName("Shield"))
+        {
+            if (animState.normalizedTime >= 1 && animcount)
+            {
+                Destroy(shield); //シールド破壊
+            }
         }
     }
 }
