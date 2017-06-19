@@ -2,42 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turtroial_Move : MonoBehaviour {
-
-   
+public class Turtroial_Move : MonoBehaviour
+{
     public Vector3 TargetPosition;//目標ポジション
     public float speed;//移動速度
-    public float Distant = 98;//目標ポジションにずれる距離
-    
-    private  Vector3 Velocity;
+    public bool isKeyEnemy;
+    public Sprite normal;
+
+    private Vector3 Velocity;
     private Vector3 startPosition;
-	void Start () {
-        
+
+    void Start()
+    {
         speed = speed / 10;
-        Distant = Distant / 1000;
         startPosition = transform.position;
-        
+
     }
     // Update is called once per frame
-    void Update () {
-
+    void Update()
+    {
         Move();
-        
-	}
+    }
 
     /// <summary>
-    /// 切り替えたい移動のタイプ
+    /// アクティブ化
     /// </summary>
-    /// スクリプトを有効化
-    /// スタートのポジションをとる
     void GetMoveType()
     {
-        if (gameObject.GetComponent<ELMove>() != null)
+        if (isKeyEnemy)
         {
-            gameObject.GetComponent<ELMove>().enabled = true;
-            gameObject.GetComponent<ELMove>().GetStartPosition(transform.position);
+            GetComponent<SpriteRenderer>().sprite = normal;//色のついた画像にする
+            GetComponent<BoxCollider2D>().enabled = true;//あたり判定有効に
         }
-        
     }
 
     /// <summary>
@@ -47,16 +43,13 @@ public class Turtroial_Move : MonoBehaviour {
     {
         Velocity = TargetPosition - transform.position;//移動量
 
-        transform.position += Velocity * speed;//移動させる
-        
-        if (
-            ((Velocity.x <= Distant && Velocity.x >= -Distant)&& (startPosition.x >= Distant || startPosition.x <= -Distant))
-            && ((Velocity.y <= Distant && Velocity.y >= -Distant)&& (startPosition.y >= Distant || startPosition.y <= -Distant)))
+        transform.position += Velocity * speed * Time.timeScale;//移動させる
+
+        if (Velocity == Vector3.zero)
         {
-           
-            GetMoveType();
+            GetMoveType();//アクティブ化
             Destroy(this);
         }
-       
+
     }
 }

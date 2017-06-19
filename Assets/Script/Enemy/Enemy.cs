@@ -18,7 +18,8 @@ public class Enemy : MonoBehaviour
     private GameObject camera;
     private GameObject player;
     private Exp Exp;
-    
+    private Vector2 linePos;
+
 
     public GameObject BoomEffect;
     public int exp;
@@ -34,8 +35,6 @@ public class Enemy : MonoBehaviour
         camera = GameObject.Find("Main Camera");
         p_Class = player.GetComponent<Player>();
         Exp = player.GetComponent<Exp>();
-
-
     }
 
     // Update is called once per frame
@@ -44,30 +43,15 @@ public class Enemy : MonoBehaviour
         if (transform.parent != null)
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-            if (transform.parent.GetChild(0).tag == "Untagged")
+            if (transform.parent.GetChild(0).tag == "Untagged" && (isLWHit || isRWHit))
             {
                 DestroyObj(true);
             }
-        }
-
-        if (lineFlag == true)
-        {
-            GetComponent<LineRenderer>().SetPosition(0, transform.position);
-            GetComponent<LineRenderer>().SetPosition(1, GameObject.Find("Boss").transform.position);
         }
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "L_Joint")
-        {
-            isLWHit = false;
-
-        }
-        if (col.gameObject.tag == "R_Joint")
-        {
-            isRWHit = false;
-        }
         if (col.transform.tag == "Player")
         {
             GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
@@ -102,7 +86,7 @@ public class Enemy : MonoBehaviour
     /// <param name="isDead">潰されたか</param>
     private void DestroyObj(bool isDead)
     {
-        if(isDead)
+        if (isDead)
         {
             player.GetComponent<Player>().ExtWing();
             camera.GetComponent<MainCamera>().SetShake();
@@ -115,6 +99,16 @@ public class Enemy : MonoBehaviour
             isOut = true;
         }
         Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// ライン生成
+    /// </summary>
+    private void Line()
+    {
+        if (!lineFlag) return;
+
+
     }
 
     /// <summary>

@@ -13,11 +13,14 @@ public class Joint : MonoBehaviour
 
     public JointType j_Type;//どちら側のジョイントか
     public GameObject core;//コアオブジェクト
+    public GameObject inputManager;
     public float rotateSpeed;//回転速度
     public float rotateLimit;//回転制限
     public float rotateBoost;//回転加速
     public float mass;//重さ
 
+    private float vx;
+    private float vy;
     private float maxAngle;//最大回転値
     private float minAngle;//最小回転値
     private float rotateZ;//回転角度変化用（-180～180に）
@@ -52,8 +55,16 @@ public class Joint : MonoBehaviour
     {
         if (Time.timeScale == 0.0f) return;
 
-        float vx = Input.GetAxis("Horizontal");//横入力値
-        float vy = Input.GetAxis("Vertical");//縦入力値
+        if (!inputManager.GetComponent<InputManager>().isAI)
+        {
+            vx = Input.GetAxis("Horizontal");//横入力値
+            vy = Input.GetAxis("Vertical");//縦入力値
+        }
+        else
+        {
+            vx = inputManager.GetComponent<AI_Input>().GetInput().x;
+            vy = inputManager.GetComponent<AI_Input>().GetInput().y;
+        }
 
         if ((vx != 0.0f || vy != 0.0f) && !isStart)
         {

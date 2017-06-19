@@ -9,8 +9,6 @@ public class DebugManager : MonoBehaviour
     public GameObject l_Joint;//左ジョイント
     public GameObject r_Joint;//右ジョイント
     public GameObject inputManager;//スティック入力値
-    public GameObject spawnEnemy;//生成用の敵
-    public AudioClip[] enemyDeadSE;//敵の消滅効果音
     public int seNum;//効果音番号
 
     //デバッグ用判定
@@ -24,7 +22,6 @@ public class DebugManager : MonoBehaviour
     public bool isDetaClear;//保存したデータを削除するか
     public bool isTutorialSkip;//チュートリアルをスキップするか
     public bool isPlayerMaxSpeed;//プレイヤーの速度を常に最大にするか
-    public bool isSpawnEmemy;//敵を無限生成するか
     public float drag;//摩擦力（プレイヤーの慣性をオンにしたとき使用）
 
     private PlayerOld p_OldClass;//プレイヤークラス（旧）
@@ -40,7 +37,6 @@ public class DebugManager : MonoBehaviour
         p_Class = player.GetComponent<Player>();//プレイヤークラス取得
         lj_Class = l_Joint.GetComponent<Joint>();//左ジョイントクラス取得
         rj_Class = r_Joint.GetComponent<Joint>();//右ジョイントクラス取得
-        player.GetComponent<AudioSource>().clip = enemyDeadSE[seNum];
     }
 
     // Update is called once per frame
@@ -56,7 +52,6 @@ public class DebugManager : MonoBehaviour
         }
         PlayerMaxSpeed();//プレイヤーの速度を常に最大に
         JointMass();//ジョイントの重さ切り替え
-        EnemySE();//効果音（敵を倒した時）
         InputManager();//スティック入力差の表示設定
         DataClear();//保存したデータを削除
         TutorialSkip();//チュートリアルスキップ
@@ -129,15 +124,6 @@ public class DebugManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 効果音（敵を倒した時）
-    /// </summary>
-    private void EnemySE()
-    {
-        if (player == null) return;
-        player.GetComponent<AudioSource>().clip = enemyDeadSE[seNum];
-    }
-
-    /// <summary>
     /// スティック入力差のデバッグ表示設定
     /// </summary>
     private void InputManager()
@@ -184,14 +170,5 @@ public class DebugManager : MonoBehaviour
         if (!isPlayerMaxSpeed) return;
 
         p_Class.speed = p_Class.speedLimit;
-    }
-
-
-    private void SpawnEnemy()
-    {
-        if (!isSpawnEmemy) return;
-
-        GameObject camera = GameObject.Find("Main Camera");
-        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
     }
 }

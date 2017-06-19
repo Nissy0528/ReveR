@@ -112,7 +112,7 @@ public class Main : MonoBehaviour
     /// </summary>
     private void E_WaveSpawn()
     {
-        if (enemyWave[waveNum].transform.FindChild("BossEnemy") != null) return;
+        if (enemyWave[waveNum].transform.FindChild("Boss") != null) return;
 
         if (waveNum < enemyWave.Length - 1)
         {

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public GameObject inputManager;//スティック入力
     public GameObject drain;//エネルギー吸収エフェクト
     public GameObject[] spriteObjs;//スプライトレンダラーが入ってるオブジェクト
-    public AudioClip[] seClip;//効果音
+    public GameObject[] SE;//効果音
     public float speed;//移動速度
     public float addSpeed;//加速速度
     public float subSpeed;//減速速度
@@ -20,14 +20,12 @@ public class Player : MonoBehaviour
     public float drag;//摩擦力
     public float rotateSpeed;//回転速度
     public float returnSpeed;//切り替えし加速度
-    public float rayLength;//レイの長さ
     public int damageTime;//ダメージ表現の長さ
     public int flashInterval;//点滅間隔
     public int damage;//lifeをマイナスする値
     public int maxexp;//経験値
     public int shakeCnt;//コントローラーの振動時間
 
-    private GameObject main;//メインマネージャー
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
@@ -43,6 +41,7 @@ public class Player : MonoBehaviour
     private float vy;//縦スティック入力値
     private float r_Speed;//切り替えし加速度
     private float iniSpeed;//初期速度
+    private float rayLength;//レイの長さ
     private bool isRecession;//反転判定
     private bool isStart;//スタート判定
     private bool isStop;//停止判定
@@ -56,7 +55,6 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();//リジッドボディ取得
         se = GetComponent<AudioSource>();
         trails = GameObject.FindGameObjectsWithTag("Trail");
-        main = GameObject.Find("MainManager");
         iniTrailColor = trails[0].GetComponent<TrailRenderer>().material.color;
 
         isRecession = false;
@@ -72,12 +70,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        vx = Input.GetAxis("Horizontal");
-        vy = Input.GetAxis("Vertical");
+        if (!inputManager.GetComponent<InputManager>().isAI)
+        {
+            vx = Input.GetAxis("Horizontal");
+            vy = Input.GetAxis("Vertical");
+        }
+        else
+        {
+            vx = inputManager.GetComponent<AI_Input>().GetInput().x;
+            vy = inputManager.GetComponent<AI_Input>().GetInput().y;
+        }
 
-        Stop();//停止
-
-        if (isStop) return;
+        if (Time.timeScale == 0.0f) return;
         Move();//移動
         ReturnForce();//切り替えし慣性
         Rotate();//回転
@@ -108,6 +112,7 @@ public class Player : MonoBehaviour
         if (vx < 0.5f && vx > -0.5f
             && vy < 0.5f && vy > -0.5f)
         {
+            rigid.drag = 1.5f;
             return;//何もしない
         }
 
@@ -244,7 +249,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void EnemyDeadSE()
     {
-        se.PlayOneShot(seClip[0]);
+        Instantiate(SE[0]);
     }
 
     /// <summary>
@@ -265,7 +270,7 @@ public class Player : MonoBehaviour
 
         if (speed >= stopSpeed)
         {
-            main.GetComponent<Main>().SetStop();
+            //main.GetComponent<Main>().SetStop();
         }
 
         isJudge = true;
@@ -357,7 +362,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void Stop()
     {
-        main = GameObject.Find("MainManager");
+        GameObject main = GameObject.Find("MainManager");
 
         if (main == null) return;
 
@@ -405,7 +410,7 @@ public class Player : MonoBehaviour
             {
                 //tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
 
-                se.PlayOneShot(seClip[1]);
+                Instantiate(SE[1]);
 
                 speed = Mathf.Max(speed - damage, 0, 0f);
 
@@ -415,7 +420,7 @@ public class Player : MonoBehaviour
 
             if (tutorial == null)
             {
-                se.PlayOneShot(seClip[1]);
+                Instantiate(SE[1]);
 
                 speed = Mathf.Max(speed - damage, 0, 0f);
 

@@ -11,9 +11,6 @@ public class KeyEnemy : MonoBehaviour
     public GameObject LeftUp;
     public GameObject LefDown;
 
-    public Sprite Harden;   //固まる画像
-    public Sprite Normal;　　//普通の画像
-
     //キーエネミー
     public GameObject Keyenemy;
 
@@ -34,14 +31,6 @@ public class KeyEnemy : MonoBehaviour
         radian = 0;
         BoxC = GetComponentsInChildren<BoxCollider2D>();
         TMove = GetComponentsInChildren<Turtroial_Move>();
-
-
-        //画像初期化
-        Top.GetComponent<SpriteRenderer>().sprite = Harden;
-        RightDown.GetComponent<SpriteRenderer>().sprite = Harden;
-        RightUp.GetComponent<SpriteRenderer>().sprite = Harden;
-        LefDown.GetComponent<SpriteRenderer>().sprite = Harden;
-        LeftUp.GetComponent<SpriteRenderer>().sprite = Harden;
     }
 
     void Update()
@@ -57,14 +46,9 @@ public class KeyEnemy : MonoBehaviour
     {
         if (IsKeyEnemyDead())
         {
-            Top.GetComponent<SpriteRenderer>().sprite = Normal;
-            RightDown.GetComponent<SpriteRenderer>().sprite = Normal;
-            RightUp.GetComponent<SpriteRenderer>().sprite = Normal;
-            LefDown.GetComponent<SpriteRenderer>().sprite = Normal;
-            LeftUp.GetComponent<SpriteRenderer>().sprite = Normal;
+            GetComponent<EnemyManager>().SetIsScroll(false);
 
             foreach (var x in TMove) if (x != null) x.enabled = true;
-            foreach (var x in BoxC) if (x != null) x.enabled = true;
             GetExPosition();
             Destroy(gameObject.GetComponent<CircleCollider2D>());
             Destroy(this);　　//展開後もう使わないので、このcompentを消す
@@ -105,7 +89,7 @@ public class KeyEnemy : MonoBehaviour
         if (!IsKeyEnemyDead())
         {
             Center = transform.position;
-            radian += 0.01f * speed;
+            radian += 0.01f * speed * Time.timeScale;
             var x = Mathf.Sin(radian) * CircleRadius;
             var y = Mathf.Cos(radian) * CircleRadius;
             Keyenemy.transform.position = new Vector3(x + Center.x, y + Center.y);
