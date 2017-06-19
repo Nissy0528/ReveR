@@ -9,7 +9,6 @@ public class Main : MonoBehaviour
     public static float time;
     public static List<string> Evaluation;//ランクのデータを集まる用のリスト
 
-    public Player player;
     public GameObject[] enemyWave;
     public int stopTime;
     public float battleTime;
@@ -55,7 +54,7 @@ public class Main : MonoBehaviour
             SceneManager.LoadScene("GameClear");
         }
 
-        if (player.IsStop())
+        if (battleTime <= 0.0f)
         {
             SceneManager.LoadScene("GameOver");
         }
@@ -170,8 +169,7 @@ public class Main : MonoBehaviour
     /// <param name="battleTime">生存時間</param>
     public void SetBattleTime(float battleTime)
     {
-        this.battleTime += battleTime;
-        isBattleTime = false;
+        this.battleTime = Mathf.Max(this.battleTime + battleTime, 0.0f);
     }
 
     /// <summary>

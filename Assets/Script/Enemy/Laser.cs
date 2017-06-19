@@ -35,12 +35,12 @@ public class Laser : MonoBehaviour
         if (!IsColRightEnemy)
         {
             transform.localScale += new Vector3(LaserSpeed, 0, 0);
-            transform.position += new Vector3(LaserSpeed / 2, 0, 0);
+            transform.localPosition += new Vector3(LaserSpeed / 2, 0, 0);
         }
         else if (!IsColLeftEnemy)
         {
             transform.localScale += new Vector3(LaserSpeed, 0, 0);
-            transform.position += new Vector3(-LaserSpeed / 2, 0, 0);
+            transform.localPosition += new Vector3(-LaserSpeed / 2, 0, 0);
         }
         Debug.Log(count);
     }
