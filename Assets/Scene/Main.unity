@@ -721,16 +721,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114303279732994220, guid: 5dd16959cedf73a458698af5cfc06f94,
-        type: 2}
-      propertyPath: addBattleTime
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114303279732994220, guid: 5dd16959cedf73a458698af5cfc06f94,
-        type: 2}
-      propertyPath: isStopScroll
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5dd16959cedf73a458698af5cfc06f94, type: 2}
   m_IsPrefabParent: 0
@@ -1488,11 +1478,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &813135099 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1185736089623378, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
-    type: 2}
-  m_PrefabInternal: {fileID: 865818670}
 --- !u!1001 &817233212
 Prefab:
   m_ObjectHideFlags: 0
@@ -1605,11 +1590,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1355218675}
     m_Modifications:
-    - target: {fileID: 114620022635618954, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
-        type: 2}
-      propertyPath: target.Array.size
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 4545027635358740, guid: 51f295e84e71d4a47ae44ab9a9a28cc1, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1646,11 +1626,6 @@ Prefab:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
-    - target: {fileID: 114620022635618954, guid: 51f295e84e71d4a47ae44ab9a9a28cc1,
-        type: 2}
-      propertyPath: target.Array.data[5]
-      value: 
-      objectReference: {fileID: 813135099}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 51f295e84e71d4a47ae44ab9a9a28cc1, type: 2}
   m_IsPrefabParent: 0

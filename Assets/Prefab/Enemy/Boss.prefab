@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 212431177801089126}
   - component: {fileID: 58058454658359792}
   - component: {fileID: 50882138057907300}
+  - component: {fileID: 95024482515616460}
   m_Layer: 0
   m_Name: shield
   m_TagString: Shield
@@ -731,6 +732,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
+--- !u!95 &95024482515616460
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1885713785146050}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cc3164dd87a078c409b27e08ff0e5ee7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114025931592805802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -778,6 +796,8 @@ MonoBehaviour:
   ExC: {fileID: 1739301538019812, guid: 6c022b6b8eacc1244af45e8e83170215, type: 2}
   Nic: {fileID: 1233790561894058, guid: 9be2683923bc0f84db3bdbed307526ea, type: 2}
   Nor: {fileID: 1708882941452804, guid: b68d2b06ba670ba4db45b67b905c829b, type: 2}
+  PlusTime: {fileID: 1569507840886826, guid: a2bfad67be551ce4992682a2a47c7bc7, type: 2}
+  MinusTime: {fileID: 1132235237182648, guid: 1bbc824eedb016f4495a2d7c284766d9, type: 2}
 --- !u!114 &114250053823379522
 MonoBehaviour:
   m_ObjectHideFlags: 1

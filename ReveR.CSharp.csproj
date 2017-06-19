@@ -101,7 +101,6 @@
     <Compile Include="Assets\Script\Enemy\EnemyChack.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyManager.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy_Line&amp;Circle.cs" />
-    <Compile Include="Assets\Script\Enemy\EvaluationTime.cs" />
     <Compile Include="Assets\Script\Enemy\KeyEnemy.cs" />
     <Compile Include="Assets\Script\Enemy\Laser.cs" />
     <Compile Include="Assets\Script\Enemy\MeteoCtrl.cs" />
