@@ -18,6 +18,7 @@ public class Main : MonoBehaviour
     private GameObject enemyDead;
     private GameObject timeText;
     private GameObject battleTimeText;
+    private GameObject waveText;
     private bool isStop;
     private bool isClear;
     private bool isBattleTime;
@@ -36,6 +37,7 @@ public class Main : MonoBehaviour
         time = 0.0f;
         timeText = GameObject.Find("Time");
         battleTimeText = GameObject.Find("LifeTime");
+        waveText = GameObject.Find("Wave");
         timeText.SetActive(true);
 
         waveNum = 0;
@@ -62,6 +64,7 @@ public class Main : MonoBehaviour
         BattleTimeCount();//生存時間処理
         Stop();//停止
         E_WaveSpawn();//ウェイブ生成
+        WaveNum();//現在のウェイブ表示
     }
 
     /// <summary>
@@ -123,6 +126,14 @@ public class Main : MonoBehaviour
         {
             isClear = true;//最終ウェイブならクリア判定trueに
         }
+    }
+
+    /// <summary>
+    /// 現在のウェイブ表示
+    /// </summary>
+    private void WaveNum()
+    {
+        waveText.GetComponent<Text>().text = "Wave " + (waveNum + 1) + "/" + enemyWave.Length;
     }
 
     /// <summary>
