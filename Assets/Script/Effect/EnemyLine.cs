@@ -12,7 +12,10 @@ public class EnemyLine : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //GetComponent<LineRenderer>().SetVertexCount(tar)
+        if (GetComponent<LineRenderer>() != null)
+        {
+            GetComponent<LineRenderer>().positionCount = target.Length;
+        }
         parent = transform.parent;
         if (parent.GetComponent<Turtroial_Move>() != null)
         {
@@ -32,10 +35,9 @@ public class EnemyLine : MonoBehaviour
     /// </summary>
     private void Line()
     {
-        if (target == null) return;
+        if (target == null || GetComponent<LineRenderer>() == null) return;
 
-        GetComponent<LineRenderer>().SetPosition(0, transform.position);
-        for (int i = 1; i < target.Length; i++)
+        for (int i = 0; i < GetComponent<LineRenderer>().positionCount; i++)
         {
             GetComponent<LineRenderer>().SetPosition(i, target[i].transform.position);
         }
