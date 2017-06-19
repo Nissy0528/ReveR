@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class EnemyManager : MonoBehaviour
     public GameObject ExC;
     public GameObject Nic;
     public GameObject Nor;
+    public GameObject PlusTime;
+    public GameObject MinusTime;
 
     private float LimitTime;　　　//制限時間フレーム化
     private float CurrentTime;　　 //進行中のフレーム
@@ -20,6 +23,8 @@ public class EnemyManager : MonoBehaviour
     private bool isChildDestroy;
     private GameObject main;
     private GameObject camera;
+
+    private float previousTime;
 
     // Use this for initialization
     void Start()
@@ -37,6 +42,7 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         Move();//移動
         MoveStop();//停止
         TimeStart();//コンボ時間
@@ -113,6 +119,7 @@ public class EnemyManager : MonoBehaviour
         if (!IsTimeStart) return;
 
         CurrentTime--;　//読秒
+        GameObject TextObj;
 
         //敵を全部消すと、残った時間でランクを判断する、リストに入れる
         if (transform.childCount == 0)
@@ -120,23 +127,27 @@ public class EnemyManager : MonoBehaviour
             if (CurrentTime >= LimitTime * 2 / 3)
             {
                 Main.Evaluation.Add("S");
-                Instantiate(ExC, GameObject.Find("Canvas").transform);
-                JudgeUI.TargetPos = transform.position;
+                TextObj = Instantiate(ExC, GameObject.Find("Canvas").transform);
+                TextObj.GetComponent<JudgeUI>().SetTargetPosition(transform.position);
             }
             if ((CurrentTime >= LimitTime * 1 / 3) && (CurrentTime < LimitTime * 2 / 3))
             {
                 Main.Evaluation.Add("A");
-                Instantiate(Nic, GameObject.Find("Canvas").transform);
-                JudgeUI.TargetPos = transform.position;
+                TextObj = Instantiate(Nic, GameObject.Find("Canvas").transform);
+                TextObj.GetComponent<JudgeUI>().SetTargetPosition(transform.position);
                 addBattleTime = addBattleTime * 2 / 3;
             }
             if (CurrentTime < LimitTime * 1 / 3)
             {
+                if (CurrentTime < 0) CurrentTime = 0;
                 Main.Evaluation.Add("B");
-                Instantiate(Nor, GameObject.Find("Canvas").transform);
-                JudgeUI.TargetPos = transform.position;
+                TextObj = Instantiate(Nor, GameObject.Find("Canvas").transform);
+                TextObj.GetComponent<JudgeUI>().SetTargetPosition(transform.position);
                 addBattleTime = addBattleTime * 1 / 3;
             }
+
+            GetPlusTime();
+            GetMinusTime();
 
             main.GetComponent<Main>().SetBattleTime(addBattleTime);//バトル時間加算
             DestroyObj();//判定終了後、このオブジェクトを消す
@@ -176,5 +187,38 @@ public class EnemyManager : MonoBehaviour
     public void SetIsScroll(bool isScroll)
     {
         this.isScroll = isScroll;
+    }
+
+    /// <summary>
+    /// PlusTime
+    /// </summary>
+    public void GetPlusTime()
+    {
+        GameObject PlusTimeObj;
+        PlusTimeObj = Instantiate(PlusTime, GameObject.Find("Canvas").transform);
+
+
+        PlusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(
+          GameObject.FindGameObjectWithTag("Player").transform.position.x + 1f,
+          GameObject.FindGameObjectWithTag("Player").transform.position.y + 0.5f));
+
+        PlusTimeObj.GetComponent<Text>().text = "+" + ((int)CurrentTime / 60).ToString() + "." +
+            ((int)((int)CurrentTime % 60) / 10).ToString() + ((int)((int)CurrentTime % 60) % 10).ToString();
+    }
+    /// <summary>
+    /// MinusTime
+    /// </summary>
+    public void GetMinusTime()
+    {
+        GameObject MinusTimeObj;
+        MinusTimeObj = Instantiate(MinusTime, GameObject.Find("Canvas").transform);
+
+        MinusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(
+          GameObject.FindGameObjectWithTag("Player").transform.position.x + 1f,
+          GameObject.FindGameObjectWithTag("Player").transform.position.y + 1f));
+
+        MinusTimeObj.GetComponent<Text>().text = "-" + ((int)(LimitTime- CurrentTime) / 60).ToString() + "." +
+            ((int)((int)(LimitTime - CurrentTime) % 60) / 10).ToString() + ((int)((int)(LimitTime - CurrentTime) % 60) % 10).ToString();
+
     }
 }
