@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyLine : MonoBehaviour
 {
-    public GameObject target;//ラインの描画先
+    public GameObject[] target;//ラインの描画先
 
     private Transform parent;//親オブジェクト
     private bool isParentChange;//親変更フラグ
@@ -12,6 +12,7 @@ public class EnemyLine : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //GetComponent<LineRenderer>().SetVertexCount(tar)
         parent = transform.parent;
         if (parent.GetComponent<Turtroial_Move>() != null)
         {
@@ -34,7 +35,10 @@ public class EnemyLine : MonoBehaviour
         if (target == null) return;
 
         GetComponent<LineRenderer>().SetPosition(0, transform.position);
-        GetComponent<LineRenderer>().SetPosition(1, target.transform.position);
+        for (int i = 1; i < target.Length; i++)
+        {
+            GetComponent<LineRenderer>().SetPosition(i, target[i].transform.position);
+        }
     }
 
     /// <summary>
