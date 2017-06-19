@@ -16,8 +16,6 @@ public class EvaluationTime : MonoBehaviour {
     private bool IsTimeStart;　　　//読秒開始
 
     private GameObject camera;　　　
-    
-
 
 	void Start () {
         camera = GameObject.Find("Main Camera");
@@ -51,25 +49,25 @@ public class EvaluationTime : MonoBehaviour {
         {
             if (CurrentTime >= LimitTime * 2 / 3)
             {
-                Main.Evaluation.Add("A");
+                Main.Evaluation.Add("S");
                 Instantiate(ExC, GameObject.Find("Canvas").transform);
                 JudgeUI.TargetPos = transform.position;
             }
             if ((CurrentTime >= LimitTime * 1 / 3) && (CurrentTime < LimitTime * 2 / 3))
             {
-                Main.Evaluation.Add("B");
+                Main.Evaluation.Add("A");
                 Instantiate(Nic, GameObject.Find("Canvas").transform);
                 JudgeUI.TargetPos = transform.position;
             }
             if (CurrentTime < LimitTime * 1 / 3)
             {
-                Main.Evaluation.Add("C");
+                Main.Evaluation.Add("B");
                 Instantiate(Nor, GameObject.Find("Canvas").transform);
                 JudgeUI.TargetPos = transform.position;
             }
                 
 
-            Destroy(gameObject);//判定終了後、このオブジェクトを消す
+            Destroy(this);//判定終了後、このオブジェクトを消す
         }
         
     }

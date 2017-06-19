@@ -16,6 +16,7 @@ TagManager:
   - Hinge
   - Trail
   - Enemys
+  - Line
   layers:
   - Default
   - TransparentFX
@@ -52,4 +53,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemy
+    uniqueID: 3692825089
     locked: 0

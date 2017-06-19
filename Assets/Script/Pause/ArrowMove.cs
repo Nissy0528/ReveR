@@ -6,25 +6,15 @@ public class ArrowMove : MonoBehaviour
 {
 
     // Use this for initialization
-    static bool IsSelect_3;
-    private static bool IsSelect_2;
-    private static bool IsSelect_1;
 
-    private Vector3 ArrowMoveVelocity;
-
-    public GameObject Select_1;
-    public GameObject Select_2;
-    public GameObject Select_3;
+    public Vector3 ArrowMoveVelocity;
+    public GameObject[] select;
+    public bool[] isSelect;
 
     public float time;
     void Start()
     {
         time = 20;
-        IsSelect_1 = false;
-        IsSelect_3 = false;
-        IsSelect_2 = false;
-        ArrowMoveVelocity = new Vector3(0, 56);
-
     }
 
     // Update is called once per frame
@@ -34,13 +24,13 @@ public class ArrowMove : MonoBehaviour
         time--;
 
         Select();
-        if (y <= -0.5f && IsSelect_3 == false && time <= 0)
+        if (y <= -0.5f && isSelect[isSelect.Length - 1] == false && time <= 0)
         {
             GetComponent<RectTransform>().position -= ArrowMoveVelocity;
             time = 20;
         }
 
-        if (y >= 0.5f && IsSelect_1 == false&&time<=0)
+        if (y >= 0.5f && isSelect[0] == false && time <= 0)
         {
             GetComponent<RectTransform>().position += ArrowMoveVelocity;
             time = 20;
@@ -49,41 +39,30 @@ public class ArrowMove : MonoBehaviour
     }
     void Select()
     {
-        if (Select_1.GetComponent<RectTransform>().position.y ==
-            GetComponent<RectTransform>().position.y)
+        for (int i = 0; i < select.Length; i++)
         {
-            IsSelect_1 = true;
-            IsSelect_2 = false;
-            IsSelect_3 = false;
-        }
-
-
-        if (Select_2.GetComponent<RectTransform>().position.y ==
+            if (select[i].GetComponent<RectTransform>().position.y ==
             GetComponent<RectTransform>().position.y)
-        {
-            IsSelect_1 = false;
-            IsSelect_2 = true;
-            IsSelect_3 = false;
-        }
-
-        if (Select_3.GetComponent<RectTransform>().position.y ==
-            GetComponent<RectTransform>().position.y)
-        {
-            IsSelect_1 = false;
-            IsSelect_2 = false;
-            IsSelect_3 = true;
+            {
+                SetIsSelect(i);
+            }
         }
     }
-    public bool GetIsSelect_1()
+
+    private void SetIsSelect(int i)
     {
-        return IsSelect_1;
+        isSelect[i] = true;
+        for (int j = 0; j < isSelect.Length; j++)
+        {
+            if (j != i)
+            {
+                isSelect[j] = false;
+            }
+        }
     }
-    public bool GetIsSelect_2()
+
+    public bool GetIsSelect(int i)
     {
-        return IsSelect_2;
-    }
-    public bool GetIsSelect_3()
-    {
-        return IsSelect_3;
+        return isSelect[i];
     }
 }

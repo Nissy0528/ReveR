@@ -101,17 +101,17 @@ public class Pause : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.JoystickButton0) && IsPause)
         {
-            if (arrowmove.GetComponent<ArrowMove>().GetIsSelect_1())
+            if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(0))
             {
                 SceneManager.LoadScene("Title");
                 OnResume();
             }
-            if (arrowmove.GetComponent<ArrowMove>().GetIsSelect_2())
-            {
-                SceneManager.LoadScene("StageSelect");
-                OnResume();
-            }
-            if (arrowmove.GetComponent<ArrowMove>().GetIsSelect_3())
+            //if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(1))
+            //{
+            //    SceneManager.LoadScene("StageSelect");
+            //    OnResume();
+            //}
+            if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(1))
             {
                 SceneManager.LoadScene("Main");
                 OnResume();
