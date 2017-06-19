@@ -402,7 +402,7 @@ public class Player : MonoBehaviour
     /// <param name="col"></param>
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Enemy" && !isDamage)//Enemyとぶつかった時
+        if (col.gameObject.tag == "Enemy" && !isDamage || col.gameObject.tag == "Shield")//EnemyとShieldとぶつかった時
         {
 
             GameObject tutorial = GameObject.Find("Tutorial");
