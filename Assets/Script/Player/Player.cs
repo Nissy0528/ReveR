@@ -34,6 +34,7 @@ public class Player : MonoBehaviour
     private RaycastHit2D hit;//レイが当たったオブジェクトの情報
     private GameObject[] trails;
     private Color iniTrailColor;
+    private GameObject moveSE;
     private int direc;//方向
     private int s_Cnt;//コントローラー振動時間カウント
     private int damageCnt;//ダメージ表現カウント
@@ -87,6 +88,7 @@ public class Player : MonoBehaviour
         Rotate();//回転
         Ray();//レイのあたり判定
         DamageEffect();//ダメージ表現（点滅）
+        MoveSE();//移動効果音
 
         if (s_Cnt > 0)
         {
@@ -258,10 +260,7 @@ public class Player : MonoBehaviour
     public void Crush()
     {
         EnemyDeadSE();
-        if (speed <= speedLimit)
-        {
-            speed += addSpeed;
-        }
+        speed = Mathf.Min(speed + addSpeed, speedLimit);
 
         ControllerShake(1.0f, 1.0f);
         s_Cnt = shakeCnt;
@@ -397,22 +396,46 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// 移動効果音
+    /// 速度に合わせて音が変わるように
+    /// </summary>
+    private void MoveSE()
+    {
+        //効果音が生成してなければ効果音生成
+        if (moveSE == null)
+        {
+            moveSE = Instantiate(SE[2]);
+        }
+        else
+        {
+            AudioSource m_SE = moveSE.GetComponent<AudioSource>();
+            float velocity = rigid.velocity.magnitude;
+            m_SE.volume = velocity / speedLimit;//速度に合わせて音量を変える
+            m_SE.pitch = (velocity * 3) / speedLimit;//速度に合わせてピッチを変える
+        }
+
+    }
+
+
+    /// <summary>
     /// あたり判定
     /// </summary>
     /// <param name="col"></param>
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Enemy" && !isDamage)//Enemyとぶつかった時
+        if (col.gameObject.tag == "Enemy" && !isDamage || col.gameObject.tag == "Shield")//EnemyとShieldとぶつかった時
         {
 
             GameObject tutorial = GameObject.Find("Tutorial");
+            GameObject main = GameObject.Find("MainManager");
             if (tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage())
             {
                 //tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
 
                 Instantiate(SE[1]);
 
-                speed = Mathf.Max(speed - damage, 0, 0f);
+                speed = Mathf.Max(speed - damage, 0.0f);
+                main.GetComponent<Main>().SetBattleTime(-damage);
 
                 damageCnt = 0;
                 isDamage = true;
@@ -422,7 +445,8 @@ public class Player : MonoBehaviour
             {
                 Instantiate(SE[1]);
 
-                speed = Mathf.Max(speed - damage, 0, 0f);
+                speed = Mathf.Max(speed - damage, 0.0f);
+                main.GetComponent<Main>().SetBattleTime(-damage);
 
                 damageCnt = 0;
                 isDamage = true;

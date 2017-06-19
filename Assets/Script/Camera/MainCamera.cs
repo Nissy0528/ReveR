@@ -76,14 +76,14 @@ public class MainCamera : MonoBehaviour
         }
 
         lifeTime -= Time.deltaTime;
-        if (delay >= shakeDelay)
+        if (delay >= shakeDelay && Time.timeScale > 0.0f)
         {
             float x_val = Random.Range(minRangeX, maxRangeX);
             float y_val = Random.Range(minRangeY, maxRangeY);
             transform.position = new Vector3(x_val, y_val, transform.position.z);
             delay = 0.0f;
         }
-        else
+        if(delay < shakeDelay)
         {
             delay += 1.0f;
         }

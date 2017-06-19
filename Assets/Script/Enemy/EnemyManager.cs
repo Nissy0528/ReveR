@@ -150,6 +150,7 @@ public class EnemyManager : MonoBehaviour
             GetMinusTime();
 
             main.GetComponent<Main>().SetBattleTime(addBattleTime);//バトル時間加算
+            main.GetComponent<Main>().SetIsBattleTime(false);
             DestroyObj();//判定終了後、このオブジェクトを消す
         }
     }

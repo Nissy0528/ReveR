@@ -9,7 +9,6 @@ public class Main : MonoBehaviour
     public static float time;
     public static List<string> Evaluation;//ランクのデータを集まる用のリスト
 
-    public Player player;
     public GameObject[] enemyWave;
     public int stopTime;
     public float battleTime;
@@ -18,6 +17,7 @@ public class Main : MonoBehaviour
     private GameObject enemyDead;
     private GameObject timeText;
     private GameObject battleTimeText;
+    private GameObject waveText;
     private bool isStop;
     private bool isClear;
     private bool isBattleTime;
@@ -36,6 +36,7 @@ public class Main : MonoBehaviour
         time = 0.0f;
         timeText = GameObject.Find("Time");
         battleTimeText = GameObject.Find("LifeTime");
+        waveText = GameObject.Find("Wave");
         timeText.SetActive(true);
 
         waveNum = 0;
@@ -53,7 +54,7 @@ public class Main : MonoBehaviour
             SceneManager.LoadScene("GameClear");
         }
 
-        if (player.IsStop())
+        if (battleTime <= 0.0f)
         {
             SceneManager.LoadScene("GameOver");
         }
@@ -62,6 +63,7 @@ public class Main : MonoBehaviour
         BattleTimeCount();//生存時間処理
         Stop();//停止
         E_WaveSpawn();//ウェイブ生成
+        WaveNum();//現在のウェイブ表示
     }
 
     /// <summary>
@@ -126,6 +128,14 @@ public class Main : MonoBehaviour
     }
 
     /// <summary>
+    /// 現在のウェイブ表示
+    /// </summary>
+    private void WaveNum()
+    {
+        waveText.GetComponent<Text>().text = "Wave " + (waveNum + 1) + "/" + enemyWave.Length;
+    }
+
+    /// <summary>
     /// クリア判定設定
     /// </summary>
     /// <param name="isClear">クリア判定（trueならクリアシーンに移行）</param>
@@ -159,8 +169,7 @@ public class Main : MonoBehaviour
     /// <param name="battleTime">生存時間</param>
     public void SetBattleTime(float battleTime)
     {
-        this.battleTime += battleTime;
-        isBattleTime = false;
+        this.battleTime = Mathf.Max(this.battleTime + battleTime, 0.0f);
     }
 
     /// <summary>
