@@ -87,11 +87,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Animation\Anim.cs" />
     <Compile Include="Assets\Script\Audio\SE.cs" />
     <Compile Include="Assets\Script\Camera\MainCamera.cs" />
     <Compile Include="Assets\Script\Effect\Boom_Effect.cs" />
     <Compile Include="Assets\Script\Effect\Drain.cs" />
     <Compile Include="Assets\Script\Effect\EnemyLine.cs" />
+    <Compile Include="Assets\Script\Effect\PlayerTrail.cs" />
     <Compile Include="Assets\Script\Effect\StarAnim.cs" />
     <Compile Include="Assets\Script\Enemy\BossEnemy.cs" />
     <Compile Include="Assets\Script\Enemy\Bullet.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="Assets\Script\Scene\Title.cs" />
     <Compile Include="Assets\Script\Scene\result.cs" />
     <Compile Include="Assets\Script\System\AI_Input.cs" />
+    <Compile Include="Assets\Script\System\ControllerShake.cs" />
     <Compile Include="Assets\Script\System\DebugManager.cs" />
     <Compile Include="Assets\Script\System\InputManager.cs" />
     <Compile Include="Assets\Script\System\PlayerPrefsUtility.cs" />

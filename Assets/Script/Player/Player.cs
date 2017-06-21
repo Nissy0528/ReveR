@@ -27,16 +27,14 @@ public class Player : MonoBehaviour
     public int shakeCnt;//コントローラーの振動時間
 
     private Rigidbody2D rigid;//リジッドボディ
-    private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
-    private AudioSource se;//効果音
     private Ray2D ray;//レイ
     private RaycastHit2D hit;//レイが当たったオブジェクトの情報
     private GameObject[] trails;
-    private Color iniTrailColor;
     private GameObject moveSE;
+    private GameObject main;
+    private Color iniTrailColor;
     private int direc;//方向
-    private int s_Cnt;//コントローラー振動時間カウント
     private int damageCnt;//ダメージ表現カウント
     private float vx;//横スティック入力値
     private float vy;//縦スティック入力値
@@ -54,7 +52,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();//リジッドボディ取得
-        se = GetComponent<AudioSource>();
+        main = GameObject.Find("MainManager");
         trails = GameObject.FindGameObjectsWithTag("Trail");
         iniTrailColor = trails[0].GetComponent<TrailRenderer>().material.color;
 
@@ -90,15 +88,6 @@ public class Player : MonoBehaviour
         DamageEffect();//ダメージ表現（点滅）
         MoveSE();//移動効果音
 
-        if (s_Cnt > 0)
-        {
-            s_Cnt -= 1;
-        }
-        else
-        {
-            ControllerShake(0.0f, 0.0f);
-        }
-
         if (speed > speedLimit)
         {
             speed = speedLimit;
@@ -116,6 +105,16 @@ public class Player : MonoBehaviour
         {
             rigid.drag = 1.5f;
             return;//何もしない
+        }
+
+        //Aボタンが押されていたら
+        if (Input.GetKey(KeyCode.JoystickButton0))
+        {
+            speed = speedLimit;
+        }
+        else
+        {
+            speed = iniSpeed;
         }
 
         float subRatio = (speed / iniSpeed);
@@ -260,17 +259,16 @@ public class Player : MonoBehaviour
     public void Crush()
     {
         EnemyDeadSE();
-        speed = Mathf.Min(speed + addSpeed, speedLimit);
+        //speed = Mathf.Min(speed + addSpeed, speedLimit);
 
-        ControllerShake(1.0f, 1.0f);
-        s_Cnt = shakeCnt;
+        main.GetComponent<ControllerShake>().SetShake(1.0f, 1.0f, shakeCnt);
 
         SpawnDrain();
 
-        if (speed >= stopSpeed)
-        {
-            //main.GetComponent<Main>().SetStop();
-        }
+        //if (speed >= stopSpeed)
+        //{
+        //    main.GetComponent<Main>().SetStop();
+        //}
 
         isJudge = true;
     }
@@ -280,30 +278,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void SpawnDrain()
     {
-        GameObject L_Tip = GameObject.Find("L_WingTip");
-        GameObject R_Tip = GameObject.Find("R_WingTip");
-
-        GameObject L_drain = Instantiate(drain, L_Tip.transform.position, L_Tip.transform.rotation, L_Tip.transform);
-        GameObject R_drain = Instantiate(drain, R_Tip.transform.position, R_Tip.transform.rotation, R_Tip.transform);
-
-        L_drain.GetComponent<Drain>().SetHingeName("L_Hinge");
-        R_drain.GetComponent<Drain>().SetHingeName("R_Hinge");
-    }
-
-    /// <summary>
-    /// コントローラー振動
-    /// </summary>
-    private void ControllerShake(float left, float right)
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            PlayerIndex pI = (PlayerIndex)i;
-            GamePadState state = GamePad.GetState(pI);
-            if (state.IsConnected)
-            {
-                GamePad.SetVibration(pI, left, right);
-            }
-        }
+        Instantiate(drain, gameObject.transform);
     }
 
     /// <summary>
@@ -416,7 +391,6 @@ public class Player : MonoBehaviour
 
     }
 
-
     /// <summary>
     /// あたり判定
     /// </summary>
@@ -427,7 +401,7 @@ public class Player : MonoBehaviour
         {
 
             GameObject tutorial = GameObject.Find("Tutorial");
-            GameObject main = GameObject.Find("MainManager");
+            main.GetComponent<ControllerShake>().SetShake(1.0f, 1.0f, shakeCnt);
             if (tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage())
             {
                 //tutorial.GetComponent<TutoUISpawner>().SetIsDamage();

@@ -12,6 +12,7 @@ public class Main : MonoBehaviour
     public GameObject[] enemyWave;
     public int stopTime;
     public float battleTime;
+    public float b_TimeMax;
 
     private GameObject[] enemys;
     private GameObject enemyDead;
@@ -51,11 +52,13 @@ public class Main : MonoBehaviour
         if (enemys.Length == 0 && enemyDead == null && isClear)
         {
             Time.timeScale = 1.0f;
+            GetComponent<ControllerShake>().SetShake(0.0f, 0.0f, 0);
             SceneManager.LoadScene("GameClear");
         }
 
         if (battleTime <= 0.0f)
         {
+            GetComponent<ControllerShake>().SetShake(0.0f, 0.0f, 0);
             SceneManager.LoadScene("GameOver");
         }
 
@@ -169,7 +172,14 @@ public class Main : MonoBehaviour
     /// <param name="battleTime">生存時間</param>
     public void SetBattleTime(float battleTime)
     {
-        this.battleTime = Mathf.Max(this.battleTime + battleTime, 0.0f);
+        if (battleTime > 0.0f)
+        {
+            this.battleTime = Mathf.Min(this.battleTime + battleTime, b_TimeMax);
+        }
+        if (battleTime < 0.0f)
+        {
+            this.battleTime = Mathf.Max(this.battleTime + battleTime, 0.0f);
+        }
     }
 
     /// <summary>

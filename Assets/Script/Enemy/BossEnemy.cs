@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossEnemy : MonoBehaviour
 {
     public List<GameObject> childEnemy;　//childEnemy取得
+    public GameObject core;//コアオブジェクト
     private BoxCollider2D box; //BoxCollider
     public GameObject shield;  //シールド取得
     private Animator animator;
@@ -14,7 +15,7 @@ public class BossEnemy : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        box = GetComponent<BoxCollider2D>();//BoxCollider2D取得
+        box = core.GetComponent<BoxCollider2D>();//BoxCollider2D取得
         animator = shield.GetComponent<Animator>();
         animation = GetComponent<Animation>();
     }
@@ -63,6 +64,9 @@ public class BossEnemy : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// シールド消滅アニメーション開始
+    /// </summary>
     private void ShieldAnim()
     {
         if (shield == null)
@@ -74,7 +78,6 @@ public class BossEnemy : MonoBehaviour
             animcount = true;
         }
 
-        //Destroy(shield); //シールド破壊
         if (animState.IsName("Shield"))
         {
             if (animState.normalizedTime >= 1 && animcount)

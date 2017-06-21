@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public  class ELMove : MonoBehaviour
+public class ELMove : MonoBehaviour
 {
     [SerializeField]
     public enum MoveDirection
@@ -16,7 +16,7 @@ public  class ELMove : MonoBehaviour
     public float speed;
     [SerializeField]
     public float Move_Width;
-    
+
 
     private List<Vector2> Move_velocity;
     private bool IsOverMoveRange;
@@ -31,7 +31,7 @@ public  class ELMove : MonoBehaviour
     private float YRangeMin;
     private int List_num;
 
-   void Start()
+    void Start()
     {
         //Rigi = GetComponent<Rigidbody2D>();
         IsOverMoveRange = false;
@@ -71,7 +71,7 @@ public  class ELMove : MonoBehaviour
 
         //Rigi.velocity = Move_velocity[List_num] * speed;
 
-        transform.Translate(Move_velocity[List_num] * speed);
+        transform.Translate(Move_velocity[List_num] * speed * Time.timeScale);
     }
     void GetMoveRange()
     {
