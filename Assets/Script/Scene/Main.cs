@@ -21,7 +21,6 @@ public class Main : MonoBehaviour
     private GameObject timeText;
     private GameObject battleTimeText;
     private GameObject waveText;
-    private GameObject boss;
     private GameObject warningObj;
     private bool isStop;
     private bool isClear;
@@ -54,7 +53,6 @@ public class Main : MonoBehaviour
     {
         enemys = GameObject.FindGameObjectsWithTag("Enemy");
         enemyDead = GameObject.Find("Boom_effct");
-        boss = enemyWave[waveNum].transform.FindChild("Boss").gameObject;
 
         if (enemys.Length == 0 && enemyDead == null && isClear)
         {
@@ -123,7 +121,7 @@ public class Main : MonoBehaviour
     /// </summary>
     private void E_WaveSpawn()
     {
-        if (boss != null) return;
+        if (enemyWave[waveNum].transform.FindChild("Boss") != null) return;
 
         if (waveNum < enemyWave.Length - 1)
         {
@@ -169,7 +167,8 @@ public class Main : MonoBehaviour
     {
         if (bossMoveCnt <= 0.0f)
         {
-            boss.SetActive(true);
+            enemyWave[waveNum].transform.FindChild("Boss").gameObject.SetActive(true);
+            DestroyWarning();
             return;
         }
 
@@ -179,6 +178,20 @@ public class Main : MonoBehaviour
         }
 
         bossMoveCnt -= Time.deltaTime;
+    }
+
+    /// <summary>
+    /// ボスエフェクト消滅
+    /// </summary>
+    private void DestroyWarning()
+    {
+        if (warningObj == null) return;
+
+        //ボスエフェクトの子オブジェクトがなければ消滅
+        if (warningObj.transform.childCount == 0)
+        {
+            Destroy(warningObj);
+        }
     }
 
     /// <summary>

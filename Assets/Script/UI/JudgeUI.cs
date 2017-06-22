@@ -31,8 +31,6 @@ public class JudgeUI : MonoBehaviour
 		//}
 
 		color = gameObject.GetComponent<Text>().material.color;//中山追記
-
-		Debug.Log(color);
     }
 
     // Update is called once per frame

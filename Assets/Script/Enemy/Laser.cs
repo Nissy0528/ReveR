@@ -42,7 +42,6 @@ public class Laser : MonoBehaviour
             transform.localScale += new Vector3(LaserSpeed, 0, 0);
             transform.localPosition += new Vector3(-LaserSpeed / 2, 0, 0);
         }
-        Debug.Log(count);
     }
 
 
@@ -82,7 +81,7 @@ public class Laser : MonoBehaviour
     }
     void DestroyGameObject()
     {
-        if (LeftEnemy == null && RightEnemy == null) Destroy(gameObject);
+        if (LeftEnemy == null && RightEnemy == null) Destroy(transform.parent.gameObject);
     }
 
 }

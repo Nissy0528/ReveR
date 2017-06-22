@@ -7,6 +7,7 @@ public class EnemyLine : MonoBehaviour
     public GameObject[] target;//ラインの描画先
 
     private Transform parent;//親オブジェクト
+    private Transform changeParent;//切り替える親
     private bool isParentChange;//親変更フラグ
 
     // Use this for initialization
@@ -17,6 +18,7 @@ public class EnemyLine : MonoBehaviour
             GetComponent<LineRenderer>().positionCount = target.Length;
         }
         parent = transform.parent;
+        changeParent = parent.transform.parent;
         if (parent.GetComponent<Turtroial_Move>() != null)
         {
             isParentChange = true;
@@ -51,9 +53,9 @@ public class EnemyLine : MonoBehaviour
         if (!isParentChange) return;
 
         //親オブジェクトの補間移動スクリプトなくなったら
-        if (parent.GetComponent<Turtroial_Move>() == null)
+        if (parent.GetComponent<Turtroial_Move>() == null || transform.parent.tag != "Enemy")
         {
-            transform.parent = parent.transform.parent;//親を変更
+            transform.parent = changeParent;//親を変更
             isParentChange = false;
         }
     }

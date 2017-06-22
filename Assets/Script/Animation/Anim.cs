@@ -11,12 +11,15 @@ public class Anim : MonoBehaviour
     private Animator anim;
     private AnimatorStateInfo animState;
     private int flashCnt;
+    private int currentCnt;
 
     // Use this for initialization
     void Start()
     {
         anim = GetComponent<Animator>();
         animState = anim.GetCurrentAnimatorStateInfo(0);
+        flashCnt = 0;
+        currentCnt = flashCnt + flashInterval / 2;
     }
 
     // Update is called once per frame
@@ -44,18 +47,19 @@ public class Anim : MonoBehaviour
     /// </summary>
     private void Flash()
     {
-        if (!isFlash) return;
+        if (!isFlash || Time.timeScale == 0.0f) return;
 
-        flashCnt += (int)(1 * Time.timeScale);
+        flashCnt += 1;
         Image image = GetComponent<Image>();
 
-        if ((flashCnt - 1) / flashInterval % 2 == 0)
+        if (flashCnt % flashInterval == 0)
+        {
+            currentCnt = flashCnt + flashInterval / 2;
+            image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        }
+        if (flashCnt == currentCnt)
         {
             image.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-        }
-        else
-        {
-            image.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         }
     }
 }
