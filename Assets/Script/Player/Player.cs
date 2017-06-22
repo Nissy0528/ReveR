@@ -31,10 +31,10 @@ public class Player : MonoBehaviour
     private Ray2D ray;//レイ
     private RaycastHit2D hit;//レイが当たったオブジェクトの情報
     private GameObject[] trails;
-    private GameObject moveSE;
-    private GameObject main;
     private Color iniTrailColor;
+    private GameObject moveSE;
     private int direc;//方向
+    private int s_Cnt;//コントローラー振動時間カウント
     private int damageCnt;//ダメージ表現カウント
     private float vx;//横スティック入力値
     private float vy;//縦スティック入力値
@@ -52,7 +52,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();//リジッドボディ取得
-        main = GameObject.Find("MainManager");
         trails = GameObject.FindGameObjectsWithTag("Trail");
         iniTrailColor = trails[0].GetComponent<TrailRenderer>().material.color;
 
@@ -88,6 +87,15 @@ public class Player : MonoBehaviour
         DamageEffect();//ダメージ表現（点滅）
         MoveSE();//移動効果音
 
+        if (s_Cnt > 0)
+        {
+            s_Cnt -= 1;
+        }
+        else
+        {
+            ControllerShake.Shake(0.0f, 0.0f);
+        }
+
         if (speed > speedLimit)
         {
             speed = speedLimit;
@@ -108,14 +116,15 @@ public class Player : MonoBehaviour
         }
 
         //Aボタンが押されていたら
-        if (Input.GetKey(KeyCode.JoystickButton0))
-        {
-            speed = speedLimit;
-        }
-        else
-        {
-            speed = iniSpeed;
-        }
+		if (Input.GetKey(KeyCode.JoystickButton0))
+		{
+			speed = speedLimit;//加速
+
+		}
+		else
+		{
+			speed = iniSpeed;
+		}
 
         float subRatio = (speed / iniSpeed);
 
@@ -261,7 +270,8 @@ public class Player : MonoBehaviour
         EnemyDeadSE();
         //speed = Mathf.Min(speed + addSpeed, speedLimit);
 
-        main.GetComponent<ControllerShake>().SetShake(1.0f, 1.0f, shakeCnt);
+        ControllerShake.Shake(1.0f, 1.0f);
+        s_Cnt = shakeCnt;
 
         SpawnDrain();
 
@@ -386,7 +396,7 @@ public class Player : MonoBehaviour
             AudioSource m_SE = moveSE.GetComponent<AudioSource>();
             float velocity = rigid.velocity.magnitude;
             m_SE.volume = velocity / speedLimit;//速度に合わせて音量を変える
-            m_SE.pitch = (velocity * 3) / speedLimit;//速度に合わせてピッチを変える
+            m_SE.pitch = (velocity * 1.5f) / speedLimit;//速度に合わせてピッチを変える
         }
 
     }
@@ -401,7 +411,7 @@ public class Player : MonoBehaviour
         {
 
             GameObject tutorial = GameObject.Find("Tutorial");
-            main.GetComponent<ControllerShake>().SetShake(1.0f, 1.0f, shakeCnt);
+            GameObject main = GameObject.Find("MainManager");
             if (tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage())
             {
                 //tutorial.GetComponent<TutoUISpawner>().SetIsDamage();

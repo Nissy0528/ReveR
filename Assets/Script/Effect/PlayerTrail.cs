@@ -5,16 +5,17 @@ using UnityEngine;
 public class PlayerTrail : MonoBehaviour
 {
     public float boostlWidth;
-    public Material[] material;
 
     private float iniWidht;
     private float setWidth;
+    private Color iniColor;
     private TrailRenderer trailRenderer;
 
     // Use this for initialization
     void Start()
     {
         trailRenderer = GetComponent<TrailRenderer>();
+        iniColor = trailRenderer.material.color;
         iniWidht = trailRenderer.startWidth;
         setWidth = iniWidht;
     }
@@ -34,7 +35,7 @@ public class PlayerTrail : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Joystick1Button0)) return;
         setWidth = Mathf.Max(setWidth - Time.deltaTime, iniWidht);
-        trailRenderer.material = material[0];
+        trailRenderer.material.color = iniColor;
     }
 
     /// <summary>
@@ -44,6 +45,6 @@ public class PlayerTrail : MonoBehaviour
     {
         if (!Input.GetKey(KeyCode.Joystick1Button0)) return;
         setWidth = Mathf.Min(setWidth + Time.deltaTime, boostlWidth);
-        trailRenderer.material = material[1];
+        trailRenderer.material.color = new Color(1.0f, 1.0f, 0.0f);
     }
 }

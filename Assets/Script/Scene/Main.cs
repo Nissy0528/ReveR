@@ -10,20 +10,25 @@ public class Main : MonoBehaviour
     public static List<string> Evaluation;//ランクのデータを集まる用のリスト
 
     public GameObject[] enemyWave;
+    public GameObject warning;
     public int stopTime;
     public float battleTime;
     public float b_TimeMax;
+    public float bossMoveDelay;
 
     private GameObject[] enemys;
     private GameObject enemyDead;
     private GameObject timeText;
     private GameObject battleTimeText;
     private GameObject waveText;
+    private GameObject boss;
+    private GameObject warningObj;
     private bool isStop;
     private bool isClear;
     private bool isBattleTime;
     private int stopCnt;
     private int waveNum;
+    private float bossMoveCnt;
 
     // Use this for initialization
     void Start()
@@ -41,6 +46,7 @@ public class Main : MonoBehaviour
         timeText.SetActive(true);
 
         waveNum = 0;
+        bossMoveCnt = bossMoveDelay;
     }
 
     // Update is called once per frame
@@ -48,17 +54,16 @@ public class Main : MonoBehaviour
     {
         enemys = GameObject.FindGameObjectsWithTag("Enemy");
         enemyDead = GameObject.Find("Boom_effct");
+        boss = enemyWave[waveNum].transform.FindChild("Boss").gameObject;
 
         if (enemys.Length == 0 && enemyDead == null && isClear)
         {
             Time.timeScale = 1.0f;
-            GetComponent<ControllerShake>().SetShake(0.0f, 0.0f, 0);
             SceneManager.LoadScene("GameClear");
         }
 
         if (battleTime <= 0.0f)
         {
-            GetComponent<ControllerShake>().SetShake(0.0f, 0.0f, 0);
             SceneManager.LoadScene("GameOver");
         }
 
@@ -67,6 +72,7 @@ public class Main : MonoBehaviour
         Stop();//停止
         E_WaveSpawn();//ウェイブ生成
         WaveNum();//現在のウェイブ表示
+        BossWarning();//ボス登場エフェクト
     }
 
     /// <summary>
@@ -117,7 +123,7 @@ public class Main : MonoBehaviour
     /// </summary>
     private void E_WaveSpawn()
     {
-        if (enemyWave[waveNum].transform.FindChild("Boss") != null) return;
+        if (boss != null) return;
 
         if (waveNum < enemyWave.Length - 1)
         {
@@ -136,6 +142,43 @@ public class Main : MonoBehaviour
     private void WaveNum()
     {
         waveText.GetComponent<Text>().text = "Wave " + (waveNum + 1) + "/" + enemyWave.Length;
+    }
+
+    /// <summary>
+    /// ボス登場エフェクト
+    /// </summary>
+    private void BossWarning()
+    {
+        int childCnt = enemyWave[waveNum].transform.childCount;
+        for (int i = 0; i < childCnt; i++)
+        {
+            if (enemyWave[waveNum].transform.GetChild(i).tag != "Boss")
+            {
+                bossMoveCnt = bossMoveDelay;
+                return;
+            }
+        }
+
+        SpawnWarning();
+    }
+
+    /// <summary>
+    /// ボス登場エフェクト生成
+    /// </summary>
+    private void SpawnWarning()
+    {
+        if (bossMoveCnt <= 0.0f)
+        {
+            boss.SetActive(true);
+            return;
+        }
+
+        if (warningObj == null)
+        {
+            warningObj = Instantiate(warning, GameObject.Find("Canvas").transform);
+        }
+
+        bossMoveCnt -= Time.deltaTime;
     }
 
     /// <summary>
