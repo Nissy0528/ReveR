@@ -490,7 +490,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1700907147590294}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 35, z: 0}
+  m_LocalPosition: {x: 0.045000017, y: 12.493282, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4499554643553384}
@@ -1039,8 +1039,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &114173021374441188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1113,8 +1113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &114526210900984512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1134,6 +1134,8 @@ MonoBehaviour:
   ExC: {fileID: 1739301538019812, guid: 6c022b6b8eacc1244af45e8e83170215, type: 2}
   Nic: {fileID: 1233790561894058, guid: 9be2683923bc0f84db3bdbed307526ea, type: 2}
   Nor: {fileID: 1708882941452804, guid: b68d2b06ba670ba4db45b67b905c829b, type: 2}
+  PlusTime: {fileID: 1569507840886826, guid: a2bfad67be551ce4992682a2a47c7bc7, type: 2}
+  MinusTime: {fileID: 1132235237182648, guid: 1bbc824eedb016f4495a2d7c284766d9, type: 2}
 --- !u!114 &114569229352948136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1161,8 +1163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &114620022635618954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1207,8 +1209,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &114699360052931758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1236,8 +1238,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &114856257897714336
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class Turtroial_Move : MonoBehaviour
 {
-    public Vector3 TargetPosition;//目標ポジション
+    public Vector3 TargetPosition = Vector3.zero;//目標ポジション
     public float speed;//移動速度
-    public bool isKeyEnemy;
     public Sprite normal;
+    public float StintDistance = 0.1f;
 
     private Vector3 Velocity;
-    private Vector3 startPosition;
+    private float Distance;
+    private bool IsGetDistance = false;
 
     void Start()
     {
         speed = speed / 10;
-        startPosition = transform.position;
-
     }
     // Update is called once per frame
     void Update()
@@ -29,11 +28,8 @@ public class Turtroial_Move : MonoBehaviour
     /// </summary>
     void GetMoveType()
     {
-        if (isKeyEnemy)
-        {
-            GetComponent<SpriteRenderer>().sprite = normal;//色のついた画像にする
-            GetComponent<BoxCollider2D>().enabled = true;//あたり判定有効に
-        }
+        GetComponent<SpriteRenderer>().sprite = normal;//色のついた画像にする
+        GetComponent<BoxCollider2D>().enabled = true;//あたり判定有効に
     }
 
     /// <summary>
@@ -41,15 +37,17 @@ public class Turtroial_Move : MonoBehaviour
     /// </summary>
     void Move()
     {
+        if (TargetPosition != Vector3.zero)
+            Distance = Vector3.Distance(TargetPosition, transform.position);
         Velocity = TargetPosition - transform.position;//移動量
-
         transform.position += Velocity * speed * Time.timeScale;//移動させる
-
-        if (Velocity == Vector3.zero)
+        
+        if (Distance <= StintDistance)
         {
             GetMoveType();//アクティブ化
             Destroy(this);
         }
 
     }
+    
 }

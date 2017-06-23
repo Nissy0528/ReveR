@@ -96,6 +96,7 @@ public class EnemyManager : MonoBehaviour
             main.GetComponent<Main>().SetIsBattleTime(true);
             IsTimeStart = true;
         }
+
     }
 
     /// <summary>
