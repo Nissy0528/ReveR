@@ -95,6 +95,7 @@
     <Compile Include="Assets\Script\Effect\EnemyLine.cs" />
     <Compile Include="Assets\Script\Effect\PlayerTrail.cs" />
     <Compile Include="Assets\Script\Effect\StarAnim.cs" />
+    <Compile Include="Assets\Script\Enemy\BossBreakUp.cs" />
     <Compile Include="Assets\Script\Enemy\BossEnemy.cs" />
     <Compile Include="Assets\Script\Enemy\Bullet.cs" />
     <Compile Include="Assets\Script\Enemy\ELMove.cs" />

@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     public GameObject BoomEffect;
     public int exp;
 
+    //public GameObject core;
+
     void Start()
     {
         isRWHit = false;
