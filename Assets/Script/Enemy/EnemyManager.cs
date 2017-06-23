@@ -202,7 +202,7 @@ public class EnemyManager : MonoBehaviour
 
         PlusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(
           GameObject.FindGameObjectWithTag("Player").transform.position.x + 1f,
-          GameObject.FindGameObjectWithTag("Player").transform.position.y + 0.5f));
+          GameObject.FindGameObjectWithTag("Player").transform.position.y + 1f));
 
         PlusTimeObj.GetComponent<Text>().text = "+" + ((int)CurrentTime / 60).ToString() + "." +
             ((int)((int)CurrentTime % 60) / 10).ToString() + ((int)((int)CurrentTime % 60) % 10).ToString();
@@ -217,7 +217,7 @@ public class EnemyManager : MonoBehaviour
 
         MinusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(
           GameObject.FindGameObjectWithTag("Player").transform.position.x + 1f,
-          GameObject.FindGameObjectWithTag("Player").transform.position.y + 1f));
+          GameObject.FindGameObjectWithTag("Player").transform.position.y + 0.4f));
 
         MinusTimeObj.GetComponent<Text>().text = "-" + ((int)(LimitTime- CurrentTime) / 60).ToString() + "." +
             ((int)((int)(LimitTime - CurrentTime) % 60) / 10).ToString() + ((int)((int)(LimitTime - CurrentTime) % 60) % 10).ToString();

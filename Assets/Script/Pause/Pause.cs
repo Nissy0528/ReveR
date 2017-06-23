@@ -64,6 +64,8 @@ public class Pause : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.JoystickButton7))
         {
+            ControllerShake.Shake(0.0f, 0.0f);
+
             if (IsPause)
             {
                 IsClose_Menu = true;

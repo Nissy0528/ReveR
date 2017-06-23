@@ -7,15 +7,16 @@ using UnityEngine.SceneManagement;
 public class LifeScript : MonoBehaviour
 {
     RectTransform rt;//RectTransform
-    private GameObject playerGO;//playerオブジェクト
+    private GameObject main;//playerオブジェクト
 
     private float speed;
     private Vector2 iniSize;
-    private Player player;
+    private Main mainClass;
 
     public GameObject gauge;
     public GameObject frame;
     public GameObject needleposition;
+    public float[] sectionTime;
 
     // Use this for initializatio
     void Start()
@@ -23,8 +24,8 @@ public class LifeScript : MonoBehaviour
         //rt = GetComponent<RectTransform>();//RectTransformを取得
         //iniSize = rt.sizeDelta;
 
-        playerGO = GameObject.Find("Player");//playerオブジェクトを取得
-        player = playerGO.GetComponent<Player>();
+        main = GameObject.Find("MainManager");//playerオブジェクトを取得
+        mainClass = main.GetComponent<Main>();
         //speed = Mathf.Abs(player.speed) / player.speedLimit;
 
         gauge = GameObject.Find("speedgauge");
@@ -37,24 +38,24 @@ public class LifeScript : MonoBehaviour
         //speed = Mathf.Abs(player.speed) / player.speedLimit;
         //rt.sizeDelta = new Vector2(iniSize.x, iniSize.y * speed);
 
-        gauge.GetComponent<Image>().fillAmount = (player.speed / player.speedLimit) * 0.69f;
+        gauge.GetComponent<Image>().fillAmount = (mainClass.battleTime / mainClass.b_TimeMax) * 0.69f;
         //gauge.GetComponent<Image>().fillAmount = Mathf.Clamp((player.speed / player.speedLimit), 0.11f, 0.89f);
 
     }
 
     public void LifeColor()
     {
-        if (player.speed >= 6)
+        if (mainClass.battleTime >= sectionTime[2])
         {
             gauge.GetComponent<Image>().color = new Color(0, 1, 0);
         }
 
-        else if (player.speed >= 3)
+        else if (mainClass.battleTime >= sectionTime[1])
         {
             gauge.GetComponent<Image>().color = new Color(1, 1, 0);
         }
 
-        else if (player.speed >= 0)
+        else if (mainClass.battleTime >= sectionTime[0])
         {
             gauge.GetComponent<Image>().color = new Color(1, 0, 0);
         }
@@ -62,9 +63,9 @@ public class LifeScript : MonoBehaviour
 
     public void needleCtrl()
     {
-        needleposition.transform.rotation = Quaternion.Euler(0, 0, 122.0f - (244.0f * (player.speed / player.speedLimit)));
+        needleposition.transform.rotation = Quaternion.Euler(0, 0, 122.0f - (244.0f * (mainClass.battleTime / mainClass.b_TimeMax)));
     }
-    
+
     // Update is called once per frame
     void Update()
     {

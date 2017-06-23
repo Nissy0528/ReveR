@@ -27,9 +27,7 @@ public class Player : MonoBehaviour
     public int shakeCnt;//コントローラーの振動時間
 
     private Rigidbody2D rigid;//リジッドボディ
-    private Vector3 size;//オブジェクトのサイズ
     private Vector3 lookPos;//見る座標
-    private AudioSource se;//効果音
     private Ray2D ray;//レイ
     private RaycastHit2D hit;//レイが当たったオブジェクトの情報
     private GameObject[] trails;
@@ -54,7 +52,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();//リジッドボディ取得
-        se = GetComponent<AudioSource>();
         trails = GameObject.FindGameObjectsWithTag("Trail");
         iniTrailColor = trails[0].GetComponent<TrailRenderer>().material.color;
 
@@ -96,7 +93,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            ControllerShake(0.0f, 0.0f);
+            ControllerShake.Shake(0.0f, 0.0f);
         }
 
         if (speed > speedLimit)
@@ -117,6 +114,17 @@ public class Player : MonoBehaviour
             rigid.drag = 1.5f;
             return;//何もしない
         }
+
+        //Aボタンが押されていたら
+		if (Input.GetKey(KeyCode.JoystickButton0))
+		{
+			speed = speedLimit;//加速
+
+		}
+		else
+		{
+			speed = iniSpeed;
+		}
 
         float subRatio = (speed / iniSpeed);
 
@@ -260,17 +268,17 @@ public class Player : MonoBehaviour
     public void Crush()
     {
         EnemyDeadSE();
-        speed = Mathf.Min(speed + addSpeed, speedLimit);
+        //speed = Mathf.Min(speed + addSpeed, speedLimit);
 
-        ControllerShake(1.0f, 1.0f);
+        ControllerShake.Shake(1.0f, 1.0f);
         s_Cnt = shakeCnt;
 
         SpawnDrain();
 
-        if (speed >= stopSpeed)
-        {
-            //main.GetComponent<Main>().SetStop();
-        }
+        //if (speed >= stopSpeed)
+        //{
+        //    main.GetComponent<Main>().SetStop();
+        //}
 
         isJudge = true;
     }
@@ -280,30 +288,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void SpawnDrain()
     {
-        GameObject L_Tip = GameObject.Find("L_WingTip");
-        GameObject R_Tip = GameObject.Find("R_WingTip");
-
-        GameObject L_drain = Instantiate(drain, L_Tip.transform.position, L_Tip.transform.rotation, L_Tip.transform);
-        GameObject R_drain = Instantiate(drain, R_Tip.transform.position, R_Tip.transform.rotation, R_Tip.transform);
-
-        L_drain.GetComponent<Drain>().SetHingeName("L_Hinge");
-        R_drain.GetComponent<Drain>().SetHingeName("R_Hinge");
-    }
-
-    /// <summary>
-    /// コントローラー振動
-    /// </summary>
-    private void ControllerShake(float left, float right)
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            PlayerIndex pI = (PlayerIndex)i;
-            GamePadState state = GamePad.GetState(pI);
-            if (state.IsConnected)
-            {
-                GamePad.SetVibration(pI, left, right);
-            }
-        }
+        Instantiate(drain, gameObject.transform);
     }
 
     /// <summary>
@@ -411,11 +396,10 @@ public class Player : MonoBehaviour
             AudioSource m_SE = moveSE.GetComponent<AudioSource>();
             float velocity = rigid.velocity.magnitude;
             m_SE.volume = velocity / speedLimit;//速度に合わせて音量を変える
-            m_SE.pitch = (velocity * 3) / speedLimit;//速度に合わせてピッチを変える
+            m_SE.pitch = (velocity * 1.5f) / speedLimit;//速度に合わせてピッチを変える
         }
 
     }
-
 
     /// <summary>
     /// あたり判定

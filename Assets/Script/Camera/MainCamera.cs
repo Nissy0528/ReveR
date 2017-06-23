@@ -9,8 +9,6 @@ public class MainCamera : MonoBehaviour
     public float range;
     public float shakeDelay;
 
-    private Vector3 topLeft;//画面左上座標
-    private Vector3 bottomRight;//画面右下座標
     private Vector3 playerSize;//プレイヤーのサイズ
     private Vector2 playerPos;//プレイヤーの座標
     private Vector3 backGroundSize;//背景のサイズ
@@ -54,12 +52,12 @@ public class MainCamera : MonoBehaviour
     {
         if (player == null) return;
 
-        bottomRight = mainCamera.ScreenToWorldPoint(Vector3.zero);//画面右下の座標
-        topLeft = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));//画面左上の座標
+        Vector3 screenPosMin = mainCamera.ScreenToWorldPoint(Vector3.zero);//画面右下の座標
+        Vector3 screenPosMax = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));//画面左上の座標
         playerPos = player.transform.position;//プレイヤーの座標
 
-        playerPos.x = Mathf.Clamp(playerPos.x, bottomRight.x + playerSize.x / 10, topLeft.x - playerSize.x / 10);//画面の横幅内に横移動を制限
-        playerPos.y = Mathf.Clamp(playerPos.y, bottomRight.y + playerSize.y / 10, topLeft.y - playerSize.y / 10);//画面の縦幅内に縦移動を制限
+        playerPos.x = Mathf.Clamp(playerPos.x, screenPosMin.x + playerSize.x / 10, screenPosMax.x - playerSize.x / 10);//画面の横幅内に横移動を制限
+        playerPos.y = Mathf.Clamp(playerPos.y, screenPosMin.y + playerSize.y / 10, screenPosMax.y - playerSize.y / 10);//画面の縦幅内に縦移動を制限
 
         player.transform.position = playerPos;//プレイヤーの座標制限
     }
@@ -83,7 +81,7 @@ public class MainCamera : MonoBehaviour
             transform.position = new Vector3(x_val, y_val, transform.position.z);
             delay = 0.0f;
         }
-        if(delay < shakeDelay)
+        if (delay < shakeDelay)
         {
             delay += 1.0f;
         }
