@@ -122,13 +122,4 @@ public class Enemy : MonoBehaviour
         return false;
     }
 
-    /// <summary>
-    /// 死亡判定取得
-    /// </summary>
-    /// <returns>死亡判定</returns>
-    public bool IsOut()
-    {
-        return isOut;
-    }
-
 }

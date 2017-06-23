@@ -490,7 +490,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1700907147590294}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 35, z: 0}
+  m_LocalPosition: {x: 0.045000017, y: 12.493282, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4499554643553384}
@@ -1039,8 +1039,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &114173021374441188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1113,8 +1113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &114526210900984512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1163,8 +1163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &114620022635618954
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1210,8 +1210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &114699360052931758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1239,8 +1239,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &114856257897714336
 MonoBehaviour:
   m_ObjectHideFlags: 1
