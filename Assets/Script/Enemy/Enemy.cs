@@ -24,8 +24,6 @@ public class Enemy : MonoBehaviour
     public GameObject BoomEffect;
     public int exp;
 
-    public bool lineFlag;
-
     void Start()
     {
         isRWHit = false;
@@ -59,6 +57,8 @@ public class Enemy : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
+        if (!InCamera()) return;
+
         if (col.gameObject.tag == "L_Joint")
         {
             isLWHit = true;
@@ -102,13 +102,22 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// ライン生成
+    /// 画面内にいるか
     /// </summary>
-    private void Line()
+    /// <returns></returns>
+    private bool InCamera()
     {
-        if (!lineFlag) return;
+        Camera mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();//カメラ
+        Vector3 scale = new Vector3(transform.localScale.x / 10, transform.localScale.y / 10, 0);//サイズの半分
+        Vector3 screenPosMin = mainCamera.ScreenToWorldPoint(Vector3.zero) + scale;//画面右下の座標
+        Vector3 screenPosMax = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f)) - scale;//画面左上の座標
 
-
+        if (transform.position.x >= screenPosMin.x && transform.position.x <= screenPosMax.x
+            && transform.position.y >= screenPosMin.y && transform.position.y <= screenPosMax.y)
+        {
+            return true;
+        }
+        return false;
     }
 
     /// <summary>

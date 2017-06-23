@@ -14,7 +14,7 @@ public class SE : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!GetComponent<AudioSource>().isPlaying)
+        if (!GetComponent<AudioSource>().isPlaying)
         {
             Destroy(gameObject);
         }

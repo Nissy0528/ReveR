@@ -14,7 +14,8 @@ public class JudgeUI : MonoBehaviour
 
     public float time;
     public float speed;
-    
+
+	private Color color;//中山追記
 
     // Use this for initialization
     void Start()
@@ -24,10 +25,12 @@ public class JudgeUI : MonoBehaviour
       
         rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, TargetPos);
 
-        if(GetComponent<Text>().material.name== "EVATime Material")
-        {
-            GetComponent<Text>().material.color = new Color(1, 1, 1, Alpha);
-        }
+		//if(GetComponent<Text>().material.name== "EVATime Material")
+		//{
+		//    GetComponent<Text>().material.color = new Color(1, 1, 1, Alpha);
+		//}
+
+		color = gameObject.GetComponent<Text>().material.color;//中山追記
     }
 
     // Update is called once per frame
@@ -57,7 +60,9 @@ public class JudgeUI : MonoBehaviour
     {
         if (gameObject.tag == "EVATime")
         {
-            GetComponent<Text>().material.color = new Color(1, 1, 1, Alpha);
+			//GetComponent<Text>().material.color = new Color(1,1,1, Alpha);
+            GetComponent<Text>().color = new Color(color.r,color.g,color.b, Alpha);//中山一部変更
+
             if (IsStart) time--;
             rect.position += new Vector3(0, 0.1f);
             FadeIn();

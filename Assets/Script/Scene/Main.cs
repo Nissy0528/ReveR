@@ -10,19 +10,24 @@ public class Main : MonoBehaviour
     public static List<string> Evaluation;//ランクのデータを集まる用のリスト
 
     public GameObject[] enemyWave;
+    public GameObject warning;
     public int stopTime;
     public float battleTime;
+    public float b_TimeMax;
+    public float bossMoveDelay;
 
     private GameObject[] enemys;
     private GameObject enemyDead;
     private GameObject timeText;
     private GameObject battleTimeText;
     private GameObject waveText;
+    private GameObject warningObj;
     private bool isStop;
     private bool isClear;
     private bool isBattleTime;
     private int stopCnt;
     private int waveNum;
+    private float bossMoveCnt;
 
     // Use this for initialization
     void Start()
@@ -40,6 +45,7 @@ public class Main : MonoBehaviour
         timeText.SetActive(true);
 
         waveNum = 0;
+        bossMoveCnt = bossMoveDelay;
     }
 
     // Update is called once per frame
@@ -64,6 +70,7 @@ public class Main : MonoBehaviour
         Stop();//停止
         E_WaveSpawn();//ウェイブ生成
         WaveNum();//現在のウェイブ表示
+        BossWarning();//ボス登場エフェクト
     }
 
     /// <summary>
@@ -136,6 +143,67 @@ public class Main : MonoBehaviour
     }
 
     /// <summary>
+    /// ボス登場エフェクト
+    /// </summary>
+    private void BossWarning()
+    {
+        int childCnt = enemyWave[waveNum].transform.childCount;
+        for (int i = 0; i < childCnt; i++)
+        {
+            if (enemyWave[waveNum].transform.GetChild(i).tag != "Boss" || isClear)
+            {
+                bossMoveCnt = bossMoveDelay;
+                return;
+            }
+        }
+
+        SpawnWarning();
+    }
+
+    /// <summary>
+    /// ボス登場エフェクト生成
+    /// </summary>
+    private void SpawnWarning()
+    {
+        if (enemyDead != null) return;
+
+        if (bossMoveCnt <= 0.0f)
+        {
+            DestroyWarning();
+            enemyWave[waveNum].transform.FindChild("Boss").gameObject.SetActive(true);
+            return;
+        }
+
+        if (warningObj == null)
+        {
+            warningObj = Instantiate(warning, GameObject.Find("Canvas").transform);
+        }
+
+        bossMoveCnt -= Time.deltaTime;
+    }
+
+    /// <summary>
+    /// ボスエフェクト消滅
+    /// </summary>
+    private void DestroyWarning()
+    {
+        if (warningObj == null) return;
+
+        //ボスエフェクトの子オブジェクトがなければ消滅
+        if (warningObj.transform.childCount == 0)
+        {
+            if (waveNum >= enemyWave.Length - 1)
+            {
+                bossMoveCnt = bossMoveDelay;
+            }
+            else
+            {
+                Destroy(warningObj);
+            }
+        }
+    }
+
+    /// <summary>
     /// クリア判定設定
     /// </summary>
     /// <param name="isClear">クリア判定（trueならクリアシーンに移行）</param>
@@ -169,7 +237,14 @@ public class Main : MonoBehaviour
     /// <param name="battleTime">生存時間</param>
     public void SetBattleTime(float battleTime)
     {
-        this.battleTime = Mathf.Max(this.battleTime + battleTime, 0.0f);
+        if (battleTime > 0.0f)
+        {
+            this.battleTime = Mathf.Min(this.battleTime + battleTime, b_TimeMax);
+        }
+        if (battleTime < 0.0f)
+        {
+            this.battleTime = Mathf.Max(this.battleTime + battleTime, 0.0f);
+        }
     }
 
     /// <summary>

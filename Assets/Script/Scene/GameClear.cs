@@ -20,23 +20,8 @@ public class GameClear : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        clearTime.text = Main.time.ToString();
+        //TimeText();
         EvaluationText();
-
-        times = PlayerPrefsUtility.LoadList<float>(saveKey);
-        times.Add(Main.time);
-        times.Sort();
-
-        if (times.Count == 4)
-        {
-            times.RemoveAt(3);
-        }
-        PlayerPrefsUtility.SavaList<float>(saveKey, times);
-
-        for(int i = 0; i < times.Count; i++)
-        {
-            timeRank[i].text = times[i].ToString();
-        }
     }
 
     // Update is called once per frame
@@ -48,6 +33,7 @@ public class GameClear : MonoBehaviour
             SceneManager.LoadScene("Title");
         }
     }
+
     /// <summary>
     /// 評価を取る
     /// </summary>
@@ -65,6 +51,28 @@ public class GameClear : MonoBehaviour
         S.text = Scount.ToString();
         A.text = Acount.ToString();
         B.text = Bcount.ToString();
+    }
+
+    /// <summary>
+    /// クリア時間表示
+    /// </summary>
+    private void TimeText()
+    {
+        clearTime.text = Main.time.ToString();
+        times = PlayerPrefsUtility.LoadList<float>(saveKey);
+        times.Add(Main.time);
+        times.Sort();
+
+        if (times.Count == 4)
+        {
+            times.RemoveAt(3);
+        }
+        PlayerPrefsUtility.SavaList<float>(saveKey, times);
+
+        for (int i = 0; i < times.Count; i++)
+        {
+            timeRank[i].text = times[i].ToString();
+        }
     }
 
 
