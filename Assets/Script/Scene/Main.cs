@@ -150,7 +150,7 @@ public class Main : MonoBehaviour
         int childCnt = enemyWave[waveNum].transform.childCount;
         for (int i = 0; i < childCnt; i++)
         {
-            if (enemyWave[waveNum].transform.GetChild(i).tag != "Boss")
+            if (enemyWave[waveNum].transform.GetChild(i).tag != "Boss" || isClear)
             {
                 bossMoveCnt = bossMoveDelay;
                 return;
@@ -165,10 +165,12 @@ public class Main : MonoBehaviour
     /// </summary>
     private void SpawnWarning()
     {
+        if (enemyDead != null) return;
+
         if (bossMoveCnt <= 0.0f)
         {
-            enemyWave[waveNum].transform.FindChild("Boss").gameObject.SetActive(true);
             DestroyWarning();
+            enemyWave[waveNum].transform.FindChild("Boss").gameObject.SetActive(true);
             return;
         }
 
@@ -190,7 +192,14 @@ public class Main : MonoBehaviour
         //ボスエフェクトの子オブジェクトがなければ消滅
         if (warningObj.transform.childCount == 0)
         {
-            Destroy(warningObj);
+            if (waveNum >= enemyWave.Length - 1)
+            {
+                bossMoveCnt = bossMoveDelay;
+            }
+            else
+            {
+                Destroy(warningObj);
+            }
         }
     }
 
