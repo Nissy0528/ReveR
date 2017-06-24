@@ -12,6 +12,8 @@ public class BossEnemy : MonoBehaviour
     private Animation animation;
     private bool animcount;
 
+    public GameObject core2;
+
     // Use this for initialization
     void Start()
     {
@@ -23,11 +25,16 @@ public class BossEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        childEnemy.RemoveAll(x => x == null);
         if (shield != null)
         {
             animator = shield.GetComponent<Animator>();
         }
         BossEnemyDead();
+        if (childEnemy.Count == 0)//子オブジェクトの個数が0なら
+        {
+            ShieldAnim();
+        }
     }
 
     /// <summary>
@@ -35,13 +42,12 @@ public class BossEnemy : MonoBehaviour
     /// </summary>
     void BossEnemyDead()
     {
-        childEnemy.RemoveAll(x => x == null);
 
-        if (ChildEnemyDead()) //子オブジェクトが無ければ
+        if (ChildEnemyDead() && box!=null) //子オブジェクトが無ければ
         {
             box.enabled = true; //判定を戻す
         }
-        else
+        else if (!ChildEnemyDead() && box != null)
         {
             box.enabled = false;
         }
@@ -53,9 +59,8 @@ public class BossEnemy : MonoBehaviour
     /// <returns></returns>
     public bool ChildEnemyDead()
     {
-        if (childEnemy.Count == 0)//子オブジェクトの個数が0なら
+        if (shield == null)//子オブジェクトの個数が0なら
         {
-            ShieldAnim();
             return true;
         }
         else
