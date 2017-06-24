@@ -35,7 +35,6 @@ public class PlayerTrail : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Joystick1Button0)) return;
         setWidth = Mathf.Max(setWidth - Time.deltaTime, iniWidht);
-        trailRenderer.material.color = iniColor;
     }
 
     /// <summary>
@@ -45,6 +44,5 @@ public class PlayerTrail : MonoBehaviour
     {
         if (!Input.GetKey(KeyCode.Joystick1Button0)) return;
         setWidth = Mathf.Min(setWidth + Time.deltaTime, boostlWidth);
-        trailRenderer.material.color = new Color(1.0f, 1.0f, 0.0f);
     }
 }

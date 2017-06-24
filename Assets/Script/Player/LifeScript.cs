@@ -28,8 +28,8 @@ public class LifeScript : MonoBehaviour
         mainClass = main.GetComponent<Main>();
         //speed = Mathf.Abs(player.speed) / player.speedLimit;
 
-        gauge = GameObject.Find("speedgauge");
-        frame = GameObject.Find("speedframe");
+        gauge = GameObject.Find("LifeGauge");
+        frame = GameObject.Find("LifeFrame");
         needleposition = GameObject.Find("NeedlePosition");
     }
 
@@ -38,24 +38,24 @@ public class LifeScript : MonoBehaviour
         //speed = Mathf.Abs(player.speed) / player.speedLimit;
         //rt.sizeDelta = new Vector2(iniSize.x, iniSize.y * speed);
 
-        gauge.GetComponent<Image>().fillAmount = (mainClass.battleTime / mainClass.b_TimeMax) * 0.69f;
+        gauge.GetComponent<Image>().fillAmount = (mainClass.lifeTime / mainClass.lifeTimeMax) * 0.69f;
         //gauge.GetComponent<Image>().fillAmount = Mathf.Clamp((player.speed / player.speedLimit), 0.11f, 0.89f);
 
     }
 
     public void LifeColor()
     {
-        if (mainClass.battleTime >= sectionTime[2])
+        if (mainClass.lifeTime >= sectionTime[2])
         {
             gauge.GetComponent<Image>().color = new Color(0, 1, 0);
         }
 
-        else if (mainClass.battleTime >= sectionTime[1])
+        else if (mainClass.lifeTime >= sectionTime[1])
         {
             gauge.GetComponent<Image>().color = new Color(1, 1, 0);
         }
 
-        else if (mainClass.battleTime >= sectionTime[0])
+        else if (mainClass.lifeTime >= sectionTime[0])
         {
             gauge.GetComponent<Image>().color = new Color(1, 0, 0);
         }
@@ -63,7 +63,7 @@ public class LifeScript : MonoBehaviour
 
     public void needleCtrl()
     {
-        needleposition.transform.rotation = Quaternion.Euler(0, 0, 122.0f - (244.0f * (mainClass.battleTime / mainClass.b_TimeMax)));
+        needleposition.transform.rotation = Quaternion.Euler(0, 0, 122.0f - (244.0f * (mainClass.lifeTime / mainClass.lifeTimeMax)));
     }
 
     // Update is called once per frame

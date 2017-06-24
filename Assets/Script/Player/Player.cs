@@ -7,6 +7,7 @@ using XInputDotNetPure;
 public class Player : MonoBehaviour
 {
     public GameObject inputManager;//スティック入力
+    public GameObject damageEffect;//ダメージエフェクト
     public GameObject drain;//エネルギー吸収エフェクト
     public GameObject[] spriteObjs;//スプライトレンダラーが入ってるオブジェクト
     public GameObject[] SE;//効果音
@@ -412,25 +413,19 @@ public class Player : MonoBehaviour
 
             GameObject tutorial = GameObject.Find("Tutorial");
             GameObject main = GameObject.Find("MainManager");
-            if (tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage())
+            if ((tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage())
+                ||tutorial==null)
             {
                 //tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
 
                 Instantiate(SE[1]);
+                ControllerShake.Shake(1.0f, 1.0f);
+                s_Cnt = shakeCnt;
+                Instantiate(damageEffect, GameObject.Find("LifeMeter").transform);
 
                 speed = Mathf.Max(speed - damage, 0.0f);
-                main.GetComponent<Main>().SetBattleTime(-damage);
-
-                damageCnt = 0;
-                isDamage = true;
-            }
-
-            if (tutorial == null)
-            {
-                Instantiate(SE[1]);
-
-                speed = Mathf.Max(speed - damage, 0.0f);
-                main.GetComponent<Main>().SetBattleTime(-damage);
+                main.GetComponent<Main>().SetAddTime(-damage);
+                main.GetComponent<Main>().StartAddTime();
 
                 damageCnt = 0;
                 isDamage = true;

@@ -12,22 +12,26 @@ public class Main : MonoBehaviour
     public GameObject[] enemyWave;
     public GameObject warning;
     public int stopTime;
-    public float battleTime;
-    public float b_TimeMax;
+    public float lifeTime;
+    public float lifeTimeMax;
     public float bossMoveDelay;
 
     private GameObject[] enemys;
     private GameObject enemyDead;
     private GameObject timeText;
-    private GameObject battleTimeText;
+    private GameObject[] lifeTimeText;
     private GameObject waveText;
     private GameObject warningObj;
     private bool isStop;
     private bool isClear;
-    private bool isBattleTime;
+    private bool isLifeTime;
+    private bool isAdd;
     private int stopCnt;
     private int waveNum;
     private float bossMoveCnt;
+    private float currentLifeTime;
+    private float addLifeTime;
+    private float addL_Time;
 
     // Use this for initialization
     void Start()
@@ -37,10 +41,11 @@ public class Main : MonoBehaviour
 
         isStop = false;
         isClear = false;
-        isBattleTime = false;
+        isLifeTime = false;
+        isAdd = false;
         time = 0.0f;
         timeText = GameObject.Find("Time");
-        battleTimeText = GameObject.Find("LifeTime");
+        lifeTimeText = GameObject.FindGameObjectsWithTag("LifeTime");
         waveText = GameObject.Find("Wave");
         timeText.SetActive(true);
 
@@ -53,6 +58,7 @@ public class Main : MonoBehaviour
     {
         enemys = GameObject.FindGameObjectsWithTag("Enemy");
         enemyDead = GameObject.Find("Boom_effct");
+        lifeTimeText = GameObject.FindGameObjectsWithTag("LifeTime");
 
         if (enemys.Length == 0 && enemyDead == null && isClear)
         {
@@ -60,17 +66,20 @@ public class Main : MonoBehaviour
             SceneManager.LoadScene("GameClear");
         }
 
-        if (battleTime <= 0.0f)
+        if (lifeTime <= 0.0f)
         {
             SceneManager.LoadScene("GameOver");
         }
 
         TimeCount();//経過時間処理
-        BattleTimeCount();//生存時間処理
+        LifeTimeCount();//生存時間処理
+        AddLifeTime();//ライフタイム変動
         Stop();//停止
         E_WaveSpawn();//ウェイブ生成
         WaveNum();//現在のウェイブ表示
         BossWarning();//ボス登場エフェクト
+
+        lifeTime = Mathf.Clamp(lifeTime, 0.0f, lifeTimeMax);
     }
 
     /// <summary>
@@ -88,16 +97,19 @@ public class Main : MonoBehaviour
     /// <summary>
     /// ボスバトル時間処理
     /// </summary>
-    private void BattleTimeCount()
+    private void LifeTimeCount()
     {
         if (enemys.Length == 0) return;
 
-        if (isBattleTime)
+        if (isLifeTime)
         {
-            battleTime = Mathf.Max(battleTime - Time.deltaTime, 0.0f);
+            lifeTime = Mathf.Max(lifeTime - Time.deltaTime, 0.0f);
         }
-        battleTime = Mathf.Round(battleTime * 100) / 100;
-        battleTimeText.GetComponent<Text>().text = battleTime.ToString();
+        lifeTime = Mathf.Round(lifeTime * 100) / 100;
+        foreach (var b in lifeTimeText)
+        {
+            b.GetComponent<Text>().text = lifeTime.ToString();
+        }
     }
 
     /// <summary>
@@ -204,6 +216,25 @@ public class Main : MonoBehaviour
     }
 
     /// <summary>
+    /// ライフタイム変動
+    /// </summary>
+    private void AddLifeTime()
+    {
+        if (!isAdd) return;
+
+        float add = addLifeTime / Mathf.Abs(addLifeTime);
+        lifeTime += (Time.deltaTime * 6.0f) * add;
+        float dif = Mathf.Abs(currentLifeTime - lifeTime);
+
+        if (dif >= Mathf.Abs(addLifeTime))
+        {
+            lifeTime = currentLifeTime + addLifeTime;
+            isAdd = false;
+        }
+
+    }
+
+    /// <summary>
     /// クリア判定設定
     /// </summary>
     /// <param name="isClear">クリア判定（trueならクリアシーンに移行）</param>
@@ -234,25 +265,29 @@ public class Main : MonoBehaviour
     /// <summary>
     /// 生存時間設定
     /// </summary>
-    /// <param name="battleTime">生存時間</param>
-    public void SetBattleTime(float battleTime)
+    /// <param name="addLifeTIme">生存時間</param>
+    public void StartAddTime()
     {
-        if (battleTime > 0.0f)
-        {
-            this.battleTime = Mathf.Min(this.battleTime + battleTime, b_TimeMax);
-        }
-        if (battleTime < 0.0f)
-        {
-            this.battleTime = Mathf.Max(this.battleTime + battleTime, 0.0f);
-        }
+        this.addLifeTime = addL_Time;
+        currentLifeTime = lifeTime;
+        isAdd = true;
     }
 
     /// <summary>
     /// 生存時間経過判定設定
     /// </summary>
-    /// <param name="isBattleTime"></param>
-    public void SetIsBattleTime(bool isBattleTime)
+    /// <param name="islifeTime"></param>
+    public void SetIsLifeTime(bool islifeTime)
     {
-        this.isBattleTime = isBattleTime;
+        this.isLifeTime = islifeTime;
+    }
+
+    /// <summary>
+    /// 加算タイム設定
+    /// </summary>
+    /// <param name="addL_Time"></param>
+    public void SetAddTime(float addL_Time)
+    {
+        this.addL_Time = addL_Time;
     }
 }

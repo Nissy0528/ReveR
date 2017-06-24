@@ -1,0 +1,50 @@
+Initialize engine version: 5.6.0f3 (497a0f351392)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) HD Graphics 520 (ID=0x1916)
+    Vendor:   Intel
+    VRAM:     2111 MB
+    Driver:   21.20.16.4590
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
+- Completed reload, in  0.041 seconds
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 48Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.735253 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 5.637120 ms
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 1701.
+Total: 0.654506 ms (FindLiveObjects: 0.115200 ms CreateObjectMapping: 0.075520 ms MarkObjects: 0.442026 ms  DeleteObjects: 0.020906 ms)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.091626 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 1701.
+Total: 0.778240 ms (FindLiveObjects: 0.157866 ms CreateObjectMapping: 0.076373 ms MarkObjects: 0.521386 ms  DeleteObjects: 0.021333 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.394773 ms
+
+Unloading 177 unused Assets to reduce memory usage. Loaded Objects now: 486.
+Total: 0.838400 ms (FindLiveObjects: 0.031573 ms CreateObjectMapping: 0.034560 ms MarkObjects: 0.180053 ms  DeleteObjects: 0.591360 ms)
+
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 3014 -> priority: 1 
+  Thread -> id: 1784 -> priority: 1 

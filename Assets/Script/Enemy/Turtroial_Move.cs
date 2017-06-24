@@ -41,7 +41,7 @@ public class Turtroial_Move : MonoBehaviour
             Distance = Vector3.Distance(TargetPosition, transform.position);
         Velocity = TargetPosition - transform.position;//移動量
         transform.position += Velocity * speed * Time.timeScale;//移動させる
-        
+
         if (Distance <= StintDistance)
         {
             GetMoveType();//アクティブ化
@@ -49,5 +49,5 @@ public class Turtroial_Move : MonoBehaviour
         }
 
     }
-    
+
 }
