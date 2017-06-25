@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4432564215607778}
   - component: {fileID: 96515588532830676}
+  - component: {fileID: 114843672402523008}
   m_Layer: 0
   m_Name: R_Trail
   m_TagString: Trail
@@ -205,6 +206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4518783446790014}
   - component: {fileID: 96034757357662996}
+  - component: {fileID: 114182531846721690}
   m_Layer: 0
   m_Name: L_Trail
   m_TagString: Trail
@@ -794,6 +796,18 @@ TrailRenderer:
     textureMode: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114182531846721690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1888429054464390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734ca4012f72fd94f948387d2c138254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostlWidth: 0.3
 --- !u!114 &114188500508088502
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -808,7 +822,7 @@ MonoBehaviour:
   j_Type: 0
   core: {fileID: 1760322421835580}
   inputManager: {fileID: 0}
-  rotateSpeed: 20
+  rotateSpeed: 25
   rotateLimit: 87
   rotateBoost: 0
   mass: 10
@@ -840,7 +854,7 @@ MonoBehaviour:
   j_Type: 1
   core: {fileID: 1760322421835580}
   inputManager: {fileID: 0}
-  rotateSpeed: 20
+  rotateSpeed: 25
   rotateLimit: 87
   rotateBoost: 0
   mass: 10
@@ -856,7 +870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 0}
-  drain: {fileID: 1481000422993334, guid: f7522c7baaf5b744caa335eec831dc03, type: 2}
+  drain: {fileID: 1645401637604778, guid: 2f86b5fada66dfb4082fd9b809046287, type: 2}
   spriteObjs:
   - {fileID: 1760322421835580}
   - {fileID: 1790813826943990}
@@ -865,25 +879,48 @@ MonoBehaviour:
   - {fileID: 1822184236006738}
   - {fileID: 1316772480470196}
   - {fileID: 1902398397188372}
-  seClip:
-  - {fileID: 8300000, guid: 015dc12b0ffce224f82189315b0830b7, type: 3}
-  - {fileID: 8300000, guid: e69230f97d54dc844b5d2f040ef581ac, type: 3}
+  SE:
+  - {fileID: 1846865809683590, guid: d0810c45be3025142b22f5bc395e36d9, type: 2}
+  - {fileID: 1224246821080894, guid: 454d4926db445d54db7b096a21126578, type: 2}
+  - {fileID: 1021139499008672, guid: ba38b9992f9b7d349a6b636fe5684a8d, type: 2}
   speed: 6
-  addSpeed: 2
+  addSpeed: 0.25
   subSpeed: 0.01
   subMin: 1
-  speedLimit: 15
-  speedMin: 5
+  speedLimit: 13
+  speedMin: 6
   stopSpeed: 15
   drag: 1
   rotateSpeed: 5
   returnSpeed: 0.1
-  rayLength: 10
   damageTime: 60
   flashInterval: 5
   damage: 2
   maxexp: 5
   shakeCnt: 10
+  WingTrail:
+  - {fileID: 96034757357662996}
+  - {fileID: 96515588532830676}
+  CoreSprite:
+  - {fileID: 21300000, guid: cf31d5289ec8d7f4a86f1802ed0354d5, type: 3}
+  - {fileID: 21300000, guid: 5123f7307719f7e47b2903b36b926e1a, type: 3}
+  - {fileID: 21300000, guid: 60569e896b84d2144bcaee012eaf3c0c, type: 3}
+  WingSprite:
+  - {fileID: 2100000, guid: 518e186ba9344d642b54e002f6af8554, type: 2}
+  - {fileID: 2100000, guid: bc7c388260ce67b4b88d48495f64dce3, type: 2}
+  - {fileID: 2100000, guid: 5c7f3c644d87a83469ba561bdf261336, type: 2}
+--- !u!114 &114843672402523008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1155557342338952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734ca4012f72fd94f948387d2c138254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostlWidth: 0.3
 --- !u!114 &114904949277490196
 MonoBehaviour:
   m_ObjectHideFlags: 1

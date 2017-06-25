@@ -1571,23 +1571,6 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
---- !u!1 &120012077 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1155557342338952, guid: 1f3f252edcc11684eb78d536fd62e943,
-    type: 2}
-  m_PrefabInternal: {fileID: 779796118}
---- !u!114 &120012080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 120012077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734ca4012f72fd94f948387d2c138254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boostlWidth: 0.3
 --- !u!1 &148622012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,8 +2217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: -10, y: 2, z: 0}
   speed: 1
-  isKeyEnemy: 0
   normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &234720926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2525,8 +2508,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: -10, y: 2, z: 0}
   speed: 1
-  isKeyEnemy: 0
   normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &244878171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3237,8 +3220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: -10, y: 2, z: 0}
   speed: 1
-  isKeyEnemy: 0
   normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &327515557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4376,23 +4359,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224183117060964258, guid: a0da30002b3e52440b834a1881583782,
     type: 2}
   m_PrefabInternal: {fileID: 1764982041}
---- !u!1 &429929522 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1888429054464390, guid: 1f3f252edcc11684eb78d536fd62e943,
-    type: 2}
-  m_PrefabInternal: {fileID: 779796118}
---- !u!114 &429929525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 429929522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734ca4012f72fd94f948387d2c138254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boostlWidth: 0.3
 --- !u!1 &431300654
 GameObject:
   m_ObjectHideFlags: 0
@@ -4596,8 +4562,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: -10, y: 2, z: 0}
   speed: 1
-  isKeyEnemy: 0
   normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &443519943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5393,8 +5359,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: -10, y: 2, z: 0}
   speed: 1
-  isKeyEnemy: 0
   normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &527090266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6895,8 +6861,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &684761169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7901,11 +7867,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: SE.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4025360964571362, guid: 1f3f252edcc11684eb78d536fd62e943, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7938,12 +7899,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114188500508088502, guid: 1f3f252edcc11684eb78d536fd62e943,
+        type: 2}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 2136935298}
     - target: {fileID: 114600906730255200, guid: 1f3f252edcc11684eb78d536fd62e943,
         type: 2}
       propertyPath: inputManager
       value: 
       objectReference: {fileID: 2136935298}
-    - target: {fileID: 114188500508088502, guid: 1f3f252edcc11684eb78d536fd62e943,
+    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
         type: 2}
       propertyPath: inputManager
       value: 
@@ -7951,91 +7917,6 @@ Prefab:
     - target: {fileID: 1760322421835580, guid: 1f3f252edcc11684eb78d536fd62e943, type: 2}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: inputManager
-      value: 
-      objectReference: {fileID: 2136935298}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: SE.Array.data[0]
-      value: 
-      objectReference: {fileID: 1846865809683590, guid: d0810c45be3025142b22f5bc395e36d9,
-        type: 2}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: SE.Array.data[1]
-      value: 
-      objectReference: {fileID: 1224246821080894, guid: 454d4926db445d54db7b096a21126578,
-        type: 2}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: SE.Array.data[2]
-      value: 
-      objectReference: {fileID: 1021139499008672, guid: ba38b9992f9b7d349a6b636fe5684a8d,
-        type: 2}
-    - target: {fileID: 114600906730255200, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: rotateSpeed
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114188500508088502, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: rotateSpeed
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: drain
-      value: 
-      objectReference: {fileID: 1645401637604778, guid: 2f86b5fada66dfb4082fd9b809046287,
-        type: 2}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: addSpeed
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: coreTrail
-      value: 
-      objectReference: {fileID: 1282825766086934, guid: c127b539bbd15d84795337797497b347,
-        type: 2}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: coreTrailDelay
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: boostTrailWidth
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 96034757357662996, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 518e186ba9344d642b54e002f6af8554, type: 2}
-    - target: {fileID: 96515588532830676, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 518e186ba9344d642b54e002f6af8554, type: 2}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: speed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: speedMin
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114606863537168062, guid: 1f3f252edcc11684eb78d536fd62e943,
-        type: 2}
-      propertyPath: speedLimit
-      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f3f252edcc11684eb78d536fd62e943, type: 2}
@@ -9066,8 +8947,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: -10, y: 2, z: 0}
   speed: 1
-  isKeyEnemy: 0
   normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &857692569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10953,8 +10834,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &1087239956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11511,8 +11392,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: -10, y: 2, z: 0}
   speed: 1
-  isKeyEnemy: 0
   normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &1137623933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12228,8 +12109,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &1168096600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16176,8 +16057,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &1546372574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17478,8 +17359,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: 0, y: 0, z: 0}
   speed: 1
-  isKeyEnemy: 1
   normal: {fileID: 21300000, guid: 62b1b810e5f209b42833784eaa2c1330, type: 3}
+  StintDistance: 0.1
 --- !u!114 &1712504380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18311,6 +18192,10 @@ Prefab:
         type: 2}
       propertyPath: m_Color.a
       value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 1823139489202350, guid: a0da30002b3e52440b834a1881583782, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0da30002b3e52440b834a1881583782, type: 2}
@@ -20929,8 +20814,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TargetPosition: {x: -10, y: 2, z: 0}
   speed: 1
-  isKeyEnemy: 0
   normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &2100690937
 MonoBehaviour:
   m_ObjectHideFlags: 0

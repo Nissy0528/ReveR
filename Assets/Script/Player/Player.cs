@@ -26,6 +26,11 @@ public class Player : MonoBehaviour
     public int maxexp;//経験値
     public int shakeCnt;//コントローラーの振動時間
 
+    public List<TrailRenderer> WingTrail;//両翼のオブジェクトを取る
+    public List<Sprite> CoreSprite;//コアの画像
+    public List<Material> WingSprite;//翼のエフェクトの画像
+
+
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 lookPos;//見る座標
     private Ray2D ray;//レイ
@@ -48,6 +53,7 @@ public class Player : MonoBehaviour
     private bool isReturn;//切り替えし判定
     private bool isDamage;//ダメージ判定
 
+    
     // Use this for initialization
     void Start()
     {
@@ -86,6 +92,7 @@ public class Player : MonoBehaviour
         Ray();//レイのあたり判定
         DamageEffect();//ダメージ表現（点滅）
         MoveSE();//移動効果音
+        ChangeColor();//色変更
 
         if (s_Cnt > 0)
         {
@@ -483,5 +490,31 @@ public class Player : MonoBehaviour
     public void SetIsJudge(bool isJudge)
     {
         this.isJudge = isJudge;
+    }
+    /// <summary>
+    /// コアと翼の色を変更
+    /// </summary>
+    public void ChangeColor()
+    {
+        if (LifeScript.IsGreen == true)
+        {
+            GetComponent<SpriteRenderer>().sprite = CoreSprite[0];
+            WingTrail[0].material = WingSprite[0];
+            WingTrail[1].material = WingSprite[0];
+        }
+        if (LifeScript.IsRed == true)
+        {
+            GetComponent<SpriteRenderer>().sprite = CoreSprite[1];
+            WingTrail[0].material = WingSprite[1];
+            WingTrail[1].material = WingSprite[1];
+        }
+
+        if (LifeScript.IsYellow == true)
+        {
+            GetComponent<SpriteRenderer>().sprite = CoreSprite[2];
+            WingTrail[0].material = WingSprite[2];
+            WingTrail[1].material = WingSprite[2];
+        }
+    
     }
 }

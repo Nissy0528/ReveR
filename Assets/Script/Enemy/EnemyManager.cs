@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -26,6 +27,9 @@ public class EnemyManager : MonoBehaviour
 
     private float previousTime;
 
+    private bool IsStopPoint; //StopPoint着いたかとか
+    private Transform[] AllChildrenCount;//すべての子オブジェクト
+
     // Use this for initialization
     void Start()
     {
@@ -34,7 +38,16 @@ public class EnemyManager : MonoBehaviour
 
         LimitTime = addBattleTime * 60;
         CurrentTime = LimitTime;
-        iniChildCnt = transform.childCount;//初期の子オブジェクトの数取得
+
+        //初期の全ての子オブジェクトの数取得
+        AllChildrenCount = GetComponentsInChildren<Transform>();
+        for(int i = 0; i < AllChildrenCount.Length; i++)
+        {
+            iniChildCnt += AllChildrenCount[i].childCount;
+        }
+        iniChildCnt += transform.childCount;
+
+
         IsTimeStart = false;
         isChildDestroy = false;
     }
@@ -79,6 +92,7 @@ public class EnemyManager : MonoBehaviour
             Vector3 pos = transform.position;//更新用座標
             pos.y = Mathf.Lerp(pos.y, stopPoint.transform.position.y, scrollSpeed);//停止ポイントまで補間移動
             transform.position = pos;//座標更新
+            IsStopPoint = true;
         }
     }
 
@@ -87,7 +101,13 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void TimeStart()
     {
-        int currentChildCnt = transform.childCount;//現在の子オブジェクトの数を取得
+        int currentChildCnt = 0;
+        for (int i = 0; i < AllChildrenCount.Length; i++)
+        {
+            if (AllChildrenCount[i] != null) currentChildCnt += AllChildrenCount[i].childCount;
+
+        }
+        currentChildCnt += transform.childCount;//現在の子オブジェクトの数を取得
 
         //子オブジェクトが減ったら
         if (currentChildCnt < iniChildCnt)
@@ -222,5 +242,13 @@ public class EnemyManager : MonoBehaviour
         MinusTimeObj.GetComponent<Text>().text = "-" + ((int)(LimitTime- CurrentTime) / 60).ToString() + "." +
             ((int)((int)(LimitTime - CurrentTime) % 60) / 10).ToString() + ((int)((int)(LimitTime - CurrentTime) % 60) % 10).ToString();
 
+    }
+    /// <summary>
+    /// StopPoint着いたかとか
+    /// </summary>
+    /// <returns></returns>
+    public bool IsStop()
+    {
+        return IsStopPoint;
     }
 }

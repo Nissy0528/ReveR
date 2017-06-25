@@ -18,6 +18,11 @@ public class LifeScript : MonoBehaviour
     public GameObject needleposition;
     public float[] sectionTime;
 
+    //プレイヤーの色を変更するための条件
+    public static bool IsRed = false;
+    public static bool IsYellow = true;
+    public static bool IsGreen = true;
+
     // Use this for initializatio
     void Start()
     {
@@ -48,16 +53,25 @@ public class LifeScript : MonoBehaviour
         if (mainClass.battleTime >= sectionTime[2])
         {
             gauge.GetComponent<Image>().color = new Color(0, 1, 0);
+            IsGreen = true;
+            IsRed = false;
+            IsYellow = false;
         }
 
         else if (mainClass.battleTime >= sectionTime[1])
         {
             gauge.GetComponent<Image>().color = new Color(1, 1, 0);
+            IsGreen = false;
+            IsRed = false;
+            IsYellow = true;
         }
 
         else if (mainClass.battleTime >= sectionTime[0])
         {
             gauge.GetComponent<Image>().color = new Color(1, 0, 0);
+            IsGreen = false;
+            IsRed = true ;
+            IsYellow = false;
         }
     }
 

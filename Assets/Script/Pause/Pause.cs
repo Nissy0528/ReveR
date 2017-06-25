@@ -56,7 +56,6 @@ public class Pause : MonoBehaviour
     }
     void Pauseing()
     {
-        
         Pauseing_Meun();
         Pauseing_MoveArrow();
     }

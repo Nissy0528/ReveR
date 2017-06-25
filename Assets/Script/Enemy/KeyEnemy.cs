@@ -14,6 +14,7 @@ public class KeyEnemy : MonoBehaviour
     //キーエネミー
     public GameObject Keyenemy;
 
+    
     public float PentagonRadius = 1;　　　//展開後,エネミー間の距離
     public float CircleRadius = 1.9f;　　 //キーエネミー円運動の半径
     public float speed = 9f;　　　　　　　//キーエネミー円運動の速度
@@ -44,7 +45,7 @@ public class KeyEnemy : MonoBehaviour
     /// </summary>
     void Expansion()
     {
-        if (IsKeyEnemyDead())
+        if (IsKeyEnemyDead() && GetComponent<EnemyManager>().IsStop())
         {
             GetComponent<EnemyManager>().SetIsScroll(false);
 
