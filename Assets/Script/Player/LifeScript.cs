@@ -8,6 +8,7 @@ public class LifeScript : MonoBehaviour
 {
     RectTransform rt;//RectTransform
     private GameObject main;//playerオブジェクト
+    private GameObject pinchObj;
 
     private float speed;
     private Vector2 iniSize;
@@ -16,6 +17,7 @@ public class LifeScript : MonoBehaviour
     public GameObject gauge;
     public GameObject frame;
     public GameObject needleposition;
+    public GameObject pinchEffect;
     public float[] sectionTime;
 
     //プレイヤーの色を変更するための条件
@@ -85,6 +87,22 @@ public class LifeScript : MonoBehaviour
     {
         Life();
         LifeColor();
+        PinchEffect();
         //needleCtrl();
+    }
+
+    /// <summary>
+    /// ピンチエフェクト生成
+    /// </summary>
+    private void PinchEffect()
+    {
+        if (pinchObj == null && mainClass.lifeTime < sectionTime[1])
+        {
+            pinchObj = Instantiate(pinchEffect, GameObject.Find("Canvas").transform);
+        }
+        if(pinchObj != null && mainClass.lifeTime >= sectionTime[1])
+        {
+            Destroy(pinchObj);
+        }
     }
 }

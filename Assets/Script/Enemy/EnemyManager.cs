@@ -24,6 +24,8 @@ public class EnemyManager : MonoBehaviour
     private bool isChildDestroy;
     private GameObject main;
     private GameObject camera;
+    private GameObject rankPoint;
+    private Vector3 spawmPos;
 
     private float previousTime;
 
@@ -32,6 +34,11 @@ public class EnemyManager : MonoBehaviour
     {
         camera = GameObject.Find("Main Camera");
         main = GameObject.Find("MainManager");
+        if (tag != "Boss")
+        {
+            rankPoint = transform.FindChild("EnemyLine").gameObject;
+            spawmPos = rankPoint.transform.position;
+        }
 
         LimitTime = addBattleTime * 60;
         CurrentTime = LimitTime;
@@ -91,8 +98,9 @@ public class EnemyManager : MonoBehaviour
         int currentChildCnt = transform.childCount;//現在の子オブジェクトの数を取得
 
         //子オブジェクトが減ったら
-        if (currentChildCnt < iniChildCnt)
+        if (currentChildCnt < iniChildCnt && !IsTimeStart)
         {
+            EnemysActive();
             //ボスバトル時間の減少を始める
             main.GetComponent<Main>().SetIsLifeTime(true);
             IsTimeStart = true;
@@ -121,7 +129,7 @@ public class EnemyManager : MonoBehaviour
         if (!IsTimeStart) return;
 
         CurrentTime--;　//読秒
-        GameObject TextObj;
+        GameObject TextObj = null;
 
         //敵を全部消すと、残った時間でランクを判断する、リストに入れる
         if (transform.childCount == 0)
@@ -130,13 +138,11 @@ public class EnemyManager : MonoBehaviour
             {
                 Main.Evaluation.Add("S");
                 TextObj = Instantiate(ExC, GameObject.Find("Canvas").transform);
-                TextObj.GetComponent<JudgeUI>().SetTargetPosition(transform.position);
             }
             if ((CurrentTime >= LimitTime * 1 / 3) && (CurrentTime < LimitTime * 2 / 3))
             {
                 Main.Evaluation.Add("A");
                 TextObj = Instantiate(Nic, GameObject.Find("Canvas").transform);
-                TextObj.GetComponent<JudgeUI>().SetTargetPosition(transform.position);
                 addBattleTime = addBattleTime * 2 / 3;
             }
             if (CurrentTime < LimitTime * 1 / 3)
@@ -144,12 +150,13 @@ public class EnemyManager : MonoBehaviour
                 if (CurrentTime < 0) CurrentTime = 0;
                 Main.Evaluation.Add("B");
                 TextObj = Instantiate(Nor, GameObject.Find("Canvas").transform);
-                TextObj.GetComponent<JudgeUI>().SetTargetPosition(transform.position);
                 addBattleTime = addBattleTime * 1 / 3;
             }
 
-            GetPlusTime();
-            GetMinusTime();
+            TextObj.GetComponent<JudgeUI>().SetTargetPosition(spawmPos);
+
+            GetPlusTime(TextObj);
+            //GetMinusTime();
             PlusEffect();
 
             main.GetComponent<Main>().SetAddTime(addBattleTime);
@@ -163,6 +170,8 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void ChildDestroy()
     {
+        if (tag == "Boss") return;
+
         isChildDestroy = true;
 
         //タグがLineじゃない子オブジェクトが存在していたら削除フラグfalse
@@ -177,9 +186,10 @@ public class EnemyManager : MonoBehaviour
         //削除フラグがtrueなら子オブジェクト全削除
         if (isChildDestroy)
         {
+            spawmPos = rankPoint.transform.position;
             for (int i = 0; i < transform.childCount; i++)
             {
-                Destroy(transform.GetChild(i).gameObject);
+                transform.GetChild(i).parent = null;
             }
         }
     }
@@ -196,19 +206,19 @@ public class EnemyManager : MonoBehaviour
     /// <summary>
     /// PlusTime
     /// </summary>
-    public void GetPlusTime()
+    public void GetPlusTime(GameObject textObj)
     {
         GameObject PlusTimeObj;
         PlusTimeObj = Instantiate(PlusTime, GameObject.Find("Canvas").transform);
         PlusTimeObj.name = "PlusTime";
 
 
-        PlusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(
-          GameObject.FindGameObjectWithTag("Player").transform.position.x + 1f,
-          GameObject.FindGameObjectWithTag("Player").transform.position.y + 1f));
+        PlusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(spawmPos.x + 1f, spawmPos.y + 1f));
 
         PlusTimeObj.GetComponent<Text>().text = "+" + ((int)CurrentTime / 60).ToString() + "." +
             ((int)((int)CurrentTime % 60) / 10).ToString() + ((int)((int)CurrentTime % 60) % 10).ToString();
+
+        textObj.GetComponent<JudgeUI>().SetScroll(scrollSpeed, rankPoint, PlusTimeObj);
     }
     /// <summary>
     /// MinusTime
@@ -218,9 +228,7 @@ public class EnemyManager : MonoBehaviour
         GameObject MinusTimeObj;
         MinusTimeObj = Instantiate(MinusTime, GameObject.Find("Canvas").transform);
 
-        MinusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(
-          GameObject.FindGameObjectWithTag("Player").transform.position.x + 1f,
-          GameObject.FindGameObjectWithTag("Player").transform.position.y + 0.4f));
+        MinusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(spawmPos.x, spawmPos.y + 0.4f));
 
         MinusTimeObj.GetComponent<Text>().text = "-" + ((int)(LimitTime - CurrentTime) / 60).ToString() + "." +
             ((int)((int)(LimitTime - CurrentTime) % 60) / 10).ToString() + ((int)((int)(LimitTime - CurrentTime) % 60) % 10).ToString();
@@ -238,6 +246,23 @@ public class EnemyManager : MonoBehaviour
         if (p_Effect == null)
         {
             p_Effect = Instantiate(plusEffect, transform.position, transform.rotation);
+        }
+    }
+
+    /// <summary>
+    /// グループ内の敵を起動状態にする
+    /// </summary>
+    private void EnemysActive()
+    {
+        if (tag == "KeyEnemy") return;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).tag == "Enemy")
+            {
+                transform.GetChild(i).GetComponent<Enemy>().SetActive();
+            }
+
         }
     }
 }

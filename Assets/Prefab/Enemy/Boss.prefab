@@ -762,7 +762,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   exp: 10
-  lineFlag: 1
 --- !u!114 &114079828505776978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -776,7 +775,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   exp: 10
-  lineFlag: 1
 --- !u!114 &114183085930381438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -798,6 +796,7 @@ MonoBehaviour:
   Nor: {fileID: 1708882941452804, guid: b68d2b06ba670ba4db45b67b905c829b, type: 2}
   PlusTime: {fileID: 1569507840886826, guid: a2bfad67be551ce4992682a2a47c7bc7, type: 2}
   MinusTime: {fileID: 1132235237182648, guid: 1bbc824eedb016f4495a2d7c284766d9, type: 2}
+  plusEffect: {fileID: 1431459200092176, guid: e0652661f604fad47a197c6a15e03d11, type: 2}
 --- !u!114 &114250053823379522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -811,7 +810,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   exp: 10
-  lineFlag: 1
 --- !u!114 &114514899380737002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -845,6 +843,7 @@ MonoBehaviour:
   - {fileID: 1860204488101404}
   core: {fileID: 1494280094693168}
   shield: {fileID: 1885713785146050}
+  core2: {fileID: 1827648796047122, guid: c0beac6221e733a4f8e57c710164efe3, type: 2}
 --- !u!114 &114792395372456290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -872,7 +871,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   exp: 10
-  lineFlag: 1
 --- !u!114 &114873049817646144
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -886,7 +884,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   exp: 10
-  lineFlag: 1
 --- !u!114 &114935545323551148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -914,7 +911,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
   exp: 0
-  lineFlag: 0
 --- !u!114 &114965107039496460
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -54,9 +54,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   core2: {fileID: 1827648796047122}
   boss: {fileID: 0}
-  upspeed: 0
-  time: 0
-  range: 0
+  upspeed: 5
+  time: 2.5
+  range: 5
 --- !u!212 &212708342851800028
 SpriteRenderer:
   m_ObjectHideFlags: 1

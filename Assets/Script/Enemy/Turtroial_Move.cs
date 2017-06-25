@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Turtroial_Move : MonoBehaviour
 {
+    public GameObject startupEffect;
     public Vector3 TargetPosition = Vector3.zero;//目標ポジション
     public float speed;//移動速度
     public Sprite normal;
@@ -29,6 +30,9 @@ public class Turtroial_Move : MonoBehaviour
     void GetMoveType()
     {
         GetComponent<SpriteRenderer>().sprite = normal;//色のついた画像にする
+        //起動エフェクト生成
+        GameObject s_effect = Instantiate(startupEffect, transform.position, transform.rotation, transform);
+        s_effect.GetComponent<SpriteRenderer>().sprite = normal;
         GetComponent<BoxCollider2D>().enabled = true;//あたり判定有効に
     }
 

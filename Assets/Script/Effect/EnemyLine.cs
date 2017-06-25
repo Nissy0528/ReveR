@@ -18,7 +18,7 @@ public class EnemyLine : MonoBehaviour
             GetComponent<LineRenderer>().positionCount = target.Length;
         }
         parent = transform.parent;
-        changeParent = parent.transform.parent;
+        changeParent = parent.transform.parent.FindChild("EnemyLine");
         if (parent.GetComponent<Turtroial_Move>() != null)
         {
             isParentChange = true;

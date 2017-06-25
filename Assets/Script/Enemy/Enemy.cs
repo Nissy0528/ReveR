@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
 
 
     public GameObject BoomEffect;
+    public GameObject startupEffect;
+    public Sprite normal;
     public int exp;
 
     //public GameObject core;
@@ -59,8 +61,6 @@ public class Enemy : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (!InCamera()) return;
-
         if (col.gameObject.tag == "L_Joint")
         {
             isLWHit = true;
@@ -104,22 +104,14 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// 画面内にいるか
+    /// 起動状態にする
     /// </summary>
-    /// <returns></returns>
-    private bool InCamera()
+    public void SetActive()
     {
-        Camera mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();//カメラ
-        Vector3 scale = new Vector3(transform.localScale.x / 10, transform.localScale.y / 10, 0);//サイズの半分
-        Vector3 screenPosMin = mainCamera.ScreenToWorldPoint(Vector3.zero) + scale;//画面右下の座標
-        Vector3 screenPosMax = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f)) - scale;//画面左上の座標
-
-        if (transform.position.x >= screenPosMin.x && transform.position.x <= screenPosMax.x
-            && transform.position.y >= screenPosMin.y && transform.position.y <= screenPosMax.y)
-        {
-            return true;
-        }
-        return false;
+        GetComponent<SpriteRenderer>().sprite = normal;//色のついた画像にする
+                                                       //起動エフェクト生成
+        GameObject s_effect = Instantiate(startupEffect, transform.position, transform.rotation, transform);
+        s_effect.GetComponent<SpriteRenderer>().sprite = normal;
     }
 
 }

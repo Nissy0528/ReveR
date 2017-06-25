@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 224119122151550118}
   - component: {fileID: 222205986600008864}
-  - component: {fileID: 114580608447518736}
   - component: {fileID: 95247297283398038}
   - component: {fileID: 114315645046111380}
+  - component: {fileID: 114660546755390376}
   m_Layer: 5
   m_Name: Nice
   m_TagString: Untagged
@@ -39,7 +39,7 @@ Animator:
   m_GameObject: {fileID: 1233790561894058}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 84c5ffa4e1fa49842929091843c169ac, type: 2}
+  m_Controller: {fileID: 9100000, guid: cea2d32238492ae4c82adbe0cffccb44, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 10
   speed: 2
---- !u!114 &114580608447518736
+--- !u!114 &114660546755390376
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -68,10 +68,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1233790561894058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: d4b9d822cafb09342a5c333b9ae2581d, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
@@ -79,20 +79,14 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 55bf6d5b2ae15b4429402323b6ebb175, type: 3}
-    m_FontSize: 40
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 4
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: "\u30CA\u30A4\u30B9\uFF01\n"
+  m_Sprite: {fileID: 21300000, guid: 7a7b643c121a2c64bbaf096fec914d9e, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!222 &222205986600008864
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -115,5 +109,5 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 167.1, y: 56.5}
+  m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}

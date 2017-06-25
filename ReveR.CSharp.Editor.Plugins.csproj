@@ -132,6 +132,7 @@
   <ItemGroup>
     <None Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\Shader\Particles Additive Intensify.shader" />
+    <None Include="Assets\Shader\Sprites-Default.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />

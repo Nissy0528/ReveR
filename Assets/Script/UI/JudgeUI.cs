@@ -8,9 +8,14 @@ public class JudgeUI : MonoBehaviour
     private Animator anim;
     private RectTransform rect;
     private GameObject target;
+    private GameObject camera;
+    private GameObject lineObj;
+    private GameObject timeObj;
     private Vector3 TargetPos;
     private float Alpha = 0;
+    private float scrollSpeed;
     private bool IsStart = false;
+    private bool isScroll = false;
 
     public float time;
     public float speed;
@@ -22,6 +27,7 @@ public class JudgeUI : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rect = GetComponent<RectTransform>();
+        camera = GameObject.Find("Main Camera");
 
         rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, TargetPos);
 
@@ -30,13 +36,17 @@ public class JudgeUI : MonoBehaviour
         //    GetComponent<Text>().material.color = new Color(1, 1, 1, Alpha);
         //}
 
-        color = gameObject.GetComponent<Text>().material.color;//中山追記
+        if (gameObject.tag == "EVATime")
+        {
+            color = gameObject.GetComponent<Text>().material.color;//中山追記
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         TEXT();
+        Scroll();
     }
 
     /// <summary>
@@ -47,7 +57,8 @@ public class JudgeUI : MonoBehaviour
         var animState = anim.GetCurrentAnimatorStateInfo(0);
         if (animState.normalizedTime >= 1)
         {
-            Destroy(gameObject);
+            timeObj.transform.parent = transform;
+            isScroll = true;
         }
     }
 
@@ -66,7 +77,7 @@ public class JudgeUI : MonoBehaviour
             if (IsStart) time--;
             rect.position += new Vector3(0, 0.1f);
             FadeIn();
-            if (time <= 0) FadeOut();
+            //if (time <= 0) FadeOut();
         }
         else
         {
@@ -90,5 +101,42 @@ public class JudgeUI : MonoBehaviour
             Destroy(gameObject);
         }
         Alpha -= 0.01f * speed;
+    }
+
+    /// <summary>
+    /// 下にスクロール移動
+    /// </summary>
+    private void Scroll()
+    {
+        if (!isScroll) return;
+
+        //下にスクロール
+        if (lineObj != null)
+        {
+            lineObj.transform.Translate(0, -scrollSpeed * Time.timeScale, 0, Space.World);
+            rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, lineObj.transform.position);
+        }
+        else
+        {
+            rect.Translate(0, -scrollSpeed * Time.timeScale, 0, Space.World);
+        }
+
+        //画面下に出たら消滅
+        if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2)
+        {
+            Destroy(lineObj);
+            Destroy(gameObject);
+        }
+    }
+
+    /// <summary>
+    /// 下移動速度設定
+    /// </summary>
+    /// <param name="scrollSpeed"></param>
+    public void SetScroll(float scrollSpeed, GameObject lineObj, GameObject timeObj)
+    {
+        this.scrollSpeed = scrollSpeed;
+        this.lineObj = lineObj;
+        this.timeObj = timeObj;
     }
 }
