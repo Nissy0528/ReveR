@@ -26,12 +26,14 @@ public class Main : MonoBehaviour
     private bool isClear;
     private bool isLifeTime;
     private bool isAdd;
+    private bool isSub;
     private int stopCnt;
     private int waveNum;
     private float bossMoveCnt;
-    private float currentLifeTime;
+    private float addCurrentTime;
     private float addLifeTime;
-    private float addL_Time;
+    private float subCurrentTime;
+    private float subLifeTime;
 
     // Use this for initialization
     void Start()
@@ -73,7 +75,7 @@ public class Main : MonoBehaviour
 
         TimeCount();//経過時間処理
         LifeTimeCount();//生存時間処理
-        AddLifeTime();//ライフタイム変動
+        LifeTime();//ライフタイム変動
         Stop();//停止
         E_WaveSpawn();//ウェイブ生成
         WaveNum();//現在のウェイブ表示
@@ -179,7 +181,7 @@ public class Main : MonoBehaviour
     {
         if (enemyDead != null) return;
 
-        if (bossMoveCnt <= 0.0f)
+        if (bossMoveCnt <= 0.0f && enemyWave[waveNum].transform.FindChild("Boss") != null)
         {
             DestroyWarning();
             enemyWave[waveNum].transform.FindChild("Boss").gameObject.SetActive(true);
@@ -218,18 +220,29 @@ public class Main : MonoBehaviour
     /// <summary>
     /// ライフタイム変動
     /// </summary>
-    private void AddLifeTime()
+    private void LifeTime()
     {
-        if (!isAdd) return;
-
-        float add = addLifeTime / Mathf.Abs(addLifeTime);
-        lifeTime += (Time.deltaTime * 6.0f) * add;
-        float dif = Mathf.Abs(currentLifeTime - lifeTime);
-
-        if (dif >= Mathf.Abs(addLifeTime))
+        if (isAdd)
         {
-            lifeTime = currentLifeTime + addLifeTime;
-            isAdd = false;
+            lifeTime += Time.deltaTime * 6.0f;
+            float dif = Mathf.Abs(addCurrentTime - lifeTime);
+
+            if (dif >= Mathf.Abs(addLifeTime))
+            {
+                lifeTime = addCurrentTime + addLifeTime;
+                isAdd = false;
+            }
+        }
+        if (isSub)
+        {
+            lifeTime -= Time.deltaTime * 6.0f;
+            float dif = Mathf.Abs(subCurrentTime - lifeTime);
+
+            if (dif >= Mathf.Abs(subLifeTime))
+            {
+                lifeTime = subCurrentTime - subLifeTime;
+                isSub = false;
+            }
         }
 
     }
@@ -266,11 +279,20 @@ public class Main : MonoBehaviour
     /// 生存時間設定
     /// </summary>
     /// <param name="addLifeTIme">生存時間</param>
-    public void StartAddTime()
+    public void StartTime(float time, int type)
     {
-        this.addLifeTime = addL_Time;
-        currentLifeTime = lifeTime;
-        isAdd = true;
+        if (type == 0)
+        {
+            addLifeTime = time;
+            addCurrentTime = lifeTime;
+            isAdd = true;
+        }
+        if (type == 1)
+        {
+            subLifeTime = time;
+            subCurrentTime = lifeTime;
+            isSub = true;
+        }
     }
 
     /// <summary>
@@ -280,14 +302,5 @@ public class Main : MonoBehaviour
     public void SetIsLifeTime(bool islifeTime)
     {
         this.isLifeTime = islifeTime;
-    }
-
-    /// <summary>
-    /// 加算タイム設定
-    /// </summary>
-    /// <param name="addL_Time"></param>
-    public void SetAddTime(float addL_Time)
-    {
-        this.addL_Time = addL_Time;
     }
 }

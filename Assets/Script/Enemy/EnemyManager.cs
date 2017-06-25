@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EnemyManager : MonoBehaviour
 {
     public float scrollSpeed;//移動速度
-    public float addBattleTime;//ボスバトル時間に加算する値（最大値）
+    public float addLifeTime;//ボスバトル時間に加算する値（最大値）
     public bool isScroll;//下にスクロールするか
     public bool isStopScroll;//途中で停止するか
     public GameObject stopPoint;//停止ポイント
@@ -18,16 +18,17 @@ public class EnemyManager : MonoBehaviour
     public GameObject plusEffect;
 
     private float LimitTime;　　　//制限時間フレーム化
-    private float CurrentTime;　　 //進行中のフレーム
+    private float CurrentTime;   //進行中のフレーム
+    private float previousTime;
     private int iniChildCnt;//初期の子オブジェクトの数
     private bool IsTimeStart;　　　//読秒開始
     private bool isChildDestroy;
+    private bool IsStopPoint;//StopPointに着いたか
     private GameObject main;
     private GameObject camera;
     private GameObject rankPoint;
     private Vector3 spawmPos;
-
-    private float previousTime;
+    private Transform[] AllChildrenCount;//全ての子オブジェクト
 
     // Use this for initialization
     void Start()
@@ -40,9 +41,15 @@ public class EnemyManager : MonoBehaviour
             spawmPos = rankPoint.transform.position;
         }
 
-        LimitTime = addBattleTime * 60;
+        LimitTime = addLifeTime * 60;
         CurrentTime = LimitTime;
-        iniChildCnt = transform.childCount;//初期の子オブジェクトの数取得
+        //初期の全ての子オブジェクトの数取得
+        AllChildrenCount = GetComponentsInChildren<Transform>();
+        for (int i = 0; i < AllChildrenCount.Length; i++)
+        {
+            iniChildCnt += AllChildrenCount[i].childCount;
+        }
+        iniChildCnt += transform.childCount;
         IsTimeStart = false;
         isChildDestroy = false;
     }
@@ -58,7 +65,8 @@ public class EnemyManager : MonoBehaviour
         Evaluation();//ランクの分割
 
         //画面下に出たら
-        if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2)
+        if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2
+            && !AnotherIsTimeStart())
         {
             main.GetComponent<Main>().SetIsLifeTime(false);
             DestroyObj();
@@ -87,6 +95,7 @@ public class EnemyManager : MonoBehaviour
             Vector3 pos = transform.position;//更新用座標
             pos.y = Mathf.Lerp(pos.y, stopPoint.transform.position.y, scrollSpeed);//停止ポイントまで補間移動
             transform.position = pos;//座標更新
+            IsStopPoint = true;
         }
     }
 
@@ -95,7 +104,13 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void TimeStart()
     {
-        int currentChildCnt = transform.childCount;//現在の子オブジェクトの数を取得
+        int currentChildCnt = 0;
+        for (int i = 0; i < AllChildrenCount.Length; i++)
+        {
+            if (AllChildrenCount[i] != null) currentChildCnt += AllChildrenCount[i].childCount;
+
+        }
+        currentChildCnt += transform.childCount;//現在の子オブジェクトの数を取得
 
         //子オブジェクトが減ったら
         if (currentChildCnt < iniChildCnt && !IsTimeStart)
@@ -106,6 +121,15 @@ public class EnemyManager : MonoBehaviour
             IsTimeStart = true;
         }
 
+    }
+
+    /// <summary>
+    /// StopPoint着いたかとか
+    /// </summary>
+    /// <returns></returns>
+    public bool IsStop()
+    {
+        return IsStopPoint;
     }
 
     /// <summary>
@@ -143,23 +167,22 @@ public class EnemyManager : MonoBehaviour
             {
                 Main.Evaluation.Add("A");
                 TextObj = Instantiate(Nic, GameObject.Find("Canvas").transform);
-                addBattleTime = addBattleTime * 2 / 3;
+                addLifeTime = addLifeTime * 2 / 3;
             }
             if (CurrentTime < LimitTime * 1 / 3)
             {
                 if (CurrentTime < 0) CurrentTime = 0;
                 Main.Evaluation.Add("B");
                 TextObj = Instantiate(Nor, GameObject.Find("Canvas").transform);
-                addBattleTime = addBattleTime * 1 / 3;
+                addLifeTime = addLifeTime * 1 / 3;
             }
 
             TextObj.GetComponent<JudgeUI>().SetTargetPosition(spawmPos);
 
             GetPlusTime(TextObj);
             //GetMinusTime();
-            PlusEffect();
+            PlusEffect(addLifeTime);
 
-            main.GetComponent<Main>().SetAddTime(addBattleTime);
             main.GetComponent<Main>().SetIsLifeTime(false);
             DestroyObj();//判定終了後、このオブジェクトを消す
         }
@@ -212,11 +235,10 @@ public class EnemyManager : MonoBehaviour
         PlusTimeObj = Instantiate(PlusTime, GameObject.Find("Canvas").transform);
         PlusTimeObj.name = "PlusTime";
 
-
         PlusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(spawmPos.x + 1f, spawmPos.y + 1f));
 
-        PlusTimeObj.GetComponent<Text>().text = "+" + ((int)CurrentTime / 60).ToString() + "." +
-            ((int)((int)CurrentTime % 60) / 10).ToString() + ((int)((int)CurrentTime % 60) % 10).ToString();
+        PlusTimeObj.GetComponent<Text>().text = "+" + ((int)addLifeTime).ToString() + "." +
+            ((int)addLifeTime / 10).ToString() + ((int)(addLifeTime % 10)).ToString();
 
         textObj.GetComponent<JudgeUI>().SetScroll(scrollSpeed, rankPoint, PlusTimeObj);
     }
@@ -238,15 +260,17 @@ public class EnemyManager : MonoBehaviour
     /// <summary>
     /// ライフタイム加算エフェクト
     /// </summary>
-    private void PlusEffect()
+    private void PlusEffect(float addLifeTime)
     {
-        GameObject p_Effect = null;
+        GameObject p_Effect = Instantiate(plusEffect, transform.position, transform.rotation);
 
-        //ライフタイムエフェクトが5個未満だったら生成
-        if (p_Effect == null)
-        {
-            p_Effect = Instantiate(plusEffect, transform.position, transform.rotation);
-        }
+        //ライフタイムエフェクト生成
+        //if (p_Effect == null)
+        //{
+        //    p_Effect = Instantiate(plusEffect, transform.position, transform.rotation);
+        //}
+
+        p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(addLifeTime);
     }
 
     /// <summary>
@@ -254,15 +278,53 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void EnemysActive()
     {
-        if (tag == "KeyEnemy") return;
+        if (tag == "KeyEnemy" || tag == "Boss") return;
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).tag == "Enemy")
+            GameObject child = transform.GetChild(i).gameObject;
+            if (child.GetComponent<Enemy>() != null)
             {
                 transform.GetChild(i).GetComponent<Enemy>().SetActive();
             }
-
+            if (child.transform.childCount > 0)
+            {
+                for (int j = 0; j < child.transform.childCount; j++)
+                {
+                    GameObject grandson = child.transform.GetChild(j).gameObject;
+                    if (grandson.GetComponent<Enemy>() != null)
+                    {
+                        child.transform.GetChild(j).GetComponent<Enemy>().SetActive();
+                    }
+                }
+            }
         }
+    }
+
+    /// <summary>
+    /// 他のエネミーマネージャーがタイム減少をしているか
+    /// </summary>
+    /// <returns></returns>
+    private bool AnotherIsTimeStart()
+    {
+        GameObject[] anothers = GameObject.FindGameObjectsWithTag("EnemyManager");
+        for (int i = 0; i < anothers.Length; i++)
+        {
+            GameObject another = anothers[i];
+            if (another != gameObject && another.GetComponent<EnemyManager>().GetIsTimeStart())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// タイム減少フラグ取得
+    /// </summary>
+    /// <returns></returns>
+    public bool GetIsTimeStart()
+    {
+        return IsTimeStart;
     }
 }

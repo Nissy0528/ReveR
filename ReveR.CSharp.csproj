@@ -137,6 +137,7 @@
     <Compile Include="Assets\Script\System\AI_Input.cs" />
     <Compile Include="Assets\Script\System\ControllerShake.cs" />
     <Compile Include="Assets\Script\System\DebugManager.cs" />
+    <Compile Include="Assets\Script\System\DestroyParent.cs" />
     <Compile Include="Assets\Script\System\InputManager.cs" />
     <Compile Include="Assets\Script\System\PlayerPrefsUtility.cs" />
     <Compile Include="Assets\Script\System\SaveInput.cs" />

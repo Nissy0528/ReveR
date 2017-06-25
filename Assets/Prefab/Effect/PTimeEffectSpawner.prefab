@@ -52,4 +52,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plusEffect: {fileID: 1516460647135194, guid: 1763a7a0154a905438814ac9628ef690, type: 2}
+  finishEffect: {fileID: 1557690016956118, guid: b5e0b7704b3c04944bb51bef08df6e2e,
+    type: 2}
   spawnCnt: 5

@@ -109,9 +109,13 @@ public class Enemy : MonoBehaviour
     public void SetActive()
     {
         GetComponent<SpriteRenderer>().sprite = normal;//色のついた画像にする
-                                                       //起動エフェクト生成
+        //起動エフェクト生成
         GameObject s_effect = Instantiate(startupEffect, transform.position, transform.rotation, transform);
         s_effect.GetComponent<SpriteRenderer>().sprite = normal;
+        if(GetComponent<ShootBullet>()!=null)
+        {
+            GetComponent<ShootBullet>().enabled = true;
+        }
     }
 
 }

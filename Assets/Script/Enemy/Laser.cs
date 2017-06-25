@@ -81,7 +81,7 @@ public class Laser : MonoBehaviour
     }
     void DestroyGameObject()
     {
-        if (LeftEnemy == null && RightEnemy == null) Destroy(gameObject);
+        if (LeftEnemy == null && RightEnemy == null) Destroy(transform.parent.gameObject);
     }
 
 }

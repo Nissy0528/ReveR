@@ -23,6 +23,7 @@ TagManager:
   - LifeTime
   - P_Effect
   - KeyEnemy
+  - EnemyManager
   layers:
   - Default
   - TransparentFX

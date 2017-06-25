@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4969980262690364}
   - component: {fileID: 212623437589184894}
   - component: {fileID: 114647256789606356}
-  - component: {fileID: 114028803857360524}
   - component: {fileID: 50277579008348172}
   - component: {fileID: 61233226385515220}
   - component: {fileID: 114732730064988290}
@@ -42,7 +41,6 @@ GameObject:
   - component: {fileID: 4823224646715486}
   - component: {fileID: 212724920952340602}
   - component: {fileID: 114609853683041164}
-  - component: {fileID: 114903082032916632}
   - component: {fileID: 50277829781641226}
   - component: {fileID: 61415953721358698}
   - component: {fileID: 114934068181830088}
@@ -296,20 +294,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114028803857360524
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356446091153552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faac1d60bae07864b9f5abc958ef9354, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetPosition: {x: 5, y: 0, z: 0}
-  speed: 0.5
-  Distant: 98
 --- !u!114 &114210864117647286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -336,8 +320,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  startupEffect: {fileID: 0}
+  normal: {fileID: 0}
   exp: 10
-  lineFlag: 0
 --- !u!114 &114647256789606356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -350,8 +335,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  startupEffect: {fileID: 0}
+  normal: {fileID: 0}
   exp: 10
-  lineFlag: 0
 --- !u!114 &114732730064988290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,20 +351,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 1
   Bullet: {fileID: 1852482333732848, guid: b8515cac65c02f64e8c2c707730327c6, type: 2}
---- !u!114 &114903082032916632
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1437819299394942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faac1d60bae07864b9f5abc958ef9354, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetPosition: {x: -5, y: 0, z: 0}
-  speed: 0.5
-  Distant: 98
 --- !u!114 &114934068181830088
 MonoBehaviour:
   m_ObjectHideFlags: 1

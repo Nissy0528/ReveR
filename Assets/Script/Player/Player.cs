@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     private bool isReturn;//切り替えし判定
     private bool isDamage;//ダメージ判定
 
-    
+
     // Use this for initialization
     void Start()
     {
@@ -124,15 +124,15 @@ public class Player : MonoBehaviour
         }
 
         //Aボタンが押されていたら
-		if (Input.GetKey(KeyCode.JoystickButton0))
-		{
-			speed = speedLimit;//加速
+        if (Input.GetKey(KeyCode.JoystickButton0))
+        {
+            speed = speedLimit;//加速
 
-		}
-		else
-		{
-			speed = iniSpeed;
-		}
+        }
+        else
+        {
+            speed = iniSpeed;
+        }
 
         float subRatio = (speed / iniSpeed);
 
@@ -421,7 +421,7 @@ public class Player : MonoBehaviour
             GameObject tutorial = GameObject.Find("Tutorial");
             GameObject main = GameObject.Find("MainManager");
             if ((tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage())
-                ||tutorial==null)
+                || tutorial == null)
             {
                 //tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
 
@@ -431,8 +431,7 @@ public class Player : MonoBehaviour
                 Instantiate(damageEffect, GameObject.Find("LifeMeter").transform);
 
                 speed = Mathf.Max(speed - damage, 0.0f);
-                main.GetComponent<Main>().SetAddTime(-damage);
-                main.GetComponent<Main>().StartAddTime();
+                main.GetComponent<Main>().StartTime(damage, 1);
 
                 damageCnt = 0;
                 isDamage = true;
@@ -510,6 +509,6 @@ public class Player : MonoBehaviour
             WingTrail[0].material = WingSprite[2];
             WingTrail[1].material = WingSprite[2];
         }
-    
+
     }
 }
