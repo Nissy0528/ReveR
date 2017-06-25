@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     public GameObject BoomEffect;
     public int exp;
 
+    //public GameObject core;
+
     void Start()
     {
         isRWHit = false;
@@ -118,15 +120,6 @@ public class Enemy : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    /// <summary>
-    /// 死亡判定取得
-    /// </summary>
-    /// <returns>死亡判定</returns>
-    public bool IsOut()
-    {
-        return isOut;
     }
 
 }

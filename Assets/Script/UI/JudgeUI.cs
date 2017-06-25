@@ -15,22 +15,22 @@ public class JudgeUI : MonoBehaviour
     public float time;
     public float speed;
 
-	private Color color;//中山追記
+    private Color color;//中山追記
 
     // Use this for initialization
     void Start()
     {
         anim = GetComponent<Animator>();
         rect = GetComponent<RectTransform>();
-      
+
         rect.position = RectTransformUtility.WorldToScreenPoint(Camera.main, TargetPos);
 
-		//if(GetComponent<Text>().material.name== "EVATime Material")
-		//{
-		//    GetComponent<Text>().material.color = new Color(1, 1, 1, Alpha);
-		//}
+        //if(GetComponent<Text>().material.name== "EVATime Material")
+        //{
+        //    GetComponent<Text>().material.color = new Color(1, 1, 1, Alpha);
+        //}
 
-		color = gameObject.GetComponent<Text>().material.color;//中山追記
+        color = gameObject.GetComponent<Text>().material.color;//中山追記
     }
 
     // Update is called once per frame
@@ -60,8 +60,8 @@ public class JudgeUI : MonoBehaviour
     {
         if (gameObject.tag == "EVATime")
         {
-			//GetComponent<Text>().material.color = new Color(1,1,1, Alpha);
-            GetComponent<Text>().color = new Color(color.r,color.g,color.b, Alpha);//中山一部変更
+            //GetComponent<Text>().material.color = new Color(1,1,1, Alpha);
+            GetComponent<Text>().color = new Color(color.r, color.g, color.b, Alpha);//中山一部変更
 
             if (IsStart) time--;
             rect.position += new Vector3(0, 0.1f);
@@ -74,20 +74,18 @@ public class JudgeUI : MonoBehaviour
         }
     }
 
-    public void FadeIn()
+    private void FadeIn()
     {
         if (Alpha < 1f && !IsStart) Alpha += 0.01f * speed;
         else if (Alpha >= 1f)
         {
             IsStart = true;
         }
-           
-
-
     }
-    public void FadeOut()
+
+    private void FadeOut()
     {
-        if (Alpha <= 0&& IsStart == true)
+        if (Alpha <= 0 && IsStart == true)
         {
             Destroy(gameObject);
         }

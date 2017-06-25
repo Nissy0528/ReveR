@@ -60,6 +60,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 10
   speed: 2
+  addMoveSpeed: 0.1
+  dis: 3
 --- !u!114 &114856651132113808
 MonoBehaviour:
   m_ObjectHideFlags: 1

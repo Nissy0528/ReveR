@@ -59,7 +59,7 @@ public class Anim : MonoBehaviour
         }
         if (flashCnt == currentCnt)
         {
-            image.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+            image.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         }
     }
 }

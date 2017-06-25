@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -16,6 +15,7 @@ public class EnemyManager : MonoBehaviour
     public GameObject Nor;
     public GameObject PlusTime;
     public GameObject MinusTime;
+    public GameObject plusEffect;
 
     private float LimitTime;　　　//制限時間フレーム化
     private float CurrentTime;　　 //進行中のフレーム
@@ -27,9 +27,6 @@ public class EnemyManager : MonoBehaviour
 
     private float previousTime;
 
-    private bool IsStopPoint; //StopPoint着いたかとか
-    private Transform[] AllChildrenCount;//すべての子オブジェクト
-
     // Use this for initialization
     void Start()
     {
@@ -38,16 +35,7 @@ public class EnemyManager : MonoBehaviour
 
         LimitTime = addBattleTime * 60;
         CurrentTime = LimitTime;
-
-        //初期の全ての子オブジェクトの数取得
-        AllChildrenCount = GetComponentsInChildren<Transform>();
-        for(int i = 0; i < AllChildrenCount.Length; i++)
-        {
-            iniChildCnt += AllChildrenCount[i].childCount;
-        }
-        iniChildCnt += transform.childCount;
-
-
+        iniChildCnt = transform.childCount;//初期の子オブジェクトの数取得
         IsTimeStart = false;
         isChildDestroy = false;
     }
@@ -55,7 +43,7 @@ public class EnemyManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+
         Move();//移動
         MoveStop();//停止
         TimeStart();//コンボ時間
@@ -65,7 +53,7 @@ public class EnemyManager : MonoBehaviour
         //画面下に出たら
         if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2)
         {
-            main.GetComponent<Main>().SetIsBattleTime(false);
+            main.GetComponent<Main>().SetIsLifeTime(false);
             DestroyObj();
         }
     }
@@ -92,7 +80,6 @@ public class EnemyManager : MonoBehaviour
             Vector3 pos = transform.position;//更新用座標
             pos.y = Mathf.Lerp(pos.y, stopPoint.transform.position.y, scrollSpeed);//停止ポイントまで補間移動
             transform.position = pos;//座標更新
-            IsStopPoint = true;
         }
     }
 
@@ -101,19 +88,13 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void TimeStart()
     {
-        int currentChildCnt = 0;
-        for (int i = 0; i < AllChildrenCount.Length; i++)
-        {
-            if (AllChildrenCount[i] != null) currentChildCnt += AllChildrenCount[i].childCount;
-
-        }
-        currentChildCnt += transform.childCount;//現在の子オブジェクトの数を取得
+        int currentChildCnt = transform.childCount;//現在の子オブジェクトの数を取得
 
         //子オブジェクトが減ったら
         if (currentChildCnt < iniChildCnt)
         {
             //ボスバトル時間の減少を始める
-            main.GetComponent<Main>().SetIsBattleTime(true);
+            main.GetComponent<Main>().SetIsLifeTime(true);
             IsTimeStart = true;
         }
 
@@ -169,9 +150,10 @@ public class EnemyManager : MonoBehaviour
 
             GetPlusTime();
             GetMinusTime();
+            PlusEffect();
 
-            main.GetComponent<Main>().SetBattleTime(addBattleTime);//バトル時間加算
-            main.GetComponent<Main>().SetIsBattleTime(false);
+            main.GetComponent<Main>().SetAddTime(addBattleTime);
+            main.GetComponent<Main>().SetIsLifeTime(false);
             DestroyObj();//判定終了後、このオブジェクトを消す
         }
     }
@@ -218,6 +200,7 @@ public class EnemyManager : MonoBehaviour
     {
         GameObject PlusTimeObj;
         PlusTimeObj = Instantiate(PlusTime, GameObject.Find("Canvas").transform);
+        PlusTimeObj.name = "PlusTime";
 
 
         PlusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(
@@ -239,16 +222,22 @@ public class EnemyManager : MonoBehaviour
           GameObject.FindGameObjectWithTag("Player").transform.position.x + 1f,
           GameObject.FindGameObjectWithTag("Player").transform.position.y + 0.4f));
 
-        MinusTimeObj.GetComponent<Text>().text = "-" + ((int)(LimitTime- CurrentTime) / 60).ToString() + "." +
+        MinusTimeObj.GetComponent<Text>().text = "-" + ((int)(LimitTime - CurrentTime) / 60).ToString() + "." +
             ((int)((int)(LimitTime - CurrentTime) % 60) / 10).ToString() + ((int)((int)(LimitTime - CurrentTime) % 60) % 10).ToString();
 
     }
+
     /// <summary>
-    /// StopPoint着いたかとか
+    /// ライフタイム加算エフェクト
     /// </summary>
-    /// <returns></returns>
-    public bool IsStop()
+    private void PlusEffect()
     {
-        return IsStopPoint;
+        GameObject p_Effect = null;
+
+        //ライフタイムエフェクトが5個未満だったら生成
+        if (p_Effect == null)
+        {
+            p_Effect = Instantiate(plusEffect, transform.position, transform.rotation);
+        }
     }
 }

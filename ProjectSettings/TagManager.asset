@@ -18,6 +18,10 @@ TagManager:
   - Enemys
   - Line
   - Shield
+  - EVATime
+  - Boss
+  - LifeTime
+  - P_Effect
   layers:
   - Default
   - TransparentFX
