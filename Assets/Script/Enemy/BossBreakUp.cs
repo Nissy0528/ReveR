@@ -6,6 +6,7 @@ public class BossBreakUp : MonoBehaviour
 {
     public GameObject core2;
     public GameObject boss;
+    
 
     public float upspeed;
     public float time;
@@ -19,6 +20,7 @@ public class BossBreakUp : MonoBehaviour
 
     private bool shake;
     private GameObject core2Obj;
+    private Camera camera;
     // Use this for initialization
     void Start()
     {
@@ -27,6 +29,7 @@ public class BossBreakUp : MonoBehaviour
         maxRangeX = savePosition.x + range;
         minRangeY = savePosition.y - range;
         maxRangeY = savePosition.y + range;
+        camera = GameObject.Find("Main Camera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -34,6 +37,13 @@ public class BossBreakUp : MonoBehaviour
     {
         bossFrom();
         Shake();
+
+        Vector3 screenPosMax = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));//画面左上の座標
+        Debug.Log(screenPosMax);
+        if (transform.position.y >= screenPosMax.y + transform.localScale.y)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void bossFrom()
@@ -43,9 +53,7 @@ public class BossBreakUp : MonoBehaviour
             shake = true;
             
             core2Obj = Instantiate(core2,transform);
-            core2Obj.GetComponent<BossBreakUp>().enabled = false;
-            
-            
+            //core2Obj.GetComponent<BossBreakUp>().enabled = false;
         }
 
         if (core2Obj != null)
@@ -80,10 +88,9 @@ public class BossBreakUp : MonoBehaviour
         Shake();
         if (time <= 0)
         {
-
-            core2Obj.transform.position = new Vector3(core2Obj.transform.position.x,
-                                                  core2Obj.transform.position.y + upspeed,
-                                                  core2Obj.transform.position.z);
+            transform.position = new Vector3(core2Obj.transform.position.x,
+                                                      core2Obj.transform.position.y + upspeed,
+                                                      core2Obj.transform.position.z);
         }
     } 
 }
