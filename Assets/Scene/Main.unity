@@ -2403,6 +2403,11 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!1 &303533923 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1794602084385350, guid: 4227b0092d5634d4bb482f53d9badcb1,
+    type: 2}
+  m_PrefabInternal: {fileID: 2046326423}
 --- !u!1 &334173576
 GameObject:
   m_ObjectHideFlags: 0
@@ -3077,6 +3082,11 @@ LineRenderer:
     textureMode: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!1 &545869903 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1543188394611950, guid: 4227b0092d5634d4bb482f53d9badcb1,
+    type: 2}
+  m_PrefabInternal: {fileID: 2046326423}
 --- !u!1 &549799934
 GameObject:
   m_ObjectHideFlags: 0
@@ -3936,6 +3946,11 @@ LineRenderer:
     textureMode: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!1 &686956925 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1480874417449676, guid: 4227b0092d5634d4bb482f53d9badcb1,
+    type: 2}
+  m_PrefabInternal: {fileID: 2046326423}
 --- !u!1 &689323293
 GameObject:
   m_ObjectHideFlags: 0
@@ -7516,7 +7531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1210136204
 Transform:
   m_ObjectHideFlags: 0
@@ -9754,6 +9769,11 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!1 &1605876190 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1690466144187468, guid: 4227b0092d5634d4bb482f53d9badcb1,
+    type: 2}
+  m_PrefabInternal: {fileID: 2046326423}
 --- !u!1 &1609626371
 GameObject:
   m_ObjectHideFlags: 0
@@ -10209,6 +10229,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: -0.07
+--- !u!1 &1671609971 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1880166835019338, guid: 4227b0092d5634d4bb482f53d9badcb1,
+    type: 2}
+  m_PrefabInternal: {fileID: 2046326423}
 --- !u!1001 &1682681210
 Prefab:
   m_ObjectHideFlags: 0
@@ -10384,6 +10409,11 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!1 &1710983100 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1337439619810186, guid: 4227b0092d5634d4bb482f53d9badcb1,
+    type: 2}
+  m_PrefabInternal: {fileID: 2046326423}
 --- !u!1001 &1720559410
 Prefab:
   m_ObjectHideFlags: 0
@@ -12780,7 +12810,7 @@ Prefab:
         type: 3}
     - target: {fileID: 1367242960275938, guid: 4227b0092d5634d4bb482f53d9badcb1, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1804779270000278, guid: 4227b0092d5634d4bb482f53d9badcb1, type: 2}
       propertyPath: m_Name
@@ -13390,37 +13420,37 @@ Prefab:
         type: 2}
       propertyPath: enemyLine
       value: 
-      objectReference: {fileID: 2106044260}
+      objectReference: {fileID: 1710983100}
     - target: {fileID: 114461171841083758, guid: 4227b0092d5634d4bb482f53d9badcb1,
         type: 2}
       propertyPath: enemyLine
       value: 
-      objectReference: {fileID: 2106044260}
+      objectReference: {fileID: 545869903}
     - target: {fileID: 114570045261858426, guid: 4227b0092d5634d4bb482f53d9badcb1,
         type: 2}
       propertyPath: enemyLine
       value: 
-      objectReference: {fileID: 2106044260}
+      objectReference: {fileID: 1605876190}
     - target: {fileID: 114614113605009260, guid: 4227b0092d5634d4bb482f53d9badcb1,
         type: 2}
       propertyPath: enemyLine
       value: 
-      objectReference: {fileID: 2106044260}
+      objectReference: {fileID: 1605876190}
     - target: {fileID: 114191598456868498, guid: 4227b0092d5634d4bb482f53d9badcb1,
         type: 2}
       propertyPath: enemyLine
       value: 
-      objectReference: {fileID: 2106044260}
+      objectReference: {fileID: 303533923}
     - target: {fileID: 114301245152706440, guid: 4227b0092d5634d4bb482f53d9badcb1,
         type: 2}
       propertyPath: enemyLine
       value: 
-      objectReference: {fileID: 2106044260}
+      objectReference: {fileID: 1671609971}
     - target: {fileID: 114429133278081400, guid: 4227b0092d5634d4bb482f53d9badcb1,
         type: 2}
       propertyPath: enemyLine
       value: 
-      objectReference: {fileID: 2106044260}
+      objectReference: {fileID: 686956925}
     - target: {fileID: 114613188984798676, guid: 4227b0092d5634d4bb482f53d9badcb1,
         type: 2}
       propertyPath: Line

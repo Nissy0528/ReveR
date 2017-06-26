@@ -122,7 +122,10 @@ public class EnemyManager : MonoBehaviour
             main.GetComponent<Main>().SetIsLifeTime(true);
             IsTimeStart = true;
 
-            enemyLine.GetComponent<EnemyLine>().GetComponent<LineRenderer>().material = Line;
+            if (gameObject.tag != "Boss")
+            {
+                enemyLine.GetComponent<EnemyLine>().GetComponent<LineRenderer>().material = Line;
+            }
         }
 
     }
