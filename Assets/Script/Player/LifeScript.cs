@@ -14,6 +14,11 @@ public class LifeScript : MonoBehaviour
     private Vector2 iniSize;
     private Main mainClass;
 
+    //全てのエネミーを取る
+    private float EnemyCount = 0;
+    private GameObject[] EnemyS;
+    public float MeterMoveSpeed = 10;
+
     public GameObject gauge;
     public GameObject frame;
     public GameObject needleposition;
@@ -38,6 +43,11 @@ public class LifeScript : MonoBehaviour
         gauge = GameObject.Find("LifeGauge");
         frame = GameObject.Find("LifeFrame");
         needleposition = GameObject.Find("NeedlePosition");
+
+        
+        EnemyS = GameObject.FindGameObjectsWithTag("EnemyManager");
+        for (int i = 0; i < EnemyS.Length; i++)
+            EnemyCount += EnemyS[i].transform.childCount;
     }
 
     public void Life()
@@ -54,7 +64,7 @@ public class LifeScript : MonoBehaviour
     {
         if (mainClass.lifeTime >= sectionTime[2])
         {
-            gauge.GetComponent<Image>().color = new Color(0, 1, 0);
+            gauge.GetComponent<Image>().color = new Color(0, 1, 0,Main.lifeAlpha);
             IsGreen = true;
             IsRed = false;
             IsYellow = false;
@@ -62,7 +72,7 @@ public class LifeScript : MonoBehaviour
 
         else if (mainClass.lifeTime >= sectionTime[1])
         {
-            gauge.GetComponent<Image>().color = new Color(1, 1, 0);
+            gauge.GetComponent<Image>().color = new Color(1, 1, 0, Main.lifeAlpha);
             IsGreen = false;
             IsRed = false;
             IsYellow = true;
@@ -70,7 +80,7 @@ public class LifeScript : MonoBehaviour
 
         else if (mainClass.lifeTime >= sectionTime[0])
         {
-            gauge.GetComponent<Image>().color = new Color(1, 0, 0);
+            gauge.GetComponent<Image>().color = new Color(1, 0, 0, Main.lifeAlpha);
             IsGreen = false;
             IsRed = true ;
             IsYellow = false;
@@ -89,6 +99,7 @@ public class LifeScript : MonoBehaviour
         LifeColor();
         PinchEffect();
         //needleCtrl();
+        LifeMeterMove();//Meterの移動
     }
 
     /// <summary>
@@ -104,5 +115,23 @@ public class LifeScript : MonoBehaviour
         {
             Destroy(pinchObj);
         }
+    }
+    /// <summary>
+    ///　LifeMeterの移動
+    /// </summary>
+    private void LifeMeterMove()
+    {
+        var CurrentEnenmyCount = 0;
+        for (int i = 0; i < EnemyS.Length; i++)
+        {
+            if (EnemyS[i] != null)
+                CurrentEnenmyCount += EnemyS[i].transform.childCount;
+        }
+            
+
+        if ((EnemyCount > CurrentEnenmyCount &&transform.parent.GetComponent<RectTransform>().localPosition.x < -490)||
+            (Player.isDamage && transform.parent.GetComponent<RectTransform>().localPosition.x < -490))
+            transform.parent.GetComponent<RectTransform>().localPosition += new Vector3(1, 0, 0) * MeterMoveSpeed;
+       
     }
 }

@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     private bool isStop;//停止判定
     private bool isJudge;//スティック入力差計算判定
     private bool isReturn;//切り替えし判定
-    private bool isDamage;//ダメージ判定
+    public static bool isDamage;//ダメージ判定
 
 
     // Use this for initialization
@@ -108,6 +108,7 @@ public class Player : MonoBehaviour
         {
             speed = speedLimit;
         }
+        
     }
 
     /// <summary>

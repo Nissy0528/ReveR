@@ -93,8 +93,11 @@
     <Compile Include="Assets\Script\Effect\Boom_Effect.cs" />
     <Compile Include="Assets\Script\Effect\Drain.cs" />
     <Compile Include="Assets\Script\Effect\EnemyLine.cs" />
+    <Compile Include="Assets\Script\Effect\PTimeEffectSpawner.cs" />
     <Compile Include="Assets\Script\Effect\PlayerTrail.cs" />
+    <Compile Include="Assets\Script\Effect\PlusTimeEffect.cs" />
     <Compile Include="Assets\Script\Effect\StarAnim.cs" />
+    <Compile Include="Assets\Script\Enemy\BossBreakUp.cs" />
     <Compile Include="Assets\Script\Enemy\BossEnemy.cs" />
     <Compile Include="Assets\Script\Enemy\Bullet.cs" />
     <Compile Include="Assets\Script\Enemy\ELMove.cs" />
@@ -134,6 +137,7 @@
     <Compile Include="Assets\Script\System\AI_Input.cs" />
     <Compile Include="Assets\Script\System\ControllerShake.cs" />
     <Compile Include="Assets\Script\System\DebugManager.cs" />
+    <Compile Include="Assets\Script\System\DestroyParent.cs" />
     <Compile Include="Assets\Script\System\InputManager.cs" />
     <Compile Include="Assets\Script\System\PlayerPrefsUtility.cs" />
     <Compile Include="Assets\Script\System\SaveInput.cs" />
@@ -144,9 +148,12 @@
     <Compile Include="Assets\Script\UI\PlayerPositionCheck.cs" />
     <Compile Include="Assets\Script\UI\TutoUISpawner.cs" />
     <Compile Include="Assets\Script\UI\TutorialUI.cs" />
+    <Compile Include="Assets\test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
+    <None Include="Assets\Shader\Particles Additive Intensify.shader" />
+    <None Include="Assets\Shader\Sprites-Default.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
