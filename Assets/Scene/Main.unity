@@ -6346,6 +6346,11 @@ SpriteRenderer:
   m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+--- !u!1 &1019418023 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1764600745325978, guid: 4227b0092d5634d4bb482f53d9badcb1,
+    type: 2}
+  m_PrefabInternal: {fileID: 2046326423}
 --- !u!1 &1025282751
 GameObject:
   m_ObjectHideFlags: 0
@@ -13435,7 +13440,7 @@ Prefab:
         type: 2}
       propertyPath: enemyLine
       value: 
-      objectReference: {fileID: 1605876190}
+      objectReference: {fileID: 1019418023}
     - target: {fileID: 114191598456868498, guid: 4227b0092d5634d4bb482f53d9badcb1,
         type: 2}
       propertyPath: enemyLine

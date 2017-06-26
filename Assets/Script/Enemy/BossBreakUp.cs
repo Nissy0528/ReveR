@@ -39,7 +39,6 @@ public class BossBreakUp : MonoBehaviour
         Shake();
 
         Vector3 screenPosMax = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));//画面左上の座標
-        Debug.Log(screenPosMax);
         if (transform.position.y >= screenPosMax.y + transform.localScale.y)
         {
             Destroy(gameObject);
