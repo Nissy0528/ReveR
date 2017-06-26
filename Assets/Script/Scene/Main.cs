@@ -40,6 +40,10 @@ public class Main : MonoBehaviour
     //lifetime とmeter のalpha
     public static float lifeAlpha;
 
+
+    //GameOver
+    public static bool IsGameOver = false;
+
     // Use this for initialization
     void Start()
     {
@@ -78,7 +82,8 @@ public class Main : MonoBehaviour
         if (lifeTime <= 0.0f)
         {
             ControllerShake.Shake(0.0f, 0.0f);
-            SceneManager.LoadScene("GameOver");
+            //Time.timeScale = 0;
+            IsGameOver = true;
         }
 
         TimeCount();//経過時間処理
@@ -167,6 +172,15 @@ public class Main : MonoBehaviour
     private void WaveNum()
     {
         waveText.GetComponent<Text>().text = "Wave " + (waveNum + 1) + "/" + enemyWave.Length;
+    }
+
+    /// <summary>
+    /// 最終ウェイブ
+    /// </summary>
+    /// <returns></returns>
+    public bool LastWave()
+    {
+        return waveNum+1 == enemyWave.Length;
     }
 
     /// <summary>

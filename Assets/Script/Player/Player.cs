@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using XInputDotNetPure;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -66,6 +67,7 @@ public class Player : MonoBehaviour
         isStart = false;
         isStop = false;
         isJudge = false;
+        isDamage = false;
 
         iniSpeed = speed;
         direc = 1;
@@ -343,11 +345,12 @@ public class Player : MonoBehaviour
             SetAlpha(0.0f);
         }
 
-        if (damageCnt >= damageTime)
+        if (damageCnt >= damageTime || SceneManager.GetActiveScene().name != "Main")
         {
             SetAlpha(1.0f);
             isDamage = false;
         }
+
     }
 
     /// <summary>
@@ -492,6 +495,12 @@ public class Player : MonoBehaviour
     /// </summary>
     public void ChangeColor()
     {
+        if (SceneManager.GetActiveScene().name != "Main")
+        {
+            LifeScript.IsGreen = true;
+            LifeScript.IsRed = false;
+            LifeScript.IsYellow = false;
+        }
         if (LifeScript.IsGreen == true)
         {
             GetComponent<SpriteRenderer>().sprite = CoreSprite[0];

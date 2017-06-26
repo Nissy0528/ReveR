@@ -185,6 +185,11 @@ public class EnemyManager : MonoBehaviour
 
             TextObj.GetComponent<JudgeUI>().SetTargetPosition(spawmPos);
 
+            if (gameObject.tag == "Boss")
+            {
+                TextObj.GetComponent<JudgeUI>().SetFade(true, true, 1.0f);
+            }
+
             GetPlusTime(TextObj);
             //GetMinusTime();
             PlusEffect(addLifeTime, 0);
@@ -241,7 +246,13 @@ public class EnemyManager : MonoBehaviour
         PlusTimeObj = Instantiate(PlusTime, GameObject.Find("Canvas").transform);
         PlusTimeObj.name = "PlusTime";
 
+        if (gameObject.tag == "Boss")
+        {
+            PlusTimeObj.GetComponent<JudgeUI>().SetFade(true, false, 0.0f);
+        }
+
         PlusTimeObj.GetComponent<JudgeUI>().SetTargetPosition(new Vector3(spawmPos.x + 1f, spawmPos.y + 1f));
+
 
         PlusTimeObj.GetComponent<Text>().text = "+" + ((int)addLifeTime).ToString() + "." +
             ((int)addLifeTime / 10).ToString() + ((int)(addLifeTime % 10)).ToString();

@@ -87,6 +87,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GameOverEffect.cs" />
     <Compile Include="Assets\Script\Animation\Anim.cs" />
     <Compile Include="Assets\Script\Audio\SE.cs" />
     <Compile Include="Assets\Script\Camera\MainCamera.cs" />
