@@ -15,6 +15,7 @@ public class Main : MonoBehaviour
     public float lifeTime;
     public float lifeTimeMax;
     public float bossMoveDelay;
+   
 
     private GameObject[] enemys;
     private GameObject[] lifeTimeText;
@@ -35,6 +36,10 @@ public class Main : MonoBehaviour
     private float subCurrentTime;
     private float subLifeTime;
 
+
+    //lifetime とmeter のalpha
+    public static float lifeAlpha;
+
     // Use this for initialization
     void Start()
     {
@@ -52,6 +57,8 @@ public class Main : MonoBehaviour
         bossMoveCnt = bossMoveDelay;
         addCurrentTime = lifeTime;
         subCurrentTime = lifeTime;
+
+        lifeAlpha = 0.3f;
     }
 
     // Update is called once per frame
@@ -81,6 +88,7 @@ public class Main : MonoBehaviour
         E_WaveSpawn();//ウェイブ生成
         WaveNum();//現在のウェイブ表示
         BossWarning();//ボス登場エフェクト
+        LifeTimeAlpha();//lifetimeのalpha 
 
         lifeTime = Mathf.Clamp(lifeTime, 0.0f, lifeTimeMax);
     }
@@ -106,6 +114,10 @@ public class Main : MonoBehaviour
 
         if (isLifeTime)
         {
+            //lifetimeとMETERのalpha
+            lifeAlpha = 1f;
+
+            
             lifeTime = Mathf.Max(lifeTime - Time.deltaTime, 0.0f);
         }
         lifeTime = Mathf.Round(lifeTime * 100) / 100;
@@ -225,6 +237,7 @@ public class Main : MonoBehaviour
     {
         if (isAdd)
         {
+            lifeAlpha = 1f;
             lifeTime += Time.deltaTime * 6.0f;
             float addDif = Mathf.Abs(addCurrentTime - lifeTime);
 
@@ -237,6 +250,7 @@ public class Main : MonoBehaviour
         }
         if (isSub)
         {
+            lifeAlpha = 1f;
             lifeTime -= Time.deltaTime * 6.0f;
             float subDif = Mathf.Abs(subCurrentTime - lifeTime);
 
@@ -247,6 +261,18 @@ public class Main : MonoBehaviour
                 isSub = false;
             }
         }
+    }
+    /// <summary>
+    /// lifetimeのalphaを調整
+    /// </summary>
+    private void LifeTimeAlpha()
+    {
+        lifeTimeText[0].GetComponent<Text>().color = new Color(1, 1, 1, lifeAlpha);
+        GameObject.FindGameObjectWithTag("LifeFrame").GetComponent<Image>().color=new Color(1, 1, 1, lifeAlpha);
+        //GameObject.FindGameObjectWithTag("LifeGauge").GetComponent<Image>().color = new Color(1, 1, 1, lifeAlpha);
+
+        if (!isLifeTime && !isAdd && !isSub && lifeAlpha > 0.3f)
+            lifeAlpha -= 0.01f;
     }
 
     /// <summary>

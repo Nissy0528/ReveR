@@ -10,6 +10,7 @@ public class ShootBullet : MonoBehaviour
     public GameObject Bullet;
 
     private float flame;
+    private Vector3 TargetPOS;
     void Start()
     {
         flame = time * 60;
@@ -25,6 +26,8 @@ public class ShootBullet : MonoBehaviour
             flame = time * 60;
         }
 
+        var diff = (GameObject.FindWithTag("Player").transform.position - transform.position).normalized;
+        transform.rotation = Quaternion.FromToRotation(Vector3.up, diff);
 
     }
 }
