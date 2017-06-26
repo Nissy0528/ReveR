@@ -51,8 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03042260f33e0b442bab4783fd7c845a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  core2: {fileID: 1827648796047122, guid: c0beac6221e733a4f8e57c710164efe3, type: 2}
-  boss: {fileID: 0}
+  core2: {fileID: 1207358553011130, guid: f07a4f85837b9ad43a6ac751326e6019, type: 2}
+  boss: {fileID: 1960830355816042, guid: f3081cdcedf8c484bb09d42cc7df8799, type: 2}
+  BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  main: {fileID: 0}
   upspeed: 0.3
   time: 3
   range: 0.5

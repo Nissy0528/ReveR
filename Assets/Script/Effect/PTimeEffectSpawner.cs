@@ -60,7 +60,6 @@ public class PTimeEffectSpawner : MonoBehaviour
 
         if (transform.childCount == 0)
         {
-            Debug.Log(addLifeTime);
             mainClass.StartTime(addLifeTime, 0);
             SpawnFinishEffect();
             Destroy(gameObject);

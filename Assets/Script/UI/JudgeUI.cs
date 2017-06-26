@@ -22,6 +22,8 @@ public class JudgeUI : MonoBehaviour
 
     private Color color;//中山追記
 
+    private bool setfade;
+
     // Use this for initialization
     void Start()
     {
@@ -57,8 +59,17 @@ public class JudgeUI : MonoBehaviour
         var animState = anim.GetCurrentAnimatorStateInfo(0);
         if (animState.normalizedTime >= 1)
         {
-            timeObj.transform.parent = transform;
-            isScroll = true;
+            if (!setfade)
+            {
+                timeObj.transform.parent = transform;
+                isScroll = true;
+            }
+            else
+            {
+                GetComponent<Animator>().enabled = false;
+                GetComponent<Image>().color = new Color(1, 1, 1, Alpha);
+                FadeOut();
+            }
         }
     }
 
@@ -77,7 +88,7 @@ public class JudgeUI : MonoBehaviour
             if (IsStart) time--;
             rect.position += new Vector3(0, 0.1f);
             FadeIn();
-            //if (time <= 0) FadeOut();
+            if (time <= 0 && setfade == true) FadeOut();
         }
         else
         {
@@ -138,5 +149,12 @@ public class JudgeUI : MonoBehaviour
         this.scrollSpeed = scrollSpeed;
         this.lineObj = lineObj;
         this.timeObj = timeObj;
+    }
+
+    public void SetFade(bool isFade,bool IsStart,float Alpha)
+    {
+        setfade = isFade;
+        this.IsStart = IsStart;
+        this.Alpha = Alpha;
     }
 }

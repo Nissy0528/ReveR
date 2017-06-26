@@ -170,6 +170,15 @@ public class Main : MonoBehaviour
     }
 
     /// <summary>
+    /// 最終ウェイブ
+    /// </summary>
+    /// <returns></returns>
+    public bool LastWave()
+    {
+        return waveNum+1 == enemyWave.Length;
+    }
+
+    /// <summary>
     /// ボス登場エフェクト
     /// </summary>
     private void BossWarning()

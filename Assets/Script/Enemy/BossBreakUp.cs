@@ -6,6 +6,8 @@ public class BossBreakUp : MonoBehaviour
 {
     public GameObject core2;
     public GameObject boss;
+    public GameObject BoomEffect;
+    public Main main;
     
 
     public float upspeed;
@@ -30,6 +32,7 @@ public class BossBreakUp : MonoBehaviour
         minRangeY = savePosition.y - range;
         maxRangeY = savePosition.y + range;
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        //main = GetComponent<Main>();
     }
 
     // Update is called once per frame
@@ -47,7 +50,7 @@ public class BossBreakUp : MonoBehaviour
 
     void bossFrom()
     {
-        if (core2Obj == null&&boss == null)
+        if (core2Obj == null&&boss.transform.childCount == 1)
         {
             shake = true;
             
@@ -57,7 +60,15 @@ public class BossBreakUp : MonoBehaviour
 
         if (core2Obj != null)
         {
-            bossBreakUp();
+            
+            if (main.LastWave() == false)
+            {
+                bossBreakUp();
+            }
+            else
+            {
+                BossDead();
+            }
         }
 
     }
@@ -90,6 +101,16 @@ public class BossBreakUp : MonoBehaviour
             transform.position = new Vector3(core2Obj.transform.position.x,
                                                       core2Obj.transform.position.y + upspeed,
                                                       core2Obj.transform.position.z);
+        }
+    }
+    
+    void BossDead()
+    {
+        if (time <= 0)
+        {
+            GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
+            effect.name = "Boom_effct";
+            Destroy(gameObject);
         }
     } 
 }
