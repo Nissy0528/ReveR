@@ -85,6 +85,7 @@ public class LifeScript : MonoBehaviour
             IsRed = true ;
             IsYellow = false;
         }
+       
     }
 
     public void needleCtrl()
@@ -127,11 +128,11 @@ public class LifeScript : MonoBehaviour
             if (EnemyS[i] != null)
                 CurrentEnenmyCount += EnemyS[i].transform.childCount;
         }
-            
 
-        if ((EnemyCount > CurrentEnenmyCount &&transform.parent.GetComponent<RectTransform>().localPosition.x < -490)||
-            (Player.isDamage && transform.parent.GetComponent<RectTransform>().localPosition.x < -490))
-            transform.parent.GetComponent<RectTransform>().localPosition += new Vector3(1, 0, 0) * MeterMoveSpeed;
+        var ACPO = transform.parent.GetComponent<RectTransform>().anchoredPosition;
+
+        if ((EnemyCount > CurrentEnenmyCount && ACPO.x < 150)|| (Player.isDamage && ACPO.x < 150))
+            transform.parent.GetComponent<RectTransform>().anchoredPosition += new Vector2(1, 0) * MeterMoveSpeed;
        
     }
 }

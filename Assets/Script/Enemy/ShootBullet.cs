@@ -27,7 +27,7 @@ public class ShootBullet : MonoBehaviour
         }
 
         var diff = (GameObject.FindWithTag("Player").transform.position - transform.position).normalized;
-        transform.rotation = Quaternion.FromToRotation(Vector3.up, diff);
+        transform.rotation = Quaternion.FromToRotation(-Vector3.up, diff);
 
     }
 }
