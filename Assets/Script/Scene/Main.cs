@@ -40,6 +40,10 @@ public class Main : MonoBehaviour
     //lifetime とmeter のalpha
     public static float lifeAlpha;
 
+
+    //GameOver
+    public static bool IsGameOver = false;
+
     // Use this for initialization
     void Start()
     {
@@ -77,8 +81,9 @@ public class Main : MonoBehaviour
 
         if (lifeTime <= 0.0f)
         {
-            ControllerShake.Shake(0.0f, 0.0f);
-            SceneManager.LoadScene("GameOver");
+            //ControllerShake.Shake(0.0f, 0.0f);
+            //Time.timeScale = 0;
+            IsGameOver = true;
         }
 
         TimeCount();//経過時間処理
@@ -250,7 +255,7 @@ public class Main : MonoBehaviour
             lifeTime += Time.deltaTime * 6.0f;
             float addDif = Mathf.Abs(addCurrentTime - lifeTime);
 
-            Debug.Log("Add : " + addDif);
+            //Debug.Log("Add : " + addDif);
 
             if (addDif >= Mathf.Abs(addLifeTime))
             {
@@ -263,7 +268,7 @@ public class Main : MonoBehaviour
             lifeTime -= Time.deltaTime * 6.0f;
             float subDif = Mathf.Abs(subCurrentTime - lifeTime);
 
-            Debug.Log("Sub : " + subDif);
+            //Debug.Log("Sub : " + subDif);
 
             if (subDif >= Mathf.Abs(subLifeTime))
             {
