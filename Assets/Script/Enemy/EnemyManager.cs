@@ -16,6 +16,8 @@ public class EnemyManager : MonoBehaviour
     public GameObject PlusTime;
     public GameObject MinusTime;
     public GameObject plusEffect;
+    public GameObject enemyLine;
+    public Material Line;
 
     private float LimitTime;　　　//制限時間フレーム化
     private float CurrentTime;   //進行中のフレーム
@@ -119,6 +121,8 @@ public class EnemyManager : MonoBehaviour
             //ボスバトル時間の減少を始める
             main.GetComponent<Main>().SetIsLifeTime(true);
             IsTimeStart = true;
+
+            enemyLine.GetComponent<EnemyLine>().GetComponent<LineRenderer>().material = Line;
         }
 
     }

@@ -1,10 +1,19 @@
 fileFormatVersion: 2
 guid: baedf3b6c31364046a8cb3bb064da638
-timeCreated: 1497400169
+timeCreated: 1498441268
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - stopPoint: {instanceID: 0}
+  - ExC: {instanceID: 0}
+  - Nic: {instanceID: 0}
+  - Nor: {instanceID: 0}
+  - PlusTime: {instanceID: 0}
+  - MinusTime: {instanceID: 0}
+  - plusEffect: {instanceID: 0}
+  - enemyLine: {instanceID: 0}
+  - Line: {fileID: 2100000, guid: b2b9d9dcdad74274594947151453494a, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
