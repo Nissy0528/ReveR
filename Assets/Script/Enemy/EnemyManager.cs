@@ -10,18 +10,19 @@ public class EnemyManager : MonoBehaviour
     public bool isScroll;//下にスクロールするか
     public bool isStopScroll;//途中で停止するか
     public GameObject stopPoint;//停止ポイント
-    public GameObject ExC;
-    public GameObject Nic;
-    public GameObject Nor;
-    public GameObject PlusTime;
-    public GameObject MinusTime;
-    public GameObject plusEffect;
-    public GameObject enemyLine;
-    public Material Line;
+    public GameObject ExC;//ランクS_UI
+    public GameObject Nic;//ランクA_UI
+    public GameObject Nor;//ランクB_UI
+    public GameObject PlusTime;//加算タイムUI
+    public GameObject MinusTime;//減算タイムUI
+    public GameObject plusEffect;//ライフタイム加算エフェクト
+    public GameObject enemyLine;//グループライン
+    public Material Line;//変更するグループラインマテリアル
+    public Material greenAura;//変更するオーラマテリアル（緑）
 
     private float LimitTime;　　　//制限時間フレーム化
     private float CurrentTime;   //進行中のフレーム
-    private float previousTime;
+    private float damage;//ダメージ
     private int iniChildCnt;//初期の子オブジェクトの数
     private bool IsTimeStart;　　　//読秒開始
     private bool isChildDestroy;
@@ -30,28 +31,28 @@ public class EnemyManager : MonoBehaviour
     private GameObject camera;
     private GameObject rankPoint;
     private Vector3 spawmPos;
-    private Transform[] AllChildrenCount;//全ての子オブジェクト
+    private Vector3 plusEffectPos;
 
     // Use this for initialization
     void Start()
     {
-        camera = GameObject.Find("Main Camera");
-        main = GameObject.Find("MainManager");
+        camera = GameObject.Find("Main Camera");//カメラオブジェクト取得
+        main = GameObject.Find("MainManager");//メインオブジェクト取得
+
+        //ボスじゃなければランクの表示座標設定
         if (tag != "Boss")
         {
             rankPoint = transform.FindChild("EnemyLine").gameObject;
             spawmPos = rankPoint.transform.position;
         }
+        plusEffectPos = Vector3.zero;
 
         LimitTime = addLifeTime * 60;
         CurrentTime = LimitTime;
-        //初期の全ての子オブジェクトの数取得
-        AllChildrenCount = GetComponentsInChildren<Transform>();
-        for (int i = 0; i < AllChildrenCount.Length; i++)
-        {
-            iniChildCnt += AllChildrenCount[i].childCount;
-        }
-        iniChildCnt += transform.childCount;
+        damage = GameObject.Find("Player").GetComponent<Player>().damage;
+
+        iniChildCnt = GetAllChildren.GetAll(gameObject).Count;//全ての子オブジェクトの数取得
+
         IsTimeStart = false;
         isChildDestroy = false;
     }
@@ -65,13 +66,18 @@ public class EnemyManager : MonoBehaviour
         TimeStart();//コンボ時間
         ChildDestroy();//子オブジェクト全削除
         Evaluation();//ランクの分割
+        EnemyAuraChange();//最後の敵のオーラの色を変える
 
         //画面下に出たら
-        if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2
-            && !AnotherIsTimeStart())
+        if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2)
         {
-            main.GetComponent<Main>().SetIsLifeTime(false);
-            DestroyObj();
+            main.GetComponent<Main>().SetIsLifeTime(false);//ライフタイム減少停止
+            //敵が減っていたらライフタイムにダメージを与える
+            if (IsTimeStart)
+            {
+                PlusEffect(damage, 1);
+            }
+            DestroyObj();//消滅
         }
     }
 
@@ -106,16 +112,8 @@ public class EnemyManager : MonoBehaviour
     /// </summary>
     private void TimeStart()
     {
-        int currentChildCnt = 0;
-        for (int i = 0; i < AllChildrenCount.Length; i++)
-        {
-            if (AllChildrenCount[i] != null) currentChildCnt += AllChildrenCount[i].childCount;
-
-        }
-        currentChildCnt += transform.childCount;//現在の子オブジェクトの数を取得
-
         //子オブジェクトが減ったら
-        if (currentChildCnt < iniChildCnt && !IsTimeStart)
+        if (GetAllChildren.GetAll(gameObject).Count < iniChildCnt && !IsTimeStart)
         {
             EnemysActive();
             //ボスバトル時間の減少を始める
@@ -159,6 +157,7 @@ public class EnemyManager : MonoBehaviour
         //敵一つを倒すと,読秒開始
         if (!IsTimeStart) return;
 
+        main.GetComponent<Main>().SetIsLifeTime(true);
         CurrentTime--;　//読秒
         GameObject TextObj = null;
 
@@ -188,7 +187,7 @@ public class EnemyManager : MonoBehaviour
 
             GetPlusTime(TextObj);
             //GetMinusTime();
-            PlusEffect(addLifeTime);
+            PlusEffect(addLifeTime, 0);
 
             main.GetComponent<Main>().SetIsLifeTime(false);
             DestroyObj();//判定終了後、このオブジェクトを消す
@@ -267,17 +266,22 @@ public class EnemyManager : MonoBehaviour
     /// <summary>
     /// ライフタイム加算エフェクト
     /// </summary>
-    private void PlusEffect(float addLifeTime)
+    private void PlusEffect(float time, int type)
     {
-        GameObject p_Effect = Instantiate(plusEffect, transform.position, transform.rotation);
+        if (plusEffectPos == Vector3.zero)
+        {
+            if (tag != "Boss")
+            {
+                plusEffectPos = rankPoint.transform.position;
+            }
+            else
+            {
+                plusEffectPos = transform.position;
+            }
+        }
 
-        //ライフタイムエフェクト生成
-        //if (p_Effect == null)
-        //{
-        //    p_Effect = Instantiate(plusEffect, transform.position, transform.rotation);
-        //}
-
-        p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(addLifeTime);
+        GameObject p_Effect = Instantiate(plusEffect, plusEffectPos, transform.rotation); ;
+        p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(time, type);
     }
 
     /// <summary>
@@ -309,21 +313,32 @@ public class EnemyManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 他のエネミーマネージャーがタイム減少をしているか
+    /// 最後の敵のオーラの色を変える
     /// </summary>
-    /// <returns></returns>
-    private bool AnotherIsTimeStart()
+    private void EnemyAuraChange()
     {
-        GameObject[] anothers = GameObject.FindGameObjectsWithTag("EnemyManager");
-        for (int i = 0; i < anothers.Length; i++)
+        if (tag == "Boss") return;
+
+        //全ての子オブジェクト取得
+        List<GameObject> children = GetAllChildren.GetAll(gameObject);
+        //エネミー用リスト
+        List<GameObject> enemys = new List<GameObject>();
+        //タグがEnemyの子オブジェクト用意したリストに追加
+        foreach (GameObject c in children)
         {
-            GameObject another = anothers[i];
-            if (another != gameObject && another.GetComponent<EnemyManager>().GetIsTimeStart())
+            if (c.tag == "Enemy")
             {
-                return true;
+                enemys.Add(c);
             }
         }
-        return false;
+
+        enemys.RemoveAll(x => x == null);//空の要素削除
+        //エネミーが一つしか残ってなかったらオーラの色変更
+        if (enemys.Count == 1)
+        {
+            enemys[0].transform.Find("EnemyAura").GetComponent<SpriteRenderer>().material = greenAura;
+            plusEffectPos = enemys[0].transform.position;
+        }
     }
 
     /// <summary>

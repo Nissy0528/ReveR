@@ -15,7 +15,7 @@ public class Main : MonoBehaviour
     public float lifeTime;
     public float lifeTimeMax;
     public float bossMoveDelay;
-   
+
 
     private GameObject[] enemys;
     private GameObject[] lifeTimeText;
@@ -117,7 +117,7 @@ public class Main : MonoBehaviour
             //lifetimeとMETERのalpha
             lifeAlpha = 1f;
 
-            
+
             lifeTime = Mathf.Max(lifeTime - Time.deltaTime, 0.0f);
         }
         lifeTime = Mathf.Round(lifeTime * 100) / 100;
@@ -240,9 +240,6 @@ public class Main : MonoBehaviour
             lifeAlpha = 1f;
             lifeTime += Time.deltaTime * 6.0f;
             float addDif = Mathf.Abs(addCurrentTime - lifeTime);
-
-            Debug.Log("Add : " + addDif);
-
             if (addDif >= Mathf.Abs(addLifeTime))
             {
                 isAdd = false;
@@ -253,9 +250,6 @@ public class Main : MonoBehaviour
             lifeAlpha = 1f;
             lifeTime -= Time.deltaTime * 6.0f;
             float subDif = Mathf.Abs(subCurrentTime - lifeTime);
-
-            Debug.Log("Sub : " + subDif);
-
             if (subDif >= Mathf.Abs(subLifeTime))
             {
                 isSub = false;
@@ -268,7 +262,7 @@ public class Main : MonoBehaviour
     private void LifeTimeAlpha()
     {
         lifeTimeText[0].GetComponent<Text>().color = new Color(1, 1, 1, lifeAlpha);
-        GameObject.FindGameObjectWithTag("LifeFrame").GetComponent<Image>().color=new Color(1, 1, 1, lifeAlpha);
+        GameObject.FindGameObjectWithTag("LifeFrame").GetComponent<Image>().color = new Color(1, 1, 1, lifeAlpha);
         //GameObject.FindGameObjectWithTag("LifeGauge").GetComponent<Image>().color = new Color(1, 1, 1, lifeAlpha);
 
         if (!isLifeTime && !isAdd && !isSub && lifeAlpha > 0.3f)
@@ -315,7 +309,7 @@ public class Main : MonoBehaviour
             addCurrentTime = lifeTime;
             isAdd = true;
         }
-        if (type == 1)
+        if (type == 1 && !isAdd)
         {
             subLifeTime = time;
             subCurrentTime = lifeTime;

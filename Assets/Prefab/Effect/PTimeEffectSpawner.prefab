@@ -51,7 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2bcc54ab6735e64b8123e9a6e5e741d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plusEffect: {fileID: 1516460647135194, guid: 1763a7a0154a905438814ac9628ef690, type: 2}
-  finishEffect: {fileID: 1557690016956118, guid: b5e0b7704b3c04944bb51bef08df6e2e,
-    type: 2}
+  effect:
+  - {fileID: 1516460647135194, guid: 1763a7a0154a905438814ac9628ef690, type: 2}
+  - {fileID: 1974969770251028, guid: dd6960a1e639cd440a97c210efc379ce, type: 2}
+  finishEffect:
+  - {fileID: 1557690016956118, guid: b5e0b7704b3c04944bb51bef08df6e2e, type: 2}
+  - {fileID: 1329555728269094, guid: b089331f6f0d3de44a1d1d8c5cd81a98, type: 2}
   spawnCnt: 5

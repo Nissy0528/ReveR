@@ -9,6 +9,8 @@ public class Title : MonoBehaviour
 
     void Update()
     {
+        Cursor.visible = false;
+
         if (Input.GetKeyDown(KeyCode.JoystickButton0))
         {
             if (cursor.GetComponent<ArrowMove>().GetIsSelect(0))
