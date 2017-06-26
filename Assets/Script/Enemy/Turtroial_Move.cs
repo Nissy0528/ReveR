@@ -33,6 +33,7 @@ public class Turtroial_Move : MonoBehaviour
         //起動エフェクト生成
         GameObject s_effect = Instantiate(startupEffect, transform.position, transform.rotation, transform);
         s_effect.GetComponent<SpriteRenderer>().sprite = normal;
+        Destroy(transform.FindChild("EnemyAura").gameObject);
         GetComponent<BoxCollider2D>().enabled = true;//あたり判定有効に
     }
 

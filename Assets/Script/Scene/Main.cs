@@ -17,9 +17,9 @@ public class Main : MonoBehaviour
     public float bossMoveDelay;
 
     private GameObject[] enemys;
+    private GameObject[] lifeTimeText;
     private GameObject enemyDead;
     private GameObject timeText;
-    private GameObject[] lifeTimeText;
     private GameObject waveText;
     private GameObject warningObj;
     private bool isStop;
@@ -39,8 +39,6 @@ public class Main : MonoBehaviour
     void Start()
     {
         Evaluation = new List<string>();
-
-
         isStop = false;
         isClear = false;
         isLifeTime = false;
@@ -50,9 +48,10 @@ public class Main : MonoBehaviour
         lifeTimeText = GameObject.FindGameObjectsWithTag("LifeTime");
         waveText = GameObject.Find("Wave");
         timeText.SetActive(true);
-
         waveNum = 0;
         bossMoveCnt = bossMoveDelay;
+        addCurrentTime = lifeTime;
+        subCurrentTime = lifeTime;
     }
 
     // Update is called once per frame
@@ -65,11 +64,13 @@ public class Main : MonoBehaviour
         if (enemys.Length == 0 && enemyDead == null && isClear)
         {
             Time.timeScale = 1.0f;
+            ControllerShake.Shake(0.0f, 0.0f);
             SceneManager.LoadScene("GameClear");
         }
 
         if (lifeTime <= 0.0f)
         {
+            ControllerShake.Shake(0.0f, 0.0f);
             SceneManager.LoadScene("GameOver");
         }
 
@@ -225,26 +226,27 @@ public class Main : MonoBehaviour
         if (isAdd)
         {
             lifeTime += Time.deltaTime * 6.0f;
-            float dif = Mathf.Abs(addCurrentTime - lifeTime);
+            float addDif = Mathf.Abs(addCurrentTime - lifeTime);
 
-            if (dif >= Mathf.Abs(addLifeTime))
+            Debug.Log("Add : " + addDif);
+
+            if (addDif >= Mathf.Abs(addLifeTime))
             {
-                lifeTime = addCurrentTime + addLifeTime;
                 isAdd = false;
             }
         }
         if (isSub)
         {
             lifeTime -= Time.deltaTime * 6.0f;
-            float dif = Mathf.Abs(subCurrentTime - lifeTime);
+            float subDif = Mathf.Abs(subCurrentTime - lifeTime);
 
-            if (dif >= Mathf.Abs(subLifeTime))
+            Debug.Log("Sub : " + subDif);
+
+            if (subDif >= Mathf.Abs(subLifeTime))
             {
-                lifeTime = subCurrentTime - subLifeTime;
                 isSub = false;
             }
         }
-
     }
 
     /// <summary>
