@@ -15,6 +15,7 @@ public class Main : MonoBehaviour
     public float lifeTime;
     public float lifeTimeMax;
     public float bossMoveDelay;
+    public GameObject GameOver;
    
 
     private GameObject[] enemys;
@@ -61,7 +62,7 @@ public class Main : MonoBehaviour
         bossMoveCnt = bossMoveDelay;
         addCurrentTime = lifeTime;
         subCurrentTime = lifeTime;
-
+        
         lifeAlpha = 0.3f;
     }
 
@@ -81,9 +82,9 @@ public class Main : MonoBehaviour
 
         if (lifeTime <= 0.0f)
         {
-            //ControllerShake.Shake(0.0f, 0.0f);
-            //Time.timeScale = 0;
+            ControllerShake.Shake(0.0f, 0.0f);
             IsGameOver = true;
+            GameOver.SetActive(true);
         }
 
         TimeCount();//経過時間処理
