@@ -761,6 +761,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  startupEffect: {fileID: 0}
+  normal: {fileID: 0}
   exp: 10
 --- !u!114 &114079828505776978
 MonoBehaviour:
@@ -774,6 +776,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  startupEffect: {fileID: 0}
+  normal: {fileID: 0}
   exp: 10
 --- !u!114 &114183085930381438
 MonoBehaviour:
@@ -787,7 +791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scrollSpeed: 0.05
-  addBattleTime: 10
+  addLifeTime: 0
   isScroll: 1
   isStopScroll: 1
   stopPoint: {fileID: 0}
@@ -797,6 +801,8 @@ MonoBehaviour:
   PlusTime: {fileID: 1569507840886826, guid: a2bfad67be551ce4992682a2a47c7bc7, type: 2}
   MinusTime: {fileID: 1132235237182648, guid: 1bbc824eedb016f4495a2d7c284766d9, type: 2}
   plusEffect: {fileID: 1431459200092176, guid: e0652661f604fad47a197c6a15e03d11, type: 2}
+  enemyLine: {fileID: 0}
+  Line: {fileID: 0}
 --- !u!114 &114250053823379522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -809,6 +815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  startupEffect: {fileID: 0}
+  normal: {fileID: 0}
   exp: 10
 --- !u!114 &114514899380737002
 MonoBehaviour:
@@ -870,6 +878,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  startupEffect: {fileID: 0}
+  normal: {fileID: 0}
   exp: 10
 --- !u!114 &114873049817646144
 MonoBehaviour:
@@ -883,6 +893,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  startupEffect: {fileID: 0}
+  normal: {fileID: 0}
   exp: 10
 --- !u!114 &114935545323551148
 MonoBehaviour:
@@ -910,6 +922,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoomEffect: {fileID: 1165228494885954, guid: c7efa47b57ab260449ca5519e49ccda6, type: 2}
+  startupEffect: {fileID: 0}
+  normal: {fileID: 0}
   exp: 0
 --- !u!114 &114965107039496460
 MonoBehaviour:
@@ -1396,7 +1410,7 @@ SpriteRenderer:
   m_SortingLayerID: -602142207
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 7e66a2c5054f38c41af2e6d4f8d6576a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a03dc0f745af57f4b9e7796db6498356, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

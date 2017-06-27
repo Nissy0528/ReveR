@@ -431,6 +431,7 @@ public class Player : MonoBehaviour
 
                 Instantiate(SE[1]);
                 ControllerShake.Shake(1.0f, 1.0f);
+                GameObject.Find("Main Camera").GetComponent<MainCamera>().SetShake();
                 s_Cnt = shakeCnt;
                 Instantiate(damageEffect, GameObject.Find("LifeMeter").transform);
 
