@@ -31,8 +31,6 @@ public class Player : MonoBehaviour
     public List<TrailRenderer> WingTrail;//両翼のオブジェクトを取る
     public List<Sprite> CoreSprite;//コアの画像
     public List<Material> WingSprite;//翼のエフェクトの画像
-
-
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 lookPos;//見る座標
     private Ray2D ray;//レイ
@@ -110,7 +108,7 @@ public class Player : MonoBehaviour
         {
             speed = speedLimit;
         }
-        
+
     }
 
     /// <summary>
@@ -126,16 +124,7 @@ public class Player : MonoBehaviour
             return;//何もしない
         }
 
-        //Aボタンが押されていたら
-        if (Input.GetKey(KeyCode.JoystickButton0))
-        {
-            speed = speedLimit;//加速
-
-        }
-        else
-        {
-            speed = iniSpeed;
-        }
+        Boost();
 
         float subRatio = (speed / iniSpeed);
 
@@ -155,6 +144,38 @@ public class Player : MonoBehaviour
 
         rigid.drag = 0;
         rigid.velocity = transform.up * (speed * r_Speed);
+    }
+
+    /// <summary>
+    /// ダッシュ
+    /// </summary>
+    private void Boost()
+    {
+        if (!inputManager.GetComponent<InputManager>().isAI)
+        {
+            //Aボタンが押されていたら
+            if (Input.GetKey(KeyCode.JoystickButton0))
+            {
+                speed = speedLimit;//加速
+
+            }
+            else
+            {
+                speed = iniSpeed;
+            }
+        }
+        else
+        {
+            if (inputManager.GetComponent<AI_Input>().GetIsBoost())
+            {
+                speed = speedLimit;//加速
+
+            }
+            else
+            {
+                speed = iniSpeed;
+            }
+        }
     }
 
     /// <summary>
@@ -433,10 +454,10 @@ public class Player : MonoBehaviour
                 ControllerShake.Shake(1.0f, 1.0f);
                 GameObject.Find("Main Camera").GetComponent<MainCamera>().SetShake();
                 s_Cnt = shakeCnt;
-                Instantiate(damageEffect, GameObject.Find("LifeMeter").transform);
 
                 speed = Mathf.Max(speed - damage, 0.0f);
-                main.GetComponent<Main>().StartTime(damage, 1);
+                GameObject p_Effect = Instantiate(damageEffect, transform.position, transform.rotation); ;
+                p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(damage, main.GetComponent<Main>().lifeTime, 1);
 
                 damageCnt = 0;
                 isDamage = true;

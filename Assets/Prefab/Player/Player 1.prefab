@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4432564215607778}
   - component: {fileID: 96515588532830676}
   - component: {fileID: 114843672402523008}
+  - component: {fileID: 114430985284644132}
   m_Layer: 0
   m_Name: R_Trail
   m_TagString: Trail
@@ -207,6 +208,7 @@ GameObject:
   - component: {fileID: 4518783446790014}
   - component: {fileID: 96034757357662996}
   - component: {fileID: 114182531846721690}
+  - component: {fileID: 114091831915809616}
   m_Layer: 0
   m_Name: L_Trail
   m_TagString: Trail
@@ -796,6 +798,18 @@ TrailRenderer:
     textureMode: 0
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114091831915809616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1888429054464390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734ca4012f72fd94f948387d2c138254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostlWidth: 0.3
 --- !u!114 &114182531846721690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -826,6 +840,18 @@ MonoBehaviour:
   rotateLimit: 87
   rotateBoost: 0
   mass: 10
+--- !u!114 &114430985284644132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1155557342338952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734ca4012f72fd94f948387d2c138254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostlWidth: 0.3
 --- !u!114 &114528652785274524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -870,6 +896,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 0}
+  damageEffect: {fileID: 1329555728269094, guid: b089331f6f0d3de44a1d1d8c5cd81a98,
+    type: 2}
   drain: {fileID: 1645401637604778, guid: 2f86b5fada66dfb4082fd9b809046287, type: 2}
   spriteObjs:
   - {fileID: 1760322421835580}
@@ -895,7 +923,7 @@ MonoBehaviour:
   returnSpeed: 0.1
   damageTime: 60
   flashInterval: 5
-  damage: 2
+  damage: 5
   maxexp: 5
   shakeCnt: 10
   WingTrail:
@@ -979,7 +1007,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 6dfeeda81778f454cb6ebaa18db5c3e8, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1019,7 +1047,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300004, guid: 6dfeeda81778f454cb6ebaa18db5c3e8, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1059,7 +1087,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 6dfeeda81778f454cb6ebaa18db5c3e8, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1099,7 +1127,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6dfeeda81778f454cb6ebaa18db5c3e8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1179,7 +1207,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6dfeeda81778f454cb6ebaa18db5c3e8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1219,7 +1247,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300004, guid: 6dfeeda81778f454cb6ebaa18db5c3e8, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

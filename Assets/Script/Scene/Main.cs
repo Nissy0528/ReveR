@@ -10,32 +10,28 @@ public class Main : MonoBehaviour
     public static List<string> Evaluation;//ランクのデータを集まる用のリスト
 
     public GameObject[] enemyWave;
+    public AudioClip[] bgm;
     public GameObject warning;
     public int stopTime;
     public float lifeTime;
     public float lifeTimeMax;
     public float bossMoveDelay;
 
-
     private GameObject[] enemys;
-    private GameObject[] lifeTimeText;
+    private GameObject lifeTimeText;
     private GameObject enemyDead;
-    private GameObject timeText;
     private GameObject waveText;
     private GameObject warningObj;
+    private AudioSource audio;
     private bool isStop;
     private bool isClear;
     private bool isLifeTime;
-    private bool isAdd;
-    private bool isSub;
     private int stopCnt;
     private int waveNum;
     private float bossMoveCnt;
-    private float addCurrentTime;
-    private float addLifeTime;
-    private float subCurrentTime;
-    private float subLifeTime;
-
+    private float currentTime;
+    private float lifeTimeValue;
+    private float cntStopper = 1.0f;
 
     //lifetime とmeter のalpha
     public static float lifeAlpha;
@@ -51,16 +47,16 @@ public class Main : MonoBehaviour
         isStop = false;
         isClear = false;
         isLifeTime = false;
-        isAdd = false;
         time = 0.0f;
-        timeText = GameObject.Find("Time");
-        lifeTimeText = GameObject.FindGameObjectsWithTag("LifeTime");
+        lifeTimeText = GameObject.FindGameObjectWithTag("LifeTime");
         waveText = GameObject.Find("Wave");
-        timeText.SetActive(true);
         waveNum = 0;
         bossMoveCnt = bossMoveDelay;
-        addCurrentTime = lifeTime;
-        subCurrentTime = lifeTime;
+        currentTime = lifeTime;
+
+        audio = GetComponent<AudioSource>();
+        audio.clip = bgm[0];
+        audio.Play();
 
         lifeAlpha = 0.3f;
     }
@@ -70,7 +66,7 @@ public class Main : MonoBehaviour
     {
         enemys = GameObject.FindGameObjectsWithTag("Enemy");
         enemyDead = GameObject.Find("Boom_effct");
-        lifeTimeText = GameObject.FindGameObjectsWithTag("LifeTime");
+        lifeTimeText = GameObject.FindGameObjectWithTag("LifeTime");
 
         if (enemys.Length == 0 && enemyDead == null && isClear)
         {
@@ -86,9 +82,8 @@ public class Main : MonoBehaviour
             IsGameOver = true;
         }
 
-        TimeCount();//経過時間処理
         LifeTimeCount();//生存時間処理
-        LifeTime();//ライフタイム変動
+        LifeTimeSetActive();//ライフタイムアクティブ設定
         Stop();//停止
         E_WaveSpawn();//ウェイブ生成
         WaveNum();//現在のウェイブ表示
@@ -96,18 +91,6 @@ public class Main : MonoBehaviour
         LifeTimeAlpha();//lifetimeのalpha 
 
         lifeTime = Mathf.Clamp(lifeTime, 0.0f, lifeTimeMax);
-    }
-
-    /// <summary>
-    /// 経過時間処理
-    /// </summary>
-    private void TimeCount()
-    {
-        if (enemys.Length == 0) return;
-
-        time += Time.deltaTime;
-        time = Mathf.Round(time * 100) / 100;
-        timeText.GetComponent<Text>().text = time.ToString();
     }
 
     /// <summary>
@@ -121,15 +104,10 @@ public class Main : MonoBehaviour
         {
             //lifetimeとMETERのalpha
             lifeAlpha = 1f;
-
-
-            lifeTime = Mathf.Max(lifeTime - Time.deltaTime, 0.0f);
+            lifeTime -= Time.deltaTime * cntStopper;
         }
         lifeTime = Mathf.Round(lifeTime * 100) / 100;
-        foreach (var b in lifeTimeText)
-        {
-            b.GetComponent<Text>().text = lifeTime.ToString();
-        }
+        lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
     }
 
     /// <summary>
@@ -159,6 +137,8 @@ public class Main : MonoBehaviour
         {
             waveNum += 1;//ウェイブ番号加算
             enemyWave[waveNum].SetActive(true);//次のウェイブ生成
+            audio.clip = bgm[0];
+            audio.Play();
         }
         else
         {
@@ -180,7 +160,7 @@ public class Main : MonoBehaviour
     /// <returns></returns>
     public bool LastWave()
     {
-        return waveNum+1 == enemyWave.Length;
+        return waveNum + 1 == enemyWave.Length;
     }
 
     /// <summary>
@@ -211,12 +191,20 @@ public class Main : MonoBehaviour
         if (bossMoveCnt <= 0.0f && enemyWave[waveNum].transform.FindChild("Boss") != null)
         {
             DestroyWarning();
-            enemyWave[waveNum].transform.FindChild("Boss").gameObject.SetActive(true);
+            GameObject boss = enemyWave[waveNum].transform.FindChild("Boss").gameObject;
+            boss.SetActive(true);
+            if (boss.GetComponent<EnemyManager>().IsStop())
+            {
+                audio.UnPause();
+            }
             return;
         }
 
         if (warningObj == null)
         {
+            audio.clip = bgm[1];
+            audio.Play();
+            audio.Pause();
             warningObj = Instantiate(warning, GameObject.Find("Canvas").transform);
         }
 
@@ -245,29 +233,19 @@ public class Main : MonoBehaviour
     }
 
     /// <summary>
-    /// ライフタイム変動
+    /// ライフタイムのアクティブ設定
     /// </summary>
-    private void LifeTime()
+    private void LifeTimeSetActive()
     {
-        if (isAdd)
+        GameObject lifeText = GameObject.FindGameObjectWithTag("L_CntEffect");
+
+        if (lifeText == null)
         {
-            lifeAlpha = 1f;
-            lifeTime += Time.deltaTime * 6.0f;
-            float addDif = Mathf.Abs(addCurrentTime - lifeTime);
-            if (addDif >= Mathf.Abs(addLifeTime))
-            {
-                isAdd = false;
-            }
+            lifeTimeText.GetComponent<Text>().enabled = true;
         }
-        if (isSub)
+        if (lifeText != null)
         {
-            lifeAlpha = 1f;
-            lifeTime -= Time.deltaTime * 6.0f;
-            float subDif = Mathf.Abs(subCurrentTime - lifeTime);
-            if (subDif >= Mathf.Abs(subLifeTime))
-            {
-                isSub = false;
-            }
+            lifeTimeText.GetComponent<Text>().enabled = false;
         }
     }
     /// <summary>
@@ -275,11 +253,11 @@ public class Main : MonoBehaviour
     /// </summary>
     private void LifeTimeAlpha()
     {
-        lifeTimeText[0].GetComponent<Text>().color = new Color(1, 1, 1, lifeAlpha);
+        lifeTimeText.GetComponent<Text>().color = new Color(1, 1, 1, lifeAlpha);
         GameObject.FindGameObjectWithTag("LifeFrame").GetComponent<Image>().color = new Color(1, 1, 1, lifeAlpha);
         //GameObject.FindGameObjectWithTag("LifeGauge").GetComponent<Image>().color = new Color(1, 1, 1, lifeAlpha);
 
-        if (!isLifeTime && !isAdd && !isSub && lifeAlpha > 0.3f)
+        if (!isLifeTime && cntStopper == 1.0f && lifeAlpha > 0.3f)
             lifeAlpha -= 0.01f;
     }
 
@@ -315,20 +293,9 @@ public class Main : MonoBehaviour
     /// 生存時間設定
     /// </summary>
     /// <param name="addLifeTIme">生存時間</param>
-    public void StartTime(float time, int type)
+    public void StartTime(float time)
     {
-        if (type == 0)
-        {
-            addLifeTime = time;
-            addCurrentTime = lifeTime;
-            isAdd = true;
-        }
-        if (type == 1 && !isAdd)
-        {
-            subLifeTime = time;
-            subCurrentTime = lifeTime;
-            isSub = true;
-        }
+        lifeTime += time;
     }
 
     /// <summary>

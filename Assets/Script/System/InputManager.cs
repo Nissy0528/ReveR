@@ -58,7 +58,7 @@ public class InputManager : MonoBehaviour
 
         if (!isAI)
         {
-            input.x = Input.GetAxis("Horizontal") * -1;
+            input.x = Input.GetAxis("Horizontal");
             input.y = Input.GetAxis("Vertical");
         }
         else

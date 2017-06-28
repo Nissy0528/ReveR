@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DebugManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class DebugManager : MonoBehaviour
     public bool isDetaClear;//保存したデータを削除するか
     public bool isTutorialSkip;//チュートリアルをスキップするか
     public bool isPlayerMaxSpeed;//プレイヤーの速度を常に最大にするか
+    public bool isScrollUp;//スクロールを早送りにするか
     public float drag;//摩擦力（プレイヤーの慣性をオンにしたとき使用）
 
     private PlayerOld p_OldClass;//プレイヤークラス（旧）
@@ -29,6 +31,7 @@ public class DebugManager : MonoBehaviour
     private Joint lj_Class;//左ジョイントクラス
     private Joint rj_Class;//右ジョイントクラス
     private bool isReset;//加速度初期化判定
+    private float iniScrollSpeed;//スクロール速度
 
     // Use this for initialization
     void Start()
@@ -37,6 +40,7 @@ public class DebugManager : MonoBehaviour
         p_Class = player.GetComponent<Player>();//プレイヤークラス取得
         lj_Class = l_Joint.GetComponent<Joint>();//左ジョイントクラス取得
         rj_Class = r_Joint.GetComponent<Joint>();//右ジョイントクラス取得
+        iniScrollSpeed = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().scrollSpeed;
     }
 
     // Update is called once per frame
@@ -55,6 +59,8 @@ public class DebugManager : MonoBehaviour
         InputManager();//スティック入力差の表示設定
         DataClear();//保存したデータを削除
         TutorialSkip();//チュートリアルスキップ
+        ScrollUp();//スクロール早送り
+        Clear();
     }
 
     /// <summary>
@@ -170,5 +176,60 @@ public class DebugManager : MonoBehaviour
         if (!isPlayerMaxSpeed) return;
 
         p_Class.speed = p_Class.speedLimit;
+    }
+
+    /// <summary>
+    /// スクロール早送り
+    /// </summary>
+    private void ScrollUp()
+    {
+        GameObject[] enemys = GameObject.FindGameObjectsWithTag("EnemyManager");
+        GameObject[] keyEnemys = GameObject.FindGameObjectsWithTag("KeyEnemy");
+
+        if (isScrollUp)
+        {
+            if (enemys != null)
+            {
+                foreach (var e in enemys)
+                {
+                    e.GetComponent<EnemyManager>().scrollSpeed = iniScrollSpeed * 10.0f;
+                }
+            }
+            if (keyEnemys != null)
+            {
+                foreach (var k in keyEnemys)
+                {
+                    k.GetComponent<EnemyManager>().scrollSpeed = iniScrollSpeed * 10.0f;
+                }
+            }
+        }
+        else
+        {
+            if (enemys != null)
+            {
+                foreach (var e in enemys)
+                {
+                    e.GetComponent<EnemyManager>().scrollSpeed = iniScrollSpeed;
+                }
+            }
+            if (keyEnemys != null)
+            {
+                foreach (var k in keyEnemys)
+                {
+                    k.GetComponent<EnemyManager>().scrollSpeed = iniScrollSpeed;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 強制クリア
+    /// </summary>
+    private void Clear()
+    {
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            SceneManager.LoadScene("GameClear");
+        }
     }
 }
