@@ -11,6 +11,7 @@ public class BossEnemy : MonoBehaviour
     private Animator animator;
     private Animation animation;
     private bool animcount;
+    private bool isColActive;
 
     public GameObject core2;
 
@@ -20,11 +21,21 @@ public class BossEnemy : MonoBehaviour
         box = core.GetComponent<BoxCollider2D>();//BoxCollider2D取得
         animator = shield.GetComponent<Animator>();
         animation = GetComponent<Animation>();
+
+        foreach (var e in childEnemy)
+        {
+            e.GetComponent<BoxCollider2D>().enabled = false;
+        }
+        shield.GetComponent<CircleCollider2D>().enabled = false;
+
+        isColActive = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        ColliderActive();
+
         childEnemy.RemoveAll(x => x == null);
         if (shield != null)
         {
@@ -43,7 +54,7 @@ public class BossEnemy : MonoBehaviour
     void BossEnemyDead()
     {
 
-        if (ChildEnemyDead() && box!=null) //子オブジェクトが無ければ
+        if (ChildEnemyDead() && box != null) //子オブジェクトが無ければ
         {
             box.enabled = true; //判定を戻す
         }
@@ -90,5 +101,21 @@ public class BossEnemy : MonoBehaviour
                 Destroy(shield); //シールド破壊
             }
         }
+    }
+
+    /// <summary>
+    /// あたり判定をアクティブに
+    /// </summary>
+    private void ColliderActive()
+    {
+        if (!GetComponent<EnemyManager>().IsStop() || isColActive) return;
+
+        foreach (var e in childEnemy)
+        {
+            e.GetComponent<BoxCollider2D>().enabled = true;
+        }
+        shield.GetComponent<CircleCollider2D>().enabled = true;
+
+        isColActive = true;
     }
 }

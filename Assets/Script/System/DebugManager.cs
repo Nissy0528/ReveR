@@ -26,7 +26,6 @@ public class DebugManager : MonoBehaviour
     public bool isScrollUp;//スクロールを早送りにするか
     public float drag;//摩擦力（プレイヤーの慣性をオンにしたとき使用）
 
-    private PlayerOld p_OldClass;//プレイヤークラス（旧）
     private Player p_Class;//プレイヤークラス
     private Joint lj_Class;//左ジョイントクラス
     private Joint rj_Class;//右ジョイントクラス
@@ -36,79 +35,22 @@ public class DebugManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        p_OldClass = player.GetComponent<PlayerOld>();//プレイヤークラス取得（旧）
         p_Class = player.GetComponent<Player>();//プレイヤークラス取得
         lj_Class = l_Joint.GetComponent<Joint>();//左ジョイントクラス取得
         rj_Class = r_Joint.GetComponent<Joint>();//右ジョイントクラス取得
-        iniScrollSpeed = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().scrollSpeed;
+        iniScrollSpeed = 0.05f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (p_OldClass != null)
-        {
-            P_AddSpeed();//加速度切り替え
-            Force();//慣性切り替え
-            Return();//反転時の加速度初期化切り替え
-            ReturnBoost();//反転時に加速するかの切り替え
-            ReturnForce();//切り替えし慣性切り替え
-        }
         PlayerMaxSpeed();//プレイヤーの速度を常に最大に
         JointMass();//ジョイントの重さ切り替え
         InputManager();//スティック入力差の表示設定
         DataClear();//保存したデータを削除
-        TutorialSkip();//チュートリアルスキップ
         ScrollUp();//スクロール早送り
         Clear();
-    }
-
-    /// <summary>
-    /// 加速度切り替え
-    /// </summary>
-    private void P_AddSpeed()
-    {
-        //加速度がオフなら
-        if (!isAddSoeed)
-        {
-            p_OldClass.SetAddSpeed(1.0f);//加速度無効
-            isReset = false;//加速度初期化判定false
-        }
-        //加速度オンなら
-        else
-        {
-            //加速度初期化判定がtrueなら
-            if (isReset)
-            {
-                p_OldClass.SetAddSpeed(0.0f);//加速度初期化
-                isReset = false;//加速度初期化判定false
-            }
-        }
-    }
-
-    /// <summary>
-    /// 慣性切り替え
-    /// </summary>
-    private void Force()
-    {
-        player.GetComponent<Rigidbody2D>().drag = drag;//摩擦設定
-        p_OldClass.SetForce(isForce);//プレイヤーの慣性オンに
-    }
-
-    /// <summary>
-    /// 反転時の加速度初期化切り替え
-    /// </summary>
-    private void Return()
-    {
-        p_OldClass.SetReturn(isReturnReset);//プレイヤー加速度初期化判定設定
-    }
-
-    /// <summary>
-    /// 反転時に加速するかの切り替え
-    /// </summary>
-    private void ReturnBoost()
-    {
-        p_OldClass.SetRBoost(isReturnBoost);//プレイヤー反転時加速判定設定
+        GameOver();
     }
 
     /// <summary>
@@ -119,14 +61,6 @@ public class DebugManager : MonoBehaviour
         //左右のジョイントの重さ判定設定
         lj_Class.SetJMass(isJointMass);
         rj_Class.SetJMass(isJointMass);
-    }
-
-    /// <summary>
-    /// 切り替えし慣性切り替え
-    /// </summary>
-    private void ReturnForce()
-    {
-        p_OldClass.SetRForce(isReturnFroce);
     }
 
     /// <summary>
@@ -151,21 +85,6 @@ public class DebugManager : MonoBehaviour
         if (!isDetaClear) return;
 
         PlayerPrefs.DeleteAll();
-    }
-
-    /// <summary>
-    /// チュートリアルスキップ
-    /// </summary>
-    private void TutorialSkip()
-    {
-        GameObject tutorial = GameObject.Find("Tutorial");//チュートリアル
-
-        if (!isTutorialSkip || tutorial == null) return;
-
-        if (tutorial.GetComponent<TutoUISpawner>().GetTutoNum() < 4)
-        {
-            tutorial.GetComponent<TutoUISpawner>().SetTutoNum(4);
-        }
     }
 
     /// <summary>
@@ -227,9 +146,20 @@ public class DebugManager : MonoBehaviour
     /// </summary>
     private void Clear()
     {
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             SceneManager.LoadScene("GameClear");
+        }
+    }
+
+    /// <summary>
+    /// 強制ゲームオーバー
+    /// </summary>
+    private void GameOver()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            GameObject.Find("MainManager").GetComponent<Main>().lifeTime = 0.0f;
         }
     }
 }

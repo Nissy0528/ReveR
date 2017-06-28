@@ -44,10 +44,11 @@ public class LifeScript : MonoBehaviour
         frame = GameObject.Find("LifeFrame");
         needleposition = GameObject.Find("NeedlePosition");
 
+        EnemyCount = GetAllChildren.GetAll(mainClass.enemyWave[0]).Count;
         
-        EnemyS = GameObject.FindGameObjectsWithTag("EnemyManager");
-        for (int i = 0; i < EnemyS.Length; i++)
-            EnemyCount += EnemyS[i].transform.childCount;
+        //EnemyS = GameObject.FindGameObjectsWithTag("EnemyManager");
+        //for (int i = 0; i < EnemyS.Length; i++)
+        //    EnemyCount += EnemyS[i].transform.childCount;
     }
 
     public void Life()
@@ -122,12 +123,12 @@ public class LifeScript : MonoBehaviour
     /// </summary>
     private void LifeMeterMove()
     {
-        var CurrentEnenmyCount = 0;
-        for (int i = 0; i < EnemyS.Length; i++)
-        {
-            if (EnemyS[i] != null)
-                CurrentEnenmyCount += EnemyS[i].transform.childCount;
-        }
+        var CurrentEnenmyCount = GetAllChildren.GetAll(mainClass.enemyWave[0]).Count;
+        //for (int i = 0; i < EnemyS.Length; i++)
+        //{
+        //    if (EnemyS[i] != null)
+        //        CurrentEnenmyCount += EnemyS[i].transform.childCount;
+        //}
 
         var ACPO = transform.parent.GetComponent<RectTransform>().anchoredPosition;
 

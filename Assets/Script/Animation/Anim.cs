@@ -10,6 +10,7 @@ public class Anim : MonoBehaviour
 
     private Animator anim;
     private AnimatorStateInfo animState;
+    private GameObject child;
     private int flashCnt;
     private int currentCnt;
 
@@ -38,6 +39,10 @@ public class Anim : MonoBehaviour
 
         if (animState.normalizedTime >= 1.0f)
         {
+            if (child != null)
+            {
+                Destroy(child);
+            }
             Destroy(gameObject);
         }
     }
@@ -61,5 +66,14 @@ public class Anim : MonoBehaviour
         {
             image.color = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         }
+    }
+
+    /// <summary>
+    /// 子オブジェクト設定
+    /// </summary>
+    /// <param name="child"></param>
+    public void SetChild(GameObject child)
+    {
+        this.child = child;
     }
 }
