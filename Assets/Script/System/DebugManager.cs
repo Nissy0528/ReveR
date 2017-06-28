@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class DebugManager : MonoBehaviour
 {
     public GameObject player;//プレイヤー
-    public GameObject l_Joint;//左ジョイント
-    public GameObject r_Joint;//右ジョイント
     public GameObject inputManager;//スティック入力値
     public int seNum;//効果音番号
 
@@ -36,8 +34,6 @@ public class DebugManager : MonoBehaviour
     void Start()
     {
         p_Class = player.GetComponent<Player>();//プレイヤークラス取得
-        lj_Class = l_Joint.GetComponent<Joint>();//左ジョイントクラス取得
-        rj_Class = r_Joint.GetComponent<Joint>();//右ジョイントクラス取得
         iniScrollSpeed = 0.05f;
     }
 
@@ -45,22 +41,11 @@ public class DebugManager : MonoBehaviour
     void Update()
     {
         PlayerMaxSpeed();//プレイヤーの速度を常に最大に
-        JointMass();//ジョイントの重さ切り替え
         InputManager();//スティック入力差の表示設定
         DataClear();//保存したデータを削除
         ScrollUp();//スクロール早送り
         Clear();
         GameOver();
-    }
-
-    /// <summary>
-    /// ジョイントの重さ切り替え
-    /// </summary>
-    private void JointMass()
-    {
-        //左右のジョイントの重さ判定設定
-        lj_Class.SetJMass(isJointMass);
-        rj_Class.SetJMass(isJointMass);
     }
 
     /// <summary>

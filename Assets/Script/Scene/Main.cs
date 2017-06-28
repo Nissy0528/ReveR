@@ -57,6 +57,8 @@ public class Main : MonoBehaviour
         currentTime = lifeTime;
         audio = GetComponent<AudioSource>();
         lifeAlpha = 0.3f;
+        lifeTime = Mathf.Round(lifeTime * 100) / 100;
+        lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
     }
 
     // Update is called once per frame
@@ -96,7 +98,7 @@ public class Main : MonoBehaviour
     /// </summary>
     private void LifeTimeCount()
     {
-        if (enemys.Length == 0) return;
+        if (enemys.Length == 0 || waveNum == 0) return;
 
         if (isLifeTime)
         {
@@ -310,5 +312,14 @@ public class Main : MonoBehaviour
     public void SetIsLifeTime(bool islifeTime)
     {
         this.isLifeTime = islifeTime;
+    }
+
+    /// <summary>
+    /// ウェイブ数取得
+    /// </summary>
+    /// <returns></returns>
+    public int GetWave()
+    {
+        return waveNum;
     }
 }

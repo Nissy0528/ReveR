@@ -45,7 +45,7 @@ public class LifeScript : MonoBehaviour
         needleposition = GameObject.Find("NeedlePosition");
 
         EnemyCount = GetAllChildren.GetAll(mainClass.enemyWave[0]).Count;
-        
+
         //EnemyS = GameObject.FindGameObjectsWithTag("EnemyManager");
         //for (int i = 0; i < EnemyS.Length; i++)
         //    EnemyCount += EnemyS[i].transform.childCount;
@@ -56,7 +56,7 @@ public class LifeScript : MonoBehaviour
         //speed = Mathf.Abs(player.speed) / player.speedLimit;
         //rt.sizeDelta = new Vector2(iniSize.x, iniSize.y * speed);
 
-        gauge.GetComponent<Image>().fillAmount = (mainClass.lifeTime / mainClass.lifeTimeMax) * 0.69f;
+        gauge.GetComponent<Image>().fillAmount = Mathf.Lerp(gauge.GetComponent<Image>().fillAmount, (mainClass.lifeTime / mainClass.lifeTimeMax) * 0.69f, 0.25f);
         //gauge.GetComponent<Image>().fillAmount = Mathf.Clamp((player.speed / player.speedLimit), 0.11f, 0.89f);
 
     }
@@ -65,7 +65,7 @@ public class LifeScript : MonoBehaviour
     {
         if (mainClass.lifeTime >= sectionTime[2])
         {
-            gauge.GetComponent<Image>().color = new Color(0, 1, 0,Main.lifeAlpha);
+            gauge.GetComponent<Image>().color = new Color(0, 1, 0, Main.lifeAlpha);
             IsGreen = true;
             IsRed = false;
             IsYellow = false;
@@ -83,10 +83,10 @@ public class LifeScript : MonoBehaviour
         {
             gauge.GetComponent<Image>().color = new Color(1, 0, 0, Main.lifeAlpha);
             IsGreen = false;
-            IsRed = true ;
+            IsRed = true;
             IsYellow = false;
         }
-       
+
     }
 
     public void needleCtrl()
@@ -113,7 +113,7 @@ public class LifeScript : MonoBehaviour
         {
             pinchObj = Instantiate(pinchEffect, GameObject.Find("Canvas").transform);
         }
-        if(pinchObj != null && mainClass.lifeTime >= sectionTime[1])
+        if (pinchObj != null && mainClass.lifeTime >= sectionTime[1])
         {
             Destroy(pinchObj);
         }
@@ -132,8 +132,8 @@ public class LifeScript : MonoBehaviour
 
         var ACPO = transform.parent.GetComponent<RectTransform>().anchoredPosition;
 
-        if ((EnemyCount > CurrentEnenmyCount && ACPO.x < 150)|| (Player.isDamage && ACPO.x < 150))
+        if ((EnemyCount > CurrentEnenmyCount && ACPO.x < 150) || (Player.isDamage && ACPO.x < 150))
             transform.parent.GetComponent<RectTransform>().anchoredPosition += new Vector2(1, 0) * MeterMoveSpeed;
-       
+
     }
 }

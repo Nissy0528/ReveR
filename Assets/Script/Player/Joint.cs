@@ -16,6 +16,7 @@ public class Joint : MonoBehaviour
     public GameObject inputManager;
     public float rotateSpeed;//回転速度
     public float rotateLimit;//回転制限
+    public float changeRotateLimit;//攻撃時の回転制限
     public float rotateBoost;//回転加速
     public float mass;//重さ
 
@@ -28,16 +29,16 @@ public class Joint : MonoBehaviour
     private float coreRotaZ;//コアの回転角度
     private float cuurentSpeed;//初期回転速度
     private float rotate;
+    private float iniLimit;//初期の回転制限
     private bool isStart;//スタート判定
-
-    //↓デバッグ用
-    private bool isJointMass;//ジョイントの重さ判定
+    private bool isChangeLimit;//回転制限変更フラグ
 
     // Use this for initialization
     void Start()
     {
         maxAngle = rotateLimit;//最大回転値設定
         minAngle = -rotateLimit;//最小回転値設定
+        iniLimit = rotateLimit;//初期制限設定
 
         //右の翼なら
         if (j_Type == JointType.RIGHT)
@@ -48,6 +49,7 @@ public class Joint : MonoBehaviour
         cuurentSpeed = rotateSpeed;//初期速度設定
 
         isStart = false;
+        isChangeLimit = false;
     }
 
     // Update is called once per frame
@@ -71,6 +73,7 @@ public class Joint : MonoBehaviour
             isStart = true;
         }
 
+        LimitChange();//回転制限変更
         Rotate(vx, vy);//回転
     }
 
@@ -182,21 +185,7 @@ public class Joint : MonoBehaviour
         }
 
         //角度制限内で回転
-        if (isJointMass)
-        {
-            if (rotateSpeed > 0)
-            {
-                angleZ = Mathf.Clamp(rotateZ + (rotateSpeed - mass), minAngle, maxAngle);
-            }
-            if (rotateSpeed < 0)
-            {
-                angleZ = Mathf.Clamp(rotateZ + (rotateSpeed + mass), minAngle, maxAngle);
-            }
-        }
-        else
-        {
-            angleZ = Mathf.Clamp(rotateZ + rotateSpeed, minAngle, maxAngle);
-        }
+        angleZ = Mathf.Clamp(rotateZ + rotateSpeed, minAngle, maxAngle);
 
         //angleZ = rotateZ + rotateSpeed;
         //Debug.Log(rotate + ":" + minAngle + ":" + maxAngle);
@@ -210,6 +199,11 @@ public class Joint : MonoBehaviour
         }
         transform.rotation = Quaternion.Euler(0, 0, angleZ);//角度更新
 
+        if ((angleZ <= minAngle || angleZ >= maxAngle) && isChangeLimit)
+        {
+            isChangeLimit = false;
+        }
+
     }
 
     /// <summary>
@@ -222,6 +216,8 @@ public class Joint : MonoBehaviour
 
         rotateSpeed *= -1;//逆回転に
         cuurentSpeed *= -1;//初期速度も逆に
+
+        isChangeLimit = true;
     }
 
     /// <summary>
@@ -246,22 +242,26 @@ public class Joint : MonoBehaviour
     }
 
     /// <summary>
+    /// 回転制限変更
+    /// </summary>
+    private void LimitChange()
+    {
+        if (!isChangeLimit)
+        {
+            rotateLimit = Mathf.Lerp(rotateLimit, iniLimit, 0.05f);
+        }
+        else
+        {
+            rotateLimit = changeRotateLimit;
+        }
+    }
+
+    /// <summary>
     /// 通常状態判定
     /// </summary>
     /// <returns></returns>
     public bool IsUntagged()
     {
         return transform.GetChild(0).tag == "Untagged";
-    }
-
-    //↓デバッグ用
-
-    /// <summary>
-    /// 重さ判定設定
-    /// </summary>
-    /// <param name="isJointMass">重さ判定</param>
-    public void SetJMass(bool isJointMass)
-    {
-        this.isJointMass = isJointMass;
     }
 }

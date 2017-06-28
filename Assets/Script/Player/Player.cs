@@ -443,8 +443,9 @@ public class Player : MonoBehaviour
         if (col.gameObject.tag == "Enemy" && !isDamage || col.gameObject.tag == "Shield")//EnemyとShieldとぶつかった時
         {
 
-            GameObject tutorial = GameObject.Find("Tutorial");
             GameObject main = GameObject.Find("MainManager");
+
+            if (main.GetComponent<Main>().GetWave() == 0) return;
 
             Instantiate(SE[1]);
             ControllerShake.Shake(1.0f, 1.0f);
