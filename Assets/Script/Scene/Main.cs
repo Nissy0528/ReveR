@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class Main : MonoBehaviour
 {
     public static float time;
@@ -97,6 +98,9 @@ public class Main : MonoBehaviour
         LifeTimeAlpha();//lifetimeのalpha 
 
         lifeTime = Mathf.Clamp(lifeTime, 0.0f, lifeTimeMax);
+
+
+        Cursor.visible = false;
     }
 
     /// <summary>
@@ -173,6 +177,15 @@ public class Main : MonoBehaviour
     private void WaveNum()
     {
         waveText.GetComponent<Text>().text = "Wave " + (waveNum + 1) + "/" + enemyWave.Length;
+    }
+
+    /// <summary>
+    ///  最終ウェブ
+    /// </summary>
+    /// <returns></returns>
+    public bool LastWave()
+    {
+        return waveNum + 1 == enemyWave.Length;
     }
 
     /// <summary>

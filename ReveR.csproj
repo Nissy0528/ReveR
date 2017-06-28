@@ -139,6 +139,7 @@
     <Compile Include="Assets\Script\System\ControllerShake.cs" />
     <Compile Include="Assets\Script\System\DebugManager.cs" />
     <Compile Include="Assets\Script\System\DestroyParent.cs" />
+    <Compile Include="Assets\Script\System\GetAllChildren.cs" />
     <Compile Include="Assets\Script\System\InputManager.cs" />
     <Compile Include="Assets\Script\System\PlayerPrefsUtility.cs" />
     <Compile Include="Assets\Script\System\SaveInput.cs" />
@@ -161,6 +162,7 @@
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
+    <None Include="Assets\タスク.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
