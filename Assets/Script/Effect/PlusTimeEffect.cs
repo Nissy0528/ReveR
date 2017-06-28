@@ -34,6 +34,8 @@ public class PlusTimeEffect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        lifeUIPos = GameObject.Find("Main Camera").GetComponent<Camera>().ScreenToWorldPoint(lifeUI.transform.position);
+        lifeUIPos.x -= 2f;
         ChangeDirec();//移動先変更
         Move();//移動
         DestroyObj();//消滅

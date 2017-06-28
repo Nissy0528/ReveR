@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startSpeed: 10
   changeDis: 0.5
-  deadDis: 3
+  deadDis: 4
   angle: 40
   speed: 5
 --- !u!198 &198769655438685740

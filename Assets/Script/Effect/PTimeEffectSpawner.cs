@@ -15,7 +15,9 @@ public class PTimeEffectSpawner : MonoBehaviour
     private Vector3 lifeUIPos;
     private bool isSpawn;
     private float time;
+    private float currentTime;
     private int type;
+    private int f_type;
 
     // Use this for initialization
     void Start()
@@ -26,11 +28,21 @@ public class PTimeEffectSpawner : MonoBehaviour
         lifeUI = GameObject.Find("LifeMeter");
         //ライフタイムの座標をワールド座標に変換
         lifeUIPos = GameObject.Find("Main Camera").GetComponent<Camera>().ScreenToWorldPoint(lifeUI.transform.position);
+
+        if (type == 0)
+        {
+            f_type = 1;
+        }
+        if (type == 1)
+        {
+            f_type = -1;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        lifeUIPos = GameObject.Find("Main Camera").GetComponent<Camera>().ScreenToWorldPoint(lifeUI.transform.position);
         EffectSpawn();
         Dead();
     }
@@ -45,7 +57,7 @@ public class PTimeEffectSpawner : MonoBehaviour
         if (transform.childCount < spawnCnt)
         {
             GameObject e = Instantiate(effect[type], transform);
-            if(type==1)
+            if (type == 1)
             {
                 e.GetComponent<PlusTimeEffect>().angle += 20f;
             }
@@ -65,7 +77,14 @@ public class PTimeEffectSpawner : MonoBehaviour
 
         if (transform.childCount == 0)
         {
-            mainClass.StartTime(time, type);
+            if (type == 0)
+            {
+                mainClass.StartTime(time);
+            }
+            if (type == 1)
+            {
+                mainClass.StartTime(-time);
+            }
             SpawnFinishEffect();
             Destroy(gameObject);
         }
@@ -76,25 +95,24 @@ public class PTimeEffectSpawner : MonoBehaviour
     /// </summary>
     private void SpawnFinishEffect()
     {
-        if (type == 0)
+        GameObject ather = GameObject.FindGameObjectWithTag("L_CntEffect");
+
+        if (ather != null)
         {
-            GameObject f_effect = Instantiate(finishEffect[type], lifeUIPos, Quaternion.identity, lifeUI.transform);
-            f_effect.GetComponent<Text>().text = mainClass.lifeTime.ToString();
-            f_effect.transform.SetSiblingIndex(f_effect.transform.GetSiblingIndex() - 1);
+            Destroy(ather.gameObject);
         }
-        if (type == 1)
-        {
-            Instantiate(finishEffect[type], GameObject.Find("LifeMeter").transform);
-        }
+        GameObject f_effect = Instantiate(finishEffect[type], lifeUI.transform);
+        f_effect.GetComponent<L_TimeCntEffect>().SetTime(currentTime, currentTime + time * f_type);
     }
 
     /// <summary>
     /// 加算ライフタイム設定
     /// </summary>
     /// <param name="addLifeTime"></param>
-    public void SetAddTime(float time, int type)
+    public void SetAddTime(float time,float currentTime, int type)
     {
         this.time = time;
+        this.currentTime = currentTime;
         this.type = type;
     }
 }

@@ -26,6 +26,7 @@ TagManager:
   - EnemyManager
   - LifeGauge
   - LifeFrame
+  - L_CntEffect
   layers:
   - Default
   - TransparentFX

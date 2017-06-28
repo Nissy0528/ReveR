@@ -75,7 +75,7 @@ public class EnemyManager : MonoBehaviour
             //敵が減っていたらライフタイムにダメージを与える
             if (IsTimeStart)
             {
-                PlusEffect(damage, 1);
+                PlusEffect(damage, main.GetComponent<Main>().lifeTime, 1);
             }
             DestroyObj();//消滅
         }
@@ -192,7 +192,7 @@ public class EnemyManager : MonoBehaviour
 
             GetPlusTime(TextObj);
             //GetMinusTime();
-            PlusEffect(addLifeTime, 0);
+            PlusEffect(addLifeTime, main.GetComponent<Main>().lifeTime, 0);
 
             main.GetComponent<Main>().SetIsLifeTime(false);
             DestroyObj();//判定終了後、このオブジェクトを消す
@@ -277,7 +277,7 @@ public class EnemyManager : MonoBehaviour
     /// <summary>
     /// ライフタイム加算エフェクト
     /// </summary>
-    private void PlusEffect(float time, int type)
+    private void PlusEffect(float time, float currentTime, int type)
     {
         if (plusEffectPos == Vector3.zero)
         {
@@ -292,7 +292,7 @@ public class EnemyManager : MonoBehaviour
         }
 
         GameObject p_Effect = Instantiate(plusEffect, plusEffectPos, transform.rotation); ;
-        p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(time, type);
+        p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(time, currentTime, type);
     }
 
     /// <summary>
