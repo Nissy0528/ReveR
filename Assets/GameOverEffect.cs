@@ -230,5 +230,7 @@ public class GameOverEffect : MonoBehaviour {
                 if (ChildrenMove[i] == null) IsOverCADEFFect = true;
 
         }
+
+        
     }
 }

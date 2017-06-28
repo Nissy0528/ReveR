@@ -44,6 +44,7 @@ public class EnemyLine : MonoBehaviour
             GetComponent<LineRenderer>().SetPosition(i, target[i].transform.position);
         }
     }
+       
 
     /// <summary>
     /// 親変更
