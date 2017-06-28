@@ -149,6 +149,7 @@
     <Compile Include="Assets\Script\UI\PlayerPositionCheck.cs" />
     <Compile Include="Assets\Script\UI\TutoUISpawner.cs" />
     <Compile Include="Assets\Script\UI\TutorialUI.cs" />
+    <Compile Include="Assets\StartMove.cs" />
     <Compile Include="Assets\test.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@ public class Main : MonoBehaviour
     public float lifeTime;
     public float lifeTimeMax;
     public float bossMoveDelay;
+    public GameObject GameOver;
 
     private GameObject[] enemys;
     private GameObject lifeTimeText;
@@ -53,11 +54,9 @@ public class Main : MonoBehaviour
         waveNum = 0;
         bossMoveCnt = bossMoveDelay;
         currentTime = lifeTime;
-
         audio = GetComponent<AudioSource>();
         audio.clip = bgm[0];
         audio.Play();
-
         lifeAlpha = 0.3f;
     }
 
@@ -78,8 +77,8 @@ public class Main : MonoBehaviour
         if (lifeTime <= 0.0f)
         {
             ControllerShake.Shake(0.0f, 0.0f);
-            //Time.timeScale = 0;
             IsGameOver = true;
+            GameOver.SetActive(true);
         }
 
         LifeTimeCount();//生存時間処理
@@ -104,7 +103,6 @@ public class Main : MonoBehaviour
         {
             //lifetimeとMETERのalpha
             lifeAlpha = 1f;
-            lifeTime -= Time.deltaTime * cntStopper;
         }
         lifeTime = Mathf.Round(lifeTime * 100) / 100;
         lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
@@ -163,7 +161,6 @@ public class Main : MonoBehaviour
         return waveNum + 1 == enemyWave.Length;
     }
 
-    /// <summary>
     /// ボス登場エフェクト
     /// </summary>
     private void BossWarning()
@@ -243,6 +240,7 @@ public class Main : MonoBehaviour
         {
             lifeTimeText.GetComponent<Text>().enabled = true;
         }
+
         if (lifeText != null)
         {
             lifeTimeText.GetComponent<Text>().enabled = false;
@@ -296,6 +294,7 @@ public class Main : MonoBehaviour
     public void StartTime(float time)
     {
         lifeTime += time;
+        lifeAlpha = 1f;
     }
 
     /// <summary>
