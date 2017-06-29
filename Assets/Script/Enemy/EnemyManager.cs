@@ -72,11 +72,7 @@ public class EnemyManager : MonoBehaviour
         if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2)
         {
             main.GetComponent<Main>().SetIsLifeTime(false);//ライフタイム減少停止
-            //敵が減っていたらライフタイムにダメージを与える
-            if (IsTimeStart)
-            {
-                PlusEffect(damage, main.GetComponent<Main>().lifeTime, 1);
-            }
+            PlusEffect(damage, main.GetComponent<Main>().lifeTime, 1);//ライフタイムにダメージ
             DestroyObj();//消滅
         }
     }

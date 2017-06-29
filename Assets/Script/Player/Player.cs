@@ -443,25 +443,21 @@ public class Player : MonoBehaviour
         if (col.gameObject.tag == "Enemy" && !isDamage || col.gameObject.tag == "Shield")//EnemyとShieldとぶつかった時
         {
 
-            GameObject tutorial = GameObject.Find("Tutorial");
             GameObject main = GameObject.Find("MainManager");
-            if ((tutorial != null && tutorial.GetComponent<TutoUISpawner>().IsDamage())
-                || tutorial == null)
-            {
-                //tutorial.GetComponent<TutoUISpawner>().SetIsDamage();
 
-                Instantiate(SE[1]);
-                ControllerShake.Shake(1.0f, 1.0f);
-                GameObject.Find("Main Camera").GetComponent<MainCamera>().SetShake();
-                s_Cnt = shakeCnt;
+            if (main.GetComponent<Main>().GetWave() == 0) return;
 
-                speed = Mathf.Max(speed - damage, 0.0f);
-                GameObject p_Effect = Instantiate(damageEffect, transform.position, transform.rotation); ;
-                p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(damage, main.GetComponent<Main>().lifeTime, 1);
+            Instantiate(SE[1]);
+            ControllerShake.Shake(1.0f, 1.0f);
+            GameObject.Find("Main Camera").GetComponent<MainCamera>().SetShake();
+            s_Cnt = shakeCnt;
 
-                damageCnt = 0;
-                isDamage = true;
-            }
+            speed = Mathf.Max(speed - damage, 0.0f);
+            GameObject p_Effect = Instantiate(damageEffect, transform.position, transform.rotation); ;
+            p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(damage, main.GetComponent<Main>().lifeTime, 1);
+
+            damageCnt = 0;
+            isDamage = true;
         }
     }
 

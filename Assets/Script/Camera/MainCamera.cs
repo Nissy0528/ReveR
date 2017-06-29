@@ -13,6 +13,8 @@ public class MainCamera : MonoBehaviour
     private Vector2 playerPos;//プレイヤーの座標
     private Vector3 backGroundSize;//背景のサイズ
     private Vector3 savePosition;
+    private Vector3 screenPosMin;//画面左下の座標
+    private Vector3 screenPosMax;//画面右上の座標
     private Camera mainCamera;//カメラ
     private float lifeTime;
     private float minRangeX;
@@ -26,6 +28,8 @@ public class MainCamera : MonoBehaviour
     {
         mainCamera = GetComponent<Camera>();//カメラ取得
         playerSize = player.transform.localScale;//プレイヤーのサイズ取得
+        screenPosMin = mainCamera.ScreenToWorldPoint(Vector3.zero);//画面左下の座標
+        screenPosMax = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));//画面右上の座標
         lifeTime = 0.0f;
 
         savePosition = transform.position;
@@ -52,8 +56,6 @@ public class MainCamera : MonoBehaviour
     {
         if (player == null) return;
 
-        Vector3 screenPosMin = mainCamera.ScreenToWorldPoint(Vector3.zero);//画面右下の座標
-        Vector3 screenPosMax = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, 0.0f));//画面左上の座標
         playerPos = player.transform.position;//プレイヤーの座標
 
         playerPos.x = Mathf.Clamp(playerPos.x, screenPosMin.x + playerSize.x / 10, screenPosMax.x - playerSize.x / 10);//画面の横幅内に横移動を制限
@@ -99,5 +101,22 @@ public class MainCamera : MonoBehaviour
 
         lifeTime = shakeTime;
         delay = shakeDelay;
+    }
+
+    /// <summary>
+    /// 画面の左下
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetScreenPosMin()
+    {
+        return screenPosMin;
+    }
+    /// <summary>
+    /// 画面の右上
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetScreenPosMax()
+    {
+        return screenPosMax;
     }
 }

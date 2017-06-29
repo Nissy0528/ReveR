@@ -9,6 +9,7 @@ public class test : MonoBehaviour
     public GameObject shootObj;
     public GameObject reverceObj;
     public GameObject ui;
+    public bool screenChange;
 
     private Vector3 targetPos;
     private Vector3 startPos;
@@ -46,7 +47,16 @@ public class test : MonoBehaviour
         //targetPos = GameObject.Find("Main Camera").GetComponent<Camera>().ScreenToWorldPoint(target.transform.position);
         //reverceObj.transform.position = new Vector3(obj.transform.position.x, -obj.transform.position.y, obj.transform.position.z);
         //Shoot(targetPos);
-        TestLifeTime();
+        //TestLifeTime();
+
+        if(!screenChange)
+        {
+            transform.position = GameObject.Find("Main Camera").GetComponent<MainCamera>().GetScreenPosMin();
+        }
+        else
+        {
+            transform.position = GameObject.Find("Main Camera").GetComponent<MainCamera>().GetScreenPosMax();
+        }
     }
 
     /// <summary>

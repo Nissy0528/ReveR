@@ -12,11 +12,12 @@ public class Main : MonoBehaviour
     public GameObject[] enemyWave;
     public AudioClip[] bgm;
     public GameObject warning;
+    public GameObject GameOver;
+    public GameObject nextWave;
     public int stopTime;
     public float lifeTime;
     public float lifeTimeMax;
     public float bossMoveDelay;
-    public GameObject GameOver;
 
     private GameObject[] enemys;
     private GameObject lifeTimeText;
@@ -55,9 +56,9 @@ public class Main : MonoBehaviour
         bossMoveCnt = bossMoveDelay;
         currentTime = lifeTime;
         audio = GetComponent<AudioSource>();
-        audio.clip = bgm[0];
-        audio.Play();
         lifeAlpha = 0.3f;
+        lifeTime = Mathf.Round(lifeTime * 100) / 100;
+        lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
     }
 
     // Update is called once per frame
@@ -97,12 +98,13 @@ public class Main : MonoBehaviour
     /// </summary>
     private void LifeTimeCount()
     {
-        if (enemys.Length == 0) return;
+        if (enemys.Length == 0 || waveNum == 0) return;
 
         if (isLifeTime)
         {
             //lifetimeとMETERのalpha
             lifeAlpha = 1f;
+            lifeTime -= Time.deltaTime;
         }
         lifeTime = Mathf.Round(lifeTime * 100) / 100;
         lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
@@ -137,6 +139,12 @@ public class Main : MonoBehaviour
             enemyWave[waveNum].SetActive(true);//次のウェイブ生成
             audio.clip = bgm[0];
             audio.Play();
+            GameObject next = null;
+            if (next == null)
+            {
+                next = Instantiate(nextWave, GameObject.Find("Canvas").transform);
+                next.GetComponent<Text>().text = "Wave " + waveNum.ToString();
+            }
         }
         else
         {
@@ -149,7 +157,7 @@ public class Main : MonoBehaviour
     /// </summary>
     private void WaveNum()
     {
-        waveText.GetComponent<Text>().text = "Wave " + (waveNum + 1) + "/" + enemyWave.Length;
+        waveText.GetComponent<Text>().text = "Wave " + (waveNum) + "/" + (enemyWave.Length - 1);
     }
 
     /// <summary>
@@ -158,7 +166,7 @@ public class Main : MonoBehaviour
     /// <returns></returns>
     public bool LastWave()
     {
-        return waveNum + 1 == enemyWave.Length;
+        return waveNum == enemyWave.Length;
     }
 
     /// ボス登場エフェクト
@@ -183,7 +191,7 @@ public class Main : MonoBehaviour
     /// </summary>
     private void SpawnWarning()
     {
-        if (enemyDead != null) return;
+        if (enemyDead != null || waveNum == 0) return;
 
         if (bossMoveCnt <= 0.0f && enemyWave[waveNum].transform.FindChild("Boss") != null)
         {
@@ -218,7 +226,7 @@ public class Main : MonoBehaviour
         //ボスエフェクトの子オブジェクトがなければ消滅
         if (warningObj.transform.childCount == 0)
         {
-            if (waveNum >= enemyWave.Length - 1)
+            if (waveNum >= enemyWave.Length)
             {
                 bossMoveCnt = bossMoveDelay;
             }
@@ -304,5 +312,14 @@ public class Main : MonoBehaviour
     public void SetIsLifeTime(bool islifeTime)
     {
         this.isLifeTime = islifeTime;
+    }
+
+    /// <summary>
+    /// ウェイブ数取得
+    /// </summary>
+    /// <returns></returns>
+    public int GetWave()
+    {
+        return waveNum;
     }
 }

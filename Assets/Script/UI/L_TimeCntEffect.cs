@@ -10,12 +10,20 @@ public class L_TimeCntEffect : MonoBehaviour
     private float time;
     private float range;
     private Text text;
+    private GameObject child;
+    private Main main;
 
     // Use this for initialization
     void Start()
     {
         text = GetComponent<Text>();
-        Debug.Log(range);
+        main = GameObject.Find("MainManager").GetComponent<Main>();
+        if (transform.childCount > 0)
+        {
+            child = transform.GetChild(0).gameObject;
+            child.transform.parent = transform.parent;
+            GetComponent<Anim>().SetChild(child);
+        }
     }
 
     // Update is called once per frame
@@ -30,7 +38,13 @@ public class L_TimeCntEffect : MonoBehaviour
     private void Count()
     {
         time = Mathf.Lerp(time, range, Time.deltaTime * speed);
+        time = Mathf.Clamp(time, 0.0f, main.lifeTimeMax);
         text.text = time.ToString();
+        if (child != null)
+        {
+            child.GetComponent<Text>().text = time.ToString();
+        }
+
     }
 
     /// <summary>

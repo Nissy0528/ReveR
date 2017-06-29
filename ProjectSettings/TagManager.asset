@@ -27,6 +27,7 @@ TagManager:
   - LifeGauge
   - LifeFrame
   - L_CntEffect
+  - Tutorial
   layers:
   - Default
   - TransparentFX
