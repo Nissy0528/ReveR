@@ -5,6 +5,7 @@ using UnityEngine;
 public class Boom_Effect : MonoBehaviour
 {
     private Animator anim;
+    public float EndTime;
 
     // Use this for initialization
     void Start()
@@ -24,7 +25,7 @@ public class Boom_Effect : MonoBehaviour
     private void Dead()
     {
         var animState = anim.GetCurrentAnimatorStateInfo(0);
-        if (animState.normalizedTime >= 1)
+        if (animState.normalizedTime >= EndTime)
         {
             Destroy(gameObject);
         }

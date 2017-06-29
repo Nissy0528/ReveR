@@ -211,6 +211,7 @@ public class Main : MonoBehaviour
             audio.Play();
             audio.Pause();
             warningObj = Instantiate(warning, GameObject.Find("Canvas").transform);
+
         }
 
         bossMoveCnt -= Time.deltaTime;
@@ -233,6 +234,7 @@ public class Main : MonoBehaviour
             else
             {
                 Destroy(warningObj);
+
             }
         }
     }

@@ -23,6 +23,8 @@ public class BossBreakUp : MonoBehaviour
     private bool shake;
     private GameObject core2Obj;
     private Camera camera;
+
+    public Sprite newBG;
     // Use this for initialization
     void Start()
     {
@@ -45,6 +47,9 @@ public class BossBreakUp : MonoBehaviour
         if (transform.position.y >= screenPosMax.y + transform.localScale.y)
         {
             Destroy(gameObject);
+
+            GameObject.Find("back3").GetComponent<SpriteRenderer>().sprite = newBG;
+            GameObject.Find("back3.3").GetComponent<SpriteRenderer>().sprite = newBG;
         }
     }
 
@@ -68,6 +73,7 @@ public class BossBreakUp : MonoBehaviour
             else
             {
                 BossDead();
+                
             }
         }
 

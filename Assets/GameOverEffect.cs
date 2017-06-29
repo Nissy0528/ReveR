@@ -21,6 +21,7 @@ public class GameOverEffect : MonoBehaviour {
 
 
     public GameObject Boom;
+    public GameObject Charge;
 
     public GameObject Player;
     public GameObject L_Joint;
@@ -36,7 +37,8 @@ public class GameOverEffect : MonoBehaviour {
     private float time;
     private Vector3 TargetPosition;
 
-
+    private bool IsOverCharge = false;
+    private bool IsOverChargeEffect = false;
     private bool IsOverBoomEffect = false;
     private bool IsOverCADEFFect = false;
     private bool IsMoveTextOver = false;
@@ -52,6 +54,7 @@ public class GameOverEffect : MonoBehaviour {
 
     private Vector3 EFTStartPos;
     private Quaternion EFTStartRot;
+    private GameObject Anim;
     void Start () {
 
         CADChlidren = PlayerCadaver.GetComponentsInChildren<Transform>();
@@ -74,7 +77,8 @@ public class GameOverEffect : MonoBehaviour {
         if (Main.IsGameOver)
         {
             Select();
-            DestroyPlayer();
+            DeathPlayerCharge();
+            DestroyPlayerColor();
             DestroyEffect();
             CadaverEffect();
             MoveText();
@@ -152,55 +156,78 @@ public class GameOverEffect : MonoBehaviour {
                 SceneManager.LoadScene("Title");  }
         }
     }
-    void DestroyPlayer()
+    void DeathPlayerCharge()
     {
-        TargetPosition = Player.transform.position;
+        
+        EFTStartPos = Player.transform.position;
+        EFTStartRot = Player.transform.rotation;
+
+        Player.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+
+        var L_wing = L_Wing.GetComponentsInChildren<SpriteRenderer>();
+        for (int i = 0; i < L_wing.Length; i++)
+            L_wing[i].color = new Color(1, 1, 1, 1);
+
+        var R_wing = R_Wing.GetComponentsInChildren<SpriteRenderer>();
+        for (int i = 0; i < R_wing.Length; i++)
+            R_wing[i].color = new Color(1, 1, 1, 1);
 
         Player.GetComponent<Player>().enabled = false;
+        Player.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
         L_Joint.GetComponent<Joint>().enabled = false;
         R_Joint.GetComponent<Joint>().enabled = false;
+
+        L_Wing.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        R_Wing.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
 
         Player.GetComponent<CircleCollider2D>().enabled = false;
         L_Joint.GetComponentInChildren<BoxCollider2D>().enabled = false;
         R_Joint.GetComponentInChildren<BoxCollider2D>().enabled = false;
 
-        Player.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-
-        var L_wing = L_Wing.GetComponentsInChildren<SpriteRenderer>();
-        for (int i = 0; i < L_wing.Length; i++)
-            L_wing[i].color = new Color(0, 0, 0, 0);
-
-        var R_wing = R_Wing.GetComponentsInChildren<SpriteRenderer>();
-        for (int i = 0; i < R_wing.Length; i++)
-            R_wing[i].color = new Color(0, 0, 0, 0);
-
-        var Trail = GameObject.FindGameObjectsWithTag("Trail");
-        for(int i = 0; i < Trail.Length; i++)
-            Trail[i].GetComponent<TrailRenderer>().enabled = false;
 
         
+        if (!IsOverCharge)
+        {
+            Anim = Instantiate(Charge, EFTStartPos, EFTStartRot);
+            Anim.GetComponent<Animator>().SetTrigger("PlayerDeath");
+            IsOverCharge = true;
+        }
+        
+       if(Anim==null)
+            IsOverChargeEffect = true;
+       
     }
+    void DestroyPlayerColor()
+    {
+        if (IsOverChargeEffect)
+        {
+
+            Player.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+
+            var L_wing = L_Wing.GetComponentsInChildren<SpriteRenderer>();
+            for (int i = 0; i < L_wing.Length; i++)
+                L_wing[i].color = new Color(0, 0, 0, 0);
+
+            var R_wing = R_Wing.GetComponentsInChildren<SpriteRenderer>();
+            for (int i = 0; i < R_wing.Length; i++)
+                R_wing[i].color = new Color(0, 0, 0, 0);
+
+            var Trail = GameObject.FindGameObjectsWithTag("Trail");
+            for (int i = 0; i < Trail.Length; i++)
+                Trail[i].GetComponent<TrailRenderer>().enabled = false;
+        }
+}
     void DestroyEffect()
     {
-        if (IsOverBoomEffect == false)
+        if (IsOverBoomEffect == false && IsOverChargeEffect)
         {
-            EFTStartPos = Player.transform.position;
-            EFTStartRot = Player.transform.rotation;
+            
 
             for (int i = 0; i <9; i++)
-            {
-                //Instantiate(Boom, EFTStartPos + new Vector3(0.5f, 0.5f), EFTStartRot);
-                //Instantiate(Boom, EFTStartPos + new Vector3(-0.5f, 0.5f), EFTStartRot);
-                //Instantiate(Boom, EFTStartPos + new Vector3(-0.5f, -0.5f), EFTStartRot);
-                //Instantiate(Boom, EFTStartPos + new Vector3(0.5f, -0.5f), EFTStartRot);
-                //Instantiate(Boom, EFTStartPos, EFTStartRot);
-                //Instantiate(Boom, EFTStartPos + new Vector3(1, 0), EFTStartRot);
-                //Instantiate(Boom, EFTStartPos + new Vector3(0, 1), EFTStartRot);
-                //Instantiate(Boom, EFTStartPos + new Vector3(-1, 0), EFTStartRot);
-                //Instantiate(Boom, EFTStartPos + new Vector3(0, -1), EFTStartRot);
-                Instantiate(Boom, EFTStartPos + new Vector3(Random.Range(-1f,1f), Random.Range(-1f, 1f)), EFTStartRot);
+                Instantiate(Boom, EFTStartPos + new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)), EFTStartRot);
 
-            }
             for (int i=0; i < CADChlidren.Length; i++)
             {
                 //CADVE.Add(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)));
