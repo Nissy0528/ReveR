@@ -29,11 +29,18 @@ public class Turtroial_Move : MonoBehaviour
     /// </summary>
     void GetMoveType()
     {
-        GetComponent<SpriteRenderer>().sprite = normal;//色のついた画像にする
-        //起動エフェクト生成
-        GameObject s_effect = Instantiate(startupEffect, transform.position, transform.rotation, transform);
-        s_effect.GetComponent<SpriteRenderer>().sprite = normal;
-        Destroy(transform.FindChild("EnemyAura").gameObject);
+        if (transform.parent.tag != "Boss")
+        {
+            GetComponent<SpriteRenderer>().sprite = normal;//色のついた画像にする
+                                                           //起動エフェクト生成
+            GameObject s_effect = Instantiate(startupEffect, transform.position, transform.rotation, transform);
+            s_effect.GetComponent<SpriteRenderer>().sprite = normal;
+            Destroy(transform.FindChild("EnemyAura").gameObject);
+        }
+        else
+        {
+            //transform.GetChild(0).GetComponent<LineRenderer>().enabled = true;
+        }
         GetComponent<BoxCollider2D>().enabled = true;//あたり判定有効に
     }
 

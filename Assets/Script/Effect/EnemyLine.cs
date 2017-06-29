@@ -10,6 +10,7 @@ public class EnemyLine : MonoBehaviour
     private Transform changeParent;//切り替える親
     private bool isParentChange;//親変更フラグ
 
+    
     // Use this for initialization
     void Start()
     {
@@ -19,7 +20,7 @@ public class EnemyLine : MonoBehaviour
         }
         parent = transform.parent;
         changeParent = parent.transform.parent.FindChild("EnemyLine");
-        if (parent.GetComponent<Turtroial_Move>() != null)
+        if (parent.GetComponent<Turtroial_Move>() != null&&transform.parent.parent.tag != "Boss")
         {
             isParentChange = true;
         }

@@ -218,6 +218,7 @@ public class Main : MonoBehaviour
         if (warningObj == null)
         {
             warningObj = Instantiate(warning, GameObject.Find("Canvas").transform);
+
         }
 
         bossMoveCnt -= Time.deltaTime;
@@ -240,6 +241,7 @@ public class Main : MonoBehaviour
             else
             {
                 Destroy(warningObj);
+
             }
         }
     }
