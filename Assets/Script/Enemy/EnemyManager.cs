@@ -360,4 +360,13 @@ public class EnemyManager : MonoBehaviour
     {
         return IsTimeStart;
     }
+
+    /// <summary>
+    /// スクロールしているかを取得
+    /// </summary>
+    /// <returns></returns>
+    public bool GetIsScroll()
+    {
+        return isScroll;
+    }
 }

@@ -40,7 +40,7 @@ public class DebugManager : MonoBehaviour
         p_Class = player.GetComponent<Player>();//プレイヤークラス取得
         lj_Class = l_Joint.GetComponent<Joint>();//左ジョイントクラス取得
         rj_Class = r_Joint.GetComponent<Joint>();//右ジョイントクラス取得
-        iniScrollSpeed = GameObject.FindGameObjectWithTag("EnemyManager").GetComponent<EnemyManager>().scrollSpeed;
+        iniScrollSpeed = 0.05f;
     }
 
     // Update is called once per frame

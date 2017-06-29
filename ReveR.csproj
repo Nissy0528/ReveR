@@ -147,6 +147,8 @@
     <Compile Include="Assets\Script\UI\BackGroundScroll.cs" />
     <Compile Include="Assets\Script\UI\InputJudge.cs" />
     <Compile Include="Assets\Script\UI\JudgeUI.cs" />
+    <Compile Include="Assets\Script\UI\L_TimeCntEffect.cs" />
+    <Compile Include="Assets\Script\UI\PlayerLogo.cs" />
     <Compile Include="Assets\Script\UI\PlayerPositionCheck.cs" />
     <Compile Include="Assets\Script\UI\TutoUISpawner.cs" />
     <Compile Include="Assets\Script\UI\TutorialUI.cs" />

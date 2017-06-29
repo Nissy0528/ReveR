@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4244407438116778}
   - component: {fileID: 114188500508088502}
   - component: {fileID: 114964266825505810}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: L_Joint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,8 @@ GameObject:
   - component: {fileID: 96515588532830676}
   - component: {fileID: 114843672402523008}
   - component: {fileID: 114430985284644132}
-  m_Layer: 0
+  - component: {fileID: 114471808221057026}
+  m_Layer: 2
   m_Name: R_Trail
   m_TagString: Trail
   m_Icon: {fileID: 0}
@@ -55,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4520300435595684}
   - component: {fileID: 212004189350210124}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: R_WingMiddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4233285970478224}
   - component: {fileID: 212294822619341398}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: L_WingMiddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +89,7 @@ GameObject:
   - component: {fileID: 4678035589553844}
   - component: {fileID: 50169332997547878}
   - component: {fileID: 61313521593205764}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: R_Wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +106,7 @@ GameObject:
   - component: {fileID: 4007277951819030}
   - component: {fileID: 114600906730255200}
   - component: {fileID: 114904949277490196}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: R_Joint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4067945451911336}
   - component: {fileID: 212787137687119646}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: L_Hinge
   m_TagString: Hinge
   m_Icon: {fileID: 0}
@@ -158,7 +159,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4748572576992504}
   - component: {fileID: 212055794651640538}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: L_WingTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +175,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4609149582867962}
   - component: {fileID: 212935391323268944}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: R_WingTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +192,7 @@ GameObject:
   - component: {fileID: 4985903127068502}
   - component: {fileID: 50910027806696528}
   - component: {fileID: 61225791505903308}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: L_Wing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +210,8 @@ GameObject:
   - component: {fileID: 96034757357662996}
   - component: {fileID: 114182531846721690}
   - component: {fileID: 114091831915809616}
-  m_Layer: 0
+  - component: {fileID: 114239586565879608}
+  m_Layer: 2
   m_Name: L_Trail
   m_TagString: Trail
   m_Icon: {fileID: 0}
@@ -225,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4829827901400752}
   - component: {fileID: 212708584884176302}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: R_Hinge
   m_TagString: Hinge
   m_Icon: {fileID: 0}
@@ -432,7 +434,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!50 &50169332997547878
 Rigidbody2D:
   serializedVersion: 4
@@ -840,7 +842,31 @@ MonoBehaviour:
   rotateLimit: 87
   rotateBoost: 0
   mass: 10
+--- !u!114 &114239586565879608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1888429054464390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734ca4012f72fd94f948387d2c138254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostlWidth: 0.3
 --- !u!114 &114430985284644132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1155557342338952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734ca4012f72fd94f948387d2c138254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boostlWidth: 0.3
+--- !u!114 &114471808221057026
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -896,7 +922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 0}
-  damageEffect: {fileID: 1329555728269094, guid: b089331f6f0d3de44a1d1d8c5cd81a98,
+  damageEffect: {fileID: 1431459200092176, guid: e0652661f604fad47a197c6a15e03d11,
     type: 2}
   drain: {fileID: 1645401637604778, guid: 2f86b5fada66dfb4082fd9b809046287, type: 2}
   spriteObjs:
@@ -1007,7 +1033,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
+  m_Sprite: {fileID: 21300004, guid: 906f9777dc484cd4db2c108091367b5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1047,7 +1073,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300006, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 906f9777dc484cd4db2c108091367b5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1087,7 +1113,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300002, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
+  m_Sprite: {fileID: 21300002, guid: 906f9777dc484cd4db2c108091367b5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1127,7 +1153,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 906f9777dc484cd4db2c108091367b5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1207,7 +1233,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 906f9777dc484cd4db2c108091367b5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1247,7 +1273,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300006, guid: 6d0bcbcc309755d4b9684ddd88df3825, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 906f9777dc484cd4db2c108091367b5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

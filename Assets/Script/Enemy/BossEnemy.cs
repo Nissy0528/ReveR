@@ -35,6 +35,8 @@ public class BossEnemy : MonoBehaviour
         {
             ShieldAnim();
         }
+
+        SetELmove();
     }
 
     /// <summary>
@@ -88,6 +90,22 @@ public class BossEnemy : MonoBehaviour
             if (animState.normalizedTime >= 1 && animcount)
             {
                 Destroy(shield); //シールド破壊
+            }
+        }
+    }
+
+
+    /// <summary>
+    /// childrenのELmoveを設定する
+    /// </summary>
+    private void SetELmove()
+    {
+        if(!GetComponent<EnemyManager>().GetIsScroll())
+        {
+            foreach(var x in childEnemy)
+            {
+                x.GetComponent<ELMove>().GetStartPosition(x.transform.position);
+                x.GetComponent<ELMove>().enabled = true;
             }
         }
     }
