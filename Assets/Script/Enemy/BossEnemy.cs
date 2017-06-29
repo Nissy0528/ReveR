@@ -7,6 +7,7 @@ public class BossEnemy : MonoBehaviour
     public List<GameObject> childEnemy;　//childEnemy取得
     public GameObject core;//コアオブジェクト
     public GameObject shield;  //シールド取得
+
     public GameObject core2;//空のコア
     public float addwidthspeed;//ラインの太くなる速さ
     public float stopwidth;//ライン横幅の上限
@@ -19,11 +20,17 @@ public class BossEnemy : MonoBehaviour
     private bool animcount;//アニメが再生されているか？
     private bool isBossStop;//Bossが止まっているか？
 
+  
+    private Animation animation;
+    private bool animcount;
+    private bool isColActive;
+
 
     // Use this for initialization
     void Start()
     {
         box = core.GetComponent<BoxCollider2D>();//BoxCollider2D取得
+
         animator = shield.GetComponent<Animator>();//Animator取得
 
         for (int i = 0; i < childEnemy.Count; i++)
@@ -31,12 +38,29 @@ public class BossEnemy : MonoBehaviour
             childEnemy[i].GetComponent<Turtroial_Move>().enabled = false;//childEnemyのTurtroial_Moveをfalse
         }
         isBossStop = false;
+
+        animator = shield.GetComponent<Animator>();
+        animation = GetComponent<Animation>();
+
+        foreach (var e in childEnemy)
+        {
+            e.GetComponent<BoxCollider2D>().enabled = false;
+        }
+        shield.GetComponent<CircleCollider2D>().enabled = false;
+
+        isColActive = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
         BossMove();
+
+        ColliderActive();
+
+
         childEnemy.RemoveAll(x => x == null);
         if (shield != null)
         {
@@ -55,7 +79,7 @@ public class BossEnemy : MonoBehaviour
     void BossEnemyDead()
     {
 
-        if (ChildEnemyDead() && box!=null) //子オブジェクトが無ければ
+        if (ChildEnemyDead() && box != null) //子オブジェクトが無ければ
         {
             box.enabled = true; //判定を戻す
         }
@@ -103,6 +127,7 @@ public class BossEnemy : MonoBehaviour
             }
         }
     }
+
 
     void BossMove()
     {
@@ -154,5 +179,20 @@ public class BossEnemy : MonoBehaviour
     public bool IsBossStop()
     {
         return isBossStop;
+    }
+    /// <summary>
+    /// あたり判定をアクティブに
+    /// </summary>
+    private void ColliderActive()
+    {
+        if (!GetComponent<EnemyManager>().IsStop() || isColActive) return;
+
+        foreach (var e in childEnemy)
+        {
+            e.GetComponent<BoxCollider2D>().enabled = true;
+        }
+        shield.GetComponent<CircleCollider2D>().enabled = true;
+
+        isColActive = true;
     }
 }

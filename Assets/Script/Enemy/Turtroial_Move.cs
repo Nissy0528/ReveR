@@ -29,6 +29,7 @@ public class Turtroial_Move : MonoBehaviour
     /// </summary>
     void GetMoveType()
     {
+
         if (transform.parent.tag != "Boss")
         {
             GetComponent<SpriteRenderer>().sprite = normal;//色のついた画像にする

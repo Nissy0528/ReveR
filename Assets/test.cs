@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class test : MonoBehaviour
 {
     public float angle;
     public GameObject shootObj;
     public GameObject reverceObj;
+    public GameObject ui;
+    public bool screenChange;
 
     private Vector3 targetPos;
     private Vector3 startPos;
@@ -14,6 +17,15 @@ public class test : MonoBehaviour
     private GameObject target;
     private GameObject obj;
     private Rigidbody2D rigid;
+
+    private float time = 50.0f;
+    private float add = 10.0f;
+    private float sub = 5.0f;
+    private float a = 0.0f;
+    private float b = 0.0f;
+    private float value;
+    private float currentTime;
+    private bool flag;
 
     // Use this for initialization
     void Start()
@@ -25,6 +37,7 @@ public class test : MonoBehaviour
         targetPos = GameObject.Find("Main Camera").GetComponent<Camera>().ScreenToWorldPoint(target.transform.position);
         targetPos.x -= 2f;
         Shoot(targetPos);
+        value = time;
     }
 
     // Update is called once per frame
@@ -33,7 +46,17 @@ public class test : MonoBehaviour
         startPos = transform.position;
         //targetPos = GameObject.Find("Main Camera").GetComponent<Camera>().ScreenToWorldPoint(target.transform.position);
         //reverceObj.transform.position = new Vector3(obj.transform.position.x, -obj.transform.position.y, obj.transform.position.z);
-        Shoot(targetPos);
+        //Shoot(targetPos);
+        //TestLifeTime();
+
+        if(!screenChange)
+        {
+            transform.position = GameObject.Find("Main Camera").GetComponent<MainCamera>().GetScreenPosMin();
+        }
+        else
+        {
+            transform.position = GameObject.Find("Main Camera").GetComponent<MainCamera>().GetScreenPosMax();
+        }
     }
 
     /// <summary>
@@ -131,5 +154,38 @@ public class test : MonoBehaviour
 
         force = i_shootVector * rigid.mass;
         rigid.AddForce(force, ForceMode2D.Impulse);
+    }
+
+
+    private void TestLifeTime()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            currentTime = time;
+            value = currentTime + add;
+            flag = true;
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            currentTime = time;
+            value = currentTime - sub;
+            flag = true;
+        }
+
+        time = Mathf.Lerp(time, value, 0.05f);
+
+        time = Mathf.Round(time * 100) / 100;
+        value = Mathf.Round(value * 100) / 100;
+
+        float dif = Mathf.Abs(value - time);
+
+        ui.GetComponent<Text>().text = time.ToString();
+
+        if (Mathf.Round(dif * 100) / 100 <= 0.1f)
+        {
+            flag = false;
+        }
+
+        Debug.Log(dif + ":" + flag);
     }
 }

@@ -112,7 +112,7 @@ public class Enemy : MonoBehaviour
         //起動エフェクト生成
         GameObject s_effect = Instantiate(startupEffect, transform.position, transform.rotation, transform);
         s_effect.GetComponent<SpriteRenderer>().sprite = normal;
-        Destroy(transform.FindChild("EnemyAura").gameObject);
+        //Destroy(transform.FindChild("EnemyAura").gameObject);
         if(GetComponent<ShootBullet>()!=null)
         {
             GetComponent<ShootBullet>().enabled = true;

@@ -19,6 +19,7 @@ public class Laser : MonoBehaviour
 
         IsStop = false;
         count = 0;
+        Physics2D.IgnoreLayerCollision(13, 13, true);
 
     }
 

@@ -26,6 +26,8 @@ TagManager:
   - EnemyManager
   - LifeGauge
   - LifeFrame
+  - L_CntEffect
+  - Tutorial
   layers:
   - Default
   - TransparentFX
@@ -40,7 +42,7 @@ TagManager:
   - Enemy
   - mage
   - overtext
-  - 
+  - laser
   - 
   - 
   - 
