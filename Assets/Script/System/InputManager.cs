@@ -16,6 +16,7 @@ public class InputManager : MonoBehaviour
     private Vector2 oldInput;//前のスティック入力値
     private Vector2 invertInput;//スティック入力値の逆値
     private Player p_Class;//プレイヤークラス
+    private Main main;//メインクラス
     private Joint lj_Class;//左ジョイントクラス
     private Joint rj_Class;//右ジョイントクラス
     private float inputDefference;//スティック入力差
@@ -45,6 +46,7 @@ public class InputManager : MonoBehaviour
         p_Class = player.GetComponent<Player>();
         lj_Class = L_joint.GetComponent<Joint>();
         rj_Class = R_joint.GetComponent<Joint>();
+        main = GameObject.Find("MainManager").GetComponent<Main>();
 
         oldIniPos = oldPoint.transform.position;
         currentIniPos = currentPoint.transform.position;
@@ -196,5 +198,14 @@ public class InputManager : MonoBehaviour
     public void SetDebug(bool isDebug)
     {
         this.isDebug = isDebug;
+    }
+
+    /// <summary>
+    /// 入力値取得
+    /// </summary>
+    /// <returns></returns>
+    public Vector2 GetInput()
+    {
+        return input;
     }
 }

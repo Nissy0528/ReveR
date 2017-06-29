@@ -16,7 +16,6 @@ public class Joint : MonoBehaviour
     public GameObject inputManager;
     public float rotateSpeed;//回転速度
     public float rotateLimit;//回転制限
-    public float changeRotateLimit;//攻撃時の回転制限
     public float rotateBoost;//回転加速
     public float mass;//重さ
 
@@ -49,7 +48,6 @@ public class Joint : MonoBehaviour
         cuurentSpeed = rotateSpeed;//初期速度設定
 
         isStart = false;
-        isChangeLimit = false;
     }
 
     // Update is called once per frame
@@ -73,7 +71,6 @@ public class Joint : MonoBehaviour
             isStart = true;
         }
 
-        LimitChange();//回転制限変更
         Rotate(vx, vy);//回転
     }
 
@@ -216,8 +213,6 @@ public class Joint : MonoBehaviour
 
         rotateSpeed *= -1;//逆回転に
         cuurentSpeed *= -1;//初期速度も逆に
-
-        isChangeLimit = true;
     }
 
     /// <summary>
@@ -238,21 +233,6 @@ public class Joint : MonoBehaviour
         if (j_Type == JointType.RIGHT)
         {
             transform.FindChild("R_Wing").tag = "R_Joint";
-        }
-    }
-
-    /// <summary>
-    /// 回転制限変更
-    /// </summary>
-    private void LimitChange()
-    {
-        if (!isChangeLimit)
-        {
-            rotateLimit = Mathf.Lerp(rotateLimit, iniLimit, 0.05f);
-        }
-        else
-        {
-            rotateLimit = changeRotateLimit;
         }
     }
 

@@ -88,6 +88,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\GameOverEffect.cs" />
+    <Compile Include="Assets\ReplaySystem\Examples\Scripts\ColorChanger.cs" />
+    <Compile Include="Assets\ReplaySystem\Examples\Scripts\MousePick.cs" />
+    <Compile Include="Assets\ReplaySystem\Examples\Scripts\MousePickSwitch.cs" />
+    <Compile Include="Assets\ReplaySystem\Examples\Scripts\ReplayCameraGUI.cs" />
+    <Compile Include="Assets\ReplaySystem\Examples\Scripts\ReplayManagerGUI.cs" />
+    <Compile Include="Assets\ReplaySystem\Examples\Scripts\ReplayReceiverExample.cs" />
+    <Compile Include="Assets\ReplaySystem\Examples\Scripts\RigidbodySwitch.cs" />
+    <Compile Include="Assets\ReplaySystem\Examples\Scripts\SceneSwitcher.cs" />
+    <Compile Include="Assets\ReplaySystem\Modules\ColorReplay.cs" />
+    <Compile Include="Assets\ReplaySystem\Modules\RigidbodyRecover.cs" />
+    <Compile Include="Assets\ReplaySystem\Modules\TransformReplay.cs" />
+    <Compile Include="Assets\ReplaySystem\ReplayManager.cs" />
+    <Compile Include="Assets\ReplaySystem\ReplayTemplate.cs" />
+    <Compile Include="Assets\ReplaySystem\Replayable.cs" />
     <Compile Include="Assets\Script\Animation\Anim.cs" />
     <Compile Include="Assets\Script\Audio\SE.cs" />
     <Compile Include="Assets\Script\Camera\MainCamera.cs" />
@@ -153,6 +167,8 @@
     <Compile Include="Assets\test.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\ReplaySystem\Readme.txt" />
+    <None Include="Assets\ReplaySystem\gpl.txt" />
     <None Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
     <None Include="Assets\Shader\Particles Additive Intensify.shader" />
     <None Include="Assets\Shader\Sprites-Default.shader" />

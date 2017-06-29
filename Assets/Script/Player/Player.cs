@@ -166,15 +166,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (inputManager.GetComponent<AI_Input>().GetIsBoost())
-            {
-                speed = speedLimit;//加速
-
-            }
-            else
-            {
-                speed = iniSpeed;
-            }
+            speed = inputManager.GetComponent<AI_Input>().GetSpeed();
         }
     }
 
