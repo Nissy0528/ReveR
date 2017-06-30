@@ -22,7 +22,6 @@ public class BossEnemy : MonoBehaviour
 
   
     private Animation animation;
-    private bool animcount;
     private bool isColActive;
 
 
@@ -187,14 +186,15 @@ public class BossEnemy : MonoBehaviour
     /// </summary>
     private void SetELmove()
     {
-        if(!GetComponent<EnemyManager>().GetIsScroll())
+        if (!GetComponent<EnemyManager>().GetIsScroll())
         {
-            foreach(var x in childEnemy)
+            foreach (var x in childEnemy)
             {
                 x.GetComponent<ELMove>().GetStartPosition(x.transform.position);
                 x.GetComponent<ELMove>().enabled = true;
             }
         }
+    }
 
     /// <summary>
     /// あたり判定をアクティブに
