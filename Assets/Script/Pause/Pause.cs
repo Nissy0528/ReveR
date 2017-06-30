@@ -12,6 +12,9 @@ public class Pause : MonoBehaviour
     public GameObject[] se;
     public float speed=1;
     public static bool IsPause;
+
+    public GameObject FadeOut;
+
     private bool IsClose_Menu;
 
     private Behaviour[] chirdrens;
@@ -22,6 +25,9 @@ public class Pause : MonoBehaviour
 
     private int time;
     private Vector3 MenuMove;
+
+    private bool IsLoadMain = false;
+    private bool IsLoadTitle = false;
 
     [SerializeField]
     public List<GameObject> Stop_Object;
@@ -50,10 +56,8 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-        time--;
-        Menu_Move();
-        Pauseing();
+        LoadScene();
+        
     }
     void Pauseing()
     {
@@ -70,7 +74,7 @@ public class Pause : MonoBehaviour
             if (IsPause)
             {
                 IsClose_Menu = true;
-                time = (int)(250/speed);
+                time = (int)(240/speed);
                 MenuMove = new Vector3(-1, 0, 0);
             }
             else
@@ -80,7 +84,7 @@ public class Pause : MonoBehaviour
                 List_myComponents.RemoveAll(c => c == null);
                 PauseMenu.GetComponent<RectTransform>().localPosition = new Vector3(-743, 0, 0);
                 OnPause();
-                time = (int)(250/speed);
+                time = (int)(240/speed);
                 MenuMove = new Vector3(1, 0, 0);
             }
         }
@@ -94,7 +98,7 @@ public class Pause : MonoBehaviour
     }
     void Menu_Move()
     {
-        if (time > 0 && time <= 250/speed)
+        if (time > 0 && time <= 240/speed)
         {
             PauseMenu.GetComponent<RectTransform>().position += MenuMove*speed;
         }
@@ -107,8 +111,10 @@ public class Pause : MonoBehaviour
             if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(0))
             {
                 Instantiate(se[0]);
-                SceneManager.LoadScene("Title");
+                FadeOut.SetActive(true);
+                IsLoadTitle = true;
                 OnResume();
+
             }
             //if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(1))
             //{
@@ -118,8 +124,16 @@ public class Pause : MonoBehaviour
             if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(1))
             {
                 Instantiate(se[0]);
-                SceneManager.LoadScene("Main");
+                FadeOut.SetActive(true);
+                IsLoadMain = true;
                 OnResume();
+
+            }
+            if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(2))
+            {
+                IsClose_Menu = true;
+                time = (int)(240 / speed);
+                MenuMove = new Vector3(-1, 0, 0);
             }
         }
     }
@@ -171,5 +185,30 @@ public class Pause : MonoBehaviour
         PauseMenu.SetActive(false);
     }
      
+    void LoadScene()
+    {
+        if (FadeOut.GetComponent<Fade_Effect>().GetBool())
+        {
+            if (IsLoadMain)
+            {
+                SceneManager.LoadScene("Main");
+            }
+            if (IsLoadTitle)
+            {
+                SceneManager.LoadScene("Title");
+                
+            }
+
+        }
+        else
+        {
+            if (!FadeOut.activeSelf)
+            {
+                time--;
+                Menu_Move();
+                Pauseing();
+            }
+        }
+    }
     
 }

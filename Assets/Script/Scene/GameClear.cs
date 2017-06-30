@@ -15,6 +15,9 @@ public class GameClear : MonoBehaviour
     public Text B;　　　//cランク
     public float delay;//UIを表示する時間
 
+    public GameObject FadeOut;//fadeOut
+    private bool IsLoadTitle = false;//
+
     private int num;//評価の値
     private int UInum;//表示するUIの番号
     private int Scount = 0;
@@ -32,14 +35,7 @@ public class GameClear : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.JoystickButton0))
-        {
-            Main.Evaluation.Clear();
-            SceneManager.LoadScene("Title");
-        }
-
-        UIActive();
-        Juge();
+        LoadScene();
     }
 
     /// <summary>
@@ -104,6 +100,30 @@ public class GameClear : MonoBehaviour
             else
             {
                 cnt = delay * 2.0f;
+            }
+        }
+    }
+
+
+    void LoadScene()
+    {
+        if (FadeOut.GetComponent<Fade_Effect>().GetBool())
+        {
+            if (IsLoadTitle) SceneManager.LoadScene("Title");
+
+        }
+        else
+        {
+            if (!FadeOut.activeSelf)
+            {
+                if (Input.GetKeyDown(KeyCode.JoystickButton0))
+                {
+                    Main.Evaluation.Clear();
+                    IsLoadTitle = true;
+                }
+
+                UIActive();
+                Juge();
             }
         }
     }

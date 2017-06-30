@@ -18,6 +18,8 @@ public class BossEnemy : MonoBehaviour
     private Animator animator;//アニメーター
     private BoxCollider2D box; //BoxCollider
     private float width;//ライン横幅
+    private float width1;
+    private float width2;
 
     private bool animcount;//アニメが再生されているか？
     private bool isBossStop;//Bossが止まっているか？
@@ -184,9 +186,10 @@ public class BossEnemy : MonoBehaviour
                 {
                     if (t.GetComponent<LineRenderer>() != null)
                     {
-                        t.GetComponent<LineRenderer>().enabled = true;
-
                         width = width + addwidthspeed;
+
+                        t.GetComponent<LineRenderer>().enabled = true;
+                        
                         //GetComponent<LineRenderer>().widthMultiplier = width;
                         t.GetComponent<LineRenderer>().startWidth = width;
                         t.GetComponent<LineRenderer>().endWidth = width;
@@ -195,7 +198,7 @@ public class BossEnemy : MonoBehaviour
                         {
                             t.GetComponent<LineRenderer>().startWidth = stopwidth;//Lineの横幅上限で停止
                             t.GetComponent<LineRenderer>().endWidth = stopwidth;//Lineの横幅上限で停止
-                            addwidthspeed = 0;//加算を停止
+                            //addwidthspeed = 0;//加算を停止
 
                             if (GameObject.Find("MainManager").GetComponent<Main>().GetWave() > 0)
                             {

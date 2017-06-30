@@ -32,6 +32,9 @@ public class GameOverEffect : MonoBehaviour {
     public GameObject PlayerCadaver;
     public float Speed = 0.01f;
 
+    public GameObject FadeOut;
+
+
 
 
     private float time;
@@ -44,6 +47,9 @@ public class GameOverEffect : MonoBehaviour {
     private bool IsMoveTextOver = false;
     private bool IsRetry = true;
     private bool IsTitle = false;
+    
+    private bool IsLoadMain = false;
+    private bool IsLoadTitle = false;
 
 
     private Transform[] CADChlidren;
@@ -55,6 +61,8 @@ public class GameOverEffect : MonoBehaviour {
     private Vector3 EFTStartPos;
     private Quaternion EFTStartRot;
     private GameObject Anim;
+
+
     void Start () {
 
         CADChlidren = PlayerCadaver.GetComponentsInChildren<Transform>();
@@ -74,15 +82,7 @@ public class GameOverEffect : MonoBehaviour {
 	}
     void Move()
     {
-        if (Main.IsGameOver)
-        {
-            Select();
-            DeathPlayerCharge();
-            DestroyPlayerColor();
-            DestroyEffect();
-            CadaverEffect();
-            MoveText();
-        }
+        if (Main.IsGameOver) LoadScene();
     }
     void MoveText()
     {
@@ -141,9 +141,12 @@ public class GameOverEffect : MonoBehaviour {
             Retry.GetComponent<Image>().sprite = RetrySprite2;
             Title.GetComponent<Image>().sprite = TitleSprite1;
 
-            if (Input.GetKey(KeyCode.JoystickButton0)) {
-                Main.IsGameOver = false;
-                SceneManager.LoadScene("Main");  }
+            if (Input.GetKey(KeyCode.JoystickButton0))
+            {
+                FadeOut.SetActive(true);
+                IsLoadMain = true;
+            }
+
 
         }
         else if (IsTitle)
@@ -151,9 +154,12 @@ public class GameOverEffect : MonoBehaviour {
             Retry.GetComponent<Image>().sprite = RetrySprite1;
             Title.GetComponent<Image>().sprite = TitleSprite2;
 
-            if (Input.GetKey(KeyCode.JoystickButton0)) {
-                Main.IsGameOver = false;
-                SceneManager.LoadScene("Title");  }
+            if (Input.GetKey(KeyCode.JoystickButton0))
+            {
+                FadeOut.SetActive(true);
+                IsLoadTitle = true;
+            }
+
         }
     }
     void DeathPlayerCharge()
@@ -259,5 +265,32 @@ public class GameOverEffect : MonoBehaviour {
         }
 
         
+    }
+
+
+    void LoadScene()
+    {
+        if (FadeOut.GetComponent<Fade_Effect>().GetBool())
+        {
+            if (IsLoadMain) {
+                Main.IsGameOver = false;
+                SceneManager.LoadScene("Main"); }
+            if (IsLoadTitle) { 
+                Main.IsGameOver = false;
+                SceneManager.LoadScene("Title"); }
+
+        }
+        else
+        {
+            if (!FadeOut.activeSelf)
+            {
+                Select();
+                DeathPlayerCharge();
+                DestroyPlayerColor();
+                DestroyEffect();
+                CadaverEffect();
+                MoveText();
+            }
+        }
     }
 }
