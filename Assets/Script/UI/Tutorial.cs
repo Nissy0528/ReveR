@@ -29,11 +29,11 @@ public class Tutorial : MonoBehaviour
         boss = transform.FindChild("Boss").gameObject;
         main = GameObject.Find("MainManager").GetComponent<Main>();
 
-        partsNum = boss.GetComponent<BossEnemy>().childEnemy.Count;
+        partsNum = boss.GetComponent<BossEnemy>().GetChildEnemy().Count;
         currentParsNum = partsNum;
 
-        speed *= -1.0f;
-        tutoSpeed = new float[] { speed, speed, speed };
+        speed *= 1.0f;
+        tutoSpeed = new float[] { speed, speed, -speed };
         iniLifeTime = main.lifeTime;
 
         isBoost = false;
@@ -67,7 +67,7 @@ public class Tutorial : MonoBehaviour
         if (boss == null) return;
 
         //ボスのパーツが一つ減るごとにカウント
-        partsNum = boss.GetComponent<BossEnemy>().childEnemy.Count;
+        partsNum = boss.GetComponent<BossEnemy>().GetChildEnemy().Count;
         if (partsNum < currentParsNum)
         {
             GameObject cnt = Instantiate(count, GameObject.Find("Canvas").transform);
@@ -98,16 +98,17 @@ public class Tutorial : MonoBehaviour
     {
         if (tutorialUI[0] == null) return;
 
-        Vector2 inputTutoPos = tutorialUI[0].GetComponent<RectTransform>().anchoredPosition;
-        inputTutoPos.x += tutoSpeed[0] * Time.timeScale;
-        inputTutoPos.x = Mathf.Clamp(inputTutoPos.x, -maxX, maxX);
-        tutorialUI[0].GetComponent<RectTransform>().anchoredPosition = inputTutoPos;
+        Color color = tutorialUI[0].GetComponent<Image>().color;
+        color.a += tutoSpeed[0];
+        color.a = Mathf.Clamp(color.a, 0.0f, 1.0f);
+        tutorialUI[0].GetComponent<Image>().color = color;
+        tutorialUI[0].transform.GetChild(0).GetComponent<Image>().color = color;
 
-        if (boss == null && tutoSpeed[0] < 0.0f)
+        if (boss == null && tutoSpeed[0] > 0.0f)
         {
             tutoSpeed[0] *= -1.0f;
         }
-        if (tutoSpeed[0] > 0.0f && inputTutoPos.x >= maxX)
+        if (tutoSpeed[0] < 0.0f && color.a <= 0.0f)
         {
             Destroy(tutorialUI[0]);
         }
@@ -120,16 +121,16 @@ public class Tutorial : MonoBehaviour
     {
         if (tutorialUI[0] != null || tutorialUI[1] == null) return;
 
-        Vector2 boostTutoPos = tutorialUI[1].GetComponent<RectTransform>().anchoredPosition;
-        boostTutoPos.x += tutoSpeed[1] * Time.timeScale;
-        boostTutoPos.x = Mathf.Clamp(boostTutoPos.x, -maxX, maxX);
-        tutorialUI[1].GetComponent<RectTransform>().anchoredPosition = boostTutoPos;
+        Color color = tutorialUI[1].GetComponent<Image>().color;
+        color.a += tutoSpeed[1];
+        color.a = Mathf.Clamp(color.a, 0.0f, 1.0f);
+        tutorialUI[1].GetComponent<Image>().color = color;
 
-        if (IsBoostUI() && tutoSpeed[1] < 0.0f)
+        if (IsBoostUI() && tutoSpeed[1] > 0.0f)
         {
             tutoSpeed[1] *= -1.0f;
         }
-        if (tutoSpeed[1] > 0.0f && boostTutoPos.x >= maxX)
+        if (tutoSpeed[1] < 0.0f && color.a <= 0.0f)
         {
             Destroy(tutorialUI[1]);
         }
@@ -145,18 +146,18 @@ public class Tutorial : MonoBehaviour
         GameObject timeEffect = GameObject.FindGameObjectWithTag("P_Effect");
         IsTimeUI(timeEffect);
 
-        Vector2 timeTutoPos = tutorialUI[2].GetComponent<RectTransform>().anchoredPosition;
-        timeTutoPos.x += tutoSpeed[2] * Time.timeScale;
-        timeTutoPos.x = Mathf.Clamp(timeTutoPos.x, -maxX, maxX);
-        tutorialUI[2].GetComponent<RectTransform>().anchoredPosition = timeTutoPos;
+        Color color = tutorialUI[2].GetComponent<Image>().color;
+        color.a += tutoSpeed[2];
+        color.a = Mathf.Clamp(color.a, 0.0f, 1.0f);
+        tutorialUI[2].GetComponent<Image>().color = color;
 
         if (isTime)
         {
-            if (timeTutoPos.x >= maxX && tutoSpeed[2] > 0.0f && timeEffect == null)
+            if (color.a >= 1.0f && tutoSpeed[2] > 0.0f && timeEffect == null)
             {
                 tutoSpeed[2] *= -1.0f;
             }
-            if (timeTutoPos.x <= -maxX && tutoSpeed[2] < 0.0f)
+            if (color.a <= 0.0f && tutoSpeed[2] < 0.0f)
             {
                 Destroy(tutorialUI[2]);
             }

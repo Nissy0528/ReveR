@@ -6,22 +6,27 @@ using UnityEngine.UI;
 
 public class GameClear : MonoBehaviour
 {
-    public Text clearTime;
+    public int maxRank;//それぞれのランクの値
+    public GameObject[] UI;
+    public Sprite[] jugeImage;
+    public GameObject fade;
     public Text S;　　　//Aランク
     public Text A;　　　//bランク
     public Text B;　　　//cランク
+    public float delay;//UIを表示する時間
 
-
-    public List<Text> timeRank;
-
-    private List<float> times;
-    private string saveKey = "TimesKey";
+    private int num;//評価の値
+    private int UInum;//表示するUIの番号
+    private int Scount = 0;
+    private int Acount = 0;
+    private int Bcount = 0;
+    private float cnt;//UIを表示するまでのカウント
 
     // Use this for initialization
     void Start()
     {
-        //TimeText();
         EvaluationText();
+        cnt = delay;
     }
 
     // Update is called once per frame
@@ -32,6 +37,9 @@ public class GameClear : MonoBehaviour
             Main.Evaluation.Clear();
             SceneManager.LoadScene("Title");
         }
+
+        UIActive();
+        Juge();
     }
 
     /// <summary>
@@ -39,10 +47,7 @@ public class GameClear : MonoBehaviour
     /// </summary>
     void EvaluationText()
     {
-        var Scount = 0;
-        var Acount = 0;
-        var Bcount = 0;
-        for(int i = 0; i < Main.Evaluation.Count; i++)
+        for (int i = 0; i < Main.Evaluation.Count; i++)
         {
             if (Main.Evaluation[i] == "S") Scount++;
             if (Main.Evaluation[i] == "A") Acount++;
@@ -54,26 +59,52 @@ public class GameClear : MonoBehaviour
     }
 
     /// <summary>
-    /// クリア時間表示
+    /// 評価
     /// </summary>
-    private void TimeText()
+    private void Juge()
     {
-        clearTime.text = Main.time.ToString();
-        times = PlayerPrefsUtility.LoadList<float>(saveKey);
-        times.Add(Main.time);
-        times.Sort();
+        if (UInum < 2) return;
 
-        if (times.Count == 4)
+        num = (3 * Scount + 2 * Acount + Bcount);
+
+        if (num >= maxRank)
         {
-            times.RemoveAt(3);
+            UI[3].GetComponent<Image>().sprite = jugeImage[0];
         }
-        PlayerPrefsUtility.SavaList<float>(saveKey, times);
-
-        for (int i = 0; i < times.Count; i++)
+        if (num < maxRank && num >= maxRank * 2 / 3)
         {
-            timeRank[i].text = times[i].ToString();
+            UI[3].GetComponent<Image>().sprite = jugeImage[1];
+        }
+        if (num < maxRank * 2 / 3)
+        {
+            UI[3].GetComponent<Image>().sprite = jugeImage[2];
         }
     }
 
+    /// <summary>
+    /// UIをアクティブに
+    /// </summary>
+    private void UIActive()
+    {
+        if (UInum > 3 || fade != null) return;
 
+        cnt -= Time.deltaTime;
+
+        if (cnt <= 0.0f)
+        {
+            if (!UI[UInum].activeSelf)
+            {
+                UI[UInum].SetActive(true);
+            }
+            UInum += 1;
+            if (UInum < 3)
+            {
+                cnt = delay;
+            }
+            else
+            {
+                cnt = delay * 2.0f;
+            }
+        }
+    }
 }

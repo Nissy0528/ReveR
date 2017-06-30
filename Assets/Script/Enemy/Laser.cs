@@ -9,30 +9,28 @@ public class Laser : MonoBehaviour
     public GameObject RightEnemy;
     public float LaserSpeed = 0.1f;
 
-    private bool IsStop;
+    private GameObject parent;
     private bool IsColLeftEnemy;
     private bool IsColRightEnemy;
 
-    private int count;
     void Start()
     {
-
-        IsStop = false;
-        count = 0;
+        IsColLeftEnemy = true;
+        IsColRightEnemy = true;
+        parent = LeftEnemy.transform.parent.gameObject;
         Physics2D.IgnoreLayerCollision(13, 13, true);
-
     }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+        CheckLR();
+        DestroyGameObject();
 
     }
     void Move()
     {
-        Stop();
-        DestroyGameObject();
         if (!IsColRightEnemy)
         {
             transform.localScale += new Vector3(LaserSpeed, 0, 0);
@@ -45,44 +43,24 @@ public class Laser : MonoBehaviour
         }
     }
 
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (LeftEnemy != null)
-        {
-            if (col.gameObject.name == LeftEnemy.transform.name) IsColLeftEnemy = true;
-        }
-
-
-        if (RightEnemy != null)
-        {
-            if (col.gameObject.name == RightEnemy.transform.name) IsColRightEnemy = true;
-        }
-    }
-    void OnCollisionExit2D(Collision2D col)
-    {
-        if (LeftEnemy != null)
-        {
-            if (col.gameObject.name == LeftEnemy.transform.name) IsColLeftEnemy = false;
-        }
-
-
-        if (RightEnemy != null)
-        {
-            if (col.gameObject.name == RightEnemy.transform.name) IsColRightEnemy = false;
-        }
-    }
-
-    void Stop()
-    {
-        if (count == 2)
-            IsStop = true;
-        else
-            IsStop = false;
-    }
     void DestroyGameObject()
     {
-        if (LeftEnemy == null && RightEnemy == null) Destroy(transform.parent.gameObject);
+        if (LeftEnemy == null && RightEnemy == null) Destroy(parent);
+    }
+
+    /// <summary>
+    /// 左右の敵がいるか
+    /// </summary>
+    private void CheckLR()
+    {
+        if (LeftEnemy == null)
+        {
+            IsColLeftEnemy = false;
+        }
+        if (RightEnemy == null)
+        {
+            IsColRightEnemy = false;
+        }
     }
 
 }

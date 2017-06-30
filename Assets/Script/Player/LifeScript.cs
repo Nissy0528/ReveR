@@ -40,8 +40,6 @@ public class LifeScript : MonoBehaviour
         mainClass = main.GetComponent<Main>();
         //speed = Mathf.Abs(player.speed) / player.speedLimit;
 
-        gauge = GameObject.Find("LifeGauge");
-        frame = GameObject.Find("LifeFrame");
         needleposition = GameObject.Find("NeedlePosition");
 
         EnemyCount = GetAllChildren.GetAll(mainClass.enemyWave[0]).Count;
