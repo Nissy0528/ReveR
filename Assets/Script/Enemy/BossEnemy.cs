@@ -8,7 +8,7 @@ public class BossEnemy : MonoBehaviour
     public GameObject shield;  //シールド取得
 
     public GameObject core2;//空のコア
-    public float addwidthspeed;//ラインの太くなる速さ
+    public float addwidthspeed = 0.003f;//ラインの太くなる速さ
     public float stopwidth;//ライン横幅の上限
     public Sprite newBG;//ボス戦で生成する背景
 
@@ -75,7 +75,7 @@ public class BossEnemy : MonoBehaviour
 
         BossActive();
 
-        ColliderActive();
+        //ColliderActive();
 
         childEnemy.RemoveAll(x => x == null);
         if (shield != null)
@@ -193,12 +193,14 @@ public class BossEnemy : MonoBehaviour
                         //GetComponent<LineRenderer>().widthMultiplier = width;
                         t.GetComponent<LineRenderer>().startWidth = width;
                         t.GetComponent<LineRenderer>().endWidth = width;
+                       // Debug.Log(t.GetComponent<LineRenderer>().startWidth);
 
                         if (width >= stopwidth)//Lineの横幅が上限を超えたら
                         {
                             t.GetComponent<LineRenderer>().startWidth = stopwidth;//Lineの横幅上限で停止
                             t.GetComponent<LineRenderer>().endWidth = stopwidth;//Lineの横幅上限で停止
-                            //addwidthspeed = 0;//加算を停止
+                            addwidthspeed = 0;//加算を停止
+                            
 
                             if (GameObject.Find("MainManager").GetComponent<Main>().GetWave() > 0)
                             {
@@ -207,6 +209,7 @@ public class BossEnemy : MonoBehaviour
                             }
 
                             shield.SetActive(true);//shieldのActiveを戻す
+                            ColliderActive();
 
                             isBossStop = true;
                             isActive = true;
@@ -261,7 +264,7 @@ public class BossEnemy : MonoBehaviour
     /// </summary>
     private void ColliderActive()
     {
-        if (!GetComponent<EnemyManager>().IsStop() || isColActive) return;
+        //if (!GetComponent<EnemyManager>().IsStop() || isColActive) return;
 
         foreach (var e in childEnemy)
         {
@@ -272,7 +275,7 @@ public class BossEnemy : MonoBehaviour
         }
         shield.GetComponent<CircleCollider2D>().enabled = true;
 
-        isColActive = true;
+        //isColActive = true;
     }
 
     /// <summary>
