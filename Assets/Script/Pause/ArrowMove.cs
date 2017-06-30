@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ArrowMove : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class ArrowMove : MonoBehaviour
     public Vector3 ArrowMoveVelocity;
     public GameObject[] select;
     public bool[] isSelect;
+    public List<Sprite> text;
 
     public float time;
     void Start()
@@ -24,7 +26,8 @@ public class ArrowMove : MonoBehaviour
         time--;
 
         Select();
-        if (y <= -0.5f && isSelect[isSelect.Length - 1] == false && time <= 0)
+        textChange();
+        if (y <= -0.5f && isSelect[2] == false && time <= 0)
         {
             GetComponent<RectTransform>().position -= ArrowMoveVelocity;
             time = 20;
@@ -35,6 +38,7 @@ public class ArrowMove : MonoBehaviour
             GetComponent<RectTransform>().position += ArrowMoveVelocity;
             time = 20;
         }
+        
 
     }
     void Select()
@@ -64,5 +68,26 @@ public class ArrowMove : MonoBehaviour
     public bool GetIsSelect(int i)
     {
         return isSelect[i];
+    }
+    public void textChange()
+    {
+        if (isSelect[0] == true)
+        {
+            select[0].GetComponent<Image>().sprite = text[1];
+            select[1].GetComponent<Image>().sprite = text[2];
+            select[2].GetComponent<Image>().sprite = text[4];
+        }
+        else if (isSelect[1] == true)
+        {
+            select[0].GetComponent<Image>().sprite = text[0];
+            select[1].GetComponent<Image>().sprite = text[3];
+            select[2].GetComponent<Image>().sprite = text[4];
+        }
+        else if (isSelect[2] == true)
+        {
+            select[0].GetComponent<Image>().sprite = text[0];
+            select[1].GetComponent<Image>().sprite = text[2];
+            select[2].GetComponent<Image>().sprite = text[5];
+        }
     }
 }
