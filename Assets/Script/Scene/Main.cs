@@ -14,6 +14,8 @@ public class Main : MonoBehaviour
     public GameObject warning;
     public GameObject GameOver;
     public GameObject nextWave;
+    public GameObject lifeMeter;
+    public GameObject clearEffect;
     public int stopTime;
     public float lifeTime;
     public float lifeTimeMax;
@@ -24,6 +26,7 @@ public class Main : MonoBehaviour
     private GameObject enemyDead;
     private GameObject waveText;
     private GameObject warningObj;
+    private GameObject clearEffectObj;
     private AudioSource audio;
     private bool isStop;
     private bool isClear;
@@ -50,6 +53,8 @@ public class Main : MonoBehaviour
         isClear = false;
         isLifeTime = false;
         time = 0.0f;
+        GameObject meter = Instantiate(lifeMeter, GameObject.Find("Canvas").transform);
+        meter.name = "LifeMeter";
         lifeTimeText = GameObject.FindGameObjectWithTag("LifeTime");
         waveText = GameObject.Find("Wave");
         waveNum = 0;
@@ -70,9 +75,7 @@ public class Main : MonoBehaviour
 
         if (enemys.Length == 0 && enemyDead == null && isClear)
         {
-            Time.timeScale = 1.0f;
-            ControllerShake.Shake(0.0f, 0.0f);
-            SceneManager.LoadScene("GameClear");
+            ClearEffect();
         }
 
         if (lifeTime <= 0.0f)
@@ -198,7 +201,7 @@ public class Main : MonoBehaviour
             DestroyWarning();
             GameObject boss = enemyWave[waveNum].transform.FindChild("Boss").gameObject;
             boss.SetActive(true);
-            if (boss.GetComponent<EnemyManager>().IsStop())
+            if (boss.GetComponent<BossEnemy>().IsActive())
             {
                 audio.UnPause();
             }
@@ -267,6 +270,28 @@ public class Main : MonoBehaviour
 
         if (!isLifeTime && cntStopper == 1.0f && lifeAlpha > 0.3f)
             lifeAlpha -= 0.01f;
+    }
+
+    /// <summary>
+    /// クリアエフェクト
+    /// </summary>
+    private void ClearEffect()
+    {
+        if (clearEffectObj == null)
+        {
+            GameObject player = GameObject.Find("Player");
+            Vector3 pos = RectTransformUtility.WorldToScreenPoint(Camera.main, player.transform.position);
+            clearEffectObj = Instantiate(clearEffect, pos, Quaternion.identity, GameObject.Find("Canvas").transform);
+        }
+        else
+        {
+            if(clearEffectObj.GetComponent<ClearEffect>().IsEnd())
+            {
+                Time.timeScale = 1.0f;
+                ControllerShake.Shake(0.0f, 0.0f);
+                SceneManager.LoadScene("GameClear");
+            }
+        }
     }
 
     /// <summary>

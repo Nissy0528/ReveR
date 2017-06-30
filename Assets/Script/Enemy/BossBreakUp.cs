@@ -48,8 +48,11 @@ public class BossBreakUp : MonoBehaviour
         {
             Destroy(gameObject);
 
-            GameObject.Find("back3").GetComponent<SpriteRenderer>().sprite = newBG;
-            GameObject.Find("back3.3").GetComponent<SpriteRenderer>().sprite = newBG;
+            if (GameObject.Find("MainManager").GetComponent<Main>().GetWave() > 0)
+            {
+                GameObject.Find("back3").GetComponent<SpriteRenderer>().sprite = newBG;
+                GameObject.Find("back3.3").GetComponent<SpriteRenderer>().sprite = newBG;
+            }
         }
     }
 

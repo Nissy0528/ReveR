@@ -38,7 +38,7 @@ public class ELMove : MonoBehaviour
 
         Move_velocity = new List<Vector2>()
         {
-            new Vector2(1,0),new Vector2(-1,0),new Vector2(0,1),new Vector2(0,-1),
+            transform.right,-transform.right,transform.up,-transform.up,
         };
 
         YRangeMax = Position.y + Move_Width * 0.5f;
@@ -79,8 +79,8 @@ public class ELMove : MonoBehaviour
         if (MoveWay == MoveDirection.UP || MoveWay == MoveDirection.DOWN)
         {
 
-            if ((transform.position.y > YRangeMax && List_num == 2) ||
-                (transform.position.y < YRangeMin && List_num == 3))
+            if ((transform.localPosition.y > YRangeMax && List_num == 2) ||
+                (transform.localPosition.y < YRangeMin && List_num == 3))
             {
                 IsOverMoveRange = IsOverMoveRange ? false : true;
 
@@ -92,8 +92,8 @@ public class ELMove : MonoBehaviour
         else if (MoveWay == MoveDirection.LEFT || MoveWay == MoveDirection.RIGHT)
         {
 
-            if ((transform.position.x > XRangeMax && List_num == 0) ||
-                (transform.position.x < XRangeMin && List_num == 1))
+            if ((transform.localPosition.x > XRangeMax && List_num == 0) ||
+                (transform.localPosition.x < XRangeMin && List_num == 1))
             {
                 IsOverMoveRange = IsOverMoveRange ? false : true;
             }
@@ -103,9 +103,9 @@ public class ELMove : MonoBehaviour
         }
 
     }
-    public Vector3 GetStartPosition(Vector3 Pos)
+    public void GetStartPosition(Vector3 Pos)
     {
-        return Position = Pos;
+        Position = Pos;
     }
 
 }
