@@ -44,8 +44,8 @@ public class DebugManager : MonoBehaviour
         InputManager();//スティック入力差の表示設定
         DataClear();//保存したデータを削除
         ScrollUp();//スクロール早送り
-        Clear();
-        GameOver();
+        Clear();//強制クリア
+        GameOver();//強制ゲームオーバー
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ public class DebugManager : MonoBehaviour
     {
         if (!isPlayerMaxSpeed) return;
 
-        p_Class.speed = p_Class.speedLimit;
+        GameObject.Find("MainManager").GetComponent<Main>().lifeTime = 60;
     }
 
     /// <summary>

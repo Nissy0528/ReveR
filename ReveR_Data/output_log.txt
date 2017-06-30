@@ -5,28 +5,50 @@ Direct3D:
     Renderer: Intel(R) HD Graphics 520 (ID=0x1916)
     Vendor:   Intel
     VRAM:     2111 MB
-    Driver:   21.20.16.4534
+    Driver:   21.20.16.4590
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll (this message is harmless)
-Loading C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
-- Completed reload, in  0.213 seconds
-Platform assembly: C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Users\OTAKAKIMISATO\Documents\GitHub\ReveR\ReveR_Data\Managed\System.dll (this message is harmless)
-desktop: 1920x1080 48Hz; virtual: 1920x1080 at 0,0
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll (this message is harmless)
+Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
+- Completed reload, in  0.035 seconds
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
+desktop: 1920x1080 48Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 1.890989 ms
+UnloadTime: 1.997654 ms
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 7.166723 ms
+
+Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 5679.
+Total: 3.257601 ms (FindLiveObjects: 0.327253 ms CreateObjectMapping: 0.114346 ms MarkObjects: 1.319680 ms  DeleteObjects: 1.495893 ms)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 6.304856 ms
+
+Unloading 3493 unused Assets to reduce memory usage. Loaded Objects now: 5679.
+Total: 6.168749 ms (FindLiveObjects: 0.815787 ms CreateObjectMapping: 0.746240 ms MarkObjects: 1.267627 ms  DeleteObjects: 3.337814 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.897067 ms
+
+Unloading 602 unused Assets to reduce memory usage. Loaded Objects now: 590.
+Total: 4.600748 ms (FindLiveObjects: 0.080213 ms CreateObjectMapping: 0.073386 ms MarkObjects: 0.197546 ms  DeleteObjects: 4.248748 ms)
+
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 3f98 -> priority: 1 
-  Thread -> id: 220c -> priority: 1 
+  Thread -> id: 3ee4 -> priority: 1 
+  Thread -> id: 4710 -> priority: 1 

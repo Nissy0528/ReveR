@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BossEnemy : MonoBehaviour
 {
-    public List<GameObject> childEnemy;　//childEnemy取得
     public GameObject core;//コアオブジェクト
     public GameObject shield;  //シールド取得
 
@@ -13,14 +12,16 @@ public class BossEnemy : MonoBehaviour
     public float stopwidth;//ライン横幅の上限
     public Sprite newBG;//ボス戦で生成する背景
 
+    private List<GameObject> childEnemy;　//childEnemy取得
     private Animator animator;//アニメーター
     private BoxCollider2D box; //BoxCollider
     private float width;//ライン横幅
 
     private bool animcount;//アニメが再生されているか？
     private bool isBossStop;//Bossが止まっているか？
+    private bool isActive;//起動状態フラグ
 
-  
+
     private Animation animation;
     private bool isColActive;
 
@@ -32,22 +33,33 @@ public class BossEnemy : MonoBehaviour
 
         animator = shield.GetComponent<Animator>();//Animator取得
 
-        for (int i = 0; i < childEnemy.Count; i++)
+        childEnemy = GetAllChildren.GetAll(gameObject);
+
+        //敵の種類によってコンポーネントのアクティブを切る
+        foreach (var e in childEnemy)
         {
-            childEnemy[i].GetComponent<Turtroial_Move>().enabled = false;//childEnemyのTurtroial_Moveをfalse
+            if (e.GetComponent<Turtroial_Move>() != null)
+            {
+                e.GetComponent<Turtroial_Move>().enabled = false;
+            }
+
+            if (e.GetComponent<BoxCollider2D>() != null)
+            {
+                e.GetComponent<BoxCollider2D>().enabled = false;
+            }
+            if (e.GetComponent<Laser>() != null)
+            {
+                e.GetComponent<SpriteRenderer>().enabled = false;
+            }
         }
         isBossStop = false;
 
         animator = shield.GetComponent<Animator>();
         animation = GetComponent<Animation>();
-
-        foreach (var e in childEnemy)
-        {
-            e.GetComponent<BoxCollider2D>().enabled = false;
-        }
         shield.GetComponent<CircleCollider2D>().enabled = false;
 
         isColActive = false;
+        isActive = false;
 
     }
 
@@ -55,10 +67,9 @@ public class BossEnemy : MonoBehaviour
     void Update()
     {
 
-        BossMove();
+        BossActive();
 
         ColliderActive();
-
 
         childEnemy.RemoveAll(x => x == null);
         if (shield != null)
@@ -66,7 +77,18 @@ public class BossEnemy : MonoBehaviour
             animator = shield.GetComponent<Animator>();//shieldのAnimatorを取得
         }
         BossEnemyDead();
-        if (childEnemy.Count == 0)//子オブジェクトの個数が0なら
+
+        bool isAnim = true;
+
+        foreach (var e in childEnemy)
+        {
+            if (e.tag == "Enemy" && e.name != "Core")
+            {
+                isAnim = false;
+            }
+        }
+
+        if (isAnim)//子オブジェクトの個数が0なら
         {
             ShieldAnim();
         }
@@ -79,7 +101,6 @@ public class BossEnemy : MonoBehaviour
     /// </summary>
     void BossEnemyDead()
     {
-
         if (ChildEnemyDead() && box != null) //子オブジェクトが無ければ
         {
             box.enabled = true; //判定を戻す
@@ -130,20 +151,19 @@ public class BossEnemy : MonoBehaviour
     }
 
 
-    void BossMove()
+    void BossActive()
     {
         if (GetComponent<EnemyManager>().IsStop() == true)
         {
             childEnemy.RemoveAll(x => x == null);
             bool isLine = true;
-   
-            for (int i = 0; i < childEnemy.Count; i++)
+
+            foreach (var e in childEnemy)
             {
-                if (childEnemy[i] != null)
                 {
-                    if (childEnemy[i].GetComponent<Turtroial_Move>() != null)
+                    if (e.GetComponent<Turtroial_Move>() != null)
                     {
-                        childEnemy[i].GetComponent<Turtroial_Move>().enabled = true;
+                        e.GetComponent<Turtroial_Move>().enabled = true;
                         isLine = false;
                     }
                 }
@@ -151,26 +171,36 @@ public class BossEnemy : MonoBehaviour
 
             if (isLine)
             {
+                LaserActive();
+                BulletActive();
                 foreach (var t in childEnemy)
                 {
-                    t.transform.GetChild(0).GetComponent<LineRenderer>().enabled = true;
-
-                    width = width + addwidthspeed;
-                    //GetComponent<LineRenderer>().widthMultiplier = width;
-                    t.transform.GetChild(0).GetComponent<LineRenderer>().startWidth = width;
-                    t.transform.GetChild(0).GetComponent<LineRenderer>().endWidth = width;
-
-                    if (width >= stopwidth)//Lineの横幅が上限を超えたら
+                    if (t.GetComponent<LineRenderer>() != null)
                     {
-                        t.transform.GetChild(0).GetComponent<LineRenderer>().startWidth = stopwidth;//Lineの横幅上限で停止
-                        t.transform.GetChild(0).GetComponent<LineRenderer>().endWidth = stopwidth;//Lineの横幅上限で停止
-                        addwidthspeed = 0;//加算を停止
-                        GameObject.Find("back3").GetComponent<SpriteRenderer>().sprite = newBG;//ボス戦時背景生成
-                        GameObject.Find("back3.3").GetComponent<SpriteRenderer>().sprite = newBG;//ボス戦時背景生成
+                        t.GetComponent<LineRenderer>().enabled = true;
 
-                        shield.SetActive(true);//shieldのActiveを戻す
+                        width = width + addwidthspeed;
+                        //GetComponent<LineRenderer>().widthMultiplier = width;
+                        t.GetComponent<LineRenderer>().startWidth = width;
+                        t.GetComponent<LineRenderer>().endWidth = width;
 
-                        isBossStop = true;
+                        if (width >= stopwidth)//Lineの横幅が上限を超えたら
+                        {
+                            t.GetComponent<LineRenderer>().startWidth = stopwidth;//Lineの横幅上限で停止
+                            t.GetComponent<LineRenderer>().endWidth = stopwidth;//Lineの横幅上限で停止
+                            addwidthspeed = 0;//加算を停止
+
+                            if (GameObject.Find("MainManager").GetComponent<Main>().GetWave() > 0)
+                            {
+                                GameObject.Find("back3").GetComponent<SpriteRenderer>().sprite = newBG;//ボス戦時背景生成
+                                GameObject.Find("back3.3").GetComponent<SpriteRenderer>().sprite = newBG;//ボス戦時背景生成
+                            }
+
+                            shield.SetActive(true);//shieldのActiveを戻す
+
+                            isBossStop = true;
+                            isActive = true;
+                        }
                     }
                 }
             }
@@ -188,12 +218,32 @@ public class BossEnemy : MonoBehaviour
     {
         if (!GetComponent<EnemyManager>().GetIsScroll())
         {
-            foreach (var x in childEnemy)
+            foreach (var e in childEnemy)
             {
-                x.GetComponent<ELMove>().GetStartPosition(x.transform.position);
-                x.GetComponent<ELMove>().enabled = true;
+                if (e.GetComponent<ELMove>() != null && IsELMove())
+                {
+                    e.GetComponent<ELMove>().enabled = true;
+                    e.GetComponent<ELMove>().GetStartPosition(e.transform.localPosition);
+                }
             }
         }
+    }
+
+    /// <summary>
+    /// 広がっている敵がいるか
+    /// </summary>
+    /// <returns>一体でもいたらtrue</returns>
+    private bool IsELMove()
+    {
+        bool isELMove = true;
+        foreach (var e in childEnemy)
+        {
+            if (e.GetComponent<Turtroial_Move>() != null)
+            {
+                isELMove = false;
+            }
+        }
+        return isELMove;
     }
 
     /// <summary>
@@ -205,10 +255,67 @@ public class BossEnemy : MonoBehaviour
 
         foreach (var e in childEnemy)
         {
-            e.GetComponent<BoxCollider2D>().enabled = true;
+            if (e.GetComponent<BoxCollider2D>() != null)
+            {
+                e.GetComponent<BoxCollider2D>().enabled = true;
+            }
         }
         shield.GetComponent<CircleCollider2D>().enabled = true;
 
         isColActive = true;
+    }
+
+    /// <summary>
+    /// レーザーをアクティブに
+    /// </summary>
+    private void LaserActive()
+    {
+        foreach (var e in childEnemy)
+        {
+            if (e.GetComponent<Laser>() != null)
+            {
+                e.GetComponent<SpriteRenderer>().enabled = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// バレットをアクティブ
+    /// </summary>
+    private void BulletActive()
+    {
+        foreach (var e in childEnemy)
+        {
+            if (e.GetComponent<ShootBullet>() != null)
+            {
+                e.GetComponent<ShootBullet>().enabled = true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 子の敵を取得
+    /// </summary>
+    /// <returns></returns>
+    public List<GameObject> GetChildEnemy()
+    {
+        List<GameObject> enemys = new List<GameObject>();
+        foreach (var e in childEnemy)
+        {
+            if (e.tag == "Enemy" && e.name != "Core")
+            {
+                enemys.Add(e);
+            }
+        }
+        return enemys;
+    }
+
+    /// <summary>
+    /// 起動フラグ取得
+    /// </summary>
+    /// <returns></returns>
+    public bool IsActive()
+    {
+        return isActive;
     }
 }

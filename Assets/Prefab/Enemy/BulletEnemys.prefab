@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3205a9e283611de46bad208cd970d85e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 1
+  time: 0.5
   Bullet: {fileID: 1852482333732848, guid: b8515cac65c02f64e8c2c707730327c6, type: 2}
 --- !u!114 &114248546537941250
 MonoBehaviour:
@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3205a9e283611de46bad208cd970d85e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 1
+  time: 0.5
   Bullet: {fileID: 1852482333732848, guid: b8515cac65c02f64e8c2c707730327c6, type: 2}
 --- !u!114 &114592593593878084
 MonoBehaviour:

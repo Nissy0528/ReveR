@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1226595029419114
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 114270504029713704}
   - component: {fileID: 50521664182774880}
   - component: {fileID: 61249552010206904}
+  - component: {fileID: 114269883734529958}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -93,6 +94,7 @@ GameObject:
   - component: {fileID: 114216410403597218}
   - component: {fileID: 50221271783044242}
   - component: {fileID: 61627084648780710}
+  - component: {fileID: 114335954823390180}
   m_Layer: 0
   m_Name: Enemy (2)
   m_TagString: Enemy
@@ -231,6 +233,7 @@ GameObject:
   - component: {fileID: 114790426248502046}
   - component: {fileID: 50118584289530232}
   - component: {fileID: 61460815735937520}
+  - component: {fileID: 114517032179517258}
   m_Layer: 0
   m_Name: 'Enemy '
   m_TagString: Enemy
@@ -253,7 +256,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4023935539250456
 Transform:
   m_ObjectHideFlags: 1
@@ -261,7 +264,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1259785372060924}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.625, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 2}
   m_Children:
   - {fileID: 4743795705928916}
@@ -389,7 +392,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1549176453219424}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.625, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 2}
   m_Children:
   - {fileID: 4321083607058332}
@@ -429,7 +432,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913490929880686}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.535, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 2}
   m_Children:
   - {fileID: 4777378293299194}
@@ -573,7 +576,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -598,7 +601,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -623,7 +626,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -709,13 +712,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436ec40402244674a891808b8db56a90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  childEnemy:
-  - {fileID: 1913490929880686}
-  - {fileID: 1259785372060924}
-  - {fileID: 1549176453219424}
   core: {fileID: 1748427269422020}
   shield: {fileID: 1167025959551170}
   core2: {fileID: 1207358553011130, guid: f07a4f85837b9ad43a6ac751326e6019, type: 2}
+  addwidthspeed: 0.03
+  stopwidth: 0.75
+  newBG: {fileID: 21300000, guid: 6dafcc34ba28dcd4f803f83cffb8bb8b, type: 3}
 --- !u!114 &114147183426697348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -745,6 +747,22 @@ MonoBehaviour:
   startupEffect: {fileID: 0}
   normal: {fileID: 0}
   exp: 10
+--- !u!114 &114269883734529958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1259785372060924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac1d60bae07864b9f5abc958ef9354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startupEffect: {fileID: 0}
+  TargetPosition: {x: 2.625, y: 0, z: 0}
+  speed: 1
+  normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &114270504029713704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -760,6 +778,22 @@ MonoBehaviour:
   startupEffect: {fileID: 0}
   normal: {fileID: 0}
   exp: 10
+--- !u!114 &114335954823390180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1549176453219424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac1d60bae07864b9f5abc958ef9354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startupEffect: {fileID: 0}
+  TargetPosition: {x: -2.625, y: 0, z: 0}
+  speed: 1
+  normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &114368086157992822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -783,9 +817,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1130c58d5613ac41a604e6c9527b575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialUI:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   count: {fileID: 1404485110030220, guid: b0c2a87a8d8628245a7cc559a45b3600, type: 2}
   iniBack: {fileID: 0}
   changeBack: {fileID: 1810728645094912, guid: d836c1f42e9368d4e8b389b7e3130d6e, type: 2}
+  speed: 20
+  maxX: 160
+  boostTutoTime: 1.5
 --- !u!114 &114493541124622730
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -804,6 +845,23 @@ MonoBehaviour:
   upspeed: 0.3
   time: 3
   range: 0.5
+  newBG: {fileID: 21300000, guid: 711057849047e534c99cd487809c1442, type: 3}
+--- !u!114 &114517032179517258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1913490929880686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faac1d60bae07864b9f5abc958ef9354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startupEffect: {fileID: 0}
+  TargetPosition: {x: 0, y: -2.535, z: 0}
+  speed: 1
+  normal: {fileID: 0}
+  StintDistance: 0.1
 --- !u!114 &114538590221444640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -930,13 +988,13 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_RotationOrder: 0
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1015,13 +1073,13 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_RotationOrder: 0
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1100,13 +1158,13 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 1
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_RotationOrder: 0
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}

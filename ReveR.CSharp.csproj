@@ -87,6 +87,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Animation\Bullet.cs" />
     <Compile Include="Assets\GameOverEffect.cs" />
     <Compile Include="Assets\ReplaySystem\Examples\Scripts\ColorChanger.cs" />
     <Compile Include="Assets\ReplaySystem\Examples\Scripts\MousePick.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Assets\Script\Audio\SE.cs" />
     <Compile Include="Assets\Script\Camera\MainCamera.cs" />
     <Compile Include="Assets\Script\Effect\Boom_Effect.cs" />
+    <Compile Include="Assets\Script\Effect\ClearEffect.cs" />
     <Compile Include="Assets\Script\Effect\Drain.cs" />
     <Compile Include="Assets\Script\Effect\EnemyLine.cs" />
     <Compile Include="Assets\Script\Effect\PTimeEffectSpawner.cs" />
@@ -114,7 +116,6 @@
     <Compile Include="Assets\Script\Effect\StarAnim.cs" />
     <Compile Include="Assets\Script\Enemy\BossBreakUp.cs" />
     <Compile Include="Assets\Script\Enemy\BossEnemy.cs" />
-    <Compile Include="Assets\Script\Enemy\Bullet.cs" />
     <Compile Include="Assets\Script\Enemy\ELMove.cs" />
     <Compile Include="Assets\Script\Enemy\EPMove.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy.cs" />
