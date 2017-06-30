@@ -8,7 +8,11 @@ public class GameClear : MonoBehaviour
 {
     public int maxRank;//それぞれのランクの値
     public GameObject[] UI;
+    public GameObject[] cursorUI;
+    public GameObject[] se;
     public Sprite[] jugeImage;
+    public Sprite[] cursorImage;
+    public Sprite[] change_Image;
     public GameObject fade;
     public Text S;　　　//Aランク
     public Text A;　　　//bランク
@@ -17,12 +21,14 @@ public class GameClear : MonoBehaviour
 
     public GameObject FadeOut;//fadeOut
     private bool IsLoadTitle = false;//
+    private bool IsLoaRetry = false;
 
     private int num;//評価の値
     private int UInum;//表示するUIの番号
     private int Scount = 0;
     private int Acount = 0;
     private int Bcount = 0;
+    private int cursorNum;
     private float cnt;//UIを表示するまでのカウント
 
     // Use this for initialization
@@ -30,12 +36,14 @@ public class GameClear : MonoBehaviour
     {
         EvaluationText();
         cnt = delay;
+        cursorNum = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         LoadScene();
+        CursorMove();
     }
 
     /// <summary>
@@ -110,6 +118,7 @@ public class GameClear : MonoBehaviour
         if (FadeOut.GetComponent<Fade_Effect>().GetBool())
         {
             if (IsLoadTitle) SceneManager.LoadScene("Title");
+            if (IsLoaRetry) SceneManager.LoadScene("Main");
 
         }
         else
@@ -118,14 +127,46 @@ public class GameClear : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.JoystickButton0))
                 {
+                    Instantiate(se[1]);
                     Main.Evaluation.Clear();
                     FadeOut.SetActive(true);
-                    IsLoadTitle = true;
+                    if (cursorNum == 0)
+                    {
+                        IsLoadTitle = true;
+                    }
+                    if (cursorNum == 1)
+                    {
+                        IsLoaRetry = true;
+                    }
                 }
 
                 UIActive();
                 Juge();
             }
         }
+    }
+
+    /// <summary>
+    /// カーソル移動
+    /// </summary>
+    private void CursorMove()
+    {
+        float x = Input.GetAxis("Horizontal");
+        if (x <= -1.0f && cursorNum == 0)
+        {
+            Instantiate(se[0]);
+            cursorNum += 1;
+        }
+        if (x >= 1.0f && cursorNum == 1)
+        {
+            Instantiate(se[0]);
+            cursorNum -= 1;
+        }
+
+        for (int i = 0; i < cursorUI.Length; i++)
+        {
+            cursorUI[i].GetComponent<Image>().sprite = cursorImage[i];
+        }
+        cursorUI[cursorNum].GetComponent<Image>().sprite = change_Image[cursorNum];
     }
 }
