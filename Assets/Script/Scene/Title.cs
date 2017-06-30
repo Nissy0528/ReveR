@@ -9,8 +9,20 @@ public class Title : MonoBehaviour
     public GameObject[] UI;
     public float delay;
 
+    public Sprite GameStart1;
+    public Sprite GameStart2;
+    public Sprite GameEnd1;
+    public Sprite GameEnd2;
+    public GameObject FadeOut;
+    public GameObject FadeIn;
+
+
     private int selectionNum = 0;
     private float cnt;
+
+    private bool IsLoadCredit = false;
+    private bool IsLoadMain = false;
+    private bool IsLoadEnd = false;
 
     void Start()
     {
@@ -20,14 +32,8 @@ public class Title : MonoBehaviour
     void Update()
     {
         Cursor.visible = false;
-
-        if (Input.GetKeyDown(KeyCode.JoystickButton7))
-        {
-            SceneManager.LoadScene("Credit");
-        }
-
-        Selection();
-        Select();
+        LoadScene();
+       
     }
 
     /// <summary>
@@ -60,10 +66,11 @@ public class Title : MonoBehaviour
         //選択されたUIの色を赤に（それ以外は白に）
         foreach (var ui in UI)
         {
-            ui.GetComponent<Text>().color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            UI[0].GetComponent<Image>().sprite = GameStart1;
+            UI[1].GetComponent<Image>().sprite = GameEnd1;
         }
-
-        UI[selectionNum].GetComponent<Text>().color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+        if (selectionNum == 0) { UI[selectionNum].GetComponent<Image>().sprite = GameStart2; }
+        else if(selectionNum == 1) { UI[selectionNum].GetComponent<Image>().sprite = GameEnd2; }
     }
 
     /// <summary>
@@ -76,11 +83,39 @@ public class Title : MonoBehaviour
         //選択されたUIによってシーン移行
         if(selectionNum==0)
         {
-            SceneManager.LoadScene("Main");
+            FadeOut.gameObject.SetActive(true);
+            IsLoadMain = true;
         }
         if(selectionNum==1)
         {
-            Application.Quit();
+            FadeOut.gameObject.SetActive(true);
+            IsLoadEnd = true;
         }
     }
+
+    private void LoadScene()
+    {
+        if (FadeOut.GetComponent<Fade_Effect>().GetBool())
+        {
+            if (IsLoadCredit) SceneManager.LoadScene("Credit");
+            if (IsLoadMain) SceneManager.LoadScene("Main");
+            if (IsLoadEnd) Application.Quit();
+
+        }
+        else
+        {
+            if (!FadeOut.activeSelf && FadeIn.GetComponent<Fade_Effect>().GetBool())
+            {
+                if (Input.GetKeyDown(KeyCode.JoystickButton7))
+                {
+                    FadeOut.SetActive(true);
+                    IsLoadCredit = true;
+                }
+
+                Selection();
+                Select();
+            }
+        }
+    }
+       
 }
