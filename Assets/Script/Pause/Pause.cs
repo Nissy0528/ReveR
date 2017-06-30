@@ -68,17 +68,18 @@ public class Pause : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.JoystickButton7))
         {
-            ControllerShake.Shake(0.0f, 0.0f);
-            Instantiate(se[0]);
+            ControllerShake.Shake(0.0f, 0.0f);       
 
             if (IsPause)
             {
+                Instantiate(se[1]);
                 IsClose_Menu = true;
                 time = (int)(240/speed);
                 MenuMove = new Vector3(-1, 0, 0);
             }
             else
             {
+                Instantiate(se[0]);
                 Stop_Object.RemoveAll(c => c == null);
                 List_chirdrens.RemoveAll(c => c == null);
                 List_myComponents.RemoveAll(c => c == null);
@@ -131,6 +132,7 @@ public class Pause : MonoBehaviour
             }
             if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(2))
             {
+                Instantiate(se[1]);
                 IsClose_Menu = true;
                 time = (int)(240 / speed);
                 MenuMove = new Vector3(-1, 0, 0);

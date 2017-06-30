@@ -7,6 +7,7 @@ public class BossBreakUp : MonoBehaviour
     public GameObject core2;
     public GameObject boss;
     public GameObject BoomEffect;
+    public GameObject se;
     public Main main;
     
 
@@ -121,8 +122,7 @@ public class BossBreakUp : MonoBehaviour
 
             if(!isSE)
             {
-                AudioSource se = GetComponent<AudioSource>();
-                se.PlayOneShot(se.clip);
+                Instantiate(se);
                 isSE = true;
             }
         }

@@ -30,7 +30,7 @@ public class Tutorial : MonoBehaviour
         main = GameObject.Find("MainManager").GetComponent<Main>();
 
         partsNum = boss.GetComponent<BossEnemy>().GetChildEnemy().Count;
-        currentParsNum = partsNum;
+        currentParsNum = boss.GetComponent<BossEnemy>().GetChildEnemy().Count;
 
         speed *= 1.0f;
         tutoSpeed.Add(speed);
@@ -45,6 +45,11 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentParsNum == 0 && boss != null)
+        {
+            currentParsNum = boss.GetComponent<BossEnemy>().GetChildEnemy().Count;
+        }
+
         Count();
         ChangeBack();
         InputTutorialMove();

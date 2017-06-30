@@ -14,7 +14,7 @@ public class BossEnemy : MonoBehaviour
 
     public AudioClip[] SE;
 
-    private List<GameObject> childEnemy = new List<GameObject>();　//childEnemy取得
+    private List<GameObject> childEnemy = new List<GameObject>();//childEnemy取得
     private Animator animator;//アニメーター
     private BoxCollider2D box; //BoxCollider
     private float width;//ライン横幅
@@ -189,7 +189,7 @@ public class BossEnemy : MonoBehaviour
                         width = width + addwidthspeed;
 
                         t.GetComponent<LineRenderer>().enabled = true;
-                        
+
                         //GetComponent<LineRenderer>().widthMultiplier = width;
                         t.GetComponent<LineRenderer>().startWidth = width;
                         t.GetComponent<LineRenderer>().endWidth = width;
@@ -323,6 +323,8 @@ public class BossEnemy : MonoBehaviour
     public List<GameObject> GetChildEnemy()
     {
         List<GameObject> enemys = new List<GameObject>();
+        childEnemy.RemoveAll(x => x == null);
+
         foreach (var e in childEnemy)
         {
             if (e.tag == "Enemy" && e.name != "Core")

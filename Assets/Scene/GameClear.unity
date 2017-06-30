@@ -942,7 +942,7 @@ MonoBehaviour:
   A: {fileID: 775371980}
   B: {fileID: 410335931}
   delay: 0.5
-  FadeOut: {fileID: 0}
+  FadeOut: {fileID: 2092975083}
 --- !u!1 &1836230598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,6 +1441,11 @@ Prefab:
 --- !u!224 &2092975082 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224981050929594352, guid: 0abb001f30002244aac9eff88ee0ffc0,
+    type: 2}
+  m_PrefabInternal: {fileID: 2092975081}
+--- !u!1 &2092975083 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1389495688889958, guid: 0abb001f30002244aac9eff88ee0ffc0,
     type: 2}
   m_PrefabInternal: {fileID: 2092975081}
 --- !u!1 &2121440650

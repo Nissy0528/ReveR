@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Animation\Bullet.cs" />
+    <Compile Include="Assets\Fade_Effect.cs" />
     <Compile Include="Assets\GameOverEffect.cs" />
     <Compile Include="Assets\ReplaySystem\Examples\Scripts\ColorChanger.cs" />
     <Compile Include="Assets\ReplaySystem\Examples\Scripts\MousePick.cs" />
