@@ -17,7 +17,7 @@ public class Tutorial : MonoBehaviour
     private Main main;
     private int currentParsNum;
     private int partsNum;
-    private float[] tutoSpeed;
+    private List<float> tutoSpeed = new List<float>();
     private float iniLifeTime;
     private bool isBoost;
     private bool isTime;
@@ -33,7 +33,9 @@ public class Tutorial : MonoBehaviour
         currentParsNum = partsNum;
 
         speed *= 1.0f;
-        tutoSpeed = new float[] { speed, speed, -speed };
+        tutoSpeed.Add(speed);
+        tutoSpeed.Add(speed);
+        tutoSpeed.Add(-speed);
         iniLifeTime = main.lifeTime;
 
         isBoost = false;

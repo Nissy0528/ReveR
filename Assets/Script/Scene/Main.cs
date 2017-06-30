@@ -169,7 +169,7 @@ public class Main : MonoBehaviour
     /// <returns></returns>
     public bool LastWave()
     {
-        return waveNum == enemyWave.Length;
+        return waveNum == enemyWave.Length - 1;
     }
 
     /// ボス登場エフェクト
@@ -285,7 +285,7 @@ public class Main : MonoBehaviour
         }
         else
         {
-            if(clearEffectObj.GetComponent<ClearEffect>().IsEnd())
+            if (clearEffectObj.GetComponent<ClearEffect>().IsEnd())
             {
                 Time.timeScale = 1.0f;
                 ControllerShake.Shake(0.0f, 0.0f);

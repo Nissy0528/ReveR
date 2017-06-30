@@ -401,6 +401,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 212804127807011260, guid: d836c1f42e9368d4e8b389b7e3130d6e,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8ca4a08078f740498eeafc7b187ef88,
+        type: 3}
+    - target: {fileID: 212432397198989254, guid: d836c1f42e9368d4e8b389b7e3130d6e,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8ca4a08078f740498eeafc7b187ef88,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d836c1f42e9368d4e8b389b7e3130d6e, type: 2}
   m_IsPrefabParent: 0
@@ -811,7 +823,10 @@ MonoBehaviour:
   UI:
   - {fileID: 1925419071}
   - {fileID: 667164302}
-  delay: 0.25
+  se:
+  - {fileID: 1331465168400314, guid: 60acc48ee04872746a403fd75808b855, type: 2}
+  - {fileID: 1355205720585302, guid: 1fdcf15b454545343a490702d245bd77, type: 2}
+  - {fileID: 1901069494516996, guid: 25c3b1d14a5da6d4b884c82a1b27811a, type: 2}
 --- !u!1 &1893498388
 GameObject:
   m_ObjectHideFlags: 0

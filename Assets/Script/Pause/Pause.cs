@@ -9,6 +9,7 @@ public class Pause : MonoBehaviour
     // Use this for initialization
     public GameObject PauseMenu;
     public GameObject arrowmove;
+    public GameObject[] se;
     public float speed=1;
     public static bool IsPause;
     private bool IsClose_Menu;
@@ -64,6 +65,7 @@ public class Pause : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.JoystickButton7))
         {
             ControllerShake.Shake(0.0f, 0.0f);
+            Instantiate(se[0]);
 
             if (IsPause)
             {
@@ -104,6 +106,7 @@ public class Pause : MonoBehaviour
         {
             if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(0))
             {
+                Instantiate(se[0]);
                 SceneManager.LoadScene("Title");
                 OnResume();
             }
@@ -114,6 +117,7 @@ public class Pause : MonoBehaviour
             //}
             if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(1))
             {
+                Instantiate(se[0]);
                 SceneManager.LoadScene("Main");
                 OnResume();
             }

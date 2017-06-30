@@ -21,6 +21,7 @@ public class BossBreakUp : MonoBehaviour
     public float range;
 
     private bool shake;
+    private bool isSE;
     private GameObject core2Obj;
     private Camera camera;
 
@@ -34,6 +35,7 @@ public class BossBreakUp : MonoBehaviour
         minRangeY = savePosition.y - range;
         maxRangeY = savePosition.y + range;
         camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        isSE = false;
         //main = GetComponent<Main>();
     }
 
@@ -110,6 +112,13 @@ public class BossBreakUp : MonoBehaviour
             transform.position = new Vector3(core2Obj.transform.position.x,
                                                       core2Obj.transform.position.y + upspeed,
                                                       core2Obj.transform.position.z);
+
+            if(!isSE)
+            {
+                AudioSource se = GetComponent<AudioSource>();
+                se.PlayOneShot(se.clip);
+                isSE = true;
+            }
         }
     }
     

@@ -7,14 +7,13 @@ using UnityEngine.UI;
 public class Title : MonoBehaviour
 {
     public GameObject[] UI;
-    public float delay;
+    public GameObject[] se;
 
     private int selectionNum = 0;
-    private float cnt;
+    private bool isStick = false;
 
     void Start()
     {
-        cnt = delay;
     }
 
     void Update()
@@ -38,22 +37,15 @@ public class Title : MonoBehaviour
         float y = Input.GetAxis("Vertical");
 
         //スティック入力で上下選択
-        if (y >= 1.0f || y <= -1.0f)
+        if ((y >= 1.0f || y <= -1.0f) && !isStick)
         {
-            cnt -= Time.deltaTime;
-            if (cnt <= 0.0f)
-            {
-                selectionNum += (int)y;
-                cnt = delay;
-            }
+            selectionNum += (int)y;
+            Instantiate(se[2]);
+            isStick = true;
         }
-        else
+        if (y == 0.0f && isStick)
         {
-            if (cnt < delay)
-            {
-                selectionNum = Mathf.Abs(selectionNum - 1);
-                cnt = delay;
-            }
+            isStick = false;
         }
         selectionNum = Mathf.Abs(selectionNum % 2);
 
@@ -74,12 +66,14 @@ public class Title : MonoBehaviour
         if (!Input.GetKeyDown(KeyCode.JoystickButton0)) return;
 
         //選択されたUIによってシーン移行
-        if(selectionNum==0)
+        if (selectionNum == 0)
         {
+            Instantiate(se[0]);
             SceneManager.LoadScene("Main");
         }
-        if(selectionNum==1)
+        if (selectionNum == 1)
         {
+            Instantiate(se[1]);
             Application.Quit();
         }
     }

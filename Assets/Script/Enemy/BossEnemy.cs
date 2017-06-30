@@ -12,7 +12,9 @@ public class BossEnemy : MonoBehaviour
     public float stopwidth;//ライン横幅の上限
     public Sprite newBG;//ボス戦で生成する背景
 
-    private List<GameObject> childEnemy;　//childEnemy取得
+    public AudioClip[] SE;
+
+    private List<GameObject> childEnemy = new List<GameObject>();　//childEnemy取得
     private Animator animator;//アニメーター
     private BoxCollider2D box; //BoxCollider
     private float width;//ライン横幅
@@ -20,6 +22,7 @@ public class BossEnemy : MonoBehaviour
     private bool animcount;//アニメが再生されているか？
     private bool isBossStop;//Bossが止まっているか？
     private bool isActive;//起動状態フラグ
+    private bool isSE;
 
 
     private Animation animation;
@@ -60,6 +63,7 @@ public class BossEnemy : MonoBehaviour
 
         isColActive = false;
         isActive = false;
+        isSE = false;
 
     }
 
@@ -138,6 +142,8 @@ public class BossEnemy : MonoBehaviour
         if (animcount == false)
         {
             animator.SetTrigger("shield");
+            AudioSource se = GetComponent<AudioSource>();
+            se.PlayOneShot(SE[1]);
             animcount = true;
         }
 
@@ -171,6 +177,7 @@ public class BossEnemy : MonoBehaviour
 
             if (isLine)
             {
+                PlaySE();
                 LaserActive();
                 BulletActive();
                 foreach (var t in childEnemy)
@@ -291,6 +298,19 @@ public class BossEnemy : MonoBehaviour
                 e.GetComponent<ShootBullet>().enabled = true;
             }
         }
+    }
+
+    /// <summary>
+    /// 起動効果音再生
+    /// </summary>
+    private void PlaySE()
+    {
+        if (isSE) return;
+
+        AudioSource se = GetComponent<AudioSource>();
+        se.PlayOneShot(SE[0]);
+
+        isSE = true;
     }
 
     /// <summary>

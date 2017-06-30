@@ -9,6 +9,7 @@ public class ArrowMove : MonoBehaviour
 
     public Vector3 ArrowMoveVelocity;
     public GameObject[] select;
+    public GameObject se;
     public bool[] isSelect;
 
     public float time;
@@ -26,12 +27,14 @@ public class ArrowMove : MonoBehaviour
         Select();
         if (y <= -0.5f && isSelect[isSelect.Length - 1] == false && time <= 0)
         {
+            Instantiate(se);
             GetComponent<RectTransform>().position -= ArrowMoveVelocity;
             time = 20;
         }
 
         if (y >= 0.5f && isSelect[0] == false && time <= 0)
         {
+            Instantiate(se);
             GetComponent<RectTransform>().position += ArrowMoveVelocity;
             time = 20;
         }
