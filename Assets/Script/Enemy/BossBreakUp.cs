@@ -98,6 +98,12 @@ public class BossBreakUp : MonoBehaviour
                 float x_val = Random.Range(minRangeX, maxRangeX);
                 float y_val = Random.Range(minRangeY, maxRangeY);
                 transform.position = new Vector3(x_val, y_val, transform.position.z);
+
+                if(main.LastWave() == true)
+                {
+                    GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
+                    effect.name = "Boom_effct";
+                }
             }
         }
     }
@@ -115,11 +121,13 @@ public class BossBreakUp : MonoBehaviour
     
     void BossDead()
     {
+        Shake();
         if (time <= 0)
         {
             GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
             effect.name = "Boom_effct";
             Destroy(gameObject);
         }
+        
     } 
 }
