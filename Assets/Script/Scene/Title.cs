@@ -91,7 +91,7 @@ public class Title : MonoBehaviour
     {
         if (FadeOut.GetComponent<Fade_Effect>().GetBool())
         {
-            if (IsLoadCredit) SceneManager.LoadScene("Credit");
+            //if (IsLoadCredit) SceneManager.LoadScene("Credit");
             if (IsLoadMain) SceneManager.LoadScene("Main");
             if (IsLoadEnd) Application.Quit();
 
@@ -100,11 +100,11 @@ public class Title : MonoBehaviour
         {
             if (!FadeOut.activeSelf && FadeIn.GetComponent<Fade_Effect>().GetBool())
             {
-                if (Input.GetKeyDown(KeyCode.JoystickButton7))
-                {
-                    FadeOut.SetActive(true);
-                    IsLoadCredit = true;
-                }
+                //if (Input.GetKeyDown(KeyCode.JoystickButton7))
+                //{
+                //    FadeOut.SetActive(true);
+                //    IsLoadCredit = true;
+                //}
 
                 Selection();
                 Select();

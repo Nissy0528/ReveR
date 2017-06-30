@@ -75,7 +75,7 @@ public class BossEnemy : MonoBehaviour
 
         BossActive();
 
-        ColliderActive();
+        //ColliderActive();
 
         childEnemy.RemoveAll(x => x == null);
         if (shield != null)
@@ -207,6 +207,7 @@ public class BossEnemy : MonoBehaviour
                             }
 
                             shield.SetActive(true);//shieldのActiveを戻す
+                            ColliderActive();
 
                             isBossStop = true;
                             isActive = true;
@@ -261,7 +262,7 @@ public class BossEnemy : MonoBehaviour
     /// </summary>
     private void ColliderActive()
     {
-        if (!GetComponent<EnemyManager>().IsStop() || isColActive) return;
+        //if (!GetComponent<EnemyManager>().IsStop() || isColActive) return;
 
         foreach (var e in childEnemy)
         {
@@ -272,7 +273,7 @@ public class BossEnemy : MonoBehaviour
         }
         shield.GetComponent<CircleCollider2D>().enabled = true;
 
-        isColActive = true;
+        //isColActive = true;
     }
 
     /// <summary>

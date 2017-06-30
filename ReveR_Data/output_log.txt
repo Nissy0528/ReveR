@@ -19,36 +19,26 @@ Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityE
 Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll (this message is harmless)
 Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
-- Completed reload, in  0.035 seconds
+- Completed reload, in  0.069 seconds
 Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 48Hz; virtual: 1920x1080 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 1.997654 ms
+UnloadTime: 2.182827 ms
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 7.166723 ms
+UnloadTime: 4.983468 ms
 
-Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 5679.
-Total: 3.257601 ms (FindLiveObjects: 0.327253 ms CreateObjectMapping: 0.114346 ms MarkObjects: 1.319680 ms  DeleteObjects: 1.495893 ms)
-
-Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 6.304856 ms
-
-Unloading 3493 unused Assets to reduce memory usage. Loaded Objects now: 5679.
-Total: 6.168749 ms (FindLiveObjects: 0.815787 ms CreateObjectMapping: 0.746240 ms MarkObjects: 1.267627 ms  DeleteObjects: 3.337814 ms)
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 5670.
+Total: 2.871467 ms (FindLiveObjects: 0.307200 ms CreateObjectMapping: 0.116906 ms MarkObjects: 1.163520 ms  DeleteObjects: 1.282560 ms)
 
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 2.897067 ms
+UnloadTime: 4.188161 ms
 
-Unloading 602 unused Assets to reduce memory usage. Loaded Objects now: 590.
-Total: 4.600748 ms (FindLiveObjects: 0.080213 ms CreateObjectMapping: 0.073386 ms MarkObjects: 0.197546 ms  DeleteObjects: 4.248748 ms)
+Unloading 644 unused Assets to reduce memory usage. Loaded Objects now: 638.
+Total: 4.910935 ms (FindLiveObjects: 0.110933 ms CreateObjectMapping: 0.072533 ms MarkObjects: 0.203093 ms  DeleteObjects: 4.523948 ms)
 
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 3ee4 -> priority: 1 
-  Thread -> id: 4710 -> priority: 1 
+  Thread -> id: 1868 -> priority: 1 
+  Thread -> id: 1978 -> priority: 1 
