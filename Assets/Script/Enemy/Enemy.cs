@@ -92,7 +92,21 @@ public class Enemy : MonoBehaviour
         {
             player.GetComponent<Player>().ExtWing();
             camera.GetComponent<MainCamera>().SetShake();
-            p_Class.Crush();
+            if (name != "Core")
+            {
+                p_Class.Crush(0);
+            }
+            else
+            {
+                if(!GameObject.Find("MainManager").GetComponent<Main>().LastWave())
+                {
+                    p_Class.Crush(3);
+                }
+                else
+                {
+                    p_Class.Crush(4);
+                }
+            }
             GameObject effect = Instantiate(BoomEffect, transform.position, transform.rotation);
             effect.name = "Boom_effct";
         }

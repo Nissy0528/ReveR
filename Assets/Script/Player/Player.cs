@@ -281,17 +281,17 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 敵消滅効果音再生
     /// </summary>
-    private void EnemyDeadSE()
+    private void EnemyDeadSE(int seNum)
     {
-        Instantiate(SE[0]);
+        Instantiate(SE[seNum]);
     }
 
     /// <summary>
     /// 潰し処理
     /// </summary>
-    public void Crush()
+    public void Crush(int seNum)
     {
-        EnemyDeadSE();
+        EnemyDeadSE(seNum);
         //speed = Mathf.Min(speed + addSpeed, speedLimit);
 
         ControllerShake.Shake(1.0f, 1.0f);
@@ -439,7 +439,14 @@ public class Player : MonoBehaviour
 
             if (main.GetComponent<Main>().GetWave() == 0) return;
 
-            Instantiate(SE[1]);
+            if (col.gameObject.name.Contains("Enemy"))
+            {
+                Instantiate(SE[1]);
+            }
+            else
+            {
+                Instantiate(SE[5]);
+            }
             ControllerShake.Shake(1.0f, 1.0f);
             GameObject.Find("Main Camera").GetComponent<MainCamera>().SetShake();
             s_Cnt = shakeCnt;

@@ -17,7 +17,7 @@ public class Tutorial : MonoBehaviour
     private Main main;
     private int currentParsNum;
     private int partsNum;
-    private float[] tutoSpeed;
+    private List<float> tutoSpeed = new List<float>();
     private float iniLifeTime;
     private bool isBoost;
     private bool isTime;
@@ -30,10 +30,12 @@ public class Tutorial : MonoBehaviour
         main = GameObject.Find("MainManager").GetComponent<Main>();
 
         partsNum = boss.GetComponent<BossEnemy>().GetChildEnemy().Count;
-        currentParsNum = partsNum;
+        currentParsNum = boss.GetComponent<BossEnemy>().GetChildEnemy().Count;
 
         speed *= 1.0f;
-        tutoSpeed = new float[] { speed, speed, -speed };
+        tutoSpeed.Add(speed);
+        tutoSpeed.Add(speed);
+        tutoSpeed.Add(-speed);
         iniLifeTime = main.lifeTime;
 
         isBoost = false;
@@ -43,6 +45,11 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentParsNum == 0 && boss != null)
+        {
+            currentParsNum = boss.GetComponent<BossEnemy>().GetChildEnemy().Count;
+        }
+
         Count();
         ChangeBack();
         InputTutorialMove();

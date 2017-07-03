@@ -10,6 +10,7 @@ public class ArrowMove : MonoBehaviour
 
     public Vector3 ArrowMoveVelocity;
     public GameObject[] select;
+    public GameObject se;
     public bool[] isSelect;
     public List<Sprite> text;
 
@@ -17,6 +18,9 @@ public class ArrowMove : MonoBehaviour
     void Start()
     {
         time = 20;
+        isSelect[2] = false;
+        isSelect[1] = false;
+        isSelect[0] = true;
     }
 
     // Update is called once per frame
@@ -25,31 +29,72 @@ public class ArrowMove : MonoBehaviour
         float y = Input.GetAxis("Vertical");
         time--;
 
-        Select();
+        //Select();
         textChange();
-        if (y <= -0.5f && isSelect[2] == false && time <= 0)
+        if (y <= -0.5f && isSelect[2] == true && time <= 0)
         {
-            GetComponent<RectTransform>().position -= ArrowMoveVelocity;
+            Instantiate(se);
+            isSelect[2] = true;
+            isSelect[1] = false;
+            isSelect[0] = false;
+
+            time = 20;
+        }
+        if (y >= 0.5f && isSelect[2] == true && time <= 0)
+        {
+            Instantiate(se);
+            isSelect[2] = false;
+            isSelect[1] = true;
+            isSelect[0] = false;
+
             time = 20;
         }
 
-        if (y >= 0.5f && isSelect[0] == false && time <= 0)
+        if (y >= 0.5f && isSelect[1] == true && time <= 0)
         {
-            GetComponent<RectTransform>().position += ArrowMoveVelocity;
+            Instantiate(se);
+            isSelect[2] = false;
+            isSelect[1] = false;
+            isSelect[0] = true;
             time = 20;
         }
-        
+        if (y <= -0.5f && isSelect[1] == true && time <= 0)
+        {
+            Instantiate(se);
+            isSelect[2] = true;
+            isSelect[1] = false;
+            isSelect[0] = false;
+            time = 20;
+        }
+        if (y >= 0.5f && isSelect[0] == true && time <= 0)
+        {
+            Instantiate(se);
+            isSelect[2] = false;
+            isSelect[1] = false;
+            isSelect[0] = true;
+            time = 20;
+        }
+        if (y <= -0.5f && isSelect[0] == true && time <= 0)
+        {
+            Instantiate(se);
+            isSelect[2] = false;
+            isSelect[1] = true;
+            isSelect[0] = false;
+            time = 20;
+        }
+
 
     }
     void Select()
     {
         for (int i = 0; i < select.Length; i++)
         {
-            if (select[i].GetComponent<RectTransform>().position.y ==
-            GetComponent<RectTransform>().position.y)
-            {
-                SetIsSelect(i);
-            }
+            //if (select[i].GetComponent<RectTransform>().position.y ==
+            //GetComponent<RectTransform>().position.y)
+            //{
+
+            //}
+            SetIsSelect(i);
         }
     }
 

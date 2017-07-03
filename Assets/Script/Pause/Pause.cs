@@ -9,6 +9,7 @@ public class Pause : MonoBehaviour
     // Use this for initialization
     public GameObject PauseMenu;
     public GameObject arrowmove;
+    public GameObject[] se;
     public float speed=1;
     public static bool IsPause;
 
@@ -67,16 +68,18 @@ public class Pause : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.JoystickButton7))
         {
-            ControllerShake.Shake(0.0f, 0.0f);
+            ControllerShake.Shake(0.0f, 0.0f);       
 
             if (IsPause)
             {
+                Instantiate(se[1]);
                 IsClose_Menu = true;
                 time = (int)(240/speed);
                 MenuMove = new Vector3(-1, 0, 0);
             }
             else
             {
+                Instantiate(se[0]);
                 Stop_Object.RemoveAll(c => c == null);
                 List_chirdrens.RemoveAll(c => c == null);
                 List_myComponents.RemoveAll(c => c == null);
@@ -108,6 +111,7 @@ public class Pause : MonoBehaviour
         {
             if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(0))
             {
+                Instantiate(se[0]);
                 FadeOut.SetActive(true);
                 IsLoadTitle = true;
                 OnResume();
@@ -120,6 +124,7 @@ public class Pause : MonoBehaviour
             //}
             if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(1))
             {
+                Instantiate(se[0]);
                 FadeOut.SetActive(true);
                 IsLoadMain = true;
                 OnResume();
@@ -127,6 +132,7 @@ public class Pause : MonoBehaviour
             }
             if (arrowmove.GetComponent<ArrowMove>().GetIsSelect(2))
             {
+                Instantiate(se[1]);
                 IsClose_Menu = true;
                 time = (int)(240 / speed);
                 MenuMove = new Vector3(-1, 0, 0);

@@ -1071,7 +1071,10 @@ MonoBehaviour:
   UI:
   - {fileID: 954526048}
   - {fileID: 1343588045}
-  delay: 0.25
+  se:
+  - {fileID: 1331465168400314, guid: 60acc48ee04872746a403fd75808b855, type: 2}
+  - {fileID: 1355205720585302, guid: 1fdcf15b454545343a490702d245bd77, type: 2}
+  - {fileID: 1901069494516996, guid: 25c3b1d14a5da6d4b884c82a1b27811a, type: 2}
   GameStart1: {fileID: 21300004, guid: b53d7ca47e719b74ebc22a7f2329ce9b, type: 3}
   GameStart2: {fileID: 21300006, guid: b53d7ca47e719b74ebc22a7f2329ce9b, type: 3}
   GameEnd1: {fileID: 21300012, guid: b53d7ca47e719b74ebc22a7f2329ce9b, type: 3}
