@@ -119,6 +119,7 @@ public class GameClear : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.JoystickButton0))
                 {
                     Main.Evaluation.Clear();
+                    FadeOut.SetActive(true);
                     IsLoadTitle = true;
                 }
 
