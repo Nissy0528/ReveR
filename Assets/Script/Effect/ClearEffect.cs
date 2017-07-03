@@ -20,13 +20,14 @@ public class ClearEffect : MonoBehaviour
         halfScreenSize = new Vector2(screenSize.x / 2, screenSize.y / 2);
         rect = GetComponent<RectTransform>();
         size = Vector2.zero;
-        iniPos = rect.transform.position;
+        iniPos = rect.localPosition;
+        Spread();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Spread();
+        rect.sizeDelta += new Vector2(speed, speed);
     }
 
     /// <summary>
@@ -34,12 +35,10 @@ public class ClearEffect : MonoBehaviour
     /// </summary>
     private void Spread()
     {
-        float dis = Vector2.Distance(iniPos, rect.transform.position);
+        float dis = Vector2.Distance(iniPos, rect.localPosition);
         float addScaleValue = dis / (screenSize.x / 4);
         float addScale = 2.0f + addScaleValue;
         newSize = new Vector2(screenSize.x * addScale, screenSize.x * addScale);
-
-        rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, newSize, speed);
     }
 
     /// <summary>
@@ -48,8 +47,8 @@ public class ClearEffect : MonoBehaviour
     /// <returns></returns>
     public bool IsEnd()
     {
-        if (Mathf.Round(rect.sizeDelta.x * 100) / 100 >= Mathf.Round(newSize.x * 100) / 100
-            && Mathf.Round(rect.sizeDelta.y * 100) / 100 >= Mathf.Round(newSize.y * 100) / 100)
+        if (Mathf.Round(rect.sizeDelta.x * 100) / 100 >= (Mathf.Round(newSize.x * 100) / 100)
+            && Mathf.Round(rect.sizeDelta.y * 100) / 100 >= (Mathf.Round(newSize.y * 100) / 100))
         {
             return true;
         }

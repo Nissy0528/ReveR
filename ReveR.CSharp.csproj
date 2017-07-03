@@ -81,29 +81,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="ReveR.CSharp.Plugins.csproj">
-      <Project>{719D12DA-A73A-E9AA-7675-4CA13A8132EA}</Project>
-      <Name>ReveR.CSharp.Plugins</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Assets\Animation\Bullet.cs" />
-    <Compile Include="Assets\Fade_Effect.cs" />
-    <Compile Include="Assets\GameOverEffect.cs" />
-    <Compile Include="Assets\ReplaySystem\Examples\Scripts\ColorChanger.cs" />
-    <Compile Include="Assets\ReplaySystem\Examples\Scripts\MousePick.cs" />
-    <Compile Include="Assets\ReplaySystem\Examples\Scripts\MousePickSwitch.cs" />
-    <Compile Include="Assets\ReplaySystem\Examples\Scripts\ReplayCameraGUI.cs" />
-    <Compile Include="Assets\ReplaySystem\Examples\Scripts\ReplayManagerGUI.cs" />
-    <Compile Include="Assets\ReplaySystem\Examples\Scripts\ReplayReceiverExample.cs" />
-    <Compile Include="Assets\ReplaySystem\Examples\Scripts\RigidbodySwitch.cs" />
-    <Compile Include="Assets\ReplaySystem\Examples\Scripts\SceneSwitcher.cs" />
-    <Compile Include="Assets\ReplaySystem\Modules\ColorReplay.cs" />
-    <Compile Include="Assets\ReplaySystem\Modules\RigidbodyRecover.cs" />
-    <Compile Include="Assets\ReplaySystem\Modules\TransformReplay.cs" />
-    <Compile Include="Assets\ReplaySystem\ReplayManager.cs" />
-    <Compile Include="Assets\ReplaySystem\ReplayTemplate.cs" />
-    <Compile Include="Assets\ReplaySystem\Replayable.cs" />
     <Compile Include="Assets\Script\Animation\Anim.cs" />
     <Compile Include="Assets\Script\Audio\SE.cs" />
     <Compile Include="Assets\Script\Camera\MainCamera.cs" />
@@ -111,52 +88,43 @@
     <Compile Include="Assets\Script\Effect\ClearEffect.cs" />
     <Compile Include="Assets\Script\Effect\Drain.cs" />
     <Compile Include="Assets\Script\Effect\EnemyLine.cs" />
+    <Compile Include="Assets\Script\Effect\Fade_Effect.cs" />
     <Compile Include="Assets\Script\Effect\PTimeEffectSpawner.cs" />
     <Compile Include="Assets\Script\Effect\PlayerTrail.cs" />
     <Compile Include="Assets\Script\Effect\PlusTimeEffect.cs" />
     <Compile Include="Assets\Script\Effect\StarAnim.cs" />
     <Compile Include="Assets\Script\Enemy\BossBreakUp.cs" />
     <Compile Include="Assets\Script\Enemy\BossEnemy.cs" />
+    <Compile Include="Assets\Script\Enemy\Bullet.cs" />
     <Compile Include="Assets\Script\Enemy\ELMove.cs" />
-    <Compile Include="Assets\Script\Enemy\EPMove.cs" />
     <Compile Include="Assets\Script\Enemy\Enemy.cs" />
-    <Compile Include="Assets\Script\Enemy\EnemyChack.cs" />
     <Compile Include="Assets\Script\Enemy\EnemyManager.cs" />
-    <Compile Include="Assets\Script\Enemy\Enemy_Line&amp;Circle.cs" />
     <Compile Include="Assets\Script\Enemy\KeyEnemy.cs" />
     <Compile Include="Assets\Script\Enemy\Laser.cs" />
     <Compile Include="Assets\Script\Enemy\MeteoCtrl.cs" />
     <Compile Include="Assets\Script\Enemy\MeteoMove.cs" />
-    <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\MoveSample.cs" />
-    <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\RotateSample.cs" />
-    <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\Sample\SampleInfo.cs" />
-    <Compile Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\iTween.cs" />
     <Compile Include="Assets\Script\Enemy\ShootBullet.cs" />
+    <Compile Include="Assets\Script\Enemy\StartMove.cs" />
     <Compile Include="Assets\Script\Enemy\Turtroial_Move.cs" />
     <Compile Include="Assets\Script\Enemy\kaitenn.cs" />
     <Compile Include="Assets\Script\Pause\ArrowMove.cs" />
     <Compile Include="Assets\Script\Pause\Pause.cs" />
-    <Compile Include="Assets\Script\Player\Exp.cs" />
-    <Compile Include="Assets\Script\Player\ExtendWing.cs" />
     <Compile Include="Assets\Script\Player\Joint.cs" />
     <Compile Include="Assets\Script\Player\LifeScript.cs" />
     <Compile Include="Assets\Script\Player\Player.cs" />
     <Compile Include="Assets\Script\Scene\Credit.cs" />
     <Compile Include="Assets\Script\Scene\GameClear.cs" />
     <Compile Include="Assets\Script\Scene\GameOver.cs" />
+    <Compile Include="Assets\Script\Scene\GameOverEffect.cs" />
     <Compile Include="Assets\Script\Scene\Main.cs" />
     <Compile Include="Assets\Script\Scene\StageSelect.cs" />
     <Compile Include="Assets\Script\Scene\StageSelectCtrl.cs" />
     <Compile Include="Assets\Script\Scene\Title.cs" />
-    <Compile Include="Assets\Script\Scene\result.cs" />
-    <Compile Include="Assets\Script\System\AI_Input.cs" />
     <Compile Include="Assets\Script\System\ControllerShake.cs" />
     <Compile Include="Assets\Script\System\DebugManager.cs" />
     <Compile Include="Assets\Script\System\DestroyParent.cs" />
     <Compile Include="Assets\Script\System\GetAllChildren.cs" />
     <Compile Include="Assets\Script\System\InputManager.cs" />
-    <Compile Include="Assets\Script\System\PlayerPrefsUtility.cs" />
-    <Compile Include="Assets\Script\System\SaveInput.cs" />
     <Compile Include="Assets\Script\UI\BackGroundMove.cs" />
     <Compile Include="Assets\Script\UI\BackGroundScroll.cs" />
     <Compile Include="Assets\Script\UI\InputJudge.cs" />
@@ -165,21 +133,6 @@
     <Compile Include="Assets\Script\UI\PlayerLogo.cs" />
     <Compile Include="Assets\Script\UI\PlayerPositionCheck.cs" />
     <Compile Include="Assets\Script\UI\Tutorial.cs" />
-    <Compile Include="Assets\StartMove.cs" />
-    <Compile Include="Assets\test.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\ReplaySystem\Readme.txt" />
-    <None Include="Assets\ReplaySystem\gpl.txt" />
-    <None Include="Assets\Script\Enemy\Plugins\Pixelplacement\iTween\ReadMe!\ReadMe!.txt" />
-    <None Include="Assets\Shader\Particles Additive Intensify.shader" />
-    <None Include="Assets\Shader\Sprites-Default.shader" />
-    <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-    <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
-    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
-    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
-    <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
-    <None Include="Assets\タスク.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

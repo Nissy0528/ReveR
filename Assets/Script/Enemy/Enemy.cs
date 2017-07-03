@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
     private Player p_Class;
     private GameObject camera;
     private GameObject player;
-    private Exp Exp;
     private Vector2 linePos;
 
 
@@ -36,7 +35,6 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Player");
         camera = GameObject.Find("Main Camera");
         p_Class = player.GetComponent<Player>();
-        Exp = player.GetComponent<Exp>();
     }
 
     // Update is called once per frame
@@ -90,7 +88,6 @@ public class Enemy : MonoBehaviour
     {
         if (isDead)
         {
-            player.GetComponent<Player>().ExtWing();
             camera.GetComponent<MainCamera>().SetShake();
             if (name != "Core")
             {

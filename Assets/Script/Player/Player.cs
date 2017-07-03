@@ -80,11 +80,6 @@ public class Player : MonoBehaviour
             vx = Input.GetAxis("Horizontal");
             vy = Input.GetAxis("Vertical");
         }
-        else
-        {
-            vx = inputManager.GetComponent<AI_Input>().GetInput().x;
-            vy = inputManager.GetComponent<AI_Input>().GetInput().y;
-        }
 
         if (Time.timeScale == 0.0f) return;
         Move();//移動
@@ -163,10 +158,6 @@ public class Player : MonoBehaviour
             {
                 speed = iniSpeed;
             }
-        }
-        else
-        {
-            speed = inputManager.GetComponent<AI_Input>().GetSpeed();
         }
     }
 
@@ -432,7 +423,7 @@ public class Player : MonoBehaviour
     /// <param name="col"></param>
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Enemy" && !isDamage || col.gameObject.tag == "Shield")//EnemyとShieldとぶつかった時
+        if ((col.gameObject.tag == "Enemy" || col.gameObject.tag == "Shield") && !isDamage)//EnemyとShieldとぶつかった時
         {
 
             GameObject main = GameObject.Find("MainManager");
@@ -458,23 +449,6 @@ public class Player : MonoBehaviour
             damageCnt = 0;
             isDamage = true;
         }
-    }
-
-    /// <summary>
-    /// ジョイントを伸ばす
-    /// </summary>
-    public void ExtWing()
-    {
-        transform.FindChild("L_Joint").GetComponent<ExtendWing>().extendWing();
-        transform.FindChild("R_Joint").GetComponent<ExtendWing>().extendWing();
-    }
-
-    /// <summary>
-    /// 経験値加算
-    /// </summary>
-    public void LevelUp()
-    {
-        GetComponent<Exp>().LevelUp(maxexp);
     }
 
     /// <summary>

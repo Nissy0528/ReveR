@@ -460,7 +460,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300004, guid: b53d7ca47e719b74ebc22a7f2329ce9b, type: 3}
+  m_Sprite: {fileID: 21300004, guid: 46c4418d6ee270949b554e9bef4f29fd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -822,7 +822,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300012, guid: b53d7ca47e719b74ebc22a7f2329ce9b, type: 3}
+  m_Sprite: {fileID: 21300012, guid: 46c4418d6ee270949b554e9bef4f29fd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1075,10 +1075,10 @@ MonoBehaviour:
   - {fileID: 1331465168400314, guid: 60acc48ee04872746a403fd75808b855, type: 2}
   - {fileID: 1355205720585302, guid: 1fdcf15b454545343a490702d245bd77, type: 2}
   - {fileID: 1901069494516996, guid: 25c3b1d14a5da6d4b884c82a1b27811a, type: 2}
-  GameStart1: {fileID: 21300004, guid: b53d7ca47e719b74ebc22a7f2329ce9b, type: 3}
-  GameStart2: {fileID: 21300006, guid: b53d7ca47e719b74ebc22a7f2329ce9b, type: 3}
-  GameEnd1: {fileID: 21300012, guid: b53d7ca47e719b74ebc22a7f2329ce9b, type: 3}
-  GameEnd2: {fileID: 21300014, guid: b53d7ca47e719b74ebc22a7f2329ce9b, type: 3}
+  GameStart1: {fileID: 21300004, guid: 46c4418d6ee270949b554e9bef4f29fd, type: 3}
+  GameStart2: {fileID: 21300006, guid: 46c4418d6ee270949b554e9bef4f29fd, type: 3}
+  GameEnd1: {fileID: 21300012, guid: 46c4418d6ee270949b554e9bef4f29fd, type: 3}
+  GameEnd2: {fileID: 21300014, guid: 46c4418d6ee270949b554e9bef4f29fd, type: 3}
   FadeOut: {fileID: 591160763}
   FadeIn: {fileID: 24549754}
 --- !u!1001 &1864703573

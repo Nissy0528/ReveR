@@ -60,11 +60,6 @@ public class Joint : MonoBehaviour
             vx = Input.GetAxis("Horizontal");//横入力値
             vy = Input.GetAxis("Vertical");//縦入力値
         }
-        else
-        {
-            vx = inputManager.GetComponent<AI_Input>().GetInput().x;
-            vy = inputManager.GetComponent<AI_Input>().GetInput().y;
-        }
 
         if ((vx != 0.0f || vy != 0.0f) && !isStart)
         {

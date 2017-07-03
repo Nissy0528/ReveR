@@ -63,10 +63,6 @@ public class InputManager : MonoBehaviour
             input.x = Input.GetAxis("Horizontal");
             input.y = Input.GetAxis("Vertical");
         }
-        else
-        {
-            input = GetComponent<AI_Input>().GetInput();
-        }
 
         InputPoint();//スティック入力座標取得
         Invert();//反転処理
