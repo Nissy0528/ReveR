@@ -6,30 +6,22 @@ public class BossEnemy : MonoBehaviour
 {
     public GameObject core;//コアオブジェクト
     public GameObject shield;  //シールド取得
-
     public GameObject core2;//空のコア
     public float addwidthspeed = 0.003f;//ラインの太くなる速さ
     public float stopwidth;//ライン横幅の上限
     public Sprite newBG;//ボス戦で生成する背景
-
     public AudioClip[] SE;
 
     private List<GameObject> childEnemy = new List<GameObject>();//childEnemy取得
     private Animator animator;//アニメーター
     private BoxCollider2D box; //BoxCollider
     private float width;//ライン横幅
-    private float width1;
-    private float width2;
-
     private bool animcount;//アニメが再生されているか？
     private bool isBossStop;//Bossが止まっているか？
     private bool isActive;//起動状態フラグ
     private bool isSE;
-
-
     private Animation animation;
     private bool isColActive;
-
 
     // Use this for initialization
     void Start()
@@ -66,16 +58,12 @@ public class BossEnemy : MonoBehaviour
         isColActive = false;
         isActive = false;
         isSE = false;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
         BossActive();
-
-        //ColliderActive();
 
         childEnemy.RemoveAll(x => x == null);
         if (shield != null)
@@ -98,7 +86,6 @@ public class BossEnemy : MonoBehaviour
         {
             ShieldAnim();
         }
-
         SetELmove();
     }
 
@@ -159,21 +146,22 @@ public class BossEnemy : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// ボス処理
+    /// </summary>
     void BossActive()
     {
-        if (GetComponent<EnemyManager>().IsStop() == true)
+        if (GetComponent<EnemyManager>().IsStop() == true)//ボスが止まったら
         {
             childEnemy.RemoveAll(x => x == null);
             bool isLine = true;
 
-            foreach (var e in childEnemy)
+            foreach (var e in childEnemy)//子オブジェクトの
             {
+                if (e.GetComponent<Turtroial_Move>() != null)//子オブジェクトがnullじゃなければ
                 {
-                    if (e.GetComponent<Turtroial_Move>() != null)
-                    {
-                        e.GetComponent<Turtroial_Move>().enabled = true;
-                        isLine = false;
-                    }
+                    e.GetComponent<Turtroial_Move>().enabled = true;//Turtroial_Moveを戻す
+                    isLine = false;
                 }
             }
 
@@ -184,33 +172,22 @@ public class BossEnemy : MonoBehaviour
                 BulletActive();
                 foreach (var t in childEnemy)
                 {
-                    if (t.GetComponent<LineRenderer>() != null)
+                    if (t.GetComponent<LineRenderer>() != null)//LineRendererがnullでなければ
                     {
-                        width = width + addwidthspeed;
+                        width = Mathf.Lerp(width, stopwidth, addwidthspeed);//Lineの横幅に加算
+                        t.GetComponent<LineRenderer>().enabled = true;//LineRendererを戻す
+                        t.GetComponent<LineRenderer>().startWidth = width;//LineRendererに加算されている幅を割り当てる
 
-                        t.GetComponent<LineRenderer>().enabled = true;
-
-                        //GetComponent<LineRenderer>().widthMultiplier = width;
-                        t.GetComponent<LineRenderer>().startWidth = width;
-                        t.GetComponent<LineRenderer>().endWidth = width;
-                       // Debug.Log(t.GetComponent<LineRenderer>().startWidth);
-
-                        if (width >= stopwidth)//Lineの横幅が上限を超えたら
+                        if (Mathf.Round(width * 100) / 100 >= Mathf.Round(stopwidth * 100) / 100)//Lineの横幅が上限を超えたら
                         {
-                            t.GetComponent<LineRenderer>().startWidth = stopwidth;//Lineの横幅上限で停止
-                            t.GetComponent<LineRenderer>().endWidth = stopwidth;//Lineの横幅上限で停止
-                            addwidthspeed = 0;//加算を停止
-                            
-
-                            if (GameObject.Find("MainManager").GetComponent<Main>().GetWave() > 0)
+                            if (GameObject.Find("MainManager").GetComponent<Main>().GetWave() > 0)//ボス戦なら
                             {
                                 GameObject.Find("back3").GetComponent<SpriteRenderer>().sprite = newBG;//ボス戦時背景生成
                                 GameObject.Find("back3.3").GetComponent<SpriteRenderer>().sprite = newBG;//ボス戦時背景生成
                             }
 
                             shield.SetActive(true);//shieldのActiveを戻す
-                            ColliderActive();
-
+                            ColliderActive();//当たり判定のActiveを戻す
                             isBossStop = true;
                             isActive = true;
                         }
@@ -220,10 +197,15 @@ public class BossEnemy : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ボスが止まっているか？
+    /// </summary>
+    /// <returns></returns>
     public bool IsBossStop()
     {
         return isBossStop;
     }
+
     /// <summary>
     /// childrenのELmoveを設定する
     /// </summary>
