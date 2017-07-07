@@ -93,16 +93,18 @@ public class Title : MonoBehaviour
         //選択されたUIによってシーン移行
         if (selectionNum == 0)
         {
-            Instantiate(se[0]);
-            FadeOut.gameObject.SetActive(true);
             IsLoadMain = true;
         }
         if (selectionNum == 1)
         {
-            Instantiate(se[1]);
-            FadeOut.gameObject.SetActive(true);
             IsLoadEnd = true;
         }
+        if(selectionNum==2)
+        {
+            IsLoadCredit = true;
+        }
+        Instantiate(se[0]);
+        FadeOut.gameObject.SetActive(true);
     }
 
     private void LoadScene()
@@ -118,12 +120,6 @@ public class Title : MonoBehaviour
         {
             if (!FadeOut.activeSelf && FadeIn.GetComponent<Fade_Effect>().GetBool())
             {
-                if (Input.GetKeyDown(KeyCode.JoystickButton7))
-                {
-                    FadeOut.SetActive(true);
-                    IsLoadCredit = true;
-                }
-
                 Selection();
                 Select();
             }

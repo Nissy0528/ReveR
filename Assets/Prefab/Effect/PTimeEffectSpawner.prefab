@@ -57,4 +57,5 @@ MonoBehaviour:
   finishEffect:
   - {fileID: 1307195843895326, guid: b5e0b7704b3c04944bb51bef08df6e2e, type: 2}
   - {fileID: 1329555728269094, guid: b089331f6f0d3de44a1d1d8c5cd81a98, type: 2}
+  damege: {fileID: 1303498369956390, guid: b314a483db0169042b00f4d95a80c383, type: 2}
   spawnCnt: 5
