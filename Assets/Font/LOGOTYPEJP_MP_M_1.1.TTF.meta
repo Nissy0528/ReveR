@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 2b1f6e0fbb0eb6044b80016e9a9604c0
+timeCreated: 1499390501
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Corporate Logo Medium
+  fontNames:
+  - Corporate Logo Medium
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
