@@ -6,33 +6,40 @@ using UnityEngine.UI;
 
 public class Title : MonoBehaviour
 {
-    public GameObject[] UI;
-    public GameObject[] se;
+    public GameObject[] UI;//UIオブジェクト
+    public GameObject[] se;//効果音
+    public Sprite[] normalUI;//選択時の画像
+    public Sprite[] changeUI;//選択時の画像
 
-    public Sprite GameStart1;
-    public Sprite GameStart2;
-    public Sprite GameEnd1;
-    public Sprite GameEnd2;
-    public GameObject FadeOut;
-    public GameObject FadeIn;
+    public GameObject FadeOut;//フェードアウト
+    public GameObject FadeIn;//フェードイン
+    public GameObject GameEndManager;//ゲーム終了オブジェクト
 
 
-    private int selectionNum = 0;
-    private bool isStick = false;
+    private int selectionNum = 0;//カーソル選択番号
+    private bool isStick = false;//スティック入力フラグ
 
-    private bool IsLoadCredit = false;
-    private bool IsLoadMain = false;
-    private bool IsLoadEnd = false;
+    private bool IsLoadCredit = false;//クレジットシーンフラグ
+    private bool IsLoadMain = false;//メインシーンフラグ
+    private bool IsLoadEnd = false;//ゲーム終了フラグ
 
     void Start()
     {
+        //ゲーム強制終了のオブジェクト検索
+        GameObject[] end = GameObject.FindGameObjectsWithTag("GameEnd");
+
+        //強制終了用のオブジェクトが存在していたら生成しない
+        if (end.Length < 1)
+        {
+            Instantiate(GameEndManager);
+        }
     }
 
     void Update()
     {
         Cursor.visible = false;
         LoadScene();
-       
+
     }
 
     /// <summary>
@@ -43,26 +50,37 @@ public class Title : MonoBehaviour
         float y = Input.GetAxis("Vertical");
 
         //スティック入力で上下選択
-        if ((y >= 1.0f || y <= -1.0f) && !isStick)
+        if (!isStick)
         {
-            selectionNum += (int)y;
-            Instantiate(se[2]);
-            isStick = true;
+            if (y >= 0.5f)
+            {
+                selectionNum -= 1;
+                Instantiate(se[2]);
+                isStick = true;
+            }
+            if (y <= -0.5f)
+            {
+                selectionNum += 1;
+                Instantiate(se[2]);
+                isStick = true;
+            }
         }
         if (y == 0.0f && isStick)
         {
             isStick = false;
         }
-        selectionNum = Mathf.Abs(selectionNum % 2);
-
-        //選択されたUIの色を赤に（それ以外は白に）
-        foreach (var ui in UI)
+        if (selectionNum < 0)
         {
-            UI[0].GetComponent<Image>().sprite = GameStart1;
-            UI[1].GetComponent<Image>().sprite = GameEnd1;
+            selectionNum -= 1;
         }
-        if (selectionNum == 0) { UI[selectionNum].GetComponent<Image>().sprite = GameStart2; }
-        else if(selectionNum == 1) { UI[selectionNum].GetComponent<Image>().sprite = GameEnd2; }
+        selectionNum = Mathf.Abs(selectionNum % 3);
+
+        //選択されたUIの画像変更（それ以外は普通に）
+        for (int i = 0; i < UI.Length; i++)
+        {
+            UI[i].GetComponent<Image>().sprite = normalUI[i];
+        }
+        UI[selectionNum].GetComponent<Image>().sprite = changeUI[selectionNum];
     }
 
     /// <summary>
@@ -91,7 +109,7 @@ public class Title : MonoBehaviour
     {
         if (FadeOut.GetComponent<Fade_Effect>().GetBool())
         {
-            //if (IsLoadCredit) SceneManager.LoadScene("Credit");
+            if (IsLoadCredit) SceneManager.LoadScene("Credit");
             if (IsLoadMain) SceneManager.LoadScene("Main");
             if (IsLoadEnd) Application.Quit();
 
@@ -100,16 +118,16 @@ public class Title : MonoBehaviour
         {
             if (!FadeOut.activeSelf && FadeIn.GetComponent<Fade_Effect>().GetBool())
             {
-                //if (Input.GetKeyDown(KeyCode.JoystickButton7))
-                //{
-                //    FadeOut.SetActive(true);
-                //    IsLoadCredit = true;
-                //}
+                if (Input.GetKeyDown(KeyCode.JoystickButton7))
+                {
+                    FadeOut.SetActive(true);
+                    IsLoadCredit = true;
+                }
 
                 Selection();
                 Select();
             }
         }
     }
-       
+
 }
