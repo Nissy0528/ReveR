@@ -45,6 +45,7 @@ public class Turtroial_Move : MonoBehaviour
         if (GetComponent<BoxCollider2D>() != null)
         {
             GetComponent<BoxCollider2D>().enabled = true;//あたり判定有効に
+
         }
     }
 
@@ -66,4 +67,5 @@ public class Turtroial_Move : MonoBehaviour
 
     }
 
+  
 }

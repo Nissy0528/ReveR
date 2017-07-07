@@ -23,6 +23,9 @@ public class BossEnemy : MonoBehaviour
     private Animation animation;
     private bool isColActive;
 
+
+    private List<GameObject> KeyEnemy = new List<GameObject>();
+
     // Use this for initialization
     void Start()
     {
@@ -38,6 +41,7 @@ public class BossEnemy : MonoBehaviour
             if (e.GetComponent<Turtroial_Move>() != null)
             {
                 e.GetComponent<Turtroial_Move>().enabled = false;
+                KeyEnemy.Add(e);
             }
 
             if (e.GetComponent<BoxCollider2D>() != null)
@@ -87,6 +91,30 @@ public class BossEnemy : MonoBehaviour
             ShieldAnim();
         }
         SetELmove();
+
+
+
+        if (!isActive)
+        {
+            foreach (var f in KeyEnemy)
+            {
+                if (f != null)
+                {
+                    if (f.GetComponent<BoxCollider2D>() != null)
+                    {
+                        f.GetComponent<BoxCollider2D>().enabled = false;
+                    }
+                    else
+                    {
+                        f.GetComponentInChildren<BoxCollider2D>().enabled = false;
+                    }
+
+                }
+            }
+        }
+
+           
+
     }
 
     /// <summary>
@@ -151,6 +179,7 @@ public class BossEnemy : MonoBehaviour
     /// </summary>
     void BossActive()
     {
+       
         if (GetComponent<EnemyManager>().IsStop() == true)//ボスが止まったら
         {
             childEnemy.RemoveAll(x => x == null);
@@ -188,6 +217,7 @@ public class BossEnemy : MonoBehaviour
 
                             shield.SetActive(true);//shieldのActiveを戻す
                             ColliderActive();//当たり判定のActiveを戻す
+                            KeyColliderActive();
                             isBossStop = true;
                             isActive = true;
                         }
@@ -257,8 +287,42 @@ public class BossEnemy : MonoBehaviour
         }
         shield.GetComponent<CircleCollider2D>().enabled = true;
 
+        //foreach (var f in KeyEnemy)
+        //{
+        //    if (f != null)
+        //    {
+        //        f.GetComponent<BoxCollider2D>().enabled = true;
+        //    }
+        //}
+
         //isColActive = true;
     }
+
+    private void KeyColliderActive()
+    {
+        
+        foreach (var f in KeyEnemy)
+        {
+            if (f != null)
+            {
+                if (f.GetComponent<BoxCollider2D>() != null)
+                {
+                    f.GetComponent<BoxCollider2D>().enabled = true;
+                }
+                else
+                {
+                    if (f.GetComponentInChildren<BoxCollider2D>()!=null)
+                        f.GetComponentInChildren<BoxCollider2D>().enabled = true;
+
+                }
+               
+            }
+        }
+
+       
+    }
+
+
 
     /// <summary>
     /// レーザーをアクティブに
