@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Credit : MonoBehaviour {
     
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button7))
+        if (Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
             SceneManager.LoadScene("Title");
         }
