@@ -103,6 +103,12 @@ public class Title : MonoBehaviour
             FadeOut.gameObject.SetActive(true);
             IsLoadEnd = true;
         }
+        if (selectionNum == 2)
+        {
+            Instantiate(se[1]);
+            FadeOut.gameObject.SetActive(true);
+            IsLoadCredit = true;
+        }
     }
 
     private void LoadScene()
