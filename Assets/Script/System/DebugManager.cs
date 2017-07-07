@@ -79,7 +79,10 @@ public class DebugManager : MonoBehaviour
     {
         if (!isPlayerMaxSpeed) return;
 
-        GameObject.Find("MainManager").GetComponent<Main>().lifeTime = 60;
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            GameObject.Find("MainManager").GetComponent<Main>().lifeTime = 100;
+        }
     }
 
     /// <summary>
@@ -96,14 +99,20 @@ public class DebugManager : MonoBehaviour
             {
                 foreach (var e in enemys)
                 {
-                    e.GetComponent<EnemyManager>().scrollSpeed = iniScrollSpeed * 10.0f;
+                    if (Input.GetKeyDown(KeyCode.S))
+                    {
+                        e.GetComponent<EnemyManager>().scrollSpeed = iniScrollSpeed * 10.0f;
+                    }
                 }
             }
             if (keyEnemys != null)
             {
                 foreach (var k in keyEnemys)
                 {
-                    k.GetComponent<EnemyManager>().scrollSpeed = iniScrollSpeed * 10.0f;
+                    if (Input.GetKeyDown(KeyCode.S))
+                    {
+                        k.GetComponent<EnemyManager>().scrollSpeed = iniScrollSpeed * 10.0f;
+                    }
                 }
             }
         }
