@@ -7,6 +7,7 @@ public class PTimeEffectSpawner : MonoBehaviour
 {
     public GameObject[] effect;
     public GameObject[] finishEffect;
+    public GameObject damege;
     public int spawnCnt;
 
     private GameObject main;
@@ -83,7 +84,8 @@ public class PTimeEffectSpawner : MonoBehaviour
             }
             if (type == 1)
             {
-                mainClass.StartTime(-time);
+                time *= -1;
+                mainClass.StartTime(time);
             }
             SpawnFinishEffect();
             Destroy(gameObject);
@@ -101,6 +103,11 @@ public class PTimeEffectSpawner : MonoBehaviour
         {
             Destroy(ather.gameObject);
         }
+        if (type == 1)
+        {
+            GameObject damageObj = Instantiate(damege, lifeUI.transform);
+            damageObj.GetComponent<Text>().text = time.ToString();
+        }
         GameObject f_effect = Instantiate(finishEffect[type], lifeUI.transform);
         f_effect.GetComponent<L_TimeCntEffect>().SetTime(currentTime, currentTime + time * f_type);
     }
@@ -109,7 +116,7 @@ public class PTimeEffectSpawner : MonoBehaviour
     /// 加算ライフタイム設定
     /// </summary>
     /// <param name="addLifeTime"></param>
-    public void SetAddTime(float time,float currentTime, int type)
+    public void SetAddTime(float time, float currentTime, int type)
     {
         this.time = time;
         this.currentTime = currentTime;
