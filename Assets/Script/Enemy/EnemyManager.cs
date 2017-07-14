@@ -50,7 +50,6 @@ public class EnemyManager : MonoBehaviour
         LimitTime = addLifeTime * 60;
         CurrentTime = LimitTime;
         damage = GameObject.Find("Player").GetComponent<Player>().damage;
-
         iniChildCnt = GetAllChildren.GetAll(gameObject).Count;//全ての子オブジェクトの数取得
 
         IsTimeStart = false;
@@ -160,6 +159,7 @@ public class EnemyManager : MonoBehaviour
         //敵を全部消すと、残った時間でランクを判断する、リストに入れる
         if (transform.childCount == 0)
         {
+
             if (CurrentTime >= LimitTime * 2 / 3)
             {
                 Main.Evaluation.Add("S");
@@ -173,6 +173,8 @@ public class EnemyManager : MonoBehaviour
             }
             if (CurrentTime < LimitTime * 1 / 3)
             {
+                Debug.Log(CurrentTime);
+                Debug.Log(LimitTime);
                 if (CurrentTime < 0) CurrentTime = 0;
                 Main.Evaluation.Add("B");
                 TextObj = Instantiate(Nor, GameObject.Find("Canvas").transform);
@@ -186,12 +188,14 @@ public class EnemyManager : MonoBehaviour
                 TextObj.GetComponent<JudgeUI>().SetFade(true, true, 1.0f);
             }
 
+
             GetPlusTime(TextObj);
             //GetMinusTime();
             PlusEffect(addLifeTime, main.GetComponent<Main>().lifeTime, 0);
 
             main.GetComponent<Main>().SetIsLifeTime(false);
             DestroyObj();//判定終了後、このオブジェクトを消す
+
         }
     }
 

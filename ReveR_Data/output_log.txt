@@ -2,29 +2,38 @@ Initialize engine version: 5.6.0f3 (497a0f351392)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.1]
-    Renderer: Intel(R) HD Graphics 520 (ID=0x1916)
+    Renderer: Intel(R) HD Graphics 5500 (ID=0x1616)
     Vendor:   Intel
-    VRAM:     2111 MB
-    Driver:   21.20.16.4590
+    VRAM:     1130 MB
+    Driver:   20.19.15.4531
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll (this message is harmless)
-Loading C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
-- Completed reload, in  0.191 seconds
-Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Users\horne\Desktop\GitHub\ReveR\ReveR_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll (this message is harmless)
+Loading C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\XInputDotNetPure.dll into Unity Child Domain
+- Completed reload, in  0.275 seconds
+Platform assembly: C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\菖平\Documents\GitHub\ReveR\ReveR_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
-desktop: 1920x1080 48Hz; virtual: 1920x1080 at 0,0
+desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initialized touch support.
-UnloadTime: 7.557553 ms
-Setting up 2 worker threads for Enlighten.
-  Thread -> id: 2d30 -> priority: 1 
-  Thread -> id: 898 -> priority: 1 
+UnloadTime: 2.750158 ms
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 8.092414 ms
+
+Unloading 44 unused Assets to reduce memory usage. Loaded Objects now: 520.
+Total: 2.623914 ms (FindLiveObjects: 0.061069 ms CreateObjectMapping: 0.039002 ms MarkObjects: 0.342807 ms  DeleteObjects: 2.180523 ms)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 4.286634 ms
+
+Unloading 8 unused Assets to reduce memory usage. Loaded Objects now: 578.
+Total: 0.463919 ms (FindLiveObjects: 0.070819 ms CreateObjectMapping: 0.038488 ms MarkObjects: 0.325359 ms  DeleteObjects: 0.027711 ms)
+
