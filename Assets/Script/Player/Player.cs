@@ -443,8 +443,9 @@ public class Player : MonoBehaviour
             s_Cnt = shakeCnt;
 
             speed = Mathf.Max(speed - damage, 0.0f);
-            GameObject p_Effect = Instantiate(damageEffect, transform.position, transform.rotation); ;
+            GameObject p_Effect = Instantiate(damageEffect, transform.position, transform.rotation);
             p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(damage, main.GetComponent<Main>().lifeTime, 1);
+            main.GetComponent<Main>().StartTime(-damage);
 
             damageCnt = 0;
             isDamage = true;
