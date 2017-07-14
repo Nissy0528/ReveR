@@ -19,6 +19,7 @@ public class BossEnemy : MonoBehaviour
     private bool animcount;//アニメが再生されているか？
     private bool isBossStop;//Bossが止まっているか？
     private bool isActive;//起動状態フラグ
+    private bool isLine;
     private bool isSE;
     private Animation animation;
     private bool isColActive;
@@ -91,30 +92,6 @@ public class BossEnemy : MonoBehaviour
             ShieldAnim();
         }
         SetELmove();
-
-
-
-        if (!isActive)
-        {
-            foreach (var f in KeyEnemy)
-            {
-                if (f != null)
-                {
-                    if (f.GetComponent<BoxCollider2D>() != null)
-                    {
-                        f.GetComponent<BoxCollider2D>().enabled = false;
-                    }
-                    else
-                    {
-                        f.GetComponentInChildren<BoxCollider2D>().enabled = false;
-                    }
-
-                }
-            }
-        }
-
-           
-
     }
 
     /// <summary>
@@ -183,7 +160,10 @@ public class BossEnemy : MonoBehaviour
         if (GetComponent<EnemyManager>().IsStop() == true)//ボスが止まったら
         {
             childEnemy.RemoveAll(x => x == null);
-            bool isLine = true;
+            if (!isActive)
+            {
+                isLine = true;
+            }
 
             foreach (var e in childEnemy)//子オブジェクトの
             {
@@ -219,6 +199,7 @@ public class BossEnemy : MonoBehaviour
                             ColliderActive();//当たり判定のActiveを戻す
                             KeyColliderActive();
                             isBossStop = true;
+                            isLine = false;
                             isActive = true;
                         }
                     }
@@ -311,7 +292,7 @@ public class BossEnemy : MonoBehaviour
                 }
                 else
                 {
-                    if (f.GetComponentInChildren<BoxCollider2D>() != null)
+                    if (f.GetComponentInChildren<BoxCollider2D>() != null&& f.GetComponentInChildren<BoxCollider2D>().enabled == false)
                         f.GetComponentInChildren<BoxCollider2D>().enabled = true;
                 }
             }

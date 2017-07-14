@@ -22,7 +22,6 @@ public class L_TimeCntEffect : MonoBehaviour
         {
             child = transform.GetChild(0).gameObject;
             child.transform.parent = transform.parent;
-            GetComponent<Anim>().SetChild(child);
         }
     }
 

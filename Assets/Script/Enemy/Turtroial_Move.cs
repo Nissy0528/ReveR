@@ -36,16 +36,15 @@ public class Turtroial_Move : MonoBehaviour
                                                            //起動エフェクト生成
             GameObject s_effect = Instantiate(startupEffect, transform.position, transform.rotation, transform);
             s_effect.GetComponent<SpriteRenderer>().sprite = normal;
+            if (GetComponent<BoxCollider2D>() != null)
+            {
+                GetComponent<BoxCollider2D>().enabled = true;//あたり判定有効に
+
+            }
         }
         else
         {
             //transform.GetChild(0).GetComponent<LineRenderer>().enabled = true;
-        }
-
-        if (GetComponent<BoxCollider2D>() != null)
-        {
-            GetComponent<BoxCollider2D>().enabled = true;//あたり判定有効に
-
         }
     }
 

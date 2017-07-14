@@ -269,7 +269,6 @@ public class GameClear : MonoBehaviour
             Main.ClearTime = 0;
             if (IsLoadTitle) SceneManager.LoadScene("Title");
             if (IsLoaRetry) SceneManager.LoadScene("Main");
-
         }
         else
         {
