@@ -23,6 +23,10 @@ public class Title : MonoBehaviour
     private bool IsLoadMain = false;//メインシーンフラグ
     private bool IsLoadEnd = false;//ゲーム終了フラグ
 
+    //選択の点滅処理
+    private int time = 15;
+    private int timeSpeed = 1;
+    private bool IsAlpha = false;
     void Start()
     {
         //ゲーム強制終了のオブジェクト検索
@@ -80,7 +84,10 @@ public class Title : MonoBehaviour
         {
             UI[i].GetComponent<Image>().sprite = normalUI[i];
         }
-        UI[selectionNum].GetComponent<Image>().sprite = changeUI[selectionNum];
+        //UI[selectionNum].GetComponent<Image>().sprite = changeUI[selectionNum];
+
+        SelectAlpha();
+       
     }
 
     /// <summary>
@@ -103,6 +110,36 @@ public class Title : MonoBehaviour
             FadeOut.gameObject.SetActive(true);
             IsLoadEnd = true;
         }
+        if (selectionNum == 2)
+        {
+            Instantiate(se[2]);
+            FadeOut.gameObject.SetActive(true);
+            IsLoadCredit= true;
+        }
+    }
+    /// <summary>
+    /// 点滅処理
+    /// </summary>
+    private void SelectAlpha()
+    {
+        
+        if (time == 15) IsAlpha = false;
+        if (time == 0) IsAlpha = true;
+
+        time += timeSpeed;
+
+        if (IsAlpha)
+        {
+            timeSpeed = 1;
+            UI[selectionNum].GetComponent<Image>().sprite = normalUI[selectionNum];
+        }
+        else
+        {
+            timeSpeed = -1;
+            UI[selectionNum].GetComponent<Image>().sprite = changeUI[selectionNum];
+        }
+
+       
     }
 
     private void LoadScene()
@@ -123,7 +160,6 @@ public class Title : MonoBehaviour
                     FadeOut.SetActive(true);
                     IsLoadCredit = true;
                 }
-
                 Selection();
                 Select();
             }

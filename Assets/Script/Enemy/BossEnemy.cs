@@ -311,15 +311,11 @@ public class BossEnemy : MonoBehaviour
                 }
                 else
                 {
-                    if (f.GetComponentInChildren<BoxCollider2D>()!=null)
+                    if (f.GetComponentInChildren<BoxCollider2D>() != null)
                         f.GetComponentInChildren<BoxCollider2D>().enabled = true;
-
                 }
-               
             }
         }
-
-       
     }
 
 

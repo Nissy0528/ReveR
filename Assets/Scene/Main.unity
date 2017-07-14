@@ -123,7 +123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &78741419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,8 +147,8 @@ MonoBehaviour:
   isInput: 0
   isDetaClear: 0
   isTutorialSkip: 1
-  isPlayerMaxSpeed: 0
-  isScrollUp: 0
+  isPlayerMaxSpeed: 1
+  isScrollUp: 1
   drag: 0.5
 --- !u!4 &78741420
 Transform:
@@ -294,6 +294,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 1081772207157650, guid: 5df071afa95f632429dc99f604150bb7, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5df071afa95f632429dc99f604150bb7, type: 2}
   m_IsPrefabParent: 0
@@ -736,7 +740,7 @@ Prefab:
       objectReference: {fileID: 2136935298}
     - target: {fileID: 1823139489202350, guid: a0da30002b3e52440b834a1881583782, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114106806748857646, guid: a0da30002b3e52440b834a1881583782,
         type: 2}
@@ -798,6 +802,11 @@ Prefab:
       value: 
       objectReference: {fileID: 21300002, guid: 19f3239069a41684baecbec6351c7ebf,
         type: 3}
+    - target: {fileID: 114388224205103390, guid: a0da30002b3e52440b834a1881583782,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0da30002b3e52440b834a1881583782, type: 2}
   m_IsPrefabParent: 0
@@ -1087,6 +1096,18 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 212633362959899302, guid: 8dd988c8a4ec2244b9da6a0a03b0a7e1,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8ca4a08078f740498eeafc7b187ef88,
+        type: 3}
+    - target: {fileID: 212564675926000190, guid: 8dd988c8a4ec2244b9da6a0a03b0a7e1,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8ca4a08078f740498eeafc7b187ef88,
+        type: 3}
+    - target: {fileID: 212989454165538848, guid: 8dd988c8a4ec2244b9da6a0a03b0a7e1,
         type: 2}
       propertyPath: m_Sprite
       value: 

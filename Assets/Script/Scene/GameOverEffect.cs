@@ -63,6 +63,10 @@ public class GameOverEffect : MonoBehaviour {
     private GameObject Anim;
 
 
+    //点滅処理
+    private int timeAlpha = 15;
+    private int timeSpeed = 1;
+    private bool IsAlpha = false;
     void Start () {
 
         CADChlidren = PlayerCadaver.GetComponentsInChildren<Transform>();
@@ -134,11 +138,33 @@ public class GameOverEffect : MonoBehaviour {
             NextSecen();
         }
     }
+    private void SelectAlpha(GameObject name, Sprite after, Sprite before)
+    {
+
+        if (time == 15) IsAlpha = false;
+        if (time == 0) IsAlpha = true;
+
+        time += timeSpeed;
+
+        if (IsAlpha)
+        {
+            timeSpeed = 1;
+            name.GetComponent<Image>().sprite = before;
+        }
+        else
+        {
+            timeSpeed = -1;
+            name.GetComponent<Image>().sprite = after;
+        }
+
+
+    }
     void NextSecen()
     {
         if (IsRetry)
         {
-            Retry.GetComponent<Image>().sprite = RetrySprite2;
+            // Retry.GetComponent<Image>().sprite = RetrySprite2;
+            SelectAlpha(Retry, RetrySprite2, RetrySprite1);
             Title.GetComponent<Image>().sprite = TitleSprite1;
 
             if (Input.GetKey(KeyCode.JoystickButton0))
@@ -152,7 +178,8 @@ public class GameOverEffect : MonoBehaviour {
         else if (IsTitle)
         {
             Retry.GetComponent<Image>().sprite = RetrySprite1;
-            Title.GetComponent<Image>().sprite = TitleSprite2;
+            //Title.GetComponent<Image>().sprite = TitleSprite2;
+            SelectAlpha(Title,TitleSprite2,TitleSprite1);
 
             if (Input.GetKey(KeyCode.JoystickButton0))
             {

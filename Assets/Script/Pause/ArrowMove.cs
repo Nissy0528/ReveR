@@ -15,6 +15,11 @@ public class ArrowMove : MonoBehaviour
     public List<Sprite> text;
 
     public float time;
+
+    //点滅処理
+    private int timeAlpha = 15;
+    private int timeSpeed = 1;
+    private bool IsAlpha = false;
     void Start()
     {
         time = 20;
@@ -118,21 +123,45 @@ public class ArrowMove : MonoBehaviour
     {
         if (isSelect[0] == true)
         {
-            select[0].GetComponent<Image>().sprite = text[1];
+            //select[0].GetComponent<Image>().sprite = text[1];
+            SelectAlpha(0,0);
             select[1].GetComponent<Image>().sprite = text[2];
             select[2].GetComponent<Image>().sprite = text[4];
         }
         else if (isSelect[1] == true)
         {
             select[0].GetComponent<Image>().sprite = text[0];
-            select[1].GetComponent<Image>().sprite = text[3];
+            //select[1].GetComponent<Image>().sprite = text[3];
+            SelectAlpha(1, 2);
             select[2].GetComponent<Image>().sprite = text[4];
         }
         else if (isSelect[2] == true)
         {
             select[0].GetComponent<Image>().sprite = text[0];
             select[1].GetComponent<Image>().sprite = text[2];
-            select[2].GetComponent<Image>().sprite = text[5];
+            //select[2].GetComponent<Image>().sprite = text[5];
+            SelectAlpha(2, 4);
         }
+    }
+    private void SelectAlpha(int Snumber,int number)
+    {
+
+        if (timeAlpha == 15) IsAlpha = false;
+        if (timeAlpha == 0) IsAlpha = true;
+
+        timeAlpha += timeSpeed;
+
+        if (IsAlpha)
+        {
+            timeSpeed = 1;
+            select[Snumber].GetComponent<Image>().sprite = text[number+1];
+        }
+        else
+        {
+            timeSpeed = -1;
+            select[Snumber].GetComponent<Image>().sprite = text[number];
+        }
+
+
     }
 }

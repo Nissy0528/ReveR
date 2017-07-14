@@ -45,6 +45,8 @@ public class Main : MonoBehaviour
     //GameOver
     public static bool IsGameOver = false;
 
+    public static float ClearTime = 0;
+
     // Use this for initialization
     void Start()
     {
@@ -64,6 +66,8 @@ public class Main : MonoBehaviour
         lifeAlpha = 0.3f;
         lifeTime = Mathf.Round(lifeTime * 100) / 100;
         lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
+
+        ClearTime = 0;
     }
 
     // Update is called once per frame
@@ -94,6 +98,10 @@ public class Main : MonoBehaviour
         LifeTimeAlpha();//lifetimeのalpha 
 
         lifeTime = Mathf.Clamp(lifeTime, 0.0f, lifeTimeMax);
+
+        if (waveNum > 0) ClearTime += Time.deltaTime;
+
+       
     }
 
     /// <summary>
@@ -349,4 +357,5 @@ public class Main : MonoBehaviour
     {
         return waveNum;
     }
+   
 }
