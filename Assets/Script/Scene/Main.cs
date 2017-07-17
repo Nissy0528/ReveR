@@ -31,6 +31,7 @@ public class Main : MonoBehaviour
     private bool isStop;
     private bool isClear;
     private bool isLifeTime;
+    private bool isT_Update;
     private int stopCnt;
     private int waveNum;
     private float bossMoveCnt;
@@ -54,6 +55,7 @@ public class Main : MonoBehaviour
         isStop = false;
         isClear = false;
         isLifeTime = false;
+        isT_Update = true;
         time = 0.0f;
         GameObject meter = Instantiate(lifeMeter, GameObject.Find("Canvas").transform);
         meter.name = "LifeMeter";
@@ -118,7 +120,10 @@ public class Main : MonoBehaviour
             lifeTime -= Time.deltaTime;
         }
         lifeTime = Mathf.Round(lifeTime * 100) / 100;
-        lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
+        if (isT_Update)
+        {
+            lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
+        }
     }
 
     /// <summary>
@@ -265,6 +270,7 @@ public class Main : MonoBehaviour
         if (lifeText != null)
         {
             lifeTimeText.GetComponent<Text>().enabled = false;
+            isT_Update = true;
         }
     }
     /// <summary>
@@ -337,6 +343,7 @@ public class Main : MonoBehaviour
     public void StartTime(float time)
     {
         lifeTime += time;
+        isT_Update = false;
         lifeAlpha = 1f;
     }
 
@@ -358,13 +365,13 @@ public class Main : MonoBehaviour
         return waveNum;
     }
 
-    ///// <summary>
-    ///// クリア判定を取る
-    ///// </summary>
-    ///// <returns></returns>
-    //public bool GetIsClear()
-    //{
-    //    return isClear;
-    //}
+    /// <summary>
+    /// 時間更新フラグ取得
+    /// </summary>
+    /// <returns></returns>
+    public bool GetT_Update()
+    {
+        return isT_Update;
+    }
    
 }

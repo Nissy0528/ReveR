@@ -92,6 +92,7 @@ public class GameOverEffect : MonoBehaviour {
     {
         if (IsOverBoomEffect && IsOverCADEFFect && !IsMoveTextOver)
         {
+            Time.timeScale = 0.0f;
             Image.GetComponent<Image>().enabled = true;
             var GAME = Game.GetComponent<RectTransform>().localPosition;
             var OVER = Over.GetComponent<RectTransform>().localPosition;
@@ -169,6 +170,7 @@ public class GameOverEffect : MonoBehaviour {
 
             if (Input.GetKey(KeyCode.JoystickButton0))
             {
+                Time.timeScale = 1.0f;
                 FadeOut.SetActive(true);
                 IsLoadMain = true;
             }
@@ -183,6 +185,7 @@ public class GameOverEffect : MonoBehaviour {
 
             if (Input.GetKey(KeyCode.JoystickButton0))
             {
+                Time.timeScale = 1.0f;
                 FadeOut.SetActive(true);
                 IsLoadTitle = true;
             }

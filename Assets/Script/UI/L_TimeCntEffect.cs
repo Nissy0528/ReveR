@@ -21,6 +21,7 @@ public class L_TimeCntEffect : MonoBehaviour
         if (transform.childCount > 0)
         {
             child = transform.GetChild(0).gameObject;
+            GetComponent<Anim>().SetChild(child);
             child.transform.parent = transform.parent;
         }
     }

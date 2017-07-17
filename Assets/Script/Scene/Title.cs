@@ -108,7 +108,6 @@ public class Title : MonoBehaviour
         }
         if (selectionNum == 2)
         {
-           
             IsLoadCredit= true;
         }
         Instantiate(se[2]);

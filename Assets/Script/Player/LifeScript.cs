@@ -54,7 +54,10 @@ public class LifeScript : MonoBehaviour
         //speed = Mathf.Abs(player.speed) / player.speedLimit;
         //rt.sizeDelta = new Vector2(iniSize.x, iniSize.y * speed);
 
-        gauge.GetComponent<Image>().fillAmount = Mathf.Lerp(gauge.GetComponent<Image>().fillAmount, (mainClass.lifeTime / mainClass.lifeTimeMax) * 0.69f, 0.25f);
+        if (mainClass.GetT_Update())
+        {
+            gauge.GetComponent<Image>().fillAmount = Mathf.Lerp(gauge.GetComponent<Image>().fillAmount, (mainClass.lifeTime / mainClass.lifeTimeMax) * 0.69f, 0.25f);
+        }
         //gauge.GetComponent<Image>().fillAmount = Mathf.Clamp((player.speed / player.speedLimit), 0.11f, 0.89f);
 
     }

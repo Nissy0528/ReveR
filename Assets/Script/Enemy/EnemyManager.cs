@@ -70,8 +70,8 @@ public class EnemyManager : MonoBehaviour
         //画面下に出たら
         if (transform.position.y < camera.GetComponent<Camera>().ScreenToWorldPoint(Vector3.zero).y - transform.lossyScale.y / 2)
         {
-            main.GetComponent<Main>().SetIsLifeTime(false);//ライフタイム減少停止
             PlusEffect(damage, main.GetComponent<Main>().lifeTime, 1);//ライフタイムにダメージ
+            main.GetComponent<Main>().SetIsLifeTime(false);//ライフタイム減少停止
             DestroyObj();//消滅
         }
     }
@@ -194,6 +194,7 @@ public class EnemyManager : MonoBehaviour
             PlusEffect(addLifeTime, main.GetComponent<Main>().lifeTime, 0);
 
             main.GetComponent<Main>().SetIsLifeTime(false);
+            main.GetComponent<Main>().StartTime(addLifeTime);
             DestroyObj();//判定終了後、このオブジェクトを消す
 
         }
@@ -291,7 +292,7 @@ public class EnemyManager : MonoBehaviour
             }
         }
 
-        GameObject p_Effect = Instantiate(plusEffect, plusEffectPos, transform.rotation); ;
+        GameObject p_Effect = Instantiate(plusEffect, plusEffectPos, transform.rotation);
         p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(time, currentTime, type);
     }
 

@@ -52,7 +52,6 @@ public class InputJudge : MonoBehaviour
         if (!inpuManager.IsInvert()) return;
 
         def = inpuManager.GetDef();
-        isEnemyFront = player.RayHit();
 
         if (!isEnemyFront)
         {
