@@ -1048,10 +1048,17 @@ Prefab:
       value: 
       objectReference: {fileID: 1022011043378234, guid: a9e040c6d7f6c4542a6d8707827b26b4,
         type: 2}
+    - target: {fileID: 114359663038605116, guid: 47aae21d00045124cb1185ab754900cf,
+        type: 2}
+      propertyPath: blowSpeed
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114351656603350514, guid: 47aae21d00045124cb1185ab754900cf, type: 2}
     - {fileID: 114929390833944382, guid: 47aae21d00045124cb1185ab754900cf, type: 2}
     - {fileID: 114904472075252348, guid: 47aae21d00045124cb1185ab754900cf, type: 2}
+    - {fileID: 114038221402455946, guid: 47aae21d00045124cb1185ab754900cf, type: 2}
+    - {fileID: 114277586420744798, guid: 47aae21d00045124cb1185ab754900cf, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 47aae21d00045124cb1185ab754900cf, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &604112145

@@ -43,13 +43,20 @@ public class GameClear : MonoBehaviour
 
 
     //選択の点滅処理
+    public GameObject NewText;
     private int time = 15;
     private int timeSpeed = 1;
     private bool IsAlpha = false;
+    private List<Vector3> Newtext = new List<Vector3>();
+    private float ColorH = 0;
 
     // Use this for initialization
     void Start()
     {
+       
+        Newtext.Add(new Vector3(412, -10));
+        Newtext.Add(new Vector3(412, -80));
+        Newtext.Add(new Vector3(412, -150));
         EvaluationText();
         cnt = delay;
         cursorNum = 0;
@@ -60,6 +67,7 @@ public class GameClear : MonoBehaviour
     {
         LoadScene();
         CursorMove();
+        NewTextColor();
     }
 
     /// <summary>
@@ -81,7 +89,6 @@ public class GameClear : MonoBehaviour
 
         Rangku2(Scount, Acount, Bcount);
     }
-
 
     /// <summary>
     /// ランク
@@ -154,16 +161,21 @@ public class GameClear : MonoBehaviour
     /// <param name="b">Bcount</param>
     void Rangku2(int s, int a, int b)
     {
-        int Vnum = (3 * s + 2 * a + b);
-        Dictionary<int, string> text = new Dictionary<int, string>();
-        List<int> Num = new List<int>();
+        float Vnum = (3 * s + 2 * a + b);
+        Dictionary<float, string> text = new Dictionary<float, string>();
+        List<float> Num = new List<float>();
+        Dictionary<float, float> ClearTime = new Dictionary<float, float>();
 
         var Text = s.ToString() + " " + a.ToString() + " " + b.ToString() + " " + Main.ClearTime.ToString("F2");
 
         if (!PlayerPrefs.HasKey("Rank0"))
         {
             PlayerPrefs.SetString("Rank0",Text);
-            PlayerPrefs.SetInt("NumRank0", Vnum);
+            PlayerPrefs.SetFloat("NumRank0", Vnum);
+            PlayerPrefs.SetFloat("RankTime0",float.Parse(Main.ClearTime.ToString("F2")));
+
+            NewText.SetActive(true);
+            NewText.GetComponent<RectTransform>().localPosition = Newtext[0];
 
             string[] f = Text.Split(' ');
             Text[] t = rangku[0].GetComponentsInChildren<Text>();
@@ -180,25 +192,60 @@ public class GameClear : MonoBehaviour
         {
             if (PlayerPrefs.HasKey("Rank" + i.ToString()))
             {
-                text.Add(PlayerPrefs.GetInt("NumRank"+i.ToString()), PlayerPrefs.GetString("Rank" + i.ToString()));
-                Num.Add(PlayerPrefs.GetInt("NumRank" + i.ToString()));
+                text.Add(PlayerPrefs.GetFloat("NumRank"+i.ToString()), PlayerPrefs.GetString("Rank" + i.ToString()));
+                Num.Add(PlayerPrefs.GetFloat("NumRank" + i.ToString()));
+                ClearTime.Add(Num[i],PlayerPrefs.GetFloat("RankTime" + i.ToString()));
                 x++;
             }
             else
             {
+                while (true)
+                {
+                    if (text.ContainsKey(Vnum)) Vnum += 0.1f;
+                    else break;
+                }
+                
                 text.Add(Vnum,Text);
                 Num.Add(Vnum);
+                ClearTime.Add(Vnum,Main.ClearTime);
                 break;
             }
         }
 
-        Num.Sort((j, k) => k-j);
-        if (Num.Count > 3) Num.RemoveAt(3);
+        Num.Sort((j, k) => (int)(k-j));
+        int Count = 0;
+        while (true)
+        {
+            for(int i= Count + 1; i < Num.Count; i++)
+            {
+                int j = (int)Num[Count] - (int)Num[i];
+                if (j == 0)
+                {
+                    float k = ClearTime[Num[Count]] - ClearTime[Num[i]];
+                    if (k >= 0)
+                    {
+                        float l = Num[Count];
+                        Num[Count] = Num[i];
+                        Num[i] = l;
+                    }
+                }
+            }
+            Count++;
+            if (Count == Num.Count-1) break;
+        }
+
+        if(Num.Count > 3) Num.RemoveAt(3);
 
         for (int i = 0; i < Num.Count; i++)
         {
-            PlayerPrefs.SetInt("NumRank" + i.ToString(), Num[i]);
+            if (Num[i] == Vnum)
+            {
+                NewText.SetActive(true);
+                NewText.GetComponent<RectTransform>().localPosition = Newtext[i];
+            }
+            PlayerPrefs.SetFloat("NumRank" + i.ToString(), Num[i]);
             PlayerPrefs.SetString("Rank" + i.ToString(), text[Num[i]]);
+            PlayerPrefs.SetFloat("RankTime"+i.ToString(), ClearTime[Num[i]]);
 
             string[] f = text[Num[i]].Split(' ');
             
@@ -209,6 +256,16 @@ public class GameClear : MonoBehaviour
             t[4].text = f[3];
 
         }
+    }
+
+    void NewTextColor()
+    {
+        ColorH += 2f / 255f;
+        float V = Random.Range(0.8f, 1f);
+        float S = Random.Range(0.5f, 1f);
+        NewText.GetComponent<Text>().color = Color.HSVToRGB(ColorH, S, V);
+        if (ColorH >= 1) ColorH = 0;
+        
     }
 
     /// <summary>
@@ -269,6 +326,7 @@ public class GameClear : MonoBehaviour
             Main.ClearTime = 0;
             if (IsLoadTitle) SceneManager.LoadScene("Title");
             if (IsLoaRetry) SceneManager.LoadScene("Main");
+            //PlayerPrefs.DeleteAll();
         }
         else
         {
