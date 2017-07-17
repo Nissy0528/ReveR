@@ -10,7 +10,9 @@ public class EnemyLine : MonoBehaviour
     private Transform changeParent;//切り替える親
     private bool isParentChange;//親変更フラグ
 
-    
+    public GameObject enemyLine;//グループライン
+    public Material returnLine;//Lineを元の色戻すマテリアル
+
     // Use this for initialization
     void Start()
     {
@@ -20,7 +22,7 @@ public class EnemyLine : MonoBehaviour
         }
         parent = transform.parent;
         changeParent = parent.transform.parent.FindChild("EnemyLine");
-        if (parent.GetComponent<Turtroial_Move>() != null&&transform.parent.parent.tag != "Boss")
+        if (parent.GetComponent<Turtroial_Move>() != null && transform.parent.parent.tag != "Boss")
         {
             isParentChange = true;
         }
@@ -31,6 +33,10 @@ public class EnemyLine : MonoBehaviour
     {
         Line();
         ParentChange();
+        if (parent == null)
+        {
+            GetComponent<LineRenderer>().material = returnLine;//倒したらLineのマテリアルを戻す
+        }
     }
 
     /// <summary>
@@ -45,7 +51,7 @@ public class EnemyLine : MonoBehaviour
             GetComponent<LineRenderer>().SetPosition(i, target[i].transform.position);
         }
     }
-       
+
 
     /// <summary>
     /// 親変更
@@ -58,7 +64,10 @@ public class EnemyLine : MonoBehaviour
         if (parent.GetComponent<Turtroial_Move>() == null || transform.parent.tag != "Enemy")
         {
             transform.parent = changeParent;//親を変更
+            Destroy(this);
             isParentChange = false;
         }
+
+
     }
 }

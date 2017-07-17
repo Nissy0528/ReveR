@@ -33,6 +33,8 @@ public class EnemyManager : MonoBehaviour
     private Vector3 spawmPos;
     private Vector3 plusEffectPos;
 
+    private bool IsLine;
+
     // Use this for initialization
     void Start()
     {
@@ -54,6 +56,8 @@ public class EnemyManager : MonoBehaviour
 
         IsTimeStart = false;
         isChildDestroy = false;
+        IsLine = true;
+
     }
 
     // Update is called once per frame
@@ -115,9 +119,10 @@ public class EnemyManager : MonoBehaviour
             main.GetComponent<Main>().SetIsLifeTime(true);
             IsTimeStart = true;
 
-            if (gameObject.tag != "Boss")
+            if (gameObject.tag != "Boss"&& IsLine == true)
             {
                 enemyLine.GetComponent<EnemyLine>().GetComponent<LineRenderer>().material = Line;
+                IsLine = false;
             }
         }
 
@@ -143,6 +148,8 @@ public class EnemyManager : MonoBehaviour
         }
         Destroy(gameObject);//消滅
     }
+
+   
 
     /// <summary>
     /// ランクの分割
@@ -173,8 +180,6 @@ public class EnemyManager : MonoBehaviour
             }
             if (CurrentTime < LimitTime * 1 / 3)
             {
-                Debug.Log(CurrentTime);
-                Debug.Log(LimitTime);
                 if (CurrentTime < 0) CurrentTime = 0;
                 Main.Evaluation.Add("B");
                 TextObj = Instantiate(Nor, GameObject.Find("Canvas").transform);
@@ -194,9 +199,11 @@ public class EnemyManager : MonoBehaviour
             PlusEffect(addLifeTime, main.GetComponent<Main>().lifeTime, 0);
 
             main.GetComponent<Main>().SetIsLifeTime(false);
+
             DestroyObj();//判定終了後、このオブジェクトを消す
 
         }
+
     }
 
     /// <summary>

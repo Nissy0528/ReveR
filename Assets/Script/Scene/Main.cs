@@ -82,7 +82,7 @@ public class Main : MonoBehaviour
             ClearEffect();
         }
 
-        if (lifeTime <= 0.0f)
+        if (lifeTime <= 0.0f && !isClear)
         {
             ControllerShake.Shake(0.0f, 0.0f);
             IsGameOver = true;
