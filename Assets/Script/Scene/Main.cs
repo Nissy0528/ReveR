@@ -357,5 +357,14 @@ public class Main : MonoBehaviour
     {
         return waveNum;
     }
+
+    ///// <summary>
+    ///// クリア判定を取る
+    ///// </summary>
+    ///// <returns></returns>
+    //public bool GetIsClear()
+    //{
+    //    return isClear;
+    //}
    
 }

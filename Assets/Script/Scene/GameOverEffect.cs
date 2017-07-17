@@ -86,7 +86,7 @@ public class GameOverEffect : MonoBehaviour {
 	}
     void Move()
     {
-        if (Main.IsGameOver) LoadScene();
+        if (Main.IsGameOver ) LoadScene();
     }
     void MoveText()
     {

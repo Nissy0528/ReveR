@@ -108,10 +108,11 @@ public class Title : MonoBehaviour
         }
         if (selectionNum == 2)
         {
-            Instantiate(se[2]);
-            FadeOut.gameObject.SetActive(true);
+           
             IsLoadCredit= true;
         }
+        Instantiate(se[2]);
+        FadeOut.gameObject.SetActive(true);
     }
     /// <summary>
     /// 点滅処理
