@@ -82,11 +82,11 @@ public class PTimeEffectSpawner : MonoBehaviour
             //{
             //    mainClass.StartTime(time);
             //}
-            //if (type == 1)
-            //{
-            //    time *= -1;
-            //    mainClass.StartTime(time);
-            //}
+            if (type == 1)
+            {
+                time *= -1;
+                mainClass.StartTime(time);
+            }
             SpawnFinishEffect();
             Destroy(gameObject);
         }

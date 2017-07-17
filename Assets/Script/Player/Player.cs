@@ -13,19 +13,16 @@ public class Player : MonoBehaviour
     public GameObject[] spriteObjs;//スプライトレンダラーが入ってるオブジェクト
     public GameObject[] SE;//効果音
     public float speed;//移動速度
-    public float addSpeed;//加速速度
     public float subSpeed;//減速速度
     public float subMin;//減速速度の最小値
     public float speedLimit;//速度上限
-    public float speedMin;
-    public float stopSpeed;//画面が停止する速度
-    public float drag;//摩擦力
+    public float speedMin;//速度最小値
     public float rotateSpeed;//回転速度
     public float returnSpeed;//切り替えし加速度
+    public float blowSpeed;//ダメージ時に吹き飛ぶ速度
     public int damageTime;//ダメージ表現の長さ
     public int flashInterval;//点滅間隔
     public int damage;//lifeをマイナスする値
-    public int maxexp;//経験値
     public int shakeCnt;//コントローラーの振動時間
 
     public List<TrailRenderer> WingTrail;//両翼のオブジェクトを取る
@@ -33,8 +30,7 @@ public class Player : MonoBehaviour
     public List<Material> WingSprite;//翼のエフェクトの画像
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 lookPos;//見る座標
-    private Ray2D ray;//レイ
-    private RaycastHit2D hit;//レイが当たったオブジェクトの情報
+    private Vector2 vec;//見る方向
     private GameObject[] trails;
     private Color iniTrailColor;
     private GameObject moveSE;
@@ -45,7 +41,6 @@ public class Player : MonoBehaviour
     private float vy;//縦スティック入力値
     private float r_Speed;//切り替えし加速度
     private float iniSpeed;//初期速度
-    private float rayLength;//レイの長さ
     private bool isRecession;//反転判定
     private bool isStart;//スタート判定
     private bool isStop;//停止判定
@@ -82,10 +77,14 @@ public class Player : MonoBehaviour
         }
 
         if (Time.timeScale == 0.0f) return;
-        Move();//移動
-        ReturnForce();//切り替えし慣性
-        Rotate();//回転
-        Ray();//レイのあたり判定
+
+        //ダメージを受けてないか
+        if (!isDamage)
+        {
+            Move();//移動
+            ReturnForce(returnSpeed);//切り替えし慣性
+            Rotate();//回転
+        }
         DamageEffect();//ダメージ表現（点滅）
         MoveSE();//移動効果音
         ChangeColor();//色変更
@@ -162,15 +161,15 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
-    /// 移動（慣性あり）
+    /// 切り替えし時の慣性
     /// </summary>
-    private void ReturnForce()
+    private void ReturnForce(float speed)
     {
         if (!isReturn) return;
 
         if (direc > 0.0f)
         {
-            r_Speed -= returnSpeed;
+            r_Speed -= speed;
             if (r_Speed <= -1.0f)
             {
                 r_Speed = -1.0f;
@@ -179,7 +178,7 @@ public class Player : MonoBehaviour
         }
         if (direc < 0.0f)
         {
-            r_Speed += returnSpeed;
+            r_Speed += speed;
             if (r_Speed >= 1.0f)
             {
                 r_Speed = 1.0f;
@@ -211,7 +210,7 @@ public class Player : MonoBehaviour
             lookPos = pos + Vector2.left * -vx + Vector2.up * -vy;//指定した座標の反対を見る
         }
 
-        Vector2 vec = (lookPos - transform.position).normalized;//見る座標を計算して正規化
+        vec = (lookPos - transform.position).normalized;//見る座標を計算して正規化
         float angle = (Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg) - 90.0f;//角度計算
         Quaternion newRota = Quaternion.Euler(0.0f, 0.0f, angle);//見る角度設定
         transform.rotation = Quaternion.Slerp(transform.rotation, newRota, rotateSpeed);//設定した方向にゆっくり向く
@@ -238,11 +237,19 @@ public class Player : MonoBehaviour
         if (!isRecession)
         {
             lookPos = pos + Vector2.left * vx + Vector2.up * vy;//指定した座標を見る
+            if (blowSpeed > 0)
+            {
+                blowSpeed *= -1;
+            }
         }
         //反転していれば
         else
         {
             lookPos = pos + Vector2.left * -vx + Vector2.up * -vy;//指定した座標の反対を見る
+            if (blowSpeed < 0)
+            {
+                blowSpeed *= -1;
+            }
         }
 
         Vector2 vec = (lookPos - transform.position).normalized;//見る座標を計算して正規化
@@ -304,30 +311,6 @@ public class Player : MonoBehaviour
     private void SpawnDrain()
     {
         Instantiate(drain, gameObject.transform);
-    }
-
-    /// <summary>
-    /// レイ生成
-    /// </summary>
-    private void Ray()
-    {
-        if (GameObject.Find("L_Wing").tag != "Untagged" && GameObject.Find("R_Wing").tag != "Untagged")
-        {
-            if (!isRecession)
-            {
-                ray = new Ray2D(transform.position, -transform.up);
-            }
-            else
-            {
-                ray = new Ray2D(transform.position, transform.up);
-            }
-        }
-        else
-        {
-            ray = new Ray2D(Vector2.zero, Vector2.zero);
-        }
-        hit = Physics2D.Raycast(ray.origin, ray.direction * rayLength);
-        UnityEngine.Debug.DrawRay(ray.origin, ray.direction * rayLength, Color.red);
     }
 
     /// <summary>
@@ -428,40 +411,48 @@ public class Player : MonoBehaviour
 
             GameObject main = GameObject.Find("MainManager");
 
-            if (main.GetComponent<Main>().GetWave() == 0) return;
+            if (main.GetComponent<Main>().GetWave() == 0) return;//チュートリアル中はダメージなし
 
+            //敵にぶつかったら通常のダメージ音再生
             if (col.gameObject.name.Contains("Enemy"))
             {
                 Instantiate(SE[1]);
             }
+            //それ以外に当たったら特殊ダメージ音再生
             else
             {
                 Instantiate(SE[5]);
             }
-            ControllerShake.Shake(1.0f, 1.0f);
-            GameObject.Find("Main Camera").GetComponent<MainCamera>().SetShake();
-            s_Cnt = shakeCnt;
+            ControllerShake.Shake(1.0f, 1.0f);//コントローラーを振動させる
+            GameObject.Find("Main Camera").GetComponent<MainCamera>().SetShake();//カメラを振動させる
+            s_Cnt = shakeCnt;//振動時間設定
 
+            //ダメージを受ける
             speed = Mathf.Max(speed - damage, 0.0f);
             GameObject p_Effect = Instantiate(damageEffect, transform.position, transform.rotation);
             p_Effect.GetComponent<PTimeEffectSpawner>().SetAddTime(damage, main.GetComponent<Main>().lifeTime, 1);
-            main.GetComponent<Main>().StartTime(-damage);
 
             damageCnt = 0;
-            isDamage = true;
+            BlowOff();
+            isDamage = true;//ダメージフラグtrue
         }
     }
 
     /// <summary>
-    /// 敵が正面にいるかの判定
+    /// 吹き飛ぶ
     /// </summary>
-    public bool RayHit()
+    private void BlowOff()
     {
-        if (hit.collider != null && hit.collider.tag == "Enemy")
+        float value = 1.0f;
+        if (isReturn)
         {
-            return true;
+            value = -1.0f;
         }
-        return false;
+        ReturnForce(1.0f);
+        rigid.drag = 1.5f;
+        rigid.velocity = Vector2.zero;
+        rigid.AddForce(vec * blowSpeed * value, ForceMode2D.Impulse);//後ろに吹き飛ぶ
+        value = 1.0f;
     }
 
     /// <summary>
@@ -481,6 +472,7 @@ public class Player : MonoBehaviour
     {
         this.isJudge = isJudge;
     }
+
     /// <summary>
     /// コアと翼の色を変更
     /// </summary>

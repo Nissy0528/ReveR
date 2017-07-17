@@ -72,7 +72,6 @@ public class EnemyManager : MonoBehaviour
         {
             PlusEffect(damage, main.GetComponent<Main>().lifeTime, 1);//ライフタイムにダメージ
             main.GetComponent<Main>().SetIsLifeTime(false);//ライフタイム減少停止
-            main.GetComponent<Main>().StartTime(-damage);
             DestroyObj();//消滅
         }
     }
