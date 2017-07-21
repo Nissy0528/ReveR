@@ -133,7 +133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &78741419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1051,7 +1051,7 @@ Prefab:
     - target: {fileID: 114359663038605116, guid: 47aae21d00045124cb1185ab754900cf,
         type: 2}
       propertyPath: blowSpeed
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114351656603350514, guid: 47aae21d00045124cb1185ab754900cf, type: 2}
@@ -1376,6 +1376,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1695324010185074, guid: a0da30002b3e52440b834a1881583782, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0da30002b3e52440b834a1881583782, type: 2}
   m_IsPrefabParent: 0
@@ -1452,6 +1456,8 @@ MonoBehaviour:
   lifeMeter: {fileID: 1346313471490874, guid: 7611543d905c77d42b8ba9eed735de04, type: 2}
   clearEffect: {fileID: 1703179016671812, guid: 945e1e6dfafb2494dbca9ece0ba5e9ba,
     type: 2}
+  iniBack: {fileID: 1813313272}
+  changeBack: {fileID: 1810728645094912, guid: d836c1f42e9368d4e8b389b7e3130d6e, type: 2}
   stopTime: 0
   lifeTime: 60
   lifeTimeMax: 100

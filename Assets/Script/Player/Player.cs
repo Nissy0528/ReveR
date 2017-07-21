@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         if (Time.timeScale == 0.0f) return;
 
         //ダメージを受けてないか
-        if (!isDamage)
+        if (!isDamage || blowSpeed == 0)
         {
             Move();//移動
             ReturnForce(returnSpeed);//切り替えし慣性
@@ -504,5 +504,14 @@ public class Player : MonoBehaviour
             WingTrail[1].material = WingSprite[2];
         }
 
+    }
+
+    /// <summary>
+    /// ダメージフラグ
+    /// </summary>
+    /// <returns></returns>
+    public bool IsDamage()
+    {
+        return isDamage && blowSpeed != 0;
     }
 }

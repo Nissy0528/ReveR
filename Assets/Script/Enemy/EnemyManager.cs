@@ -199,6 +199,7 @@ public class EnemyManager : MonoBehaviour
             PlusEffect(addLifeTime, main.GetComponent<Main>().lifeTime, 0);
 
             main.GetComponent<Main>().SetIsLifeTime(false);
+            main.GetComponent<Main>().StartTime(addLifeTime);
 
             DestroyObj();//判定終了後、このオブジェクトを消す
 

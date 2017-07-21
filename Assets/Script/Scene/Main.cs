@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class Main : MonoBehaviour
 {
-    public static float time;
     public static List<string> Evaluation;//ランクのデータを集まる用のリスト
+    public static int waveNum;
 
     public GameObject[] enemyWave;
     public AudioClip[] bgm;
@@ -16,6 +16,8 @@ public class Main : MonoBehaviour
     public GameObject nextWave;
     public GameObject lifeMeter;
     public GameObject clearEffect;
+    public GameObject iniBack;
+    public GameObject changeBack;
     public int stopTime;
     public float lifeTime;
     public float lifeTimeMax;
@@ -33,11 +35,7 @@ public class Main : MonoBehaviour
     private bool isLifeTime;
     private bool isT_Update;
     private int stopCnt;
-    private int waveNum;
     private float bossMoveCnt;
-    private float currentTime;
-    private float lifeTimeValue;
-    private float cntStopper = 1.0f;
 
     //lifetime とmeter のalpha
     public static float lifeAlpha;
@@ -46,30 +44,35 @@ public class Main : MonoBehaviour
     //GameOver
     public static bool IsGameOver = false;
 
-    public static float ClearTime = 0;
+    public static float ClearTime;
 
     // Use this for initialization
     void Start()
     {
-        Evaluation = new List<string>();
+        if (waveNum == 0)
+        {
+            Evaluation = new List<string>();
+            ClearTime = 0;
+        }
+        else
+        {
+            enemyWave[0].SetActive(false);
+            SpawnNext();
+            enemyWave[waveNum].SetActive(true);
+        }
         isStop = false;
         isClear = false;
         isLifeTime = false;
         isT_Update = true;
-        time = 0.0f;
         GameObject meter = Instantiate(lifeMeter, GameObject.Find("Canvas").transform);
         meter.name = "LifeMeter";
         lifeTimeText = GameObject.FindGameObjectWithTag("LifeTime");
         waveText = GameObject.Find("Wave");
-        waveNum = 0;
         bossMoveCnt = bossMoveDelay;
-        currentTime = lifeTime;
         audio = GetComponent<AudioSource>();
         lifeAlpha = 0.3f;
         lifeTime = Mathf.Round(lifeTime * 100) / 100;
         lifeTimeText.GetComponent<Text>().text = lifeTime.ToString();
-
-        ClearTime = 0;
     }
 
     // Update is called once per frame
@@ -98,12 +101,11 @@ public class Main : MonoBehaviour
         WaveNum();//現在のウェイブ表示
         BossWarning();//ボス登場エフェクト
         LifeTimeAlpha();//lifetimeのalpha 
+        ChangeBack();//背景変更
 
         lifeTime = Mathf.Clamp(lifeTime, 0.0f, lifeTimeMax);
 
         if (waveNum > 0) ClearTime += Time.deltaTime;
-
-       
     }
 
     /// <summary>
@@ -155,12 +157,7 @@ public class Main : MonoBehaviour
             enemyWave[waveNum].SetActive(true);//次のウェイブ生成
             audio.clip = bgm[0];
             audio.Play();
-            GameObject next = null;
-            if (next == null)
-            {
-                next = Instantiate(nextWave, GameObject.Find("Canvas").transform);
-                next.GetComponent<Text>().text = "Wave " + waveNum.ToString();
-            }
+            SpawnNext();
         }
         else
         {
@@ -282,7 +279,7 @@ public class Main : MonoBehaviour
         GameObject.FindGameObjectWithTag("LifeFrame").GetComponent<Image>().color = new Color(1, 1, 1, lifeAlpha);
         //GameObject.FindGameObjectWithTag("LifeGauge").GetComponent<Image>().color = new Color(1, 1, 1, lifeAlpha);
 
-        if (!isLifeTime && cntStopper == 1.0f && lifeAlpha > 0.3f)
+        if (!isLifeTime && lifeAlpha > 0.3f)
             lifeAlpha -= 0.01f;
     }
 
@@ -305,6 +302,34 @@ public class Main : MonoBehaviour
                 ControllerShake.Shake(0.0f, 0.0f);
                 SceneManager.LoadScene("GameClear");
             }
+        }
+    }
+
+    /// <summary>
+    /// 背景変更
+    /// </summary>
+    private void ChangeBack()
+    {
+        if (waveNum <= 0) return;
+
+        //スクロールする背景に変更
+        if (iniBack != null)
+        {
+            Instantiate(changeBack);
+            Destroy(iniBack);
+        }
+    }
+
+    /// <summary>
+    /// 次ウェーブUI生成
+    /// </summary>
+    private void SpawnNext()
+    {
+        GameObject next = null;
+        if (next == null)
+        {
+            next = Instantiate(nextWave, GameObject.Find("Canvas").transform);
+            next.GetComponent<Text>().text = "Wave " + waveNum.ToString();
         }
     }
 
@@ -373,5 +398,5 @@ public class Main : MonoBehaviour
     {
         return isT_Update;
     }
-   
+
 }
