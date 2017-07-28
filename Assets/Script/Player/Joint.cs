@@ -74,7 +74,7 @@ public class Joint : MonoBehaviour
     /// </summary>
     private void Rotate(float vx, float vy)
     {
-        if (!isStart || (Player.isDamage && transform.GetChild(0).tag == "Untagged")) return;
+        if (!isStart || (core.GetComponent<Player>().IsDamage() && transform.GetChild(0).tag == "Untagged")) return;
 
         //コアの角度が180度超えていたら
         if (core.transform.localEulerAngles.z > 180)

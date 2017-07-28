@@ -37,6 +37,8 @@ public class Title : MonoBehaviour
         {
             Instantiate(GameEndManager);
         }
+
+        Main.waveNum = 0;
     }
 
     void Update()

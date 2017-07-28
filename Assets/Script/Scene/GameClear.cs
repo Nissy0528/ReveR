@@ -22,7 +22,7 @@ public class GameClear : MonoBehaviour
 
 
     public List<GameObject> rangku;
-   
+
 
     public GameObject FadeOut;//fadeOut
     private bool IsLoadTitle = false;//
@@ -53,7 +53,7 @@ public class GameClear : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-       
+
         Newtext.Add(new Vector3(412, -10));
         Newtext.Add(new Vector3(412, -80));
         Newtext.Add(new Vector3(412, -150));
@@ -68,6 +68,7 @@ public class GameClear : MonoBehaviour
         LoadScene();
         CursorMove();
         NewTextColor();
+        UIActive();
     }
 
     /// <summary>
@@ -96,13 +97,13 @@ public class GameClear : MonoBehaviour
     /// <param name="s">Scount</param>
     /// <param name="a">Acount</param>
     /// <param name="b">Bcount</param>
-    void Rangku(int s,int a,int b)
+    void Rangku(int s, int a, int b)
     {
-        int  Vnum = (3 * s + 2 * a + b);
+        int Vnum = (3 * s + 2 * a + b);
         Dictionary<string, string> text = new Dictionary<string, string>();
         List<int> Num = new List<int>();
-        
-        
+
+
         if (Lnum.Count == 0)
         {
             Lnum.Add(Vnum);
@@ -170,9 +171,10 @@ public class GameClear : MonoBehaviour
 
         if (!PlayerPrefs.HasKey("Rank0"))
         {
-            PlayerPrefs.SetString("Rank0",Text);
+            PlayerPrefs.SetString("Rank0", Text);
             PlayerPrefs.SetFloat("NumRank0", Vnum);
             PlayerPrefs.SetFloat("RankTime0",float.Parse(Main.ClearTime.ToString("F2")));
+            PlayerPrefs.Save();
 
             NewText.SetActive(true);
             NewText.GetComponent<RectTransform>().localPosition = Newtext[0];
@@ -188,13 +190,13 @@ public class GameClear : MonoBehaviour
         }
 
         int x = 1;
-        for(int i = 0; i < x; i++)
+        for (int i = 0; i < x; i++)
         {
             if (PlayerPrefs.HasKey("Rank" + i.ToString()))
             {
-                text.Add(PlayerPrefs.GetFloat("NumRank"+i.ToString()), PlayerPrefs.GetString("Rank" + i.ToString()));
+                text.Add(PlayerPrefs.GetFloat("NumRank" + i.ToString()), PlayerPrefs.GetString("Rank" + i.ToString()));
                 Num.Add(PlayerPrefs.GetFloat("NumRank" + i.ToString()));
-                ClearTime.Add(Num[i],PlayerPrefs.GetFloat("RankTime" + i.ToString()));
+                ClearTime.Add(Num[i], PlayerPrefs.GetFloat("RankTime" + i.ToString()));
                 x++;
             }
             else
@@ -204,19 +206,19 @@ public class GameClear : MonoBehaviour
                     if (text.ContainsKey(Vnum)) Vnum += 0.1f;
                     else break;
                 }
-                
-                text.Add(Vnum,Text);
+
+                text.Add(Vnum, Text);
                 Num.Add(Vnum);
-                ClearTime.Add(Vnum,Main.ClearTime);
+                ClearTime.Add(Vnum, Main.ClearTime);
                 break;
             }
         }
 
-        Num.Sort((j, k) => (int)(k-j));
+        Num.Sort((j, k) => (int)(k - j));
         int Count = 0;
         while (true)
         {
-            for(int i= Count + 1; i < Num.Count; i++)
+            for (int i = Count + 1; i < Num.Count; i++)
             {
                 int j = (int)Num[Count] - (int)Num[i];
                 if (j == 0)
@@ -231,10 +233,10 @@ public class GameClear : MonoBehaviour
                 }
             }
             Count++;
-            if (Count == Num.Count-1) break;
+            if (Count == Num.Count - 1) break;
         }
 
-        if(Num.Count > 3) Num.RemoveAt(3);
+        if (Num.Count > 3) Num.RemoveAt(3);
 
         for (int i = 0; i < Num.Count; i++)
         {
@@ -246,9 +248,10 @@ public class GameClear : MonoBehaviour
             PlayerPrefs.SetFloat("NumRank" + i.ToString(), Num[i]);
             PlayerPrefs.SetString("Rank" + i.ToString(), text[Num[i]]);
             PlayerPrefs.SetFloat("RankTime"+i.ToString(), ClearTime[Num[i]]);
+            PlayerPrefs.Save();
 
             string[] f = text[Num[i]].Split(' ');
-            
+
             Text[] t = rangku[i].GetComponentsInChildren<Text>();
             t[1].text = f[0];
             t[2].text = f[1];
@@ -265,7 +268,7 @@ public class GameClear : MonoBehaviour
         float S = Random.Range(0.5f, 1f);
         NewText.GetComponent<Text>().color = Color.HSVToRGB(ColorH, S, V);
         if (ColorH >= 1) ColorH = 0;
-        
+
     }
 
     /// <summary>
@@ -273,21 +276,21 @@ public class GameClear : MonoBehaviour
     /// </summary>
     private void Juge()
     {
-        if (UInum < 2) return;
+        if (UInum < 4) return;
 
         num = (3 * Scount + 2 * Acount + Bcount);
 
         if (num >= maxRank)
         {
-            UI[3].GetComponent<Image>().sprite = jugeImage[0];
+            UI[4].GetComponent<Image>().sprite = jugeImage[0];
         }
         if (num < maxRank && num >= maxRank * 2 / 3)
         {
-            UI[3].GetComponent<Image>().sprite = jugeImage[1];
+            UI[4].GetComponent<Image>().sprite = jugeImage[1];
         }
         if (num < maxRank * 2 / 3)
         {
-            UI[3].GetComponent<Image>().sprite = jugeImage[2];
+            UI[4].GetComponent<Image>().sprite = jugeImage[2];
         }
     }
 
@@ -296,7 +299,7 @@ public class GameClear : MonoBehaviour
     /// </summary>
     private void UIActive()
     {
-        if (UInum > 3 || fade != null) return;
+        if (UInum > UI.Length - 1 || fade != null) return;
 
         cnt -= Time.deltaTime;
 
@@ -307,7 +310,7 @@ public class GameClear : MonoBehaviour
                 UI[UInum].SetActive(true);
             }
             UInum += 1;
-            if (UInum < 3)
+            if (UInum < UI.Length - 1)
             {
                 cnt = delay;
             }
@@ -326,7 +329,6 @@ public class GameClear : MonoBehaviour
             Main.ClearTime = 0;
             if (IsLoadTitle) SceneManager.LoadScene("Title");
             if (IsLoaRetry) SceneManager.LoadScene("Main");
-            //PlayerPrefs.DeleteAll();
         }
         else
         {
@@ -344,6 +346,7 @@ public class GameClear : MonoBehaviour
                     if (cursorNum == 1)
                     {
                         IsLoaRetry = true;
+                        Main.waveNum = 0;
                     }
                 }
 

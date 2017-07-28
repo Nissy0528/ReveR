@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scene/StageSelect.unity
     guid: 094335f069fa4bf4fa8eeae1555500b2
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/GameOver.unity
     guid: abec3fb8bfa14634892ac9ad57e5c80e
   - enabled: 1
