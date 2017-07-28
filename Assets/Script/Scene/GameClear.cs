@@ -53,13 +53,15 @@ public class GameClear : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        //PlayerPrefs.DeleteAll();
         Newtext.Add(new Vector3(412, -10));
         Newtext.Add(new Vector3(412, -80));
         Newtext.Add(new Vector3(412, -150));
         EvaluationText();
         cnt = delay;
         cursorNum = 0;
+
+       
     }
 
     // Update is called once per frame
