@@ -145,7 +145,7 @@ MonoBehaviour:
   isJointMass: 0
   isReturnFroce: 1
   isInput: 0
-  isDetaClear: 0
+  isDetaClear: 1
   isTutorialSkip: 1
   isPlayerMaxSpeed: 1
   isScrollUp: 1
