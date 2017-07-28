@@ -1051,7 +1051,7 @@ Prefab:
     - target: {fileID: 114359663038605116, guid: 47aae21d00045124cb1185ab754900cf,
         type: 2}
       propertyPath: blowSpeed
-      value: 5
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114351656603350514, guid: 47aae21d00045124cb1185ab754900cf, type: 2}
