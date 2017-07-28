@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
     /// 消滅
     /// </summary>
     /// <param name="isDead">潰されたか</param>
-    private void DestroyObj(bool isDead)
+    public void DestroyObj(bool isDead)
     {
         if (isDead)
         {

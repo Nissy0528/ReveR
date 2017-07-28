@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MeteoMove : MonoBehaviour
 {
-
     public float speed;
     // Use this for initialization
     void Start()

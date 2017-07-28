@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4889370373484740}
   - component: {fileID: 96752243898034886}
   - component: {fileID: 114420912936491256}
-  - component: {fileID: 114277586420744798}
   m_Layer: 0
   m_Name: L_Trail
   m_TagString: Trail
@@ -87,7 +86,6 @@ GameObject:
   - component: {fileID: 4903631078580002}
   - component: {fileID: 96902301908408116}
   - component: {fileID: 114253932445535186}
-  - component: {fileID: 114038221402455946}
   m_Layer: 0
   m_Name: R_Trail
   m_TagString: Trail
@@ -137,7 +135,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4277171677331958}
   - component: {fileID: 114483012654879840}
-  - component: {fileID: 114929390833944382}
   m_Layer: 0
   m_Name: L_Joint
   m_TagString: Untagged
@@ -175,7 +172,6 @@ GameObject:
   - component: {fileID: 50418616698413654}
   - component: {fileID: 58887554595401726}
   - component: {fileID: 82849407398620512}
-  - component: {fileID: 114351656603350514}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -224,7 +220,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4366615798859648}
   - component: {fileID: 114026200881832280}
-  - component: {fileID: 114904472075252348}
   m_Layer: 0
   m_Name: R_Joint
   m_TagString: Untagged
@@ -323,7 +318,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1637158492454968}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -5, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 4277171677331958}
@@ -816,18 +811,6 @@ MonoBehaviour:
   rotateLimit: 87
   rotateBoost: 0
   mass: 10
---- !u!114 &114038221402455946
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1379985403534212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734ca4012f72fd94f948387d2c138254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boostlWidth: 0.3
 --- !u!114 &114253932445535186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -840,32 +823,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boostlWidth: 0.3
---- !u!114 &114277586420744798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1089007070045816}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 734ca4012f72fd94f948387d2c138254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boostlWidth: 0.3
---- !u!114 &114351656603350514
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1637158492454968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e82b4a2036f2da547ac46f7741f4c053, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxExp: 5
-  player: {fileID: 114359663038605116}
-  ex: {fileID: 0}
 --- !u!114 &114359663038605116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -878,7 +835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 0}
-  damageEffect: {fileID: 1329555728269094, guid: b089331f6f0d3de44a1d1d8c5cd81a98,
+  damageEffect: {fileID: 1431459200092176, guid: e0652661f604fad47a197c6a15e03d11,
     type: 2}
   drain: {fileID: 1645401637604778, guid: 2f86b5fada66dfb4082fd9b809046287, type: 2}
   spriteObjs:
@@ -893,20 +850,20 @@ MonoBehaviour:
   - {fileID: 1846865809683590, guid: d0810c45be3025142b22f5bc395e36d9, type: 2}
   - {fileID: 1224246821080894, guid: 454d4926db445d54db7b096a21126578, type: 2}
   - {fileID: 1021139499008672, guid: ba38b9992f9b7d349a6b636fe5684a8d, type: 2}
+  - {fileID: 1123521707107102, guid: 8e159ca88a9b184449fd811301990ba9, type: 2}
+  - {fileID: 1118655672702898, guid: 7ed4cc3c569024641b0fde6092831cf9, type: 2}
+  - {fileID: 1022011043378234, guid: a9e040c6d7f6c4542a6d8707827b26b4, type: 2}
   speed: 7
-  addSpeed: 0.25
   subSpeed: 0.01
   subMin: 1
   speedLimit: 13
   speedMin: 6
-  stopSpeed: 15
-  drag: 1
   rotateSpeed: 5
   returnSpeed: 0.1
+  blowSpeed: 10
   damageTime: 60
   flashInterval: 5
   damage: 2
-  maxexp: 5
   shakeCnt: 10
   WingTrail:
   - {fileID: 96752243898034886}
@@ -949,32 +906,6 @@ MonoBehaviour:
   rotateLimit: 87
   rotateBoost: 0
   mass: 10
---- !u!114 &114904472075252348
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1923286957140044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3172ed354c94704f9cb035269329c7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ext: 0
-  scaleMax: 5
---- !u!114 &114929390833944382
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1438886130827856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3172ed354c94704f9cb035269329c7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ext: 0
-  scaleMax: 5
 --- !u!212 &212141925326604104
 SpriteRenderer:
   m_ObjectHideFlags: 1

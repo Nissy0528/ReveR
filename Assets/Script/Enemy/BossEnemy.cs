@@ -53,6 +53,10 @@ public class BossEnemy : MonoBehaviour
             {
                 e.GetComponent<SpriteRenderer>().enabled = false;
             }
+            if (e.gameObject.tag == "BeemEnd")
+            {
+                e.GetComponent<SpriteRenderer>().enabled = false;
+            }
         }
         isBossStop = false;
 
@@ -309,6 +313,11 @@ public class BossEnemy : MonoBehaviour
         foreach (var e in childEnemy)
         {
             if (e.GetComponent<Laser>() != null)
+            {
+                e.GetComponent<SpriteRenderer>().enabled = true;
+            }
+
+            if (e.gameObject.tag == "BeemEnd")
             {
                 e.GetComponent<SpriteRenderer>().enabled = true;
             }

@@ -26,6 +26,8 @@ TagManager:
   - L_CntEffect
   - Tutorial
   - GameEnd
+  - Hinge
+  - BeemEnd
   layers:
   - Default
   - TransparentFX

@@ -27,13 +27,12 @@ public class EnemyManager : MonoBehaviour
     private bool IsTimeStart;　　　//読秒開始
     private bool isChildDestroy;
     private bool IsStopPoint;//StopPointに着いたか
+    private bool IsLine;//Lineの色が変わったか？
     private GameObject main;
     private GameObject camera;
     private GameObject rankPoint;
     private Vector3 spawmPos;
     private Vector3 plusEffectPos;
-
-    private bool IsLine;
 
     // Use this for initialization
     void Start()
@@ -125,7 +124,6 @@ public class EnemyManager : MonoBehaviour
                 IsLine = false;
             }
         }
-
     }
 
     /// <summary>
@@ -148,8 +146,6 @@ public class EnemyManager : MonoBehaviour
         }
         Destroy(gameObject);//消滅
     }
-
-   
 
     /// <summary>
     /// ランクの分割
@@ -199,6 +195,7 @@ public class EnemyManager : MonoBehaviour
             PlusEffect(addLifeTime, main.GetComponent<Main>().lifeTime, 0);
 
             main.GetComponent<Main>().SetIsLifeTime(false);
+            main.GetComponent<Main>().StartTime(addLifeTime);
 
             DestroyObj();//判定終了後、このオブジェクトを消す
 
