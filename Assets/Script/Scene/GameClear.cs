@@ -53,13 +53,15 @@ public class GameClear : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        //PlayerPrefs.DeleteAll();
         Newtext.Add(new Vector3(412, -10));
         Newtext.Add(new Vector3(412, -80));
         Newtext.Add(new Vector3(412, -150));
         EvaluationText();
         cnt = delay;
         cursorNum = 0;
+
+       
     }
 
     // Update is called once per frame
@@ -173,7 +175,8 @@ public class GameClear : MonoBehaviour
         {
             PlayerPrefs.SetString("Rank0", Text);
             PlayerPrefs.SetFloat("NumRank0", Vnum);
-            PlayerPrefs.SetFloat("RankTime0", float.Parse(Main.ClearTime.ToString("F2")));
+            PlayerPrefs.SetFloat("RankTime0",float.Parse(Main.ClearTime.ToString("F2")));
+            PlayerPrefs.Save();
 
             NewText.SetActive(true);
             NewText.GetComponent<RectTransform>().localPosition = Newtext[0];
@@ -246,7 +249,8 @@ public class GameClear : MonoBehaviour
             }
             PlayerPrefs.SetFloat("NumRank" + i.ToString(), Num[i]);
             PlayerPrefs.SetString("Rank" + i.ToString(), text[Num[i]]);
-            PlayerPrefs.SetFloat("RankTime" + i.ToString(), ClearTime[Num[i]]);
+            PlayerPrefs.SetFloat("RankTime"+i.ToString(), ClearTime[Num[i]]);
+            PlayerPrefs.Save();
 
             string[] f = text[Num[i]].Split(' ');
 
@@ -327,7 +331,6 @@ public class GameClear : MonoBehaviour
             Main.ClearTime = 0;
             if (IsLoadTitle) SceneManager.LoadScene("Title");
             if (IsLoaRetry) SceneManager.LoadScene("Main");
-            //PlayerPrefs.DeleteAll();
         }
         else
         {

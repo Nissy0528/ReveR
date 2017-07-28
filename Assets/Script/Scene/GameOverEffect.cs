@@ -302,6 +302,8 @@ public class GameOverEffect : MonoBehaviour {
     {
         if (FadeOut.GetComponent<Fade_Effect>().GetBool())
         {
+            
+
             if (IsLoadMain) {
                 Main.IsGameOver = false;
                 SceneManager.LoadScene("Main"); }

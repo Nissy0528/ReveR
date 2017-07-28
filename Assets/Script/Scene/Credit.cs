@@ -4,11 +4,41 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Credit : MonoBehaviour {
-    
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+
+    public GameObject ret;
+
+    public GameObject FadeOut;//フェードアウト
+
+    private bool IsLoadTitle = false;//クレジットシーンフラグ
+    private bool IsLoadMain = false;//メインシーンフラグ
+    private bool IsLoadEnd = false;//ゲーム終了フラグ
+
+
+    void Update () {
+      
+
+        LoadScene();
+    }
+    private void LoadScene()
+    {
+        if (FadeOut.GetComponent<Fade_Effect>().GetBool())
         {
-            SceneManager.LoadScene("Title");
+            if (IsLoadTitle) SceneManager.LoadScene("Title");
+            if (IsLoadEnd) Application.Quit();
+        }
+        else
+        {
+            if (!FadeOut.activeSelf)
+            {
+
+                if (Input.GetKeyDown(KeyCode.JoystickButton1) || ret == null)
+                {
+                    FadeOut.SetActive(true);
+                    IsLoadTitle = true;
+                    ControllerShake.Shake(0.0f, 0.0f);
+                }
+
+            }
         }
     }
 }
