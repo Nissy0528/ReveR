@@ -7,8 +7,6 @@ public class Tutorial : MonoBehaviour
 {
     public GameObject[] tutorialUI;
     public GameObject count;
-    public GameObject iniBack;
-    public GameObject changeBack;
     public float speed;
     public float maxX;
     public float boostTutoTime;
@@ -51,7 +49,6 @@ public class Tutorial : MonoBehaviour
         }
 
         Count();
-        ChangeBack();
         InputTutorialMove();
         BoostTutoMove();
         TimeTutoMove();
@@ -80,21 +77,6 @@ public class Tutorial : MonoBehaviour
             GameObject cnt = Instantiate(count, GameObject.Find("Canvas").transform);
             cnt.GetComponent<Text>().text = currentParsNum.ToString();
             currentParsNum = partsNum;
-        }
-    }
-
-    /// <summary>
-    /// 背景変更
-    /// </summary>
-    private void ChangeBack()
-    {
-        if (boss != null) return;
-
-        //スクロールする背景に変更
-        if (iniBack != null)
-        {
-            Instantiate(changeBack);
-            Destroy(iniBack);
         }
     }
 
@@ -208,5 +190,21 @@ public class Tutorial : MonoBehaviour
             tutoSpeed[2] *= -1.0f;
             isTime = true;
         }
+    }
+
+    /// <summary>
+    /// チュートリアルスキップ
+    /// </summary>
+    public void TutorialSkip()
+    {
+        //チュートリアルUIが残っていたらすべて削除
+        foreach(var t in tutorialUI)
+        {
+            if(t!=null)
+            {
+                Destroy(t);
+            }
+        }
+        gameObject.SetActive(false);//非アクティブ化
     }
 }

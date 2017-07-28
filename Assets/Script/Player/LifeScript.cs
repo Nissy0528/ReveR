@@ -133,7 +133,7 @@ public class LifeScript : MonoBehaviour
 
         var ACPO = transform.parent.GetComponent<RectTransform>().anchoredPosition;
 
-        if ((EnemyCount > CurrentEnenmyCount && ACPO.x < 150) || (Player.isDamage && ACPO.x < 150))
+        if ((EnemyCount > CurrentEnenmyCount || Player.isDamage || Main.waveNum > 0) && ACPO.x < 150)
             transform.parent.GetComponent<RectTransform>().anchoredPosition += new Vector2(1, 0) * MeterMoveSpeed;
 
     }
