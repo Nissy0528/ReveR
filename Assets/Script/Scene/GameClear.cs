@@ -70,7 +70,10 @@ public class GameClear : MonoBehaviour
         LoadScene();
         CursorMove();
         NewTextColor();
-        UIActive();
+        if (!Main.IsGameOver)
+        {
+            UIActive();
+        }
     }
 
     /// <summary>
@@ -78,6 +81,8 @@ public class GameClear : MonoBehaviour
     /// </summary>
     void EvaluationText()
     {
+        if (Main.IsGameOver) return;
+
         for (int i = 0; i < Main.Evaluation.Count; i++)
         {
             if (Main.Evaluation[i] == "S") Scount++;
@@ -91,69 +96,6 @@ public class GameClear : MonoBehaviour
         MyClearTime.text = Main.ClearTime.ToString("F2");
 
         Rangku2(Scount, Acount, Bcount);
-    }
-
-    /// <summary>
-    /// ランク
-    /// </summary>
-    /// <param name="s">Scount</param>
-    /// <param name="a">Acount</param>
-    /// <param name="b">Bcount</param>
-    void Rangku(int s, int a, int b)
-    {
-        int Vnum = (3 * s + 2 * a + b);
-        Dictionary<string, string> text = new Dictionary<string, string>();
-        List<int> Num = new List<int>();
-
-
-        if (Lnum.Count == 0)
-        {
-            Lnum.Add(Vnum);
-            Ltext.Add(new Vector3(s, a, b));
-            ClearTime.Add(Main.ClearTime);
-            Text[] t = rangku[0].GetComponentsInChildren<Text>();
-            t[1].text = Ltext[0].x.ToString();
-            t[2].text = Ltext[0].y.ToString();
-            t[3].text = Ltext[0].z.ToString();
-            t[4].text = ClearTime[0].ToString("F2");
-            return;
-        }
-
-        int LC = Lnum.Count;
-        for (int i = 0; i < LC; i++)
-        {
-            if (Lnum[i] <= Vnum)
-            {
-                Lnum.Insert(i, Vnum);
-                Ltext.Insert(i, new Vector3(s, a, b));
-                ClearTime.Insert(i, Main.ClearTime);
-            }
-
-            if (i == Lnum.Count - 1)
-            {
-                Lnum.Add(Vnum);
-                Ltext.Add(new Vector3(s, a, b));
-                ClearTime.Add(Main.ClearTime);
-                break;
-            }
-        }
-
-        if (Lnum.Count > 3)
-        {
-            Lnum.RemoveAt(3);
-            Ltext.RemoveAt(3);
-            ClearTime.RemoveAt(3);
-        }
-
-        for (int i = 0; i < Ltext.Count; i++)
-        {
-            Text[] t = rangku[i].GetComponentsInChildren<Text>();
-            t[1].text = Ltext[i].x.ToString();
-            t[2].text = Ltext[i].y.ToString();
-            t[3].text = Ltext[i].z.ToString();
-            t[4].text = ClearTime[i].ToString("F2");
-        }
-
     }
 
     /// <summary>

@@ -15,14 +15,17 @@ EditorBuildSettings:
     path: 
     guid: b096424af9afc8f4f935d2054e856801
   - enabled: 0
-    path: Assets/Scene/StageSelect.unity
+    path: 
     guid: 094335f069fa4bf4fa8eeae1555500b2
   - enabled: 0
-    path: Assets/Scene/GameOver.unity
+    path: 
     guid: abec3fb8bfa14634892ac9ad57e5c80e
   - enabled: 1
     path: Assets/Scene/GameClear.unity
     guid: e08087b55fd2d694e837243f590575e1
+  - enabled: 1
+    path: Assets/Scene/GameClear2.unity
+    guid: f2f1d5a488691f6478460135ebf24389
   - enabled: 0
     path: 
     guid: c36c0b7e777e817468b5e0c892d8ef9c

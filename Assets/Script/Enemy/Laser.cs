@@ -12,6 +12,7 @@ public class Laser : MonoBehaviour
     private GameObject parent;
     private bool IsColLeftEnemy;
     private bool IsColRightEnemy;
+    private float activeDelay;
 
     void Start()
     {
@@ -19,6 +20,7 @@ public class Laser : MonoBehaviour
         IsColRightEnemy = true;
         parent = LeftEnemy.transform.parent.gameObject;
         Physics2D.IgnoreLayerCollision(13, 13, true);
+        activeDelay = 5f;
     }
 
     // Update is called once per frame
@@ -27,6 +29,7 @@ public class Laser : MonoBehaviour
         Move();
         CheckLR();
         DestroyGameObject();
+        ActiveChange();
 
     }
     void Move()
@@ -60,6 +63,32 @@ public class Laser : MonoBehaviour
         if (RightEnemy == null)
         {
             IsColRightEnemy = false;
+        }
+    }
+
+    /// <summary>
+    /// アクティブ切り替え
+    /// </summary>
+    private void ActiveChange()
+    {
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        Color color = sprite.color;
+        BoxCollider2D colision = GetComponent<BoxCollider2D>();
+        activeDelay -= Time.deltaTime;
+        if (activeDelay <= 0.0f)
+        {
+            if (color.a == 1.0f)
+            {
+                color.a = 0.3f;
+                colision.enabled = false;
+            }
+            else
+            {
+                color.a = 1.0f;
+                colision.enabled = true;
+            }
+            sprite.color = color;
+            activeDelay = 2.5f;
         }
     }
 

@@ -42,7 +42,7 @@ public class Main : MonoBehaviour
 
 
     //GameOver
-    public static bool IsGameOver = false;
+    public static bool IsGameOver;
 
     public static float ClearTime;
 
@@ -53,6 +53,7 @@ public class Main : MonoBehaviour
         {
             Evaluation = new List<string>();
             ClearTime = 0;
+            IsGameOver = false;
         }
         else
         {
@@ -300,7 +301,15 @@ public class Main : MonoBehaviour
             {
                 Time.timeScale = 1.0f;
                 ControllerShake.Shake(0.0f, 0.0f);
-                SceneManager.LoadScene("GameClear");
+                Debug.Log(IsGameOver);
+                if (!IsGameOver)
+                {
+                    SceneManager.LoadScene("GameClear");
+                }
+                else
+                {
+                    SceneManager.LoadScene("GameClear2");
+                }
             }
         }
     }

@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public GameObject drain;//エネルギー吸収エフェクト
     public GameObject[] spriteObjs;//スプライトレンダラーが入ってるオブジェクト
     public GameObject[] SE;//効果音
+    public Sprite[] sprites;//プレイヤーの画像
     public float speed;//移動速度
     public float subSpeed;//減速速度
     public float subMin;//減速速度の最小値
@@ -28,10 +29,10 @@ public class Player : MonoBehaviour
     public List<TrailRenderer> WingTrail;//両翼のオブジェクトを取る
     public List<Sprite> CoreSprite;//コアの画像
     public List<Material> WingSprite;//翼のエフェクトの画像
+    private GameObject[] trails;
     private Rigidbody2D rigid;//リジッドボディ
     private Vector3 lookPos;//見る座標
     private Vector2 vec;//見る方向
-    private GameObject[] trails;
     private Color iniTrailColor;
     private GameObject moveSE;
     private int direc;//方向
@@ -325,16 +326,16 @@ public class Player : MonoBehaviour
 
         if (changeCnt % 2 == 0 || changeCnt == 0)
         {
-            SetAlpha(1.0f);
+            SetSprite(1.0f);
         }
         else
         {
-            SetAlpha(0.0f);
+            SetSprite(0.0f);
         }
 
         if (damageCnt >= damageTime || SceneManager.GetActiveScene().name != "Main")
         {
-            SetAlpha(1.0f);
+            SetSprite(1.0f);
             isDamage = false;
         }
 
@@ -356,15 +357,22 @@ public class Player : MonoBehaviour
     /// プレイヤー全体の透明度設定
     /// </summary>
     /// <param name="alpha">画像の透明度</param>
-    private void SetAlpha(float alpha)
+    private void SetSprite(float alpha)
     {
-        foreach (var sp in spriteObjs)
-        {
-            sp.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
-        }
-
         if (alpha == 1.0f)
         {
+            for (int i = 0; i < spriteObjs.Length; i++)
+            {
+                if (i < 4)
+                {
+                    spriteObjs[i].GetComponent<SpriteRenderer>().sprite = sprites[i];
+                }
+                else
+                {
+                    spriteObjs[i].GetComponent<SpriteRenderer>().sprite = sprites[i - 3];
+                }
+            }
+
             foreach (var trail in trails)
             {
                 trail.GetComponent<TrailRenderer>().material.color = iniTrailColor;
@@ -372,9 +380,21 @@ public class Player : MonoBehaviour
         }
         else
         {
+            for (int i = 0; i < spriteObjs.Length; i++)
+            {
+                if (i < 4)
+                {
+                    spriteObjs[i].GetComponent<SpriteRenderer>().sprite = sprites[i + 4];
+                }
+                else
+                {
+                    spriteObjs[i].GetComponent<SpriteRenderer>().sprite = sprites[i + 1];
+                }
+            }
+
             foreach (var trail in trails)
             {
-                trail.GetComponent<TrailRenderer>().material.color = new Color(iniTrailColor.r, iniTrailColor.g, iniTrailColor.b, 0.0f);
+                trail.GetComponent<TrailRenderer>().material.color = Color.white;
             }
         }
     }
@@ -478,6 +498,8 @@ public class Player : MonoBehaviour
     /// </summary>
     public void ChangeColor()
     {
+        if (isDamage) return;
+
         if (SceneManager.GetActiveScene().name != "Main")
         {
             LifeScript.IsGreen = true;
@@ -503,6 +525,7 @@ public class Player : MonoBehaviour
             WingTrail[0].material = WingSprite[2];
             WingTrail[1].material = WingSprite[2];
         }
+        sprites[0] = GetComponent<SpriteRenderer>().sprite;
 
     }
 

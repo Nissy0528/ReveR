@@ -305,7 +305,6 @@ public class GameOverEffect : MonoBehaviour {
             
 
             if (IsLoadMain) {
-                Main.IsGameOver = false;
                 SceneManager.LoadScene("Main"); }
             if (IsLoadTitle) { 
                 Main.IsGameOver = false;
